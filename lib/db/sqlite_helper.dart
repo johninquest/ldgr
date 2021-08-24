@@ -1,12 +1,14 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'dart:io';
 
 class SQLiteDatabaseHelper {
 
   final String dbName = 'transporter.db';
+  final String bookkeepingTable = 'bookkeeping';
+  final String personsTable = 'persons';
 
   Future<Database> initializeDB() async {
     Directory directory = await getApplicationDocumentsDirectory();
@@ -14,25 +16,17 @@ class SQLiteDatabaseHelper {
     var dbOpened = await openDatabase(dbPath, onCreate: (db, version) async {
       String sql = 
       '''
-      CREATE TABLE IF NOT EXISTS "expenditure" (
+      CREATE TABLE IF NOT EXISTS "$bookkeepingTable" (
 	    "id"	INTEGER NOT NULL UNIQUE,
-	    "name"	TEXT,
+	    "category"	TEXT,
+	    "source"	TEXT,
 	    "amount"	NUMERIC,
 	    "created_at"	TEXT,
 	    "last_update_at"	TEXT,
 	    PRIMARY KEY("id" AUTOINCREMENT)
       );
 
-      CREATE TABLE IF NOT EXISTS "income" (
-	    "id"	INTEGER NOT NULL UNIQUE,
-	    "name"	TEXT,
-	    "amount"	NUMERIC,
-	    "created_at"	TEXT,
-	    "last_update_at"	TEXT,
-	    PRIMARY KEY("id" AUTOINCREMENT)
-      );
-
-      CREATE TABLE IF NOT EXISTS "persons" (
+      CREATE TABLE IF NOT EXISTS "$personsTable" (
 	    "id"	INTEGER NOT NULL UNIQUE,
 	    "first_name"	TEXT,
 	    "last_name"	TEXT,

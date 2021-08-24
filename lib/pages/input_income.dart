@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tba/styles/style.dart'; 
+import 'package:tba/shared/lists.dart';
+// import 'package:tba/styles/style.dart'; 
+// import 'package:tba/db/sqlite_helper.dart';
 // import 'package:tba/services/router.dart';
 
 class InputIncomePage extends StatelessWidget {
@@ -30,14 +32,7 @@ class IncomeForm extends StatefulWidget {
 }
 
 class _IncomeFormState extends State<IncomeForm> { 
-
-    final _formKey = GlobalKey<FormState>();
-  final List<String> incomeList = [
-    'Delivery service',
-    'Luggage',
-    'Passenger fare', 
-    'Other',
-  ];
+  final _formKey = GlobalKey<FormState>();
 
   String? incomeName;
   String? incomeAmount;
@@ -58,9 +53,7 @@ class _IncomeFormState extends State<IncomeForm> {
                 // style: TextStyle(color: Colors.greenAccent, ),
                 isExpanded: true,
                 hint: Text('Select source of income'),
-                items: incomeList
-                    .map((e) => DropdownMenuItem(value: e, child: Text('$e', style: ListItemStyle,)))
-                    .toList(),
+                items: MyItemList().incomeList,    
                 onChanged: (val) =>
                     setState(() => incomeName = val as String?),
               )),
@@ -110,3 +103,11 @@ class _IncomeFormState extends State<IncomeForm> {
     );
   }
 }
+
+/*   final List<String> incomeList = [
+    '',
+    'Delivery service',
+    'Luggage fee',
+    'Passenger fare', 
+    'Other',
+  ]; */

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tba/styles/style.dart';
+import 'package:tba/shared/lists.dart';
+// import 'package:tba/db/sqlite_helper.dart';
 // import 'package:tba/services/router.dart';
 
 class InputExpenditurePage extends StatelessWidget {
@@ -31,17 +32,6 @@ class ExpenditureForm extends StatefulWidget {
 
 class _ExpenditureFormState extends State<ExpenditureForm> {
   final _formKey = GlobalKey<FormState>();
-  final List<String> expenditureList = [
-    'Damage repair',
-    'Drink',
-    'Food',
-    'Fuel',
-    'Maintenance',
-    'Park fee',
-    'Police control',
-    'Tollgate', 
-    'Other',
-  ];
 
   //Form values
   String? expenditureName;
@@ -59,9 +49,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
               padding: EdgeInsets.only(left: 25.0, right: 25.0),
               child: DropdownButtonFormField(
                 hint: Text('Select reason for expenditure'),
-                items: expenditureList
-                    .map((e) => DropdownMenuItem(value: e, child: Text('$e', style: ListItemStyle,)))
-                    .toList(),
+                items: MyItemList().expenditureList,    
                 onChanged: (val) =>
                     setState(() => expenditureName = val as String?),
               )),
@@ -110,3 +98,16 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
     );
   }
 }
+
+/*   final List<String> expenditureList = [
+    '',
+    'Damage repair',
+    'Drink',
+    'Food',
+    'Fuel',
+    'Maintenance',
+    'Park fee',
+    'Police control',
+    'Tollgate fee', 
+    'Other',
+  ]; */

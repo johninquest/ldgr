@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('App Name', style: PageHeaderStyle,), 
+        title: Text('MotoBusiness', style: PageHeaderStyle,), 
         centerTitle: true,
       ),
       body: Center(

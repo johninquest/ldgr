@@ -4,6 +4,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../services/router.dart';
 import 'input_expenditure.dart';
 import 'input_income.dart';
+import 'all_records.dart';
 
 class HomePage extends StatelessWidget {
   // const HomePage({ Key? key }) : super(key: key);
@@ -61,7 +62,12 @@ class SideButtomMenu extends StatelessWidget {
             labelWidget: MyLabelWidget('Income', Colors.greenAccent),
             // onTap: () => print('Pressed income button!') 
             onTap: () => PageRouter().navigateToPage(InputIncomePage(), context),
-            ),
+            ), 
+        SpeedDialChild(
+            labelWidget: MyLabelWidget('Records', Colors.black),
+            // onTap: () => print('Pressed income button!') 
+            onTap: () => PageRouter().navigateToPage(AllRecordsPage(), context),
+            ),    
       ],
     );
   }

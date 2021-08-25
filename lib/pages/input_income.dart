@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tba/shared/lists.dart';
 // import 'package:tba/styles/style.dart'; 
-// import 'package:tba/db/sqlite_helper.dart';
+import 'package:tba/db/sqlite_helper.dart';
 // import 'package:tba/services/router.dart';
 
 class InputIncomePage extends StatelessWidget {
@@ -34,7 +34,7 @@ class IncomeForm extends StatefulWidget {
 class _IncomeFormState extends State<IncomeForm> { 
   final _formKey = GlobalKey<FormState>();
 
-  String? incomeName;
+  String? incomeSource;
   String? incomeAmount;
 
   @override
@@ -55,7 +55,7 @@ class _IncomeFormState extends State<IncomeForm> {
                 hint: Text('Select source of income'),
                 items: MyItemList().incomeList,    
                 onChanged: (val) =>
-                    setState(() => incomeName = val as String?),
+                    setState(() => incomeSource = val as String?),
               )),
           Container(
             margin: EdgeInsets.only(bottom: 10.0),
@@ -85,8 +85,11 @@ class _IncomeFormState extends State<IncomeForm> {
                 margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Income name => $incomeName'); 
+                    print('Income name => $incomeSource'); 
                     print('Income amount => $incomeAmount');
+                    // print(incomeAmount.runtimeType);
+                    SQLiteDatabaseHelper().insertRow(
+                        'income', '$incomeSource', '$incomeAmount');
                   },
                 child: Text('SAVE'), 
                 style: ElevatedButton.styleFrom(

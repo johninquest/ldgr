@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tba/db/sqlite_helper.dart';
 import 'package:tba/shared/widgets.dart';
@@ -17,9 +19,24 @@ class AllRecordsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print('Response has data!');
-            var responseData = snapshot.data;
-            print(responseData.runtimeType);
-            return Center(child: Text('$responseData'));
+            List responseRaw = snapshot.data as List;
+            print(responseRaw.runtimeType);
+            // return Center(child: Text('$responseData'));
+            return Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ListTitle(),
+                /* ListView.builder(
+                    itemCount: responseRaw.length,
+                    itemBuilder: (context, index) {
+                  String rDate = responseRaw['created_at'];
+                  String rCategory = responseRaw['category'];
+                  String rSource = responseRaw['created_at'];
+                  String rAmount = responseRaw['created_at'];
+                }) */
+              ],
+            );
           }
           if (snapshot.hasError) {
             print('Reponse has error!');

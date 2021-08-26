@@ -55,8 +55,7 @@ class SQLiteDatabaseHelper {
   }
 
   Future insertRow(String tCategory, String tSource, String tAmount) async {
-    final Database db = await initializeDB();
-    // ignore: unnecessary_null_comparison
+    final Database? db = await initializeDB();
     if (db != null) {
       List qData = ["$tCategory", "$tSource", "$tAmount"];
       String sql =
@@ -70,8 +69,7 @@ class SQLiteDatabaseHelper {
   }
 
   Future getAllRows() async {
-    final Database db = await initializeDB();
-    // ignore: unnecessary_null_comparison
+    final Database? db = await initializeDB();
     if (db != null) {
       String sql = 'SELECT * FROM $bkTable ORDER BY created_at DESC';
       final qResult = await db.rawQuery(sql);

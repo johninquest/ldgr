@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tba/styles/style.dart';
 
 class ErrorOccured extends StatelessWidget {
   @override
@@ -43,19 +44,38 @@ class ListTitle extends StatelessWidget {
   // const ListTitle({ Key? key }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container( 
+    return Container(
+      margin: EdgeInsets.only(left: 10.0, right: 10.0),
       height: 40.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-           Text('DATE'),
-           Text('CATEGORY'), 
-           Text('SOURCE'),
-           Text('AMOUNT'),
-
-      ] ),
-      
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text('DATE', style: ListTitleStyle,),
+        Text('CATEGORY', style: ListTitleStyle,),
+        Text('SOURCE', style: ListTitleStyle,),
+        Text('AMOUNT', style: ListTitleStyle,),
+      ]),
     );
   }
 }
 
+class ListItem extends StatelessWidget {
+  final String dateData;
+  final String categoryData;
+  final String sourceData; 
+  final String amountData;
+  ListItem(this.dateData, this.categoryData, this.sourceData, this.amountData);
+
+  // const ListTitle({ Key? key }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 10.0, right: 10.0),
+      height: 40.0,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text('$dateData'),
+        Text('$categoryData'),
+        Text('$sourceData'),
+        Text('$amountData'),
+      ]),
+    );
+  }
+}

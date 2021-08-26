@@ -42,7 +42,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
+      child: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -97,7 +97,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
             ],
           ),
         ],
-      ),
+      ),),
     );
   }
 }

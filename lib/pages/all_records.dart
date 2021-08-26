@@ -18,7 +18,7 @@ class AllRecordsPage extends StatelessWidget {
           if (snapshot.hasData) {
             print('Response has data!');
             var responseData = snapshot.data;
-            print(responseData);
+            print(responseData.runtimeType);
             return Center(child: Text('$responseData'));
           }
           if (snapshot.hasError) {

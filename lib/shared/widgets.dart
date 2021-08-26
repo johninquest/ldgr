@@ -39,3 +39,23 @@ class NoErrorOccured extends StatelessWidget {
   }
 }
 
+class ListTitle extends StatelessWidget {
+  // const ListTitle({ Key? key }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container( 
+      height: 40.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+           Text('DATE'),
+           Text('CATEGORY'), 
+           Text('SOURCE'),
+           Text('AMOUNT'),
+
+      ] ),
+      
+    );
+  }
+}
+

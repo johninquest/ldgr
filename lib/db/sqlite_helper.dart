@@ -60,8 +60,8 @@ class SQLiteDatabaseHelper {
       List qData = ["$tCategory", "$tSource", "$tAmount"];
       String sql =
           '''INSERT INTO $bkTable (category, source, amount, created_at) VALUES (?, ?, ?, datetime('now', 'localtime'))''';
-      List<Map> qResult = await db.rawQuery(sql, qData);
-      print(qResult);
+      int qResult = await db.rawInsert(sql, qData);
+      // print(qResult);
       return qResult;
     } else {
       print('SQL SELECT query returned an error!');
@@ -72,8 +72,8 @@ class SQLiteDatabaseHelper {
     final Database? db = await initializeDB();
     if (db != null) {
       String sql = 'SELECT * FROM $bkTable ORDER BY created_at DESC';
-      final qResult = await db.rawQuery(sql);
-      return qResult.toList();
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult;
     } else {
       print('SQL SELECT query returned an error!');
     }

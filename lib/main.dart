@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './pages/home.dart';
+import 'package:tba/pages/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
       // title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.indigoAccent,
-        accentColor: Colors.indigoAccent,
+        primaryColor: Colors.blue[900],
+        accentColor: Colors.blue[900],
         // primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity, 
       ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart'; 
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+// import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../services/router.dart';
 import 'input_expenditure.dart';
 import 'input_income.dart';
-import 'all_records.dart';
+// import 'all_records.dart';
+import 'package:tba/pages/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   // const HomePage({ Key? key }) : super(key: key);
@@ -13,8 +14,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MotoBusiness', style: PageHeaderStyle,), 
-        centerTitle: true,
+        title: Text('TRANSPOTA', style: PageHeaderStyle,), 
+        centerTitle: true, 
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
@@ -41,12 +43,13 @@ class HomePage extends StatelessWidget {
           ],
         ),
         ),
-      floatingActionButton: SideButtomMenu(),  
+      // floatingActionButton: SideButtomMenu(), 
+      bottomNavigationBar: BottomNavBar(), 
       
     );
   }
 }
-
+/* 
 class SideButtomMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -94,3 +97,4 @@ class MyLabelWidget extends StatelessWidget {
     );
   }
 }
+ */

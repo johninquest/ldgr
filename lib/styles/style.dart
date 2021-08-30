@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 const PageHeaderStyle =
     TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
 
-// ignore: non_constant_identifier_names
-final BodyStyle = TextStyle(
-    fontSize: 15.0, color: Colors.blue[900], fontWeight: FontWeight.bold);
+const BodyStyle = TextStyle(
+    fontSize: 15.0, color: Color(0xFF0D47A1), fontWeight: FontWeight.bold);
 
 const DropdownListStyle = TextStyle(fontWeight: FontWeight.bold);
 

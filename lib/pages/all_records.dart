@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tba/db/sqlite_helper.dart';
+import 'package:tba/pages/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
-import '../services/router.dart';
+// import '../services/router.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class AllRecordsPage extends StatelessWidget {
@@ -13,6 +14,7 @@ class AllRecordsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('All Records'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder(
         future: SQLiteDatabaseHelper().getAllRows(),
@@ -72,6 +74,7 @@ class AllRecordsPage extends StatelessWidget {
         },
       ),
       floatingActionButton: SideButtomMenu(),  
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -86,11 +89,11 @@ class SideButtomMenu extends StatelessWidget {
         SpeedDialChild(
           labelWidget: MyLabelWidget('Expenditure', Colors.redAccent),
           // onTap: () => PageRouter().navigateToPage(InputExpenditurePage(), context),
-          // onTap: () => print('Pressed expenses button!')
+          onTap: () => print('Pressed expenses button!')
         ),
         SpeedDialChild(
             labelWidget: MyLabelWidget('Income', Colors.greenAccent),
-            // onTap: () => print('Pressed income button!') 
+            onTap: () => print('Pressed income button!') 
             // onTap: () => PageRouter().navigateToPage(InputIncomePage(), context),
             ), 
         /* SpeedDialChild(
@@ -123,3 +126,4 @@ class MyLabelWidget extends StatelessWidget {
     );
   }
 }
+

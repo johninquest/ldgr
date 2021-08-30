@@ -71,7 +71,9 @@ class ListItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       height: 40.0,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+        children: [
         Text(Formatter().dbToUiDate(dateData)),
         Text(Formatter().dbToUiValue(categoryData)),
         Text(Formatter().dbToUiValue(sourceData)),

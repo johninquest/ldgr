@@ -3,7 +3,8 @@ import 'package:tba/shared/lists.dart';
 // import 'package:tba/styles/style.dart';
 import 'package:tba/db/sqlite_helper.dart';
 import 'package:tba/services/time.dart';
-// import 'package:tba/services/router.dart';
+import 'package:tba/services/router.dart';
+import 'all_records.dart';
 
 class InputIncomePage extends StatelessWidget {
   const InputIncomePage({Key? key}) : super(key: key);
@@ -92,9 +93,11 @@ class _IncomeFormState extends State<IncomeForm> {
                       onPressed: () {
                         print('Income name => $incomeSource');
                         print('Income amount => $incomeAmount');
-                        print('Timestamp => ${DateTimeHelper().timestampForDB()}');
+                        print(
+                            'Timestamp => ${DateTimeHelper().timestampForDB()}');
                         SQLiteDatabaseHelper().insertRow(
                             'income', '$incomeSource', '$incomeAmount');
+                        PageRouter().navigateToPage(AllRecordsPage(), context);
                       },
                       child: Text('SAVE'),
                       style:

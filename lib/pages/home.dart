@@ -45,56 +45,6 @@ class HomePage extends StatelessWidget {
         ),
       // floatingActionButton: SideButtomMenu(), 
       bottomNavigationBar: BottomNavBar(), 
-      
     );
   }
 }
-/* 
-class SideButtomMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SpeedDial(
-      animatedIcon: AnimatedIcons.add_event,
-      children: [
-        SpeedDialChild(
-          labelWidget: MyLabelWidget('Expenditure', Colors.redAccent),
-          onTap: () => PageRouter().navigateToPage(InputExpenditurePage(), context),
-          // onTap: () => print('Pressed expenses button!')
-        ),
-        SpeedDialChild(
-            labelWidget: MyLabelWidget('Income', Colors.greenAccent),
-            // onTap: () => print('Pressed income button!') 
-            onTap: () => PageRouter().navigateToPage(InputIncomePage(), context),
-            ), 
-        SpeedDialChild(
-            labelWidget: MyLabelWidget('Records', Colors.black),
-            // onTap: () => print('Pressed income button!') 
-            onTap: () => PageRouter().navigateToPage(AllRecordsPage(), context),
-            ),    
-      ],
-    );
-  }
-}
-
-class MyLabelWidget extends StatelessWidget {
-  final String myLabelName;
-  final Color myLabelBackgroundColor;
-  MyLabelWidget(this.myLabelName, this.myLabelBackgroundColor);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 20.0),
-      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-      child: Text(
-        myLabelName,
-        style: TextStyle(
-            fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 1.0),
-      ),
-      decoration: BoxDecoration(
-          color: myLabelBackgroundColor,
-          borderRadius: BorderRadius.circular(5.0)),
-    );
-  }
-}
- */

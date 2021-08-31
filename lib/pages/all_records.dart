@@ -29,22 +29,21 @@ class AllRecordsPage extends StatelessWidget {
             // print(responseData.runtimeType);
             // return Center(child: Text('$responseData'));
             return Column(
-                children: [
-                   ListTitle(),
-                   Expanded(
-                     child: ListView.builder(
-                      itemCount: responseData.length,
-                      itemBuilder: (context, index) {
-                        // print(responseData[index]);
-                        String rDate = responseData[index]['created_at'];
-                        String rCategory = responseData[index]['category'];
-                        String rSource = responseData[index]['source'];
-                        String rAmount = responseData[index]['amount'];
-                        // return ListItem(rDate, rCategory, rSource, rAmount);
-                        return ListItem(rDate, rCategory, rSource, rAmount);
-                      }))
-                ],
-              
+              children: [
+                ListTitle(),
+                Expanded(
+                    child: ListView.builder(
+                        itemCount: responseData.length,
+                        itemBuilder: (context, index) {
+                          // print(responseData[index]);
+                          String rDate = responseData[index]['created_at'];
+                          String rCategory = responseData[index]['category'];
+                          String rSource = responseData[index]['source'];
+                          String rAmount = responseData[index]['amount'];
+                          // return ListItem(rDate, rCategory, rSource, rAmount);
+                          return ListItem(rDate, rCategory, rSource, rAmount);
+                        }))
+              ],
             );
 /*             return Column(
               // mainAxisAlignment: MainAxisAlignment.center,
@@ -73,12 +72,11 @@ class AllRecordsPage extends StatelessWidget {
           return SizedBox();
         },
       ),
-      floatingActionButton: SideButtomMenu(),  
+      floatingActionButton: SideButtomMenu(),
       bottomNavigationBar: BottomNavBar(),
     );
   }
 }
-
 
 class SideButtomMenu extends StatelessWidget {
   @override
@@ -87,15 +85,14 @@ class SideButtomMenu extends StatelessWidget {
       animatedIcon: AnimatedIcons.add_event,
       children: [
         SpeedDialChild(
-          labelWidget: MyLabelWidget('Expenditure', Colors.redAccent),
-          // onTap: () => PageRouter().navigateToPage(InputExpenditurePage(), context),
-          onTap: () => print('Pressed expenses button!')
-        ),
+            labelWidget: MyLabelWidget('Expenditure', Colors.redAccent),
+            // onTap: () => PageRouter().navigateToPage(InputExpenditurePage(), context),
+            onTap: () => print('Pressed expenses button!')),
         SpeedDialChild(
             labelWidget: MyLabelWidget('Income', Colors.greenAccent),
-            onTap: () => print('Pressed income button!') 
+            onTap: () => print('Pressed income button!')
             // onTap: () => PageRouter().navigateToPage(InputIncomePage(), context),
-            ), 
+            ),
         /* SpeedDialChild(
             labelWidget: MyLabelWidget('Records', Colors.black),
             onTap: () => PageRouter().navigateToPage(AllRecordsPage(), context),
@@ -118,7 +115,10 @@ class MyLabelWidget extends StatelessWidget {
       child: Text(
         myLabelName,
         style: TextStyle(
-            fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 1.0),
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.0),
       ),
       decoration: BoxDecoration(
           color: myLabelBackgroundColor,
@@ -127,3 +127,4 @@ class MyLabelWidget extends StatelessWidget {
   }
 }
 
+List<DataColumn> myColumn = [];

@@ -73,10 +73,10 @@ class SQLiteDatabaseHelper {
     if (db != null) {
       String sql = 'SELECT * FROM $bkTable ORDER BY created_at DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      return qResult;
+      return qResult.toList();
     } else {
       print('SQL SELECT query returned an error!');
-      return null;
+      // return null;
     }
   }
 }

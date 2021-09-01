@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tba/styles/style.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/db/sqlite_helper.dart';
@@ -8,7 +9,7 @@ class AllRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    fetchAllRecords();
+    // fetchAllRecords();
     return Scaffold(
       appBar: AppBar(
         title: Text('All Records'),
@@ -16,23 +17,12 @@ class AllRecords extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: Container(
-        child: Center(
-          child: Text('$allDbRecords'),
-        ),
+        child: MyDataTable(),
       ),
       floatingActionButton: SideButtomMenu(),
       bottomNavigationBar: BottomNavBar(),
     );
   }
-}
-
-dynamic allDbRecords;
-
-fetchAllRecords() {
-  SQLiteDatabaseHelper().getAllRows().then((value) => {
-    // print(value), 
-    allDbRecords = value
-    });
 }
 
 class MyDataTable extends StatefulWidget {
@@ -45,6 +35,47 @@ class MyDataTable extends StatefulWidget {
 class _MyDataTableState extends State<MyDataTable> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return buildTable();
+  }
+
+  Widget buildTable() {
+    final myColumns = [
+      'Date',
+      'Category',
+      'Source',
+      'Amount',
+    ];
+    fetchAllRecords();
+    return DataTable(
+        columns: getColumns(myColumns),
+        rows: []
+        );
+  }
+
+  List<DataColumn> getColumns(List<String> columns) => columns
+      .map((String column) => DataColumn(
+            label: Text(
+              column,
+              style: ListTitleStyle,
+            ),
+          ))
+      .toList();
+
+  dynamic allDatabaseRecords;
+
+  fetchAllRecords() {
+    SQLiteDatabaseHelper().getAllRows().then(
+        (value) => {
+          print(value[0]), 
+          allDatabaseRecords = value});
   }
 }
+
+/* dynamic allDatabaseRecords;
+
+fetchAllRecords() {
+  SQLiteDatabaseHelper().getAllRows().then((value) => {
+        // print(value),
+        allDatabaseRecords = value
+      });
+} */

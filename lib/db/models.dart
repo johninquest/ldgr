@@ -15,6 +15,9 @@ class Record {
       required this.createdAt,
       required this.lastUpdateAt
       });
+}
+
+/*
 
   Map<String, dynamic> toMap() {
     return {
@@ -26,4 +29,5 @@ class Record {
       'last_update_at': lastUpdateAt
     };
   }
-}
+
+ */

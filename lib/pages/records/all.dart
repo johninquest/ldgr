@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
-import 'package:tba/db/sqlite_helper.dart';
+import 'package:tba/data/sqlite_helper.dart';
 
 class AllRecords extends StatelessWidget {
   const AllRecords({Key? key}) : super(key: key);
@@ -85,8 +85,9 @@ class _MyDataTableState extends State<MyDataTable> {
   fetchAllRecords() {
     SQLiteDatabaseHelper().getAllRows().then(
         (value) => {
-          print(value[0]), 
-          allDatabaseRecords = value});
+          print(value), 
+          allDatabaseRecords = value
+          });
   }
 }
 

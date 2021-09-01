@@ -48,7 +48,26 @@ class _MyDataTableState extends State<MyDataTable> {
     fetchAllRecords();
     return DataTable(
         columns: getColumns(myColumns),
-        rows: []
+        rows: [
+           DataRow(cells: [
+             DataCell(Text("20210901")),
+      DataCell(Text("Varun")),
+      DataCell(Text("22")),
+      DataCell(Text("1999")),
+    ]),
+    DataRow(cells: [
+      DataCell(Text("20210901")),
+      DataCell(Text("Alexa")),
+      DataCell(Text("23")),
+      DataCell(Text("1998")),
+    ]),
+    DataRow(cells: [
+      DataCell(Text("20210901")),
+      DataCell(Text("Arjun")),
+      DataCell(Text("21")),
+      DataCell(Text("2000")),
+    ]),
+        ]
         );
   }
 

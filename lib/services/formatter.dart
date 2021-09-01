@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Formatter {
@@ -49,6 +50,22 @@ class Formatter {
       return uiDate;
     } else {
       return '--/--/----';
+    }
+  }
+
+  checkSplit2Words(String twoWords) {
+    var firstFormat = dbToUiValue(twoWords);
+    var twoWordsCheck = firstFormat.contains(' ');
+    if (twoWordsCheck == true) {
+      List toArray = twoWords.split(' ');
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [Text(toArray[0]), Text(toArray[1])],
+      );
+    } else if (twoWordsCheck == false) {
+      return Text(twoWords);
+    } else {
+      return Text(twoWords);
     }
   }
 }

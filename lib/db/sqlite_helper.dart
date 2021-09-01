@@ -76,6 +76,7 @@ class SQLiteDatabaseHelper {
       return qResult;
     } else {
       print('SQL SELECT query returned an error!');
+      return null;
     }
   }
 }

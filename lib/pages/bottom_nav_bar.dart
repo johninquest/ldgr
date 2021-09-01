@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
 import '../services/router.dart';
 import 'package:tba/pages/home.dart';
-import 'all_records.dart';
+import 'records/all.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -57,7 +57,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     }
     if (currentIndex == 1) {
       // print('Pressed 1');
-      PageRouter().navigateToPage(AllRecordsPage(), context);
+      PageRouter().navigateToPage(AllRecords(), context);
     }
     /*if (currentIndex == 2) {
        print('Pressed 2');

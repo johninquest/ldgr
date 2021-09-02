@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/services/formatter.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:tba/services/router.dart';
+import 'package:tba/pages/records/income.dart';
+import 'package:tba/pages/records/expenditure.dart';
 
 class ErrorOccured extends StatelessWidget {
   @override
@@ -50,12 +53,13 @@ class SideButtomMenu extends StatelessWidget {
       children: [
         SpeedDialChild(
             labelWidget: MyLabelWidget('Expenditure', Colors.redAccent),
-            // onTap: () => PageRouter().navigateToPage(InputExpenditurePage(), context),
-            onTap: () => print('Pressed expenses button!')),
+            onTap: () => PageRouter().navigateToPage(ExpenditureRecords(), context),
+            // onTap: () => print('Pressed expenses button!')
+            ),
         SpeedDialChild(
             labelWidget: MyLabelWidget('Income', Colors.greenAccent),
-            onTap: () => print('Pressed income button!')
-            // onTap: () => PageRouter().navigateToPage(InputIncomePage(), context),
+            // onTap: () => print('Pressed income button!')
+            onTap: () => PageRouter().navigateToPage(IncomeRecords(), context),
             ),
       ],
     );

@@ -3,6 +3,8 @@ import 'package:tba/styles/style.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/data/sqlite_helper.dart';
+// import 'package:tba/pages/records/income.dart';
+// import 'package:tba/pages/records/expenditure.dart';
 
 class AllRecords extends StatelessWidget {
   const AllRecords({Key? key}) : super(key: key);

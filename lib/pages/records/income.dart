@@ -5,8 +5,16 @@ class IncomeRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Table Of Incomes'),
+        centerTitle: true,
+      ),
+      body: Container(
+        child: Center(
+          child: Text('Income list!'),
+        ),
+      ),
     );
   }
 }

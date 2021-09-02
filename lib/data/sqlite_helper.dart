@@ -20,7 +20,7 @@ class SQLiteDatabaseHelper {
 	    "id"	INTEGER NOT NULL UNIQUE,
 	    "category"	TEXT,
 	    "source"	TEXT,
-	    "amount"	TEXT,
+	    "amount"	REAL,
 	    "created_at"	TEXT,
 	    "last_update_at"	TEXT,
 	    PRIMARY KEY("id" AUTOINCREMENT)

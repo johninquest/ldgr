@@ -55,20 +55,21 @@ class Formatter {
 
   checkSplit2Words(String? twoWords) {
     if (twoWords != null) {
-      var firstFormat = dbToUiValue(twoWords);
-      print(firstFormat);
-      var twoWordsCheck = firstFormat.contains(' ');
-      print(twoWordsCheck);
+      var preFormat = dbToUiValue(twoWords);
+      // print(preFormat);
+      var twoWordsCheck = preFormat.contains(' ');
+      // print(twoWordsCheck);
      if (twoWordsCheck == true) {
-        List toArray = firstFormat.split(' ');
-        print(toArray);
+        List toArray = preFormat.split(' ');
+        // print(toArray);
          return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.center, 
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [Text(toArray[0]), Text(toArray[1])],
         );
       } 
       else if (twoWordsCheck == false) {
-        return Text(twoWords);
+        return Text(preFormat, textAlign: TextAlign.center,);
       } else {
         return Text(twoWords);
       }

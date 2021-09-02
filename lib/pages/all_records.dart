@@ -35,7 +35,7 @@ class AllRecordsPage extends StatelessWidget {
                           String rDate = responseData[index]['created_at'];
                           String rCategory = responseData[index]['category'];
                           String rSource = responseData[index]['source'];
-                          String rAmount = responseData[index]['amount'];
+                          double rAmount = responseData[index]['amount'];
                           // return ListItem(rDate, rCategory, rSource, rAmount);
                           return ListItem(rDate, rCategory, rSource, rAmount);
                         }))

@@ -128,7 +128,7 @@ class ListItem extends StatelessWidget {
   final String dateData;
   final String categoryData;
   final String sourceData;
-  final String amountData;
+  final double amountData;
   ListItem(this.dateData, this.categoryData, this.sourceData, this.amountData);
 
   // const ListTitle({ Key? key }) : super(key: key);

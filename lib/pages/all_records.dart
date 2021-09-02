@@ -14,7 +14,7 @@ class AllRecordsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('All Records'),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
       body: FutureBuilder(
         future: SQLiteDatabaseHelper().getAllRows(),
@@ -24,10 +24,6 @@ class AllRecordsPage extends StatelessWidget {
             // print(snapshot.data);
             // List<Map> responseData = snapshot.data;
             List responseData = snapshot.data as List;
-            // print(responseData.length);
-            // List? parsedData = responseData.toList();
-            // print(responseData.runtimeType);
-            // return Center(child: Text('$responseData'));
             return Column(
               children: [
                 ListTitle(),
@@ -45,25 +41,6 @@ class AllRecordsPage extends StatelessWidget {
                         }))
               ],
             );
-/*             return Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ListTitle(),
-                // Center(child: Text('$responseData'),)
-                ListView.builder(
-                    itemCount: responseData.length,
-                    itemBuilder: (context, index) {
-                      print(responseData[index]);
-                      String rDate = responseData[index]['created_at'];
-                      String rCategory = responseData[index]['category'];
-                      String rSource = responseData[index]['created_at'];
-                      String rAmount = responseData[index]['created_at'];
-                      // return ListItem(rDate, rCategory, rSource, rAmount);
-                      return Text('Hallo welt!');
-                    })
-              ],
-            ); */
           }
           if (snapshot.hasError) {
             print('Reponse has error!');
@@ -126,5 +103,3 @@ class MyLabelWidget extends StatelessWidget {
     );
   }
 }
-
-List<DataColumn> myColumn = [];

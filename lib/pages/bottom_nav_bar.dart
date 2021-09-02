@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tba/styles/style.dart';
+// import 'package:tba/styles/style.dart';
 import '../services/router.dart';
 import 'package:tba/pages/home.dart';
 import 'records/all.dart';
@@ -39,13 +39,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           label: 'RECORDS',
         ),
-        /* BottomNavigationBarItem(
-            icon: Icon(
-              Icons.storage,
-              color: Colors.white,
-              size: 25.0,
-            ),
-            label: 'AUFZEICHNUNGEN') */
       ],
       onTap: (index) => afterTap(index),
     );
@@ -56,13 +49,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PageRouter().navigateToPage(HomePage(), context);
     }
     if (currentIndex == 1) {
-      // print('Pressed 1');
       PageRouter().navigateToPage(AllRecords(), context);
     }
-    /*if (currentIndex == 2) {
-       print('Pressed 2');
-      // PageRouter().navigateToPage(TimingDataPage(), context);
-    }
+/*
     else {
       print('No where to go');
     } */

@@ -53,19 +53,25 @@ class Formatter {
     }
   }
 
-  checkSplit2Words(String twoWords) {
-    var firstFormat = dbToUiValue(twoWords);
-    var twoWordsCheck = firstFormat.contains(' ');
-    if (twoWordsCheck == true) {
-      List toArray = twoWords.split(' ');
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [Text(toArray[0]), Text(toArray[1])],
-      );
-    } else if (twoWordsCheck == false) {
-      return Text(twoWords);
-    } else {
-      return Text(twoWords);
+  checkSplit2Words(String? twoWords) {
+    if (twoWords != null) {
+      var firstFormat = dbToUiValue(twoWords);
+      print(firstFormat);
+      var twoWordsCheck = firstFormat.contains(' ');
+      print(twoWordsCheck);
+     if (twoWordsCheck == true) {
+        List toArray = firstFormat.split(' ');
+        print(toArray);
+         return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [Text(toArray[0]), Text(toArray[1])],
+        );
+      } 
+      else if (twoWordsCheck == false) {
+        return Text(twoWords);
+      } else {
+        return Text(twoWords);
+      }
     }
   }
 }

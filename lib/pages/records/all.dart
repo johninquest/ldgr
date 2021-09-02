@@ -85,7 +85,7 @@ class _MyDataTableState extends State<MyDataTable> {
   fetchAllRecords() {
     SQLiteDatabaseHelper().getAllRows().then(
         (value) => {
-          print(value), 
+          // print(value), 
           allDatabaseRecords = value
           });
   }

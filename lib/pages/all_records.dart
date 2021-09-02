@@ -20,11 +20,11 @@ class AllRecordsPage extends StatelessWidget {
         future: SQLiteDatabaseHelper().getAllRows(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print('Response has data!');
+            // print('Response has data!');
             // print(snapshot.data);
             // List<Map> responseData = snapshot.data;
             List responseData = snapshot.data as List;
-            print(responseData.length);
+            // print(responseData.length);
             // List? parsedData = responseData.toList();
             // print(responseData.runtimeType);
             // return Center(child: Text('$responseData'));

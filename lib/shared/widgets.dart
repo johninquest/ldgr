@@ -87,7 +87,6 @@ class MyLabelWidget extends StatelessWidget {
   }
 }
 
-
 class ListTitle extends StatelessWidget {
   // const ListTitle({ Key? key }) : super(key: key);
   @override
@@ -96,10 +95,22 @@ class ListTitle extends StatelessWidget {
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       height: 40.0,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text('DATE', style: ListTitleStyle,),
-        Text('CATEGORY', style: ListTitleStyle,),
-        Text('SOURCE', style: ListTitleStyle,),
-        Text('AMOUNT', style: ListTitleStyle,),
+        Text(
+          'DATE',
+          style: ListTitleStyle,
+        ),
+        Text(
+          'CATEGORY',
+          style: ListTitleStyle,
+        ),
+        Text(
+          'SOURCE',
+          style: ListTitleStyle,
+        ),
+        Text(
+          'AMOUNT',
+          style: ListTitleStyle,
+        ),
       ]),
     );
   }
@@ -108,22 +119,21 @@ class ListTitle extends StatelessWidget {
 class ListItem extends StatelessWidget {
   final String dateData;
   final String categoryData;
-  final String sourceData; 
+  final String sourceData;
   final String amountData;
   ListItem(this.dateData, this.categoryData, this.sourceData, this.amountData);
 
   // const ListTitle({ Key? key }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Formatter().checkSplit2Words(sourceData);
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       height: 40.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
-        children: [
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text(Formatter().dbToUiDate(dateData)),
         Text(Formatter().dbToUiValue(categoryData)),
-        Text(Formatter().dbToUiValue(sourceData)),
+        Container(child: Formatter().checkSplit2Words(sourceData)),
         Text('$amountData'),
       ]),
     );

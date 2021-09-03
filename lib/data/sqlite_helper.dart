@@ -65,6 +65,7 @@ class SQLiteDatabaseHelper {
       return qResult;
     } else {
       print('SQL SELECT query returned an error!');
+      return null;
     }
   }
 
@@ -73,6 +74,7 @@ class SQLiteDatabaseHelper {
     if (db != null) {
       String sql = 'SELECT * FROM $bkTable ORDER BY created_at DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      print(qResult);
       return qResult.toList();
     } else {
       // print('SQL SELECT query returned an error!');
@@ -97,6 +99,18 @@ class SQLiteDatabaseHelper {
     if (db != null) {
       String sql =
           'SELECT sum(amount) AS sum_in FROM $bkTable WHERE category = "income"';
+      List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
+      return qResult[0];
+    } else {
+      return null;
+    }
+  }
+
+    Future getAmountTotal(String srcValue) async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql =
+          'SELECT sum(amount) AS sum_in FROM $bkTable WHERE category = "$srcValue"';
       List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
       return qResult[0];
     } else {

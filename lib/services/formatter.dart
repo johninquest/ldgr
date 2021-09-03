@@ -46,7 +46,7 @@ class Formatter {
     if (dbDateTime != null) {
       DateTime parsedDateTime = DateTime.parse(dbDateTime);
       DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
-      DateFormat cmrTimeFormat = DateFormat('hh:mm');
+      DateFormat cmrTimeFormat = DateFormat('HH:mm');
       String uiDate = cmrDateFormat.format(parsedDateTime);
       String uiTime = cmrTimeFormat.format(parsedDateTime);
       return [uiDate, uiTime];

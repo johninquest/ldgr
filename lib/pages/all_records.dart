@@ -15,7 +15,7 @@ class AllRecordsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('All Records'),
         centerTitle: true,
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder(
         future: SQLiteDatabaseHelper().getAllRows(),
@@ -108,22 +108,24 @@ class MyLabelWidget extends StatelessWidget {
   }
 }
 
+double? expenditureSum;
+double? incomeSum;
+
 class RecordSummary extends StatelessWidget {
   // const RecordSummary({Key? key}) : super(key: key);
-  late double expenditureSum;
 
   @override
   Widget build(BuildContext context) {
-    // double? expenditureSum;
     SQLiteDatabaseHelper()
         .getExpenditureSum()
-        .then((value) => {expenditureSum = value['sum_ex']});
+        .then((value) => expenditureSum = value['sum_ex']);
+    SQLiteDatabaseHelper()
+        .getIncomeSum()
+        .then((value) => incomeSum = value['sum_in']);    
 
-/*     Map inSum = SQLiteDatabaseHelper().getIncomeSum() as Map;
-    print(inSum); */
     return Container(
       margin: EdgeInsets.only(top: 1.0),
-      decoration: BoxDecoration(color: Colors.blueGrey),
+      decoration: BoxDecoration(color: Colors.yellow[800]),
       height: 80.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +142,7 @@ class RecordSummary extends StatelessWidget {
                     child: Text('Income'),
                   ),
                   Container(
-                    child: Text('income total'),
+                    child: Text('$incomeSum'),
                   )
                 ],
               ),
@@ -150,7 +152,7 @@ class RecordSummary extends StatelessWidget {
                     child: Text('Expenditure'),
                   ),
                   Container(
-                    child: Text('Expense total'),
+                    child: Text('$expenditureSum'),
                   )
                 ],
               ),

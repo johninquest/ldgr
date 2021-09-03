@@ -30,6 +30,8 @@ class Formatter {
           return 'None';
         case 'park_fees':
           return 'Park fees';
+        case 'passengers':
+          return 'Passengers';  
         case 'police_controls':
           return 'Police controls';
         case 'tollgate_fees':

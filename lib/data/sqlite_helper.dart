@@ -82,6 +82,32 @@ class SQLiteDatabaseHelper {
     }
   }
 
+    Future getAllExpentures() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "expenditure" ORDER BY date(created_at) DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      print(qResult);
+      return qResult.toList();
+    } else {
+      // print('SQL SELECT query returned an error!');
+      return null;
+    }
+  }
+
+      Future getAllIncomes() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "income" ORDER BY date(created_at) DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      print(qResult);
+      return qResult.toList();
+    } else {
+      // print('SQL SELECT query returned an error!');
+      return null;
+    }
+  }
+
   Future getExpenditureSum() async {
     final Database? db = await initializeDB();
     if (db != null) {

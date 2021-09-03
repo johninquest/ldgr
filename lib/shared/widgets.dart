@@ -139,7 +139,7 @@ class ListItem extends StatelessWidget {
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       height: 40.0,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(Formatter().dbToUiDate(dateData)),
+        Column(children: [Text(Formatter().dbToUiDate(dateData)[0]), Text(Formatter().dbToUiDate(dateData)[1])]),
         Text(Formatter().dbToUiValue(categoryData)),
         Container(child: Formatter().checkSplit2Words(sourceData)),
         Text('$amountData'),

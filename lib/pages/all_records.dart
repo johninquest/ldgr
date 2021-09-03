@@ -4,6 +4,7 @@ import 'package:tba/pages/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
 // import '../services/router.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:tba/data/models.dart';
 
 class AllRecordsPage extends StatelessWidget {
   // const AllRecordsPage({Key? key}) : super(key: key);
@@ -25,7 +26,10 @@ class AllRecordsPage extends StatelessWidget {
             // List<Map> responseData = snapshot.data;
             List responseData = snapshot.data as List;
             return Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                RecordSummary(),
                 ListTitle(),
                 Expanded(
                     child: ListView.builder(
@@ -100,6 +104,60 @@ class MyLabelWidget extends StatelessWidget {
       decoration: BoxDecoration(
           color: myLabelBackgroundColor,
           borderRadius: BorderRadius.circular(5.0)),
+    );
+  }
+}
+
+class RecordSummary extends StatelessWidget {
+  // const RecordSummary({Key? key}) : super(key: key);
+  late double expenditureSum;
+
+  @override
+  Widget build(BuildContext context) {
+    // double? expenditureSum;
+    SQLiteDatabaseHelper()
+        .getExpenditureSum()
+        .then((value) => {expenditureSum = value['sum_ex']});
+
+/*     Map inSum = SQLiteDatabaseHelper().getIncomeSum() as Map;
+    print(inSum); */
+    return Container(
+      margin: EdgeInsets.only(top: 1.0),
+      decoration: BoxDecoration(color: Colors.blueGrey),
+      height: 80.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: Text('TOTAL'),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  Container(
+                    child: Text('Income'),
+                  ),
+                  Container(
+                    child: Text('income total'),
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  Container(
+                    child: Text('Expenditure'),
+                  ),
+                  Container(
+                    child: Text('Expense total'),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

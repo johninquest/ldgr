@@ -2,24 +2,27 @@ class Record {
   final int id;
   final String category;
   final String source;
-  final num amount;
+  final double amount;
   final String createdAt;
   final String lastUpdateAt;
 
   Record(
-      {
-      required this.id,
+      {required this.id,
       required this.category,
       required this.source,
       required this.amount,
       required this.createdAt,
-      required this.lastUpdateAt
-      });
-}
+      required this.lastUpdateAt});
 
-/*
+  Record.fromMap(Map<String, dynamic> res)
+      : id = res['id'],
+        category = res['category'],
+        source = res['source'],
+        amount = res['amount'],
+        createdAt = res['created_at'],
+        lastUpdateAt = res['last_update_at'];
 
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'id': id,
       'category': category,
@@ -29,5 +32,4 @@ class Record {
       'last_update_at': lastUpdateAt
     };
   }
-
- */
+}

@@ -75,8 +75,32 @@ class SQLiteDatabaseHelper {
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       return qResult.toList();
     } else {
-      print('SQL SELECT query returned an error!');
-      // return null;
+      // print('SQL SELECT query returned an error!');
+      return null;
+    }
+  }
+
+  Future getExpenditureSum() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql =
+          'SELECT sum(amount) AS sum_ex FROM $bkTable WHERE category = "expenditure"';
+      List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
+      return qResult[0];
+    } else {
+      return null;
+    }
+  }
+
+  Future getIncomeSum() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql =
+          'SELECT sum(amount) AS sum_in FROM $bkTable WHERE category = "income"';
+      List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
+      return qResult[0];
+    } else {
+      return null;
     }
   }
 }

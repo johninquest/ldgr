@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
@@ -11,6 +13,12 @@ class AllRecordsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        SQLiteDatabaseHelper()
+        .getExpenditureSum()
+        .then((value) => expenditureSum = value['sum_ex']);
+    SQLiteDatabaseHelper()
+        .getIncomeSum()
+        .then((value) => incomeSum = value['sum_in']);
     return Scaffold(
       appBar: AppBar(
         title: Text('All Records'),
@@ -116,22 +124,21 @@ class RecordSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SQLiteDatabaseHelper()
-        .getExpenditureSum()
-        .then((value) => expenditureSum = value['sum_ex']);
-    SQLiteDatabaseHelper()
-        .getIncomeSum()
-        .then((value) => incomeSum = value['sum_in']);    
 
     return Container(
       margin: EdgeInsets.only(top: 1.0),
-      decoration: BoxDecoration(color: Colors.yellow[800]),
+      decoration: BoxDecoration(color: Colors.amber),
       height: 80.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            child: Text('TOTAL'),
+            margin: EdgeInsets.only(bottom: 5.0),
+            child: Text(
+              'TOTAL',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.blue[900]),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -139,20 +146,36 @@ class RecordSummary extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    child: Text('Income'),
+                    child: Text('EXPENDITURE',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.redAccent,
+                            letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text('$incomeSum'),
+                    child: Text(
+                      '$expenditureSum CFA',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.blue[900]),
+                    ),
                   )
                 ],
               ),
               Column(
                 children: [
                   Container(
-                    child: Text('Expenditure'),
+                    child: Text('INCOME',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.greenAccent,
+                            letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text('$expenditureSum'),
+                    child: Text(
+                      '$incomeSum CFA',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.blue[900]),
+                    ),
                   )
                 ],
               ),
@@ -162,4 +185,5 @@ class RecordSummary extends StatelessWidget {
       ),
     );
   }
+
 }

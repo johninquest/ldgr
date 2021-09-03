@@ -4,7 +4,7 @@ class Record {
   final String source;
   final double amount;
   final String createdAt;
-  final String lastUpdateAt;
+  final String? lastUpdateAt;
 
   Record(
       {required this.id,

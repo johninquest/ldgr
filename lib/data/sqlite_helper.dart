@@ -1,5 +1,6 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tba/data/models.dart';
 // import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'dart:io';
@@ -72,9 +73,8 @@ class SQLiteDatabaseHelper {
   Future getAllRows() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT * FROM $bkTable ORDER BY created_at DESC';
+      String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      print(qResult);
       return qResult.toList();
     } else {
       // print('SQL SELECT query returned an error!');
@@ -82,12 +82,25 @@ class SQLiteDatabaseHelper {
     }
   }
 
+    Future<List<Record>> getAllRows2() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      // print(qResult.map((e) => Record.fromMap(e)).toList());
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      // print('SQL SELECT query returned an error!');
+      return [];
+    }
+  }
+
     Future getAllExpentures() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "expenditure" ORDER BY date(created_at) DESC';
+      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "expenditure" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      print(qResult);
+      // print(qResult);
       return qResult.toList();
     } else {
       // print('SQL SELECT query returned an error!');
@@ -98,9 +111,9 @@ class SQLiteDatabaseHelper {
       Future getAllIncomes() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "income" ORDER BY date(created_at) DESC';
+      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "income" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      print(qResult);
+      // print(qResult);
       return qResult.toList();
     } else {
       // print('SQL SELECT query returned an error!');
@@ -132,15 +145,4 @@ class SQLiteDatabaseHelper {
     }
   }
 
-    Future getAmountTotal(String srcValue) async {
-    final Database? db = await initializeDB();
-    if (db != null) {
-      String sql =
-          'SELECT sum(amount) AS sum_in FROM $bkTable WHERE category = "$srcValue"';
-      List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
-      return qResult[0];
-    } else {
-      return null;
-    }
-  }
 }

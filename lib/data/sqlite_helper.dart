@@ -82,7 +82,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
-    Future<List<Record>> getAllRows2() async {
+  Future<List<Record>> getAllRows2() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
@@ -95,10 +95,10 @@ class SQLiteDatabaseHelper {
     }
   }
 
-    Future getAllExpentures() async {
+  Future getAllExpentures() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "expenditure" ORDER BY datetime(created_at) DESC';
+      String sql = 'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "expenditure" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       // print(qResult);
       return qResult.toList();
@@ -108,16 +108,17 @@ class SQLiteDatabaseHelper {
     }
   }
 
-      Future getAllIncomes() async {
+  Future<List<Income>> getAllIncomes() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT created_at, source, amount FROM $bkTable WHERE category = "income" ORDER BY datetime(created_at) DESC';
+      String sql = 'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "income" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       // print(qResult);
-      return qResult.toList();
+      // return qResult.toList();
+      return qResult.map((e) => Income.fromMap(e)).toList();
     } else {
       // print('SQL SELECT query returned an error!');
-      return null;
+      return [];
     }
   }
 

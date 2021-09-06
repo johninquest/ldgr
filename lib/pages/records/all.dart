@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tba/data/models.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
@@ -11,7 +12,7 @@ class AllRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // fetchAllRecords();
+    fetchAllRecords();
     return Scaffold(
       appBar: AppBar(
         title: Text('All Records'),
@@ -47,10 +48,10 @@ class _MyDataTableState extends State<MyDataTable> {
       'Source',
       'Amount',
     ];
-    fetchAllRecords();
+    // fetchAllRecords();
     return DataTable(
         columns: getColumns(myColumns),
-        rows: [
+        rows:  [
            DataRow(cells: [
              DataCell(Text("20210901")),
       DataCell(Text("Varun")),
@@ -69,8 +70,8 @@ class _MyDataTableState extends State<MyDataTable> {
       DataCell(Text("21")),
       DataCell(Text("2000")),
     ]),
-        ]
-        );
+        ] 
+    );
   }
 
   List<DataColumn> getColumns(List<String> columns) => columns
@@ -82,22 +83,13 @@ class _MyDataTableState extends State<MyDataTable> {
           ))
       .toList();
 
-  dynamic allDatabaseRecords;
-
-  fetchAllRecords() {
-    SQLiteDatabaseHelper().getAllRows().then(
-        (value) => {
-          // print(value), 
-          allDatabaseRecords = value
-          });
-  }
 }
 
-/* dynamic allDatabaseRecords;
+List<Record>? allDatabaseRecords;
 
 fetchAllRecords() {
-  SQLiteDatabaseHelper().getAllRows().then((value) => {
-        // print(value),
+  SQLiteDatabaseHelper().getAllRows2().then((value) => {
+        print(value.length),
         allDatabaseRecords = value
       });
-} */
+}

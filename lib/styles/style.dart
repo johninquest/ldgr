@@ -9,6 +9,19 @@ const BodyStyle = TextStyle(
 const DropdownListStyle = TextStyle(fontWeight: FontWeight.bold);
 
 const ListTitleStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0);
-const ListItemStyle = TextStyle(fontSize: 5.0); 
+const ListItemStyle = TextStyle(fontSize: 5.0);
 // const ListItemStyle = TextStyle(fontWeight: FontWeight.bold);
+const TableItemStyle = TextStyle(fontSize: 12.0);
 
+class StyleHandler {
+  tableCategoryStyle(String category) {
+    if (category == 'expenditure') {
+      return TextStyle(fontSize: 12.0, color: Colors.redAccent);
+    }
+    if (category == 'income') {
+      return TextStyle(fontSize: 12.0, color: Colors.greenAccent);
+    }
+  }
+
+  tableAmountStyle() {}
+}

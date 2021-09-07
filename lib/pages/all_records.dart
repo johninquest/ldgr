@@ -1,24 +1,32 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
 // import '../services/router.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:tba/data/models.dart';
+// import 'package:tba/data/models.dart';
 
 class AllRecordsPage extends StatelessWidget {
   // const AllRecordsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-        SQLiteDatabaseHelper()
-        .getExpenditureSum()
-        .then((value) => expenditureSum = value['sum_ex']);
-    SQLiteDatabaseHelper()
-        .getIncomeSum()
-        .then((value) => incomeSum = value['sum_in']);
+    SQLiteDatabaseHelper().getExpenditureSum().then((value) {
+      // expenditureSum = value['sum_ex'];
+      if (value['sum_ex'] != null) {
+        expenditureSum = value['sum_ex'];
+      } else {
+        expenditureSum = 0;
+      }
+    });
+    SQLiteDatabaseHelper().getIncomeSum().then((value) {
+      // incomeSum = value['sum_in'];
+      if (value['sum_in'] != null) {
+        incomeSum = value['sum_in'];
+      } else {
+        incomeSum = 0;
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text('All Records'),
@@ -124,7 +132,6 @@ class RecordSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.only(top: 1.0),
       decoration: BoxDecoration(color: Colors.amber),
@@ -185,5 +192,4 @@ class RecordSummary extends StatelessWidget {
       ),
     );
   }
-
 }

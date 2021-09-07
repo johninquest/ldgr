@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tba/styles/style.dart';
 
 class Formatter {
   dbToUiValue(String? dbValue) {
@@ -44,7 +45,7 @@ class Formatter {
     }
   }
 
-  dbToUiDate(String? dbDateTime) {
+  dbToUiDateTime(String? dbDateTime) {
     if (dbDateTime != null) {
       DateTime parsedDateTime = DateTime.parse(dbDateTime);
       DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
@@ -67,13 +68,13 @@ class Formatter {
         List toArray = preFormat.split(' ');
         // print(toArray);
          return Column(
-          // mainAxisAlignment: MainAxisAlignment.center, 
+          mainAxisAlignment: MainAxisAlignment.center, 
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [Text(toArray[0]), Text(toArray[1])],
+          children: [Text(toArray[0], style: TableItemStyle,), Text(toArray[1], style: TableItemStyle)],
         );
       } 
       else if (twoWordsCheck == false) {
-        return Text(preFormat, textAlign: TextAlign.center,);
+        return Text(preFormat, style: TableItemStyle, textAlign: TextAlign.center,);
       } else {
         return Text(twoWords);
       }

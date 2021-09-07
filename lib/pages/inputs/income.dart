@@ -70,7 +70,7 @@ class _IncomeFormState extends State<IncomeForm> {
                         val!.isEmpty ? 'Please enter an amount!' : null,
                     onChanged: (val) => setState(() {
                       incomeAmount = val;
-                      print('The expenditure amount => $val');
+                      // print('The income amount => $val');
                     }),
                   )),
               Row(
@@ -93,8 +93,7 @@ class _IncomeFormState extends State<IncomeForm> {
                       onPressed: () {
                         print('Income name => $incomeSource');
                         print('Income amount => $incomeAmount');
-                        print(
-                            'Timestamp => ${DateTimeHelper().timestampForDB()}');
+                        // print('Timestamp => ${DateTimeHelper().timestampForDB()}');
                         SQLiteDatabaseHelper().insertRow(
                             'income', '$incomeSource', '$incomeAmount');
                         PageRouter().navigateToPage(AllRecordsPage(), context);

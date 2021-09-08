@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart'; 
-import '../services/router.dart';
+import 'package:tba/services/router.dart';
 import 'package:tba/pages/inputs/expenditure.dart';
 import 'package:tba/pages/inputs/income.dart';
-import 'package:tba/pages/inputs/vehicle.dart';
+import 'package:tba/pages/side_menu.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 // import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -16,8 +16,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('TRANSPOTA', style: PageHeaderStyle,), 
         centerTitle: true, 
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
       ),
+      drawer: SideMenu(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -40,13 +41,13 @@ class HomePage extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () => PageRouter().navigateToPage(InputIncomePage(), context), 
               child: Text('INCOME', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: Colors.greenAccent)),),
-            Container(
+            /* Container(
              height: 50.0, 
              width: 200.0, 
              margin: EdgeInsets.only(bottom: 25.0),
             child: ElevatedButton(
               onPressed: () => PageRouter().navigateToPage(InputVehiclePage(), context), 
-              child: Text('vehicle', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: Colors.brown[300])),)          
+              child: Text('vehicle', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: Colors.brown[300])),)           */
           ],
         ),
         ),

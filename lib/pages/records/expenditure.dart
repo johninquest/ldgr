@@ -7,7 +7,7 @@ class ExpenditureRecords extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Table Of Expenditures'),
+        title: Text('Expenditure list'),
         centerTitle: true,
       ),
       body: Container(

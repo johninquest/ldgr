@@ -7,7 +7,7 @@ class IncomeRecords extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Table Of Incomes'),
+        title: Text('Income list'),
         centerTitle: true,
       ),
       body: Container(

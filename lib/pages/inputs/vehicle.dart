@@ -10,7 +10,7 @@ class InputVehiclePage extends StatelessWidget {
         title: Text('Enter vehicle'),
         centerTitle: true,
       ),
-      body: Container(child: Center(child: Text('Input vehicle information!'),),),
+      body: Container(child: Center(child: Text('Enter vehicle information!'),),),
       
     );
   }

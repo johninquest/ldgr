@@ -10,7 +10,7 @@ class InputPersonPage extends StatelessWidget {
         title: Text('Enter person'),
         centerTitle: true,
       ),
-      body: Container(child: Center(child: Text('Input person information!'),),),
+      body: Container(child: Center(child: Text('Enter personal information!'),),),
       
     );
   }

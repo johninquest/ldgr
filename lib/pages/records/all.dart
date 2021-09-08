@@ -9,11 +9,21 @@ import 'package:tba/services/formatter.dart';
 // import 'package:tba/pages/records/income.dart';
 // import 'package:tba/pages/records/expenditure.dart';
 
+List<Record>? allDatabaseRecords;
+double? expenditureSumTotal;
+double? incomeSumTotal;
+
 class AllRecords extends StatelessWidget {
   const AllRecords({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SQLiteDatabaseHelper()
+        .getExpenditureSum()
+        .then((value) => expenditureSumTotal = value['sum_ex']);
+    SQLiteDatabaseHelper()
+        .getIncomeSum()
+        .then((value) => incomeSumTotal = value['sum_in']);    
     fetchAllRecords();
     return Scaffold(
       appBar: AppBar(
@@ -24,8 +34,10 @@ class AllRecords extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // SumTotalBoard(expenditureSum, incomeSum),
-          MyDataTable(),
+          SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0),
+          Expanded(child: MyDataTable(
+            dbRecords: allDatabaseRecords ?? [],
+          ),)
         ],
       ),
       floatingActionButton: SideButtomMenu(),
@@ -35,7 +47,8 @@ class AllRecords extends StatelessWidget {
 }
 
 class MyDataTable extends StatefulWidget {
-  const MyDataTable({Key? key}) : super(key: key);
+  final List<Record> dbRecords;
+  const MyDataTable({Key? key, required this.dbRecords}) : super(key: key);
 
   @override
   _MyDataTableState createState() => _MyDataTableState();
@@ -45,13 +58,13 @@ class _MyDataTableState extends State<MyDataTable> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.only(left: 2.0, right: 2.0),
-        child: buildTable())
-        );
+        child: Container(
+            margin: EdgeInsets.only(left: 1.0, right: 5.0),
+            padding: EdgeInsets.only(right: 5.0),
+            child: buildTable(widget.dbRecords)));
   }
 
-  Widget buildTable() {
+  Widget buildTable(List<Record> dbRecordsList) {
     final myColumns = [
       'Date',
       'Type',
@@ -63,7 +76,7 @@ class _MyDataTableState extends State<MyDataTable> {
       horizontalMargin: 20.0,
       // showBottomBorder: true,
       columns: getColumns(myColumns),
-      rows: getRows(allDatabaseRecords),
+      rows: getRows(dbRecordsList),
     );
   }
 
@@ -82,17 +95,28 @@ class _MyDataTableState extends State<MyDataTable> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(Formatter().dbToUiDateTime(e.createdAt)[0], style: TableItemStyle,), 
-                Text(Formatter().dbToUiDateTime(e.createdAt)[1], style: TableItemStyle,)
-              ],)),
-            DataCell(Text(Formatter().dbToUiValue(e.category), style: StyleHandler().tableCategoryStyle(e.category),)),
+                Text(
+                  Formatter().dbToUiDateTime(e.createdAt)[0],
+                  style: TableItemStyle,
+                ),
+                Text(
+                  Formatter().dbToUiDateTime(e.createdAt)[1],
+                  style: TableItemStyle,
+                )
+              ],
+            )),
+            DataCell(Text(
+              Formatter().dbToUiValue(e.category),
+              style: StyleHandler().tableCategoryStyle(e.category),
+            )),
             DataCell(Formatter().checkSplit2Words(e.source)),
-            DataCell(Text('${e.amount}', style: TableItemStyle,))
+            DataCell(Text(
+              '${e.amount}',
+              style: TableItemStyle,
+            ))
           ]))
       .toList();
 }
-
-List<Record> allDatabaseRecords = [];
 
 fetchAllRecords() {
   SQLiteDatabaseHelper().getAllRows2().then((value) {

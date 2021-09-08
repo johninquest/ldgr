@@ -22,4 +22,19 @@ class MyItemList {
       DropdownMenuItem(value: 'tollgate_fees', child: Container(child: Text('Tollgate fees', style: DropdownListStyle),),), 
       DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),),), 
   ];
+
+      List<DropdownMenuItem<String>> vehicleMakerList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'audi', child: Container(child: Text('Audi', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'bmw', child: Container(child: Text('BMW', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'ford', child: Container(child: Text('Ford', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'hyundai', child: Container(child: Text('HYUNDAI', style: DropdownListStyle),)),
+      DropdownMenuItem(value: 'isuzu', child: Container(child: Text('ISUZU', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'mercedes_benz', child: Container(child: Text('Mercedes-Benz', style: DropdownListStyle),)),
+      DropdownMenuItem(value: 'nissan', child: Container(child: Text('NISSAN', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'peugeot', child: Container(child: Text('PEUGEOT', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'renault', child: Container(child: Text('RENAULT', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'toyota', child: Container(child: Text('TOYOTA', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'volkswagen', child: Container(child: Text('VW', style: DropdownListStyle),)),
+  ];
 }

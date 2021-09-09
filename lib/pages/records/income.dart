@@ -5,37 +5,39 @@ import 'package:tba/data/models.dart';
 import 'package:tba/services/formatter.dart';
 
 class IncomeRecords extends StatelessWidget {
-  const IncomeRecords({Key? key}) : super(key: key);
+  // const IncomeRecords({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SQLiteDatabaseHelper().getAllIncomes().then((value) => incomeList = value);
-    print(incomeList);
     return Scaffold(
         appBar: AppBar(
           title: Text('Income list'),
           centerTitle: true,
         ),
         body: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center, 
+          // crossAxisAlignment: CrossAxisAlignment.center,
           // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(child: IncomeTable())
-        ],) );
+          children: [Expanded(child: IncomeTable())],
+        ));
   }
 }
 
-List<Income> incomeList = [];
+List<Income>? incomeList;
 Map? incomeSumTotal;
 
 class IncomeTable extends StatefulWidget {
-  const IncomeTable({Key? key}) : super(key: key);
+  // final List<Income> myList;
+  // IncomeTable(this.myList);
+  //const IncomeTable({Key? key}) : super(key: key);
 
   @override
   _IncomeTableState createState() => _IncomeTableState();
 }
 
 class _IncomeTableState extends State<IncomeTable> {
+  // List<Income>? myList;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -43,7 +45,7 @@ class _IncomeTableState extends State<IncomeTable> {
             // margin: EdgeInsets.only(left: 1.0, right: 4.0),
             // padding: EdgeInsets.only(right: 4.0),
             alignment: Alignment.center,
-            child: buildIncomeTable(incomeList)));
+            child: buildIncomeTable(incomeList ?? [])));
   }
 
   buildIncomeTable(List<Income> incList) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tba/data/sqlite_helper.dart';
+import 'package:tba/shared/widgets.dart';
 
 class ExpenditureRecords extends StatelessWidget {
   const ExpenditureRecords({Key? key}) : super(key: key);
@@ -10,10 +12,19 @@ class ExpenditureRecords extends StatelessWidget {
         title: Text('Expenditure list'),
         centerTitle: true,
       ),
-      body: Container(
-        child: Center(
-          child: Text('Expenditure list!'),
-        ),
+      body: FutureBuilder(
+        future: SQLiteDatabaseHelper().getAllExpentures(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData) {
+            var res = snapshot.data;
+            print(res);
+            return Center(child: Text('$res'),);
+          }if(snapshot.hasError) {
+            return ErrorOccured();
+          }else {
+            return WaitingForResponse();
+          }
+        },
       ),
     );
   }

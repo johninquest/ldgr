@@ -69,3 +69,40 @@ class SumTotalBoard extends StatelessWidget {
     );
   }
 }
+
+
+class SingleSumTotalBoard extends StatelessWidget {
+  // const RecordSummary({Key? key}) : super(key: key);
+  final String categoryType;
+  SingleSumTotalBoard(this.categoryType);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 1.0),
+      decoration: BoxDecoration(color: Colors.amber),
+      height: 80.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 5.0),
+            child: Text(
+              '$categoryType TOTAL',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.blue[900]),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 5.0),
+            child: Text(
+              '100 CFA',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.blue[900]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

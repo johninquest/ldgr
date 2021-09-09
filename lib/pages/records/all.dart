@@ -17,14 +17,17 @@ class AllRecords extends StatelessWidget {
   const AllRecords({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+     SQLiteDatabaseHelper().getAllRows2().then((value) {
+    allDatabaseRecords = value;
+  });
     SQLiteDatabaseHelper()
         .getExpenditureSum()
         .then((value) => expenditureSumTotal = value['sum_ex']);
     SQLiteDatabaseHelper()
         .getIncomeSum()
         .then((value) => incomeSumTotal = value['sum_in']);    
-    fetchAllRecords();
+    // fetchAllRecords();
     return Scaffold(
       appBar: AppBar(
         title: Text('All Records'),
@@ -59,23 +62,23 @@ class _MyDataTableState extends State<MyDataTable> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Container(
-            margin: EdgeInsets.only(left: 1.0, right: 5.0),
-            padding: EdgeInsets.only(right: 5.0),
+            margin: EdgeInsets.only(left: 1.0, right: 4.0),
+            padding: EdgeInsets.only(right: 4.0),
             child: buildTable(widget.dbRecords)));
   }
 
   Widget buildTable(List<Record> dbRecordsList) {
-    final myColumns = [
+    final allColumns = [
       'Date',
       'Type',
       'Source',
       'Amount',
     ];
     return DataTable(
-      columnSpacing: 20.0,
-      horizontalMargin: 20.0,
+      columnSpacing: 30.0,
+      horizontalMargin: 10.0,
       // showBottomBorder: true,
-      columns: getColumns(myColumns),
+      columns: getColumns(allColumns),
       rows: getRows(dbRecordsList),
     );
   }
@@ -118,9 +121,10 @@ class _MyDataTableState extends State<MyDataTable> {
       .toList();
 }
 
-fetchAllRecords() {
+/* fetchAllRecords() {
   SQLiteDatabaseHelper().getAllRows2().then((value) {
-    print(value.runtimeType);
+    // print(value.runtimeType);
     allDatabaseRecords = value;
   });
 }
+ */

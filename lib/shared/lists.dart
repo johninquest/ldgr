@@ -25,12 +25,12 @@ class MyItemList {
 
       List<DropdownMenuItem<String>> vehicleMakerList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
-      DropdownMenuItem(value: 'audi', child: Container(child: Text('Audi', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'audi', child: Container(child: Text('AUDI', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'bmw', child: Container(child: Text('BMW', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'ford', child: Container(child: Text('Ford', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'ford', child: Container(child: Text('FORD', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'hyundai', child: Container(child: Text('HYUNDAI', style: DropdownListStyle),)),
       DropdownMenuItem(value: 'isuzu', child: Container(child: Text('ISUZU', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'mercedes_benz', child: Container(child: Text('Mercedes-Benz', style: DropdownListStyle),)),
+      DropdownMenuItem(value: 'mercedes', child: Container(child: Text('MERCEDES', style: DropdownListStyle),)),
       DropdownMenuItem(value: 'nissan', child: Container(child: Text('NISSAN', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'peugeot', child: Container(child: Text('PEUGEOT', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'renault', child: Container(child: Text('RENAULT', style: DropdownListStyle),)), 

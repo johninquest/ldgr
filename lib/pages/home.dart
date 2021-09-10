@@ -8,7 +8,7 @@ import 'package:tba/pages/bottom_nav_bar.dart';
 // import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class HomePage extends StatelessWidget {
-  // const HomePage({ Key? key }) : super(key: key);
+  const HomePage({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.only(bottom: 50.0),
-          child: Text('A simple bookkeeping app for transporters', style: BodyStyle,),),
+          child: Text('The management app for transporters', style: BodyStyle,),),
           Container(
             height: 80.0, 
             width: 200.0, 

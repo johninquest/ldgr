@@ -95,16 +95,17 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future getAllExpentures() async {
+  Future<List<Income>> getAllExpentures() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sql = 'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "expenditure" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       // print(qResult);
-      return qResult.toList();
+      // return qResult.toList(); 
+      return qResult.map((e) => Income.fromMap(e)).toList();
     } else {
       // print('SQL SELECT query returned an error!');
-      return null;
+      return [];
     }
   }
 

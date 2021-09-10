@@ -3,65 +3,62 @@ import 'package:tba/styles/style.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/data/models.dart';
 import 'package:tba/services/formatter.dart';
+import 'package:tba/shared/widgets.dart';
 
-class IncomeRecords extends StatelessWidget {
-  // const IncomeRecords({Key? key}) : super(key: key);
+class IncomeRecords extends StatefulWidget {
+  const IncomeRecords({Key? key}) : super(key: key);
+
+  @override
+  _IncomeRecordsState createState() => _IncomeRecordsState();
+}
+
+class _IncomeRecordsState extends State<IncomeRecords> {
+/*   List<Income>? expenseList;
+
+  @override
+  initState() {
+    super.initState();
+    SQLiteDatabaseHelper().getAllIncomes().then((value) => expenseList = value);
+  } */
 
   @override
   Widget build(BuildContext context) {
-    SQLiteDatabaseHelper().getAllIncomes().then((value) => incomeList = value);
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Income list'),
-          centerTitle: true,
-        ),
-        body: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [Expanded(child: IncomeTable())],
-        ));
-  }
-}
-
-List<Income>? incomeList;
-Map? incomeSumTotal;
-
-class IncomeTable extends StatefulWidget {
-  // final List<Income> myList;
-  // IncomeTable(this.myList);
-  //const IncomeTable({Key? key}) : super(key: key);
-
-  @override
-  _IncomeTableState createState() => _IncomeTableState();
-}
-
-class _IncomeTableState extends State<IncomeTable> {
-  // List<Income>? myList;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Container(
-            // margin: EdgeInsets.only(left: 1.0, right: 4.0),
-            // padding: EdgeInsets.only(right: 4.0),
-            alignment: Alignment.center,
-            child: buildIncomeTable(incomeList ?? [])));
+      appBar: AppBar(
+        title: Text('Income list', style: TextStyle(color: Colors.greenAccent),),
+        centerTitle: true,
+      ),
+      body: FutureBuilder(
+        future: SQLiteDatabaseHelper().getAllIncomes(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Income> response = snapshot.data as List<Income>;
+            // print(res);
+            /* return Center(
+              child: Text('$response'),
+            ); */
+            return SingleChildScrollView(
+              child: Container(
+                alignment: Alignment.center,
+                child: buildIncomeTable(response),),);
+          }
+          if (snapshot.hasError) {
+            return ErrorOccured();
+          } else {
+            return WaitingForResponse();
+          }
+        },
+      ),
+    );
   }
 
-  buildIncomeTable(List<Income> incList) {
+  Widget buildIncomeTable(List<Income> dbList) {
     final incomeColumns = [
       'Date',
       'Source',
       'Amount',
     ];
-
-    return DataTable(
-      // columnSpacing: 30.0,
-      // horizontalMargin: 10.0,
-      // showBottomBorder: true,
-      columns: getColumns(incomeColumns),
-      rows: getRows(incList),
-    );
+    return DataTable(columns: getColumns(incomeColumns), rows: getRows(dbList));
   }
 
   List<DataColumn> getColumns(List<String> columns) => columns
@@ -95,5 +92,6 @@ class _IncomeTableState extends State<IncomeTable> {
               style: TableItemStyle,
             ))
           ]))
-      .toList();
+      .toList();    
 }
+

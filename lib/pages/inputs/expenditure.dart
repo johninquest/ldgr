@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
-import 'package:tba/pages/all_records.dart';
+import 'package:tba/pages/records/all.dart';
 
 class InputExpenditurePage extends StatelessWidget {
   // const InputExpenditure({ Key? key })//  : super(key: key);
@@ -90,7 +90,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       print('Expenditure amount => $expenditureAmount');
                       SQLiteDatabaseHelper().insertRow('expenditure',
                           '$expenditureName', '$expenditureAmount');
-                      PageRouter().navigateToPage(AllRecordsPage(), context);
+                      PageRouter().navigateToPage(AllRecords(), context);
                     },
                     child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(primary: Colors.redAccent),

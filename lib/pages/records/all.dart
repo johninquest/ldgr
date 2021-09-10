@@ -6,68 +6,65 @@ import 'package:tba/shared/widgets.dart';
 import 'package:tba/shared/analysis.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/formatter.dart';
-// import 'package:tba/pages/records/income.dart';
-// import 'package:tba/pages/records/expenditure.dart';
 
-List<Record>? allDatabaseRecords;
-double? expenditureSumTotal;
-double? incomeSumTotal;
 
-class AllRecords extends StatelessWidget {
+class AllRecords extends StatefulWidget {
   const AllRecords({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) { 
-     SQLiteDatabaseHelper().getAllRows2().then((value) {
-    allDatabaseRecords = value;
-  });
+  _AllRecordsState createState() => _AllRecordsState();
+}
+
+class _AllRecordsState extends State<AllRecords> {
+  double? expenditureSumTotal;
+  double? incomeSumTotal;
+
+  @override
+  initState() {
+    super.initState();
     SQLiteDatabaseHelper()
         .getExpenditureSum()
         .then((value) => expenditureSumTotal = value['sum_ex']);
     SQLiteDatabaseHelper()
         .getIncomeSum()
         .then((value) => incomeSumTotal = value['sum_in']);    
-    // fetchAllRecords();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Records'),
-        centerTitle: true,
+        title: Text('All'),
+        centerTitle: true, 
         automaticallyImplyLeading: false,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0),
-          Expanded(child: MyDataTable(
-            dbRecords: allDatabaseRecords ?? [],
-          ),)
-        ],
+      body: FutureBuilder(
+        future: SQLiteDatabaseHelper().getAllRows2(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Record> response = snapshot.data as List<Record>;
+            return Column(
+              children: [
+                SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0),
+                Expanded(
+              child: SingleChildScrollView(child: Container(
+                alignment: Alignment.center,
+                child: buildTable(response),),))
+            ],); 
+          }
+          if (snapshot.hasError) {
+            return ErrorOccured();
+          } else {
+            return WaitingForResponse();
+          }
+        },
       ),
       floatingActionButton: SideButtomMenu(),
       bottomNavigationBar: BottomNavBar(),
     );
   }
-}
 
-class MyDataTable extends StatefulWidget {
-  final List<Record> dbRecords;
-  const MyDataTable({Key? key, required this.dbRecords}) : super(key: key);
-
-  @override
-  _MyDataTableState createState() => _MyDataTableState();
-}
-
-class _MyDataTableState extends State<MyDataTable> {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Container(
-            margin: EdgeInsets.only(left: 1.0, right: 4.0),
-            padding: EdgeInsets.only(right: 4.0),
-            child: buildTable(widget.dbRecords)));
-  }
-
-  Widget buildTable(List<Record> dbRecordsList) {
+ Widget buildTable(List<Record> dbRecordsList) {
     final allColumns = [
       'Date',
       'Type',
@@ -121,10 +118,3 @@ class _MyDataTableState extends State<MyDataTable> {
       .toList();
 }
 
-/* fetchAllRecords() {
-  SQLiteDatabaseHelper().getAllRows2().then((value) {
-    // print(value.runtimeType);
-    allDatabaseRecords = value;
-  });
-}
- */

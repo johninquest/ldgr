@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:tba/styles/style.dart';
 import 'package:tba/shared/lists.dart';
-// import 'package:tba/services/date_time_helper.dart';
+import 'package:tba/services/date_time_helper.dart';
 // import 'package:tba/data/sqlite_helper.dart';
 // import 'package:tba/data/shared_preferences_helper.dart';
 
@@ -38,8 +38,23 @@ class _VehicleFormState extends State<VehicleForm> {
   String? incomeAmount;
   String? vehicleMaker;
   String? vehicleModel;
-  String? vehicleFirstRegistrationDate;
+  // String? vehicleAge = 'Helo';
   String? vehiclePrice;
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1990, 1),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
+  late TextEditingController vehicleFirstRegistrationDate = TextEditingController(text: '$selectedDate' );
 
   @override
   Widget build(BuildContext context) {
@@ -86,36 +101,37 @@ class _VehicleFormState extends State<VehicleForm> {
                       width: 250.0,
                       margin: EdgeInsets.only(right: 5.0),
                       child: TextFormField(
-                          decoration:
-                              InputDecoration(hintText: 'Enter first registration date'),
-                          keyboardType: TextInputType.datetime,
-                          validator: (val) => val!.isEmpty
+                        enabled: true,
+                        controller: vehicleFirstRegistrationDate,
+                          decoration: InputDecoration(
+                              hintText: 'Enter first registration date'),
+                          // keyboardType: TextInputType.datetime,
+                          onTap: () => _selectDate(context),
+/*                           validator: (val) => val!.isEmpty
                               ? 'Please enter first registration date!'
-                              : null,
+                              : null, */
                           onChanged: (val) => setState(() {
-                                vehicleFirstRegistrationDate = val;
-                                print(val.runtimeType);
-                                print('First registration date => $val');
-                              })),
+                                print(val);
+                                vehicleFirstRegistrationDate.text = val;
+                              }),
+                              ),
                     ),
                     Container(
                       width: 100.0,
                       margin: EdgeInsets.only(left: 5.0),
                       child: TextFormField(
-                          enabled: false,
-                          decoration: InputDecoration(hintText: 'Age'),
-                          // keyboardType: TextInputType.datetime,
-                          validator: (val) => val!.isEmpty ? '' : null,
-                          onChanged: (val) => setState(() {
-                                incomeAmount = val;
-                                // print('The income amount => $val');
-                              })
-                              ),
-                    ), 
+                        enabled: false,
+                        // initialValue: vehicleAge,
+                        decoration: InputDecoration(
+                            hintText:
+                                DateTimeHelper().ageFromDate(selectedDate)),
+                        // keyboardType: TextInputType.datetime,
+                      ),
+                    ),
                   ],
                 ),
               ),
-               Container(
+              Container(
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(

@@ -9,13 +9,13 @@ class DateTimeHelper {
     // print(dtToString);
   }
 
-  ageFromDate(String dateStr) {
+  ageFromDate(DateTime pickedDate) {
     // String dateStr = '2001-09-11';
     // DateFormat InputFormat = DateFormat('dd/MM/yyyy');
     // var inputToDateTime = InputFormat.format(dateStr);
-    DateTime parsedDateTime = DateTime.parse(dateStr);
+    // DateTime parsedDateTime = DateTime.parse(dateStr);
     DateTime currentDateTime = DateTime.now();
-    int diffInDays = currentDateTime.difference(parsedDateTime).inDays;
+    int diffInDays = currentDateTime.difference(pickedDate).inDays;
     String diffInYears = (diffInDays / 365).toStringAsFixed(0);
     return diffInYears;
   }

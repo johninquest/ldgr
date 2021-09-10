@@ -20,8 +20,11 @@ class AboutPage extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 10.0),
                 child: Text('Transpota', style: TextStyle(color: Colors.blue[900], fontWeight: FontWeight.bold),),),
               Container(
-                margin: EdgeInsets.only(left: 10.0, right: 5.0),
-                child: Text('Transpota is a simple app for helping transporters keep track of their expenditures and income.'),)
+                margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                child: Text('Transpota is a simple management app design to help transporters keep track of their finances.', textAlign: TextAlign.center,),), 
+              Container(
+                margin: EdgeInsets.only(top: 100.0),
+                child: Text('\u00A9 Phil Transport Solutions Inc.'),)  
             ],
           ),),)
         

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 // import 'package:tba/styles/style.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/services/date_time_helper.dart';
@@ -38,6 +39,7 @@ class _VehicleFormState extends State<VehicleForm> {
   String? incomeAmount;
   String? vehicleMaker;
   String? vehicleModel;
+  String? vehicleFirstRegistrationDate;
   // String? vehicleAge = 'Helo';
   String? vehiclePrice;
 
@@ -54,7 +56,8 @@ class _VehicleFormState extends State<VehicleForm> {
       });
   }
 
-  late TextEditingController vehicleFirstRegistrationDate = TextEditingController(text: '$selectedDate' );
+/*   late TextEditingController vehicleFirstRegistrationDate =
+      TextEditingController(text: '$selectedDate'); */
 
   @override
   Widget build(BuildContext context) {
@@ -101,23 +104,24 @@ class _VehicleFormState extends State<VehicleForm> {
                       width: 250.0,
                       margin: EdgeInsets.only(right: 5.0),
                       child: TextFormField(
-                        enabled: true,
-                        controller: vehicleFirstRegistrationDate,
-                          decoration: InputDecoration(
-                              hintText: 'Enter first registration date'),
-                          // keyboardType: TextInputType.datetime,
-                          onTap: () => _selectDate(context),
+                        // enabled: true,
+                        readOnly: true,
+                        // controller: vehicleFirstRegistrationDate, 
+                        decoration: InputDecoration(
+                            hintText: initialDateHandler(selectedDate), prefixIcon: Icon(Icons.calendar_today_outlined, size: 25.0,)), 
+                        // keyboardType: TextInputType.datetime,
+                        onTap: () => _selectDate(context), 
 /*                           validator: (val) => val!.isEmpty
                               ? 'Please enter first registration date!'
-                              : null, */
+                              : null, 
                           onChanged: (val) => setState(() {
                                 print(val);
                                 vehicleFirstRegistrationDate.text = val;
-                              }),
-                              ),
+                              }), */
+                      ),
                     ),
                     Container(
-                      width: 100.0,
+                      width: 80.0,
                       margin: EdgeInsets.only(left: 5.0),
                       child: TextFormField(
                         enabled: false,
@@ -135,7 +139,7 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: 'Enter price'),
+                    decoration: InputDecoration(hintText: 'Purchase price ?'),
                     keyboardType: TextInputType.number,
                     validator: (val) =>
                         val!.isEmpty ? 'Please enter vehicle price!' : null,
@@ -178,5 +182,19 @@ class _VehicleFormState extends State<VehicleForm> {
         ),
       ),
     );
+  }
+}
+
+initialDateHandler(DateTime dt) {
+  DateTime today = DateTime.now();
+  DateFormat toDateFormat = DateFormat('yyyy-MM-dd');
+  DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
+  String toCmrDateFormat = cmrDateFormat.format(dt);
+  String todayFormatted = toDateFormat.format(today);
+  String dtFormatted = toDateFormat.format(dt);
+  if (dtFormatted == todayFormatted) {
+    return 'First registration date ?';
+  } else {
+    return toCmrDateFormat;
   }
 }

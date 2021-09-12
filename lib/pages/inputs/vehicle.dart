@@ -108,7 +108,7 @@ class _VehicleFormState extends State<VehicleForm> {
                         readOnly: true,
                         // controller: vehicleFirstRegistrationDate, 
                         decoration: InputDecoration(
-                            hintText: initialDateHandler(selectedDate), prefixIcon: Icon(Icons.calendar_today_outlined, size: 25.0,)), 
+                            hintText: initialDateHandler(selectedDate),), 
                         // keyboardType: TextInputType.datetime,
                         onTap: () => _selectDate(context), 
 /*                           validator: (val) => val!.isEmpty

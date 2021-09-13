@@ -24,7 +24,7 @@ class AboutPage extends StatelessWidget {
                 child: Text('Transpota is a simple app designed to help transporters keep track of their finances and better manage their operations.', textAlign: TextAlign.center,),), 
               Container(
                 margin: EdgeInsets.only(top: 100.0),
-                child: Text('\u00A9 Phil Transport Solutions Inc.'),)  
+                child: Text('\u00A9 Phil Transport Solutions Ltd.'),)  
             ],
           ),),)
         

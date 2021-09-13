@@ -65,7 +65,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       val!.isEmpty ? 'Please enter an amount!' : null,
                   onChanged: (val) => setState(() {
                     expenditureAmount = val;
-                    print('The expenditure amount => $val');
+                    // print('The expenditure amount => $val');
                   }),
                 )),
             Row(
@@ -86,8 +86,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Expenditure name => $expenditureName');
-                      print('Expenditure amount => $expenditureAmount');
+                      // print('Expenditure name => $expenditureName');
+                      // print('Expenditure amount => $expenditureAmount');
                       SQLiteDatabaseHelper().insertRow('expenditure',
                           '$expenditureName', '$expenditureAmount');
                       PageRouter().navigateToPage(AllRecords(), context);

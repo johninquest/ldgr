@@ -8,7 +8,7 @@ class SharedPreferencesHelper {
 
   Future readData(String strKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final storedData = prefs.getString(strKey) ?? 'data not available';
+    final storedData = prefs.getString(strKey) ?? '{{ isEmpty }}';
     return storedData;
   }
 

@@ -10,7 +10,7 @@ class SumTotalBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 1.0),
-      decoration: BoxDecoration(color: Colors.brown[200]),
+      decoration: BoxDecoration(color: Colors.brown[300]),
       height: 80.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

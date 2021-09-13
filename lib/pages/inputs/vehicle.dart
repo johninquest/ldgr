@@ -71,9 +71,6 @@ class _VehicleFormState extends State<VehicleForm> {
 
   @override
   Widget build(BuildContext context) {
-    /*  SharedPreferencesHelper()
-        .readData('vehicleData')
-        .then((value) => storedVehicleData = value); */
     return Container(
       child: Form(
         key: _formKey,

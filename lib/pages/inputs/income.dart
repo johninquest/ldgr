@@ -91,8 +91,8 @@ class _IncomeFormState extends State<IncomeForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        print('Income name => $incomeSource');
-                        print('Income amount => $incomeAmount');
+                        // print('Income name => $incomeSource');
+                        // print('Income amount => $incomeAmount');
                         // print('Timestamp => ${DateTimeHelper().timestampForDB()}');
                         SQLiteDatabaseHelper().insertRow(
                             'income', '$incomeSource', '$incomeAmount');

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
+import 'package:tba/styles/colors.dart';
 import 'package:tba/services/formatter.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/records/income.dart';
 import 'package:tba/pages/records/expenditure.dart';
-import 'package:tba/pages/all_records.dart';
+// import 'package:tba/pages/all_records.dart';
 
 class ErrorOccured extends StatelessWidget {
   @override
@@ -13,9 +14,9 @@ class ErrorOccured extends StatelessWidget {
     return Container(
         child: Center(
       child: Text(
-        'Ein Fehler ist aufgetreten.',
+        'An error has occured!',
         style: TextStyle(
-            fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+            fontSize: 20.0, fontWeight: FontWeight.bold, color: myBlue),
       ),
     ));
   }
@@ -38,9 +39,9 @@ class NoErrorOccured extends StatelessWidget {
     return Container(
         child: Center(
       child: Text(
-        'Alles ist gut.',
+        'What a beautiful day!',
         style: TextStyle(
-            fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+            fontSize: 20.0, fontWeight: FontWeight.bold, color: myBlue),
       ),
     ));
   }
@@ -53,18 +54,18 @@ class SideButtomMenu extends StatelessWidget {
       animatedIcon: AnimatedIcons.add_event,
       children: [
         SpeedDialChild(
-            labelWidget: MyLabelWidget('Expenditure', Colors.redAccent),
+            labelWidget: MyLabelWidget('Expenditure', myRed),
             onTap: () => PageRouter().navigateToPage(ExpenditureRecords(), context),
             // onTap: () => print('Pressed expenses button!')
             ),
         SpeedDialChild(
-            labelWidget: MyLabelWidget('Income', Colors.greenAccent),
+            labelWidget: MyLabelWidget('Income', myGreen),
             onTap: () => PageRouter().navigateToPage(IncomeRecords(), context),
             ),
-        SpeedDialChild(
+       /*  SpeedDialChild(
             labelWidget: MyLabelWidget('Old records', Colors.blueGrey),
             onTap: () => PageRouter().navigateToPage(AllRecordsPage(), context),
-            ),    
+            ),     */
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
@@ -13,7 +14,7 @@ class InputExpenditurePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Enter expenditure'),
           centerTitle: true,
-          backgroundColor: Colors.redAccent,
+          backgroundColor: myRed,
         ),
         body: Center(
           child: ExpenditureForm(),
@@ -86,14 +87,12 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      // print('Expenditure name => $expenditureName');
-                      // print('Expenditure amount => $expenditureAmount');
                       SQLiteDatabaseHelper().insertRow('expenditure',
                           '$expenditureName', '$expenditureAmount');
                       PageRouter().navigateToPage(AllRecords(), context);
                     },
                     child: Text('SAVE'),
-                    style: ElevatedButton.styleFrom(primary: Colors.redAccent),
+                    style: ElevatedButton.styleFrom(primary: myRed),
                   ),
                 )
               ],

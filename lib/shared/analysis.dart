@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tba/styles/colors.dart';
 
 class SumTotalBoard extends StatelessWidget {
   // const RecordSummary({Key? key}) : super(key: key);
@@ -10,17 +11,17 @@ class SumTotalBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 1.0),
-      decoration: BoxDecoration(color: Colors.brown[300]),
+      decoration: BoxDecoration(color: myYellow),
       height: 80.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 5.0),
+            margin: EdgeInsets.only(bottom: 10.0),
             child: Text(
-              'TOTAL',
+              'SUMMARY',
               style: TextStyle(
-                  fontWeight: FontWeight.bold, color: Colors.blue[900]),
+                  fontWeight: FontWeight.bold, color: myBlue),
             ),
           ),
           Row(
@@ -32,14 +33,14 @@ class SumTotalBoard extends StatelessWidget {
                     child: Text('EXPENDITURE',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.redAccent,
+                            color: myRed,
                             letterSpacing: 2.0)),
                   ),
                   Container(
                     child: Text(
                       '$expenditureSum',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.blue[900]),
+                          fontWeight: FontWeight.bold, color: myBlue),
                     ),
                   )
                 ],
@@ -50,14 +51,14 @@ class SumTotalBoard extends StatelessWidget {
                     child: Text('INCOME',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.greenAccent,
+                            color: myGreen,
                             letterSpacing: 2.0)),
                   ),
                   Container(
                     child: Text(
                       '$incomeSum',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.blue[900]),
+                          fontWeight: FontWeight.bold, color: myBlue),
                     ),
                   )
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/pages/home.dart';
+import 'package:tba/styles/colors.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,8 +12,8 @@ class MyApp extends StatelessWidget {
       // title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.blue[900],
-        accentColor: Colors.blue[900],
+        primaryColor: myBlue,
+        accentColor: myBlue,
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity, 
       ),

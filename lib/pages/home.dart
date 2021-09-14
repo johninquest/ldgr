@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart'; 
+import 'package:tba/styles/colors.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/inputs/expenditure.dart';
 import 'package:tba/pages/inputs/income.dart';
@@ -33,21 +34,14 @@ class HomePage extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () => PageRouter().navigateToPage(InputExpenditurePage(), context), 
               child: Text('EXPENDITURE', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),), 
-              style: ElevatedButton.styleFrom(primary: Colors.redAccent),),), 
+              style: ElevatedButton.styleFrom(primary: myRed),),), 
            Container(
              height: 80.0, 
              width: 200.0, 
              margin: EdgeInsets.only(bottom: 25.0),
             child: ElevatedButton(
               onPressed: () => PageRouter().navigateToPage(InputIncomePage(), context), 
-              child: Text('INCOME', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: Colors.greenAccent)),),
-            /* Container(
-             height: 50.0, 
-             width: 200.0, 
-             margin: EdgeInsets.only(bottom: 25.0),
-            child: ElevatedButton(
-              onPressed: () => PageRouter().navigateToPage(InputVehiclePage(), context), 
-              child: Text('vehicle', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: Colors.brown[300])),)           */
+              child: Text('INCOME', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: myGreen)),),
           ],
         ),
         ),

@@ -4,6 +4,7 @@ import 'package:tba/shared/lists.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/records/all.dart';
+import 'package:tba/styles/colors.dart';
 // import 'package:tba/pages/all_records.dart';
 
 class InputIncomePage extends StatelessWidget {
@@ -15,7 +16,7 @@ class InputIncomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Enter income'),
           centerTitle: true,
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: myGreen,
         ),
         body: Center(
           child: Container(
@@ -100,7 +101,7 @@ class _IncomeFormState extends State<IncomeForm> {
                       },
                       child: Text('SAVE'),
                       style:
-                          ElevatedButton.styleFrom(primary: Colors.greenAccent),
+                          ElevatedButton.styleFrom(primary: myGreen),
                     ),
                   )
                 ],

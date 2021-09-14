@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tba/styles/colors.dart';
 
 const PageHeaderStyle =
     TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
@@ -16,12 +17,14 @@ const TableItemStyle = TextStyle(fontSize: 14.0);
 class StyleHandler {
   tableCategoryStyle(String category) {
     if (category == 'expenditure') {
-      return TextStyle(fontSize: 14.0, color: Colors.redAccent, fontWeight: FontWeight.bold);
+      return TextStyle(
+          fontSize: 14.0, color: myRed, fontWeight: FontWeight.bold);
     }
     if (category == 'income') {
-      return TextStyle(fontSize: 14.0, color: Colors.greenAccent, fontWeight: FontWeight.bold);
+      return TextStyle(
+          fontSize: 14.0,
+          color: myGreen,
+          fontWeight: FontWeight.bold);
     }
   }
-
-  tableAmountStyle() {}
 }

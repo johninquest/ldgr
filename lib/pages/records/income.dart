@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
+import 'package:tba/styles/colors.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/data/models.dart';
 import 'package:tba/services/formatter.dart';
@@ -13,20 +14,14 @@ class IncomeRecords extends StatefulWidget {
 }
 
 class _IncomeRecordsState extends State<IncomeRecords> {
-/*   List<Income>? expenseList;
-
-  @override
-  initState() {
-    super.initState();
-    SQLiteDatabaseHelper().getAllIncomes().then((value) => expenseList = value);
-  } */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Income list', style: TextStyle(color: Colors.greenAccent),),
-        centerTitle: true,
+        title: Text('Income list', style: TextStyle(color: Colors.white),),
+        centerTitle: true, 
+        backgroundColor: myGreen,
       ),
       body: FutureBuilder(
         future: SQLiteDatabaseHelper().getAllIncomes(),

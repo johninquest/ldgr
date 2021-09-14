@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
+import 'package:tba/styles/colors.dart';
 import 'package:tba/data/models.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/shared/widgets.dart';
@@ -25,8 +26,9 @@ class _ExpenditureRecordsState extends State<ExpenditureRecords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expenditure list', style: TextStyle(color: Colors.redAccent),),
+        title: Text('Expenditure list', style: TextStyle(color: Colors.white),),
         centerTitle: true,
+        backgroundColor: myRed,
       ),
       body: FutureBuilder(
         future: SQLiteDatabaseHelper().getAllExpentures(),

@@ -38,6 +38,7 @@ class _VehicleFormState extends State<VehicleForm> {
   final _formKey = GlobalKey<FormState>();
 
   String? vehiclePlateNumber;
+  String? vehicleChassisNumber;
   String? vehicleMaker;
   String? vehicleModel;
   String? vehicleFirstRegistrationDate;
@@ -86,13 +87,29 @@ class _VehicleFormState extends State<VehicleForm> {
                   child: TextFormField(
                     decoration:
                         InputDecoration(hintText: 'License plate number'),
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.text, 
+                    textCapitalization: TextCapitalization.characters,
                     validator: (val) => val!.isEmpty
                         ? 'Please enter license plate number!'
                         : null,
                     onChanged: (val) => setState(() {
                       vehiclePlateNumber = val;
-                      print('License plate number => $val');
+                      // print('License plate number => $val');
+                    }),
+                  )),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  margin: EdgeInsets.only(bottom: 10.0),
+                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(hintText: 'Chassis number'),
+                    keyboardType: TextInputType.text, 
+                    textCapitalization: TextCapitalization.characters,
+                    validator: (val) =>
+                        val!.isEmpty ? 'Please enter chassis number!' : null,
+                    onChanged: (val) => setState(() {
+                      vehicleChassisNumber = val;
+                      // print('Chassis number => $val');
                     }),
                   )),
               Container(
@@ -194,7 +211,8 @@ class _VehicleFormState extends State<VehicleForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         Map<String, dynamic> vehicleInfo = {
-                          'licensePlateNumber': vehiclePlateNumber,
+                          'licensePlateNumber': vehiclePlateNumber, 
+                          'chassisNumber': vehicleChassisNumber,
                           'manufacturer': vehicleMaker,
                           'model': vehicleModel,
                           'firstRegistrationDate': vehicleFirstRegistrationDate,

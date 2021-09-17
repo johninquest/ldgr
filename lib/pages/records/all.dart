@@ -50,10 +50,11 @@ class _AllRecordsState extends State<AllRecords> {
               children: [
                 SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0),
                 Expanded(
-              child: SingleChildScrollView(
-                child: Container( 
-                  alignment: Alignment.center, 
-                  child: buildTable(response),),))
+                  child: SingleChildScrollView( 
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      alignment: Alignment.center, 
+                      child: buildTable(response),),))
             ],); 
           }
           if (snapshot.hasError) {
@@ -76,8 +77,8 @@ class _AllRecordsState extends State<AllRecords> {
       'Amount',
     ];
     return DataTable(
-      columnSpacing: 30.0,
-      horizontalMargin: 10.0,
+      columnSpacing: 15.0,
+      horizontalMargin: 0.0,
       // showBottomBorder: true,
       columns: getColumns(allColumns),
       rows: getRows(dbRecordsList),

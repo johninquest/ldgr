@@ -45,7 +45,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
         ),
-      // floatingActionButton: SideButtomMenu(), 
       bottomNavigationBar: BottomNavBar(), 
     );
   }

@@ -7,6 +7,7 @@ import 'package:tba/data/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/services/formatter.dart'; 
 import 'package:tba/services/date_time_helper.dart';
+import 'package:tba/pages/bottom_nav_bar.dart';
 import 'dart:convert';
 
 class StoredVehiclePage extends StatelessWidget {
@@ -23,11 +24,10 @@ class StoredVehiclePage extends StatelessWidget {
         future: SharedPreferencesHelper().readData('vehicleData'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // print('Snapshot returned data');
             String? vData = snapshot.data as String;
             Map vDataStrToMap = jsonDecode(vData);
-            print(vData);
-            // print(vDataStrToMap['firstRegistrationDate']);
+            /* print(vData);
+            print(vDataStrToMap['firstRegistrationDate']); */
             return Container(
               // width: MediaQuery.of(context).size.width * 0.95,
               child: Column(
@@ -53,12 +53,10 @@ class StoredVehiclePage extends StatelessWidget {
                   MyTableRow(
                     rowName: 'First registration date',
                     rowData: Formatter().dbToUiDateTime(vDataStrToMap['firstRegistrationDate'])[0], 
-                    // rowData: vDataStrToMap['firstRegistrationDate'],
                   ), 
                   MyTableRow(
                     rowName: 'Age',
                     rowData: DateTimeHelper().ageFromDateStr(vDataStrToMap['firstRegistrationDate']),
-                    // rowData: '0',
                   ),
                   MyTableRow(
                     rowName: 'Purchase price',
@@ -122,10 +120,10 @@ class StoredVehiclePage extends StatelessWidget {
                     ))
                   ],
                 ));
-            //PageRouter().navigateToPage(InputVehiclePage(), context);
           }
         },
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -173,5 +171,4 @@ addCurrencyCode(String amt) {
   }else {
     return 'XAF 0';
   }
-  
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart'; 
+import 'package:tba/pages/bottom_nav_bar.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({ Key? key }) : super(key: key);
@@ -26,7 +27,8 @@ class AboutPage extends StatelessWidget {
                 margin: EdgeInsets.only(top: 100.0),
                 child: Text('\u00A9 Phil Transport Solutions Ltd.'),)  
             ],
-          ),),)
+          ),),),
+          bottomNavigationBar: BottomNavBar(), 
         
     );
   }

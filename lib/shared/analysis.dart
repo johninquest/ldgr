@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/colors.dart';
+import 'package:tba/services/formatter.dart';
 
 class SumTotalBoard extends StatelessWidget {
   // const RecordSummary({Key? key}) : super(key: key);
@@ -37,8 +38,7 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(
-                      '$expenditureSum',
+                    child: Text(Formatter().toNoDecimal(expenditureSum),
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: myBlue),
                     ),
@@ -55,8 +55,7 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(
-                      '$incomeSum',
+                    child: Text(Formatter().toNoDecimal(incomeSum),
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: myBlue),
                     ),

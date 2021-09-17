@@ -79,8 +79,7 @@ class _ExpenditureRecordsState extends State<ExpenditureRecords> {
               ],
             )),
             DataCell(Formatter().checkSplit2Words(e.source)),
-            DataCell(Text(
-              '${e.amount}',
+            DataCell(Text(Formatter().toNoDecimal(e.amount),
               style: TableItemStyle,
             ))
           ]))

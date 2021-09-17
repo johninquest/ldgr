@@ -82,8 +82,7 @@ class _IncomeRecordsState extends State<IncomeRecords> {
               ],
             )),
             DataCell(Formatter().checkSplit2Words(e.source)),
-            DataCell(Text(
-              '${e.amount}',
+            DataCell(Text(Formatter().toNoDecimal(e.amount),
               style: TableItemStyle,
             ))
           ]))

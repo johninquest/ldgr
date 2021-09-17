@@ -87,7 +87,7 @@ class Formatter {
     }
   }
 
-  toCurrency(double amountInDouble) {
+  toNoDecimal(double amountInDouble) {
     print(amountInDouble);
     String amountAsStr = amountInDouble.toStringAsFixed(0);
     return amountAsStr;

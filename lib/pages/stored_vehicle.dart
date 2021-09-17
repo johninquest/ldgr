@@ -23,11 +23,11 @@ class StoredVehiclePage extends StatelessWidget {
         future: SharedPreferencesHelper().readData('vehicleData'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print('Snapshot returned data');
+            // print('Snapshot returned data');
             String? vData = snapshot.data as String;
             Map vDataStrToMap = jsonDecode(vData);
-            print(vData.runtimeType);
-            print(vDataStrToMap['firstRegistrationDate']);
+            print(vData);
+            // print(vDataStrToMap['firstRegistrationDate']);
             return Container(
               // width: MediaQuery.of(context).size.width * 0.95,
               child: Column(
@@ -52,11 +52,13 @@ class StoredVehiclePage extends StatelessWidget {
                   ),
                   MyTableRow(
                     rowName: 'First registration date',
-                    rowData: Formatter().dbToUiDateTime(vDataStrToMap['firstRegistrationDate'])[0],
+                    rowData: Formatter().dbToUiDateTime(vDataStrToMap['firstRegistrationDate'])[0], 
+                    // rowData: vDataStrToMap['firstRegistrationDate'],
                   ), 
                   MyTableRow(
                     rowName: 'Age',
                     rowData: DateTimeHelper().ageFromDateStr(vDataStrToMap['firstRegistrationDate']),
+                    // rowData: '0',
                   ),
                   MyTableRow(
                     rowName: 'Purchase price',
@@ -166,5 +168,10 @@ class MyTableRow extends StatelessWidget {
 }
 
 addCurrencyCode(String amt) {
-  return 'XAF $amt';
+  if(amt != '') {
+    return 'XAF $amt';
+  }else {
+    return 'XAF 0';
+  }
+  
 }

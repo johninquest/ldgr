@@ -20,14 +20,15 @@ class DateTimeHelper {
     return diffInYears;
   }
 
-    ageFromDateStr(String storedDate) {
-    // String dateStr = '2001-09-11';
-    // DateFormat InputFormat = DateFormat('dd/MM/yyyy');
-    // var inputToDateTime = InputFormat.format(dateStr);
-    DateTime parsedDateTime = DateTime.parse(storedDate);
-    DateTime currentDateTime = DateTime.now();
-    int diffInDays = currentDateTime.difference(parsedDateTime).inDays;
-    String diffInYears = (diffInDays / 365).toStringAsFixed(0);
-    return diffInYears;
+  ageFromDateStr(String? storedDate) {
+    if (storedDate != null && storedDate != '') {
+      DateTime parsedDateTime = DateTime.parse(storedDate);
+      DateTime currentDateTime = DateTime.now();
+      int diffInDays = currentDateTime.difference(parsedDateTime).inDays;
+      String diffInYears = (diffInDays / 365).toStringAsFixed(0);
+      return diffInYears;
+    } else {
+      return '0';
+    }
   }
 }

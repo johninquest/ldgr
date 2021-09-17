@@ -5,7 +5,6 @@ import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/records/all.dart';
 import 'package:tba/styles/colors.dart';
-// import 'package:tba/pages/all_records.dart';
 
 class InputIncomePage extends StatelessWidget {
   const InputIncomePage({Key? key}) : super(key: key);
@@ -95,11 +94,6 @@ class _IncomeFormState extends State<IncomeForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_incomeFormKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content:
-                                  Text('Saving income information...')),
-                        );
                         SQLiteDatabaseHelper().insertRow('income',
                           '$incomeSource', '$incomeAmount');
                         PageRouter().navigateToPage(AllRecords(), context);  

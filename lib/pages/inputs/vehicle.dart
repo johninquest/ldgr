@@ -212,12 +212,12 @@ class _VehicleFormState extends State<VehicleForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         Map<String, dynamic> vehicleInfo = {
-                          'licensePlateNumber': vehiclePlateNumber, 
-                          'chassisNumber': vehicleChassisNumber,
-                          'manufacturer': vehicleMaker,
-                          'model': vehicleModel,
-                          'firstRegistrationDate': vehicleFirstRegistrationDate,
-                          'purchasePrice': vehiclePrice
+                          'licensePlateNumber': vehiclePlateNumber ?? '', 
+                          'chassisNumber': vehicleChassisNumber ?? '',
+                          'manufacturer': vehicleMaker ?? '',
+                          'model': vehicleModel ?? '',
+                          'firstRegistrationDate': vehicleFirstRegistrationDate ?? '',
+                          'purchasePrice': vehiclePrice ?? ''
                         };
                         String mapToStr = jsonEncode(vehicleInfo);
                         /*SharedPreferencesHelper()
@@ -245,13 +245,6 @@ class _VehicleFormState extends State<VehicleForm> {
                   ),
                 ],
               ),
-              /* Container(
-                width: MediaQuery.of(context).size.width * 0.90,
-                margin: EdgeInsets.only(top: 20.0),
-                child: Center(
-                  child: Text(storedVehicleData ?? ''),
-                ),
-              ) */
             ],
           ),
         ),

@@ -46,7 +46,8 @@ class Formatter {
   }
 
   dbToUiDateTime(String? dbDateTime) {
-    if (dbDateTime != null) {
+    print('Date data => $dbDateTime');
+    if (dbDateTime != null && dbDateTime != '') {
       DateTime parsedDateTime = DateTime.parse(dbDateTime);
       DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
       DateFormat cmrTimeFormat = DateFormat('HH:mm');
@@ -54,7 +55,7 @@ class Formatter {
       String uiTime = cmrTimeFormat.format(parsedDateTime);
       return [uiDate, uiTime];
     } else {
-      return '--/--/----';
+      return ['--/--/----', '--:--'];
     }
   }
 

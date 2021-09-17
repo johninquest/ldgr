@@ -93,15 +93,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      /* SQLiteDatabaseHelper().insertRow('expenditure',
-                          '$expenditureName', '$expenditureAmount');
-                      PageRouter().navigateToPage(AllRecords(), context); */
                       if (_expenditureFormKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content:
-                                  Text('Saving expenditure information...')),
-                        );
                         SQLiteDatabaseHelper().insertRow('expenditure',
                           '$expenditureSource', '$expenditureAmount');
                         PageRouter().navigateToPage(AllRecords(), context);  

@@ -37,4 +37,11 @@ class MyItemList {
       DropdownMenuItem(value: 'toyota', child: Container(child: Text('TOYOTA', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'volkswagen', child: Container(child: Text('VW', style: DropdownListStyle),)),
   ];
+
+  List<DropdownMenuItem<String>> personRoleList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'driver', child: Container(child: Text('Driver', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'owner', child: Container(child: Text('Owner', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'manager', child: Container(child: Text('Manager', style: DropdownListStyle),)),  
+  ];
 }

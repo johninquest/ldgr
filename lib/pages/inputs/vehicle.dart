@@ -15,7 +15,7 @@ class InputVehiclePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter vehicle info'),
+        title: Text('Enter vehicle infos'),
         centerTitle: true,
       ),
       body: Container(
@@ -43,6 +43,8 @@ class _VehicleFormState extends State<VehicleForm> {
   String? vehicleModel;
   String? vehicleFirstRegistrationDate;
   String? vehiclePrice;
+
+  // TextEditingController vLicensePlateNumber = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
@@ -85,12 +87,14 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    decoration:
-                        InputDecoration(hintText: 'License plate number'),
-                    keyboardType: TextInputType.text, 
+                    decoration: InputDecoration(
+                      labelText: 'License plate number',
+                      // hintText: 'License plate number'
+                    ),
+                    keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.characters,
                     validator: (val) => val!.isEmpty
-                        ? 'Please enter license plate number!'
+                        ? 'Please enter license plate number'
                         : null,
                     onChanged: (val) => setState(() {
                       vehiclePlateNumber = val;
@@ -102,11 +106,12 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: 'Chassis number'),
-                    keyboardType: TextInputType.text, 
+                    decoration: InputDecoration(
+                      // hintText: 'Chassis number',
+                      labelText: 'Chassis number',
+                    ),
+                    keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.characters,
-                    /* validator: (val) =>
-                        val!.isEmpty ? 'Please enter chassis number!' : null, */
                     onChanged: (val) => setState(() {
                       vehicleChassisNumber = val;
                     }),
@@ -116,10 +121,10 @@ class _VehicleFormState extends State<VehicleForm> {
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: DropdownButtonFormField(
                     isExpanded: true,
-                    hint: Text('Select manufacturer'),
-                    items: MyItemList().vehicleMakerList, 
-                    /* validator: (val) =>
-                        val!.isEmpty ? 'Please select manufacturer!' : null, */
+                    hint: Text('Manufacturer'),
+                    items: MyItemList().vehicleMakerList,
+                    validator: (val) =>
+                        val == null ? 'Please select vehicle manufacturer' : null,
                     onChanged: (val) =>
                         setState(() => vehicleMaker = val as String?),
                   )),
@@ -128,10 +133,13 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: 'Enter model'),
+                    decoration: InputDecoration(
+                        // hintText: 'Model',
+                        labelText: 'Model'),
                     keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.words,
                     validator: (val) =>
-                        val!.isEmpty ? 'Please enter vehicle model!' : null,
+                        val!.isEmpty ? 'Please enter vehicle model' : null,
                     onChanged: (val) => setState(() {
                       vehicleModel = val;
                       // print('The income amount => $val');
@@ -153,8 +161,8 @@ class _VehicleFormState extends State<VehicleForm> {
                         readOnly: true,
                         // controller: vehicleFirstRegistrationDate,
                         decoration: InputDecoration(
-                          hintText: initialDateHandler(selectedDate),
-                        ),
+                            hintText: initialDateHandler(selectedDate),
+                            labelText: 'First registration date'),
                         // keyboardType: TextInputType.datetime,
                         /* validator: (val) =>
                         val!.isEmpty ? 'Please enter first registration date!' : null, */
@@ -166,11 +174,10 @@ class _VehicleFormState extends State<VehicleForm> {
                       margin: EdgeInsets.only(left: 5.0),
                       child: TextFormField(
                         enabled: false,
-                        // initialValue: vehicleAge,
                         decoration: InputDecoration(
-                            hintText:
-                                DateTimeHelper().ageFromDate(selectedDate)),
-                        // keyboardType: TextInputType.datetime,
+                          hintText: DateTimeHelper().ageFromDate(selectedDate),
+                          // labelText: 'Age'
+                        ),
                       ),
                     ),
                   ],
@@ -181,13 +188,12 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: 'Enter price'),
+                    decoration: InputDecoration(
+                        // hintText: 'Enter price',
+                        labelText: 'Price'),
                     keyboardType: TextInputType.number,
-                    /* validator: (val) =>
-                        val!.isEmpty ? 'Please enter vehicle price!' : null, */
                     onChanged: (val) => setState(() {
                       vehiclePrice = val;
-                      // print('Vehicle price => $val');
                     }),
                   )),
               Row(
@@ -224,11 +230,14 @@ class _VehicleFormState extends State<VehicleForm> {
                             .saveData('vehicleData', mapToStr);
                         PageRouter()
                             .navigateToPage(InputVehiclePage(), context); */
-                        if(_vehicleFormKey.currentState!.validate()) {
+                        if (_vehicleFormKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Saving vehicle information...')),); 
-                          PageRouter().navigateToPage(InputVehiclePage(), context);  
-                        }    
+                            SnackBar(
+                                content: Text('Saving vehicle information...')),
+                          );
+                          PageRouter()
+                              .navigateToPage(InputVehiclePage(), context);
+                        }
                       },
                       child: Text(
                         'SAVE',
@@ -263,7 +272,7 @@ initialDateHandler(DateTime dt) {
   String todayFormatted = toDateFormat.format(today);
   String dtFormatted = toDateFormat.format(dt);
   if (dtFormatted == todayFormatted) {
-    return 'First registration date';
+    return '--/--/----';
   } else {
     return toCmrDateFormat;
   }

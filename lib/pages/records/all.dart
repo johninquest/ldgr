@@ -45,12 +45,15 @@ class _AllRecordsState extends State<AllRecords> {
           if (snapshot.hasData) {
             List<Record> response = snapshot.data as List<Record>;
             return Column(
+              mainAxisAlignment: MainAxisAlignment.center, 
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0),
                 Expanded(
-              child: SingleChildScrollView(child: Container(
-                alignment: Alignment.center,
-                child: buildTable(response),),))
+              child: SingleChildScrollView(
+                child: Container( 
+                  alignment: Alignment.center, 
+                  child: buildTable(response),),))
             ],); 
           }
           if (snapshot.hasError) {

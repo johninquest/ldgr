@@ -14,13 +14,6 @@ class ExpenditureRecords extends StatefulWidget {
 }
 
 class _ExpenditureRecordsState extends State<ExpenditureRecords> {
-/*   List<Income>? expenseList;
-
-  @override
-  initState() {
-    super.initState();
-    SQLiteDatabaseHelper().getAllIncomes().then((value) => expenseList = value);
-  } */
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +28,9 @@ class _ExpenditureRecordsState extends State<ExpenditureRecords> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Income> response = snapshot.data as List<Income>;
-            // print(res);
-            /* return Center(
-              child: Text('$response'),
-            ); */
             return SingleChildScrollView(
               child: Container(
+                // width: MediaQuery.of(context).size.width * 0.95,
                 alignment: Alignment.center,
                 child: buildExpenditureTable(response),),);
           }

@@ -35,7 +35,7 @@ class _AllRecordsState extends State<AllRecords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All'),
+        title: Text('All records'),
         centerTitle: true, 
         automaticallyImplyLeading: false,
       ),

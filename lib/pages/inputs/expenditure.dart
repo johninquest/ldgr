@@ -33,40 +33,46 @@ class ExpenditureForm extends StatefulWidget {
 }
 
 class _ExpenditureFormState extends State<ExpenditureForm> {
-  final _formKey = GlobalKey<FormState>();
+  final _expenditureFormKey = GlobalKey<FormState>();
 
   //Form values
-  String? expenditureName;
+  String? expenditureSource;
   String? expenditureAmount;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: _expenditureFormKey,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                width: MediaQuery.of(context).size.width * 0.95,
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
-                  hint: Text('Select reason for expenditure'),
+                  hint: Text('Reason for expenditure'),
                   items: MyItemList().expenditureList,
-                  onChanged: (val) =>
-                      setState(() => expenditureName = val as String?),
+                  validator: (val) => val == null
+                      ? 'Please select reason for expenditure!'
+                      : null,
+                  onChanged: (val) => setState(() {
+                    expenditureSource = val as String?;
+                    // print('Exp name => $expenditureName');
+                  }),
                 )),
             Container(
+                width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 10.0),
-                padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
-                  decoration: InputDecoration(hintText: 'Enter amount'),
+                  decoration: InputDecoration(hintText: 'Amount'),
                   keyboardType: TextInputType.number,
                   validator: (val) =>
                       val!.isEmpty ? 'Please enter an amount!' : null,
                   onChanged: (val) => setState(() {
                     expenditureAmount = val;
-                    // print('The expenditure amount => $val');
                   }),
                 )),
             Row(
@@ -87,9 +93,19 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      SQLiteDatabaseHelper().insertRow('expenditure',
+                      /* SQLiteDatabaseHelper().insertRow('expenditure',
                           '$expenditureName', '$expenditureAmount');
-                      PageRouter().navigateToPage(AllRecords(), context);
+                      PageRouter().navigateToPage(AllRecords(), context); */
+                      if (_expenditureFormKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content:
+                                  Text('Saving expenditure information...')),
+                        );
+                        SQLiteDatabaseHelper().insertRow('expenditure',
+                          '$expenditureSource', '$expenditureAmount');
+                        PageRouter().navigateToPage(AllRecords(), context);  
+                      }
                     },
                     child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(primary: myRed),

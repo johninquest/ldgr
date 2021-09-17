@@ -35,7 +35,7 @@ class VehicleForm extends StatefulWidget {
 }
 
 class _VehicleFormState extends State<VehicleForm> {
-  final _formKey = GlobalKey<FormState>();
+  final _vehicleFormKey = GlobalKey<FormState>();
 
   String? vehiclePlateNumber;
   String? vehicleChassisNumber;
@@ -74,7 +74,7 @@ class _VehicleFormState extends State<VehicleForm> {
   Widget build(BuildContext context) {
     return Container(
       child: Form(
-        key: _formKey,
+        key: _vehicleFormKey,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -105,22 +105,21 @@ class _VehicleFormState extends State<VehicleForm> {
                     decoration: InputDecoration(hintText: 'Chassis number'),
                     keyboardType: TextInputType.text, 
                     textCapitalization: TextCapitalization.characters,
-                    validator: (val) =>
-                        val!.isEmpty ? 'Please enter chassis number!' : null,
+                    /* validator: (val) =>
+                        val!.isEmpty ? 'Please enter chassis number!' : null, */
                     onChanged: (val) => setState(() {
                       vehicleChassisNumber = val;
-                      // print('Chassis number => $val');
                     }),
                   )),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: DropdownButtonFormField(
-                    // dropdownColor: Colors.grey[200],
-                    // style: TextStyle(color: Colors.greenAccent, ),
                     isExpanded: true,
                     hint: Text('Select manufacturer'),
-                    items: MyItemList().vehicleMakerList,
+                    items: MyItemList().vehicleMakerList, 
+                    /* validator: (val) =>
+                        val!.isEmpty ? 'Please select manufacturer!' : null, */
                     onChanged: (val) =>
                         setState(() => vehicleMaker = val as String?),
                   )),
@@ -132,7 +131,7 @@ class _VehicleFormState extends State<VehicleForm> {
                     decoration: InputDecoration(hintText: 'Enter model'),
                     keyboardType: TextInputType.text,
                     validator: (val) =>
-                        val!.isEmpty ? 'Please enter model!' : null,
+                        val!.isEmpty ? 'Please enter vehicle model!' : null,
                     onChanged: (val) => setState(() {
                       vehicleModel = val;
                       // print('The income amount => $val');
@@ -157,6 +156,8 @@ class _VehicleFormState extends State<VehicleForm> {
                           hintText: initialDateHandler(selectedDate),
                         ),
                         // keyboardType: TextInputType.datetime,
+                        /* validator: (val) =>
+                        val!.isEmpty ? 'Please enter first registration date!' : null, */
                         onTap: () => _selectDate(context),
                       ),
                     ),
@@ -182,11 +183,11 @@ class _VehicleFormState extends State<VehicleForm> {
                   child: TextFormField(
                     decoration: InputDecoration(hintText: 'Enter price'),
                     keyboardType: TextInputType.number,
-                    validator: (val) =>
-                        val!.isEmpty ? 'Please enter vehicle price!' : null,
+                    /* validator: (val) =>
+                        val!.isEmpty ? 'Please enter vehicle price!' : null, */
                     onChanged: (val) => setState(() {
                       vehiclePrice = val;
-                      print('Vehicle price => $val');
+                      // print('Vehicle price => $val');
                     }),
                   )),
               Row(
@@ -210,7 +211,7 @@ class _VehicleFormState extends State<VehicleForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        Map<String, dynamic> vehicleInfo = {
+                        /* Map<String, dynamic> vehicleInfo = {
                           'licensePlateNumber': vehiclePlateNumber, 
                           'chassisNumber': vehicleChassisNumber,
                           'manufacturer': vehicleMaker,
@@ -219,12 +220,15 @@ class _VehicleFormState extends State<VehicleForm> {
                           'purchasePrice': vehiclePrice
                         };
                         String mapToStr = jsonEncode(vehicleInfo);
-                        // print(vehicleInfo);
-                        // print(mapToStr.runtimeType);
                         SharedPreferencesHelper()
                             .saveData('vehicleData', mapToStr);
                         PageRouter()
-                            .navigateToPage(InputVehiclePage(), context);
+                            .navigateToPage(InputVehiclePage(), context); */
+                        if(_vehicleFormKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Saving vehicle information...')),); 
+                          PageRouter().navigateToPage(InputVehiclePage(), context);  
+                        }    
                       },
                       child: Text(
                         'SAVE',
@@ -236,13 +240,13 @@ class _VehicleFormState extends State<VehicleForm> {
                   ),
                 ],
               ),
-              Container(
+              /* Container(
                 width: MediaQuery.of(context).size.width * 0.90,
                 margin: EdgeInsets.only(top: 20.0),
                 child: Center(
                   child: Text(storedVehicleData ?? ''),
                 ),
-              )
+              ) */
             ],
           ),
         ),

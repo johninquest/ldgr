@@ -35,7 +35,7 @@ class IncomeForm extends StatefulWidget {
 }
 
 class _IncomeFormState extends State<IncomeForm> {
-  final _formKey = GlobalKey<FormState>();
+  final _incomeFormKey = GlobalKey<FormState>();
 
   String? incomeSource;
   String? incomeAmount;
@@ -44,34 +44,36 @@ class _IncomeFormState extends State<IncomeForm> {
   Widget build(BuildContext context) {
     return Container(
       child: Form(
-        key: _formKey,
+        key: _incomeFormKey,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
-                  child: DropdownButtonFormField(
-                    // dropdownColor: Colors.grey[200],
-                    // style: TextStyle(color: Colors.greenAccent, ),
+                width: MediaQuery.of(context).size.width * 0.95, 
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: DropdownButtonFormField(
                     isExpanded: true,
-                    hint: Text('Select source of income'),
+                    hint: Text('Source of income'),
                     items: MyItemList().incomeList,
+                    validator: (val) => val == null
+                      ? 'Please select source of income!'
+                      : null,
                     onChanged: (val) =>
                         setState(() => incomeSource = val as String?),
                   )),
               Container(
-                  margin: EdgeInsets.only(bottom: 10.0),
-                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                width: MediaQuery.of(context).size.width * 0.95,
+                margin: EdgeInsets.only(bottom: 10.0), 
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: 'Enter amount'),
+                    decoration: InputDecoration(hintText: 'Amount'),
                     keyboardType: TextInputType.number,
                     validator: (val) =>
                         val!.isEmpty ? 'Please enter an amount!' : null,
                     onChanged: (val) => setState(() {
                       incomeAmount = val;
-                      // print('The income amount => $val');
                     }),
                   )),
               Row(
@@ -92,12 +94,16 @@ class _IncomeFormState extends State<IncomeForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        // print('Income name => $incomeSource');
-                        // print('Income amount => $incomeAmount');
-                        // print('Timestamp => ${DateTimeHelper().timestampForDB()}');
-                        SQLiteDatabaseHelper().insertRow(
-                            'income', '$incomeSource', '$incomeAmount');
-                        PageRouter().navigateToPage(AllRecords(), context);
+                        if (_incomeFormKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content:
+                                  Text('Saving income information...')),
+                        );
+                        SQLiteDatabaseHelper().insertRow('income',
+                          '$incomeSource', '$incomeAmount');
+                        PageRouter().navigateToPage(AllRecords(), context);  
+                      }
                       },
                       child: Text('SAVE'),
                       style:

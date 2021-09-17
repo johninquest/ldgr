@@ -32,7 +32,7 @@ class Formatter {
         case 'park_fees':
           return 'Park fees';
         case 'passengers':
-          return 'Passengers';  
+          return 'Passengers';
         case 'police_controls':
           return 'Police controls';
         case 'tollgate_fees':
@@ -61,23 +61,35 @@ class Formatter {
   checkSplit2Words(String? twoWords) {
     if (twoWords != null) {
       var preFormat = dbToUiValue(twoWords);
-      // print(preFormat);
       var twoWordsCheck = preFormat.contains(' ');
-      // print(twoWordsCheck);
-     if (twoWordsCheck == true) {
+      if (twoWordsCheck == true) {
         List toArray = preFormat.split(' ');
-        // print(toArray);
-         return Column(
-          mainAxisAlignment: MainAxisAlignment.center, 
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [Text(toArray[0], style: TableItemStyle,), Text(toArray[1], style: TableItemStyle)],
+          children: [
+            Text(
+              toArray[0],
+              style: TableItemStyle,
+            ),
+            Text(toArray[1], style: TableItemStyle)
+          ],
         );
-      } 
-      else if (twoWordsCheck == false) {
-        return Text(preFormat, style: TableItemStyle, textAlign: TextAlign.center,);
+      } else if (twoWordsCheck == false) {
+        return Text(
+          preFormat,
+          style: TableItemStyle,
+          textAlign: TextAlign.center,
+        );
       } else {
         return Text(twoWords);
       }
     }
+  }
+
+  toCurrency(double amountInDouble) {
+    print(amountInDouble);
+    String amountAsStr = amountInDouble.toStringAsFixed(0);
+    return amountAsStr;
   }
 }

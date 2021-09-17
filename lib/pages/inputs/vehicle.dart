@@ -5,8 +5,8 @@ import 'dart:convert';
 // import 'package:tba/styles/style.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/services/date_time_helper.dart';
-// import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/data/sp_helper.dart';
+import 'package:tba/pages/stored_vehicle.dart';
 
 class InputVehiclePage extends StatelessWidget {
   const InputVehiclePage({Key? key}) : super(key: key);
@@ -44,7 +44,6 @@ class _VehicleFormState extends State<VehicleForm> {
   String? vehicleFirstRegistrationDate;
   String? vehiclePrice;
 
-  // TextEditingController vLicensePlateNumber = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
@@ -159,13 +158,9 @@ class _VehicleFormState extends State<VehicleForm> {
                       child: TextFormField(
                         // enabled: true,
                         readOnly: true,
-                        // controller: vehicleFirstRegistrationDate,
                         decoration: InputDecoration(
                             hintText: initialDateHandler(selectedDate),
-                            labelText: 'First registration date'),
-                        // keyboardType: TextInputType.datetime,
-                        /* validator: (val) =>
-                        val!.isEmpty ? 'Please enter first registration date!' : null, */
+                            ),
                         onTap: () => _selectDate(context),
                       ),
                     ),
@@ -176,7 +171,6 @@ class _VehicleFormState extends State<VehicleForm> {
                         enabled: false,
                         decoration: InputDecoration(
                           hintText: DateTimeHelper().ageFromDate(selectedDate),
-                          // labelText: 'Age'
                         ),
                       ),
                     ),
@@ -217,7 +211,7 @@ class _VehicleFormState extends State<VehicleForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        /* Map<String, dynamic> vehicleInfo = {
+                        Map<String, dynamic> vehicleInfo = {
                           'licensePlateNumber': vehiclePlateNumber, 
                           'chassisNumber': vehicleChassisNumber,
                           'manufacturer': vehicleMaker,
@@ -226,7 +220,7 @@ class _VehicleFormState extends State<VehicleForm> {
                           'purchasePrice': vehiclePrice
                         };
                         String mapToStr = jsonEncode(vehicleInfo);
-                        SharedPreferencesHelper()
+                        /*SharedPreferencesHelper()
                             .saveData('vehicleData', mapToStr);
                         PageRouter()
                             .navigateToPage(InputVehiclePage(), context); */
@@ -235,8 +229,10 @@ class _VehicleFormState extends State<VehicleForm> {
                             SnackBar(
                                 content: Text('Saving vehicle information...')),
                           );
+                           SharedPreferencesHelper()
+                            .saveData('vehicleData', mapToStr);
                           PageRouter()
-                              .navigateToPage(InputVehiclePage(), context);
+                              .navigateToPage(StoredVehiclePage(), context);
                         }
                       },
                       child: Text(
@@ -272,7 +268,7 @@ initialDateHandler(DateTime dt) {
   String todayFormatted = toDateFormat.format(today);
   String dtFormatted = toDateFormat.format(dt);
   if (dtFormatted == todayFormatted) {
-    return '--/--/----';
+    return 'First registration date';
   } else {
     return toCmrDateFormat;
   }

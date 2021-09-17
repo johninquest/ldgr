@@ -13,7 +13,7 @@ class SumTotalBoard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 1.0),
       decoration: BoxDecoration(color: myYellow),
-      height: 80.0,
+      height: 90.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,6 +31,7 @@ class SumTotalBoard extends StatelessWidget {
               Column(
                 children: [
                   Container(
+                    margin: EdgeInsets.only(bottom: 1.0),
                     child: Text('EXPENDITURE',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -38,7 +39,7 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(Formatter().toNoDecimal(expenditureSum),
+                    child: Text(Formatter().toNoDecimalPlusCurrency(expenditureSum),
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: myBlue),
                     ),
@@ -48,6 +49,7 @@ class SumTotalBoard extends StatelessWidget {
               Column(
                 children: [
                   Container(
+                    margin: EdgeInsets.only(bottom: 1.0),
                     child: Text('INCOME',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -55,7 +57,7 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(Formatter().toNoDecimal(incomeSum),
+                    child: Text(Formatter().toNoDecimalPlusCurrency(incomeSum),
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: myBlue),
                     ),

@@ -28,10 +28,6 @@ class _IncomeRecordsState extends State<IncomeRecords> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Income> response = snapshot.data as List<Income>;
-            // print(res);
-            /* return Center(
-              child: Text('$response'),
-            ); */
             return SingleChildScrollView(
               child: Container(
                 alignment: Alignment.center,

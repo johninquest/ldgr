@@ -46,6 +46,7 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
+                    enabled: false,
                     decoration:
                         InputDecoration(hintText: 'Surname'),
                     keyboardType: TextInputType.text, 
@@ -63,6 +64,7 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
+                    enabled: false,
                     decoration:
                         InputDecoration(hintText: 'Given names'),
                     keyboardType: TextInputType.text, 
@@ -80,6 +82,7 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
+                    enabled: false,
                     decoration:
                         InputDecoration(hintText: 'Address'),
                     keyboardType: TextInputType.text, 
@@ -97,6 +100,7 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
+                    enabled: false,
                     decoration:
                         InputDecoration(hintText: 'Phone number'),
                     keyboardType: TextInputType.text, 
@@ -142,27 +146,10 @@ class _PersonFormState extends State<PersonForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        /* Map<String, dynamic> personInfo = {
-                          'licensePlateNumber': vehiclePlateNumber, 
-                          'chassisNumber': vehicleChassisNumber,
-                          'manufacturer': vehicleMaker,
-                          'model': vehicleModel,
-                          'firstRegistrationDate': vehicleFirstRegistrationDate,
-                          'purchasePrice': vehiclePrice
-                        };
-                        String mapToStr = jsonEncode(vehicleInfo);
-                        SharedPreferencesHelper()
-                            .saveData('vehicleData', mapToStr);
-                        PageRouter()
-                            .navigateToPage(InputVehiclePage(), context); */
-                        if (_personFormKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                                content: Text('Saving personal information...')),
+                                content: Text('Still under construction!')),
                           );
-                          /* PageRouter()
-                              .navigateToPage(InputVehiclePage(), context); */
-                        }
                       },
                       child: Text(
                         'SAVE',

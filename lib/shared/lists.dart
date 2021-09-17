@@ -40,8 +40,8 @@ class MyItemList {
 
   List<DropdownMenuItem<String>> personRoleList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
-      DropdownMenuItem(value: 'driver', child: Container(child: Text('Driver', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'owner', child: Container(child: Text('Owner', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'manager', child: Container(child: Text('Manager', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'driver', child: Container(child: Text('Driver', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'manager', child: Container(child: Text('Manager', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'owner', child: Container(child: Text('Owner', style: DropdownListStyle),)),  
   ];
 }

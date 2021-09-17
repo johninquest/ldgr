@@ -5,6 +5,8 @@ import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
+import 'package:tba/services/formatter.dart'; 
+import 'package:tba/services/date_time_helper.dart';
 import 'dart:convert';
 
 class StoredVehiclePage extends StatelessWidget {
@@ -23,25 +25,75 @@ class StoredVehiclePage extends StatelessWidget {
           if (snapshot.hasData) {
             print('Snapshot returned data');
             String? vData = snapshot.data as String;
-            Map vStrToMap = jsonDecode(vData);
+            Map vDataStrToMap = jsonDecode(vData);
             print(vData.runtimeType);
-            print(vStrToMap['chassisNumber']);
+            print(vDataStrToMap['firstRegistrationDate']);
             return Container(
+              // width: MediaQuery.of(context).size.width * 0.95,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, 
-                crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('$vData'), 
-                 Container(
-                        child: ElevatedButton(
-                      onPressed: () => PageRouter()
-                          .navigateToPage(InputVehiclePage(), context),
-                      child: Text('UPDATE'),
-                      style: ElevatedButton.styleFrom(primary: myBlue),
-                    ))
-
-              ]
-                ));
+                mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyTableRow(
+                    rowName: 'License plate number',
+                    rowData: vDataStrToMap['licensePlateNumber'],
+                  ),
+                  MyTableRow(
+                    rowName: 'Chassis number',
+                    rowData: vDataStrToMap['chassisNumber'],
+                  ),
+                  MyTableRow(
+                    rowName: 'Manufacturer',
+                    rowData: vDataStrToMap['manufacturer'],
+                  ),
+                  MyTableRow(
+                    rowName: 'Model',
+                    rowData: vDataStrToMap['model'],
+                  ),
+                  MyTableRow(
+                    rowName: 'First registration date',
+                    rowData: Formatter().dbToUiDateTime(vDataStrToMap['firstRegistrationDate'])[0],
+                  ), 
+                  MyTableRow(
+                    rowName: 'Age',
+                    rowData: DateTimeHelper().ageFromDateStr(vDataStrToMap['firstRegistrationDate']),
+                  ),
+                  MyTableRow(
+                    rowName: 'Purchase price',
+                    rowData: addCurrencyCode(vDataStrToMap['purchasePrice']),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: ElevatedButton(
+                              onPressed: () => PageRouter()
+                                  .navigateToPage(InputVehiclePage(), context),
+                              child: Text('CHANGE'),
+                              style: ElevatedButton.styleFrom(primary: myBlue),
+                            )),
+                        Container(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: ElevatedButton(
+                              onPressed: () =>
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Still under construction!')),
+                              ),
+                              child: Text('PRINT'),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.blueGrey),
+                            ))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
           }
           if (snapshot.hasError) {
             return ErrorOccured();
@@ -74,4 +126,45 @@ class StoredVehiclePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyTableRow extends StatelessWidget {
+  final String? rowName;
+  final String? rowData;
+  const MyTableRow({Key? key, this.rowName, this.rowData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.0),
+      width: MediaQuery.of(context).size.width * 0.90,
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
+      child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // crossAxisAlignment: CrossAxisAlignment.,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 1.0, left: 5.0),
+            padding: EdgeInsets.only(bottom: 1.0, left: 5.0),
+            child: Text(
+              rowName!,
+              style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 1.0, right: 5.0),
+            padding: EdgeInsets.only(bottom: 1.0, right: 5.0),
+            child: Text(rowData!.toUpperCase(),
+                style: TextStyle(fontWeight: FontWeight.bold)),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+addCurrencyCode(String amt) {
+  return 'XAF $amt';
 }

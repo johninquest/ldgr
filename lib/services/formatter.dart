@@ -92,4 +92,10 @@ class Formatter {
     String amountAsStr = amountInDouble.toStringAsFixed(0);
     return amountAsStr;
   }
+
+  toNoDecimalPlusCurrency(double amountInDouble) {
+    print(amountInDouble);
+    String amountAsStr = amountInDouble.toStringAsFixed(0);
+    return 'XAF $amountAsStr';
+  }
 }

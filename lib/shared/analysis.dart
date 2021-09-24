@@ -42,7 +42,7 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(Formatter().toNoDecimalPlusCurrency(expenditureSum),
+                    child: Text(Formatter().toNoDecimal(expenditureSum),
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: myBlue),
                     ),
@@ -60,7 +60,7 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(Formatter().toNoDecimalPlusCurrency(incomeSum),
+                    child: Text(Formatter().toNoDecimal(incomeSum),
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: myBlue),
                     ),

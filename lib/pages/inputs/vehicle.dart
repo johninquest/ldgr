@@ -15,7 +15,7 @@ class InputVehiclePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter vehicle infos'),
+        title: Text('Enter vehicle info'),
         centerTitle: true,
       ),
       body: Container(

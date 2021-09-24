@@ -8,7 +8,7 @@ class InputPersonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter personal infos'),
+        title: Text('Enter personal info'),
         centerTitle: true,
       ),
       body: Container(child: Center(child: PersonForm(),),),
@@ -31,7 +31,7 @@ class _PersonFormState extends State<PersonForm> {
   String? givenNames;
   String? address; 
   String? phoneNumber; 
-  // String? email; 
+  String? email; 
   String? role;
 
   @override
@@ -46,9 +46,11 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    enabled: false,
+                    enabled: true,
                     decoration:
-                        InputDecoration(hintText: 'Surname'),
+                        InputDecoration(
+                          // hintText: 'Surname', 
+                          labelText: 'Surname'),
                     keyboardType: TextInputType.text, 
                     textCapitalization: TextCapitalization.words,
                     validator: (val) => val!.isEmpty
@@ -64,9 +66,9 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    enabled: false,
+                    enabled: true,
                     decoration:
-                        InputDecoration(hintText: 'Given names'),
+                        InputDecoration(labelText: 'Given names'),
                     keyboardType: TextInputType.text, 
                     textCapitalization: TextCapitalization.words,
                     validator: (val) => val!.isEmpty
@@ -82,9 +84,9 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    enabled: false,
+                    enabled: true,
                     decoration:
-                        InputDecoration(hintText: 'Address'),
+                        InputDecoration(labelText: 'Address'),
                     keyboardType: TextInputType.text, 
                     textCapitalization: TextCapitalization.words,
                     /* validator: (val) => val!.isEmpty
@@ -100,7 +102,7 @@ class _PersonFormState extends State<PersonForm> {
                   margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    enabled: false,
+                    enabled: true,
                     decoration:
                         InputDecoration(hintText: 'Phone number'),
                     keyboardType: TextInputType.text, 
@@ -110,6 +112,24 @@ class _PersonFormState extends State<PersonForm> {
                         : null, */
                     onChanged: (val) => setState(() {
                       phoneNumber = val;
+                      // print('License plate number => $val');
+                    }),
+                  )), 
+                  Container(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  margin: EdgeInsets.only(bottom: 10.0),
+                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                  child: TextFormField(
+                    enabled: true,
+                    decoration:
+                        InputDecoration(labelText: 'E-Mail'),
+                    keyboardType: TextInputType.text, 
+                    textCapitalization: TextCapitalization.words,
+                    /* validator: (val) => val!.isEmpty
+                        ? 'Please enter your phone number!'
+                        : null, */
+                    onChanged: (val) => setState(() {
+                      email = val;
                       // print('License plate number => $val');
                     }),
                   )),

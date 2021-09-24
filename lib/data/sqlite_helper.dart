@@ -62,7 +62,6 @@ class SQLiteDatabaseHelper {
       String sql =
           '''INSERT INTO $bkTable (category, source, amount, created_at) VALUES (?, ?, ?, datetime('now', 'localtime'))''';
       int qResult = await db.rawInsert(sql, qData);
-      // print(qResult);
       return qResult;
     } else {
       print('SQL SELECT query returned an error!');
@@ -70,7 +69,18 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future getAllRows() async {
+  Future<List<Record>> getAllRows() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  /*   Future getAllRows() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
@@ -80,31 +90,15 @@ class SQLiteDatabaseHelper {
       // print('SQL SELECT query returned an error!');
       return null;
     }
-  }
-
-  Future<List<Record>> getAllRows2() async {
-    final Database? db = await initializeDB();
-    if (db != null) {
-      String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
-      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      // print(qResult.map((e) => Record.fromMap(e)).toList());
-      return qResult.map((e) => Record.fromMap(e)).toList();
-    } else {
-      // print('SQL SELECT query returned an error!');
-      return [];
-    }
-  }
+  } */
 
   Future<List<Income>> getAllExpentures() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sql = 'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "expenditure" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      // print(qResult);
-      // return qResult.toList(); 
       return qResult.map((e) => Income.fromMap(e)).toList();
     } else {
-      // print('SQL SELECT query returned an error!');
       return [];
     }
   }
@@ -114,11 +108,8 @@ class SQLiteDatabaseHelper {
     if (db != null) {
       String sql = 'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "income" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      // print(qResult);
-      // return qResult.toList();
       return qResult.map((e) => Income.fromMap(e)).toList();
     } else {
-      // print('SQL SELECT query returned an error!');
       return [];
     }
   }

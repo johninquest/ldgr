@@ -40,7 +40,7 @@ class _AllRecordsState extends State<AllRecords> {
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder(
-        future: SQLiteDatabaseHelper().getAllRows2(),
+        future: SQLiteDatabaseHelper().getAllRows(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Record> response = snapshot.data as List<Record>;

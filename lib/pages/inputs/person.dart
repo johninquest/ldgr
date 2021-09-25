@@ -30,6 +30,8 @@ class _PersonFormState extends State<PersonForm> {
   String? surname; 
   String? givenNames;
   String? address; 
+  String? city; 
+  String? country; 
   String? phoneNumber; 
   String? email; 
   String? role;
@@ -50,7 +52,7 @@ class _PersonFormState extends State<PersonForm> {
                     decoration:
                         InputDecoration(
                           // hintText: 'Surname', 
-                          labelText: 'Surname'),
+                          labelText: 'Last name / Surname'),
                     keyboardType: TextInputType.text, 
                     textCapitalization: TextCapitalization.words,
                     validator: (val) => val!.isEmpty
@@ -68,7 +70,7 @@ class _PersonFormState extends State<PersonForm> {
                   child: TextFormField(
                     enabled: true,
                     decoration:
-                        InputDecoration(labelText: 'Given names'),
+                        InputDecoration(labelText: 'First name / Given names'),
                     keyboardType: TextInputType.text, 
                     textCapitalization: TextCapitalization.words,
                     validator: (val) => val!.isEmpty
@@ -94,9 +96,52 @@ class _PersonFormState extends State<PersonForm> {
                         : null, */
                     onChanged: (val) => setState(() {
                       address = val;
-                      // print('License plate number => $val');
                     }),
                   )),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.95, 
+                    margin: EdgeInsets.only(bottom: 10.0), 
+                    padding: EdgeInsets.only(left: 25.0, right: 25.0), 
+                    child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      margin: EdgeInsets.only(right: 5.0),
+                      child: TextFormField(
+                        // enabled: true,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                            hintText: 'City/Town',
+                            ),
+                        keyboardType: TextInputType.text, 
+                    textCapitalization: TextCapitalization.words,
+                    validator: (val) => val!.isEmpty
+                        ? 'Please enter given names'
+                        : null,
+                    onChanged: (val) => setState(() {
+                      city = val;
+                      // print('License plate number => $val');
+                    }),    
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      margin: EdgeInsets.only(left: 5.0),
+                      child: DropdownButtonFormField(
+                    isExpanded: true,
+                    hint: Text('Country'),
+                    items: MyItemList().countryList,
+                    validator: (val) =>
+                        val == null ? 'Please enter country' : null,
+                    onChanged: (val) =>
+                        setState(() => country = val as String?),
+                  ),
+                    ),
+                  ],
+                ),
+              ),
                   Container(
                   width: MediaQuery.of(context).size.width * 0.95,
                   margin: EdgeInsets.only(bottom: 10.0),

@@ -36,8 +36,8 @@ class VehicleForm extends StatefulWidget {
 
 class _VehicleFormState extends State<VehicleForm> {
   final _vehicleFormKey = GlobalKey<FormState>();
-  TextEditingController _plateNumber = TextEditingController(); 
-  TextEditingController _chassisNumber = TextEditingController(); 
+  TextEditingController _plateNumber = TextEditingController();
+  TextEditingController _chassisNumber = TextEditingController();
   TextEditingController _maker = TextEditingController();
   TextEditingController _model = TextEditingController();
   TextEditingController _firstRegDate = TextEditingController();
@@ -219,13 +219,13 @@ class _VehicleFormState extends State<VehicleForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
+                        print(_firstRegDate.text);
                         Map<String, dynamic> vehicleInfo = {
                           'licensePlateNumber': _plateNumber.text,
                           'chassisNumber': _chassisNumber.text,
                           'manufacturer': vehicleMaker ?? '',
                           'model': _model.text,
-                          'firstRegistrationDate':
-                              vehicleFirstRegistrationDate ?? '',
+                          'firstRegistrationDate': _firstRegDate.text,
                           'purchasePrice': _price.text,
                         };
                         String mapToStr = jsonEncode(vehicleInfo);

@@ -26,41 +26,37 @@ class StoredVehiclePage extends StatelessWidget {
           if (snapshot.hasData) {
             String? vData = snapshot.data as String;
             Map vDataStrToMap = jsonDecode(vData);
-            /* print(vData);
-            print(vDataStrToMap['firstRegistrationDate']); */
             return Container(
-              // width: MediaQuery.of(context).size.width * 0.95,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   MyTableRow(
                     rowName: 'License plate number',
-                    rowData: vDataStrToMap['licensePlateNumber'],
+                    rowData: vDataStrToMap['licensePlateNumber'] ?? '',
                   ),
                   MyTableRow(
                     rowName: 'Chassis number',
-                    rowData: vDataStrToMap['chassisNumber'],
+                    rowData: vDataStrToMap['chassisNumber'] ?? '',
                   ),
                   MyTableRow(
                     rowName: 'Manufacturer',
-                    rowData: vDataStrToMap['manufacturer'],
+                    rowData: vDataStrToMap['manufacturer'] ?? '',
                   ),
                   MyTableRow(
                     rowName: 'Model',
-                    rowData: vDataStrToMap['model'],
+                    rowData: vDataStrToMap['model'] ?? '',
                   ),
                   MyTableRow(
                     rowName: 'First registration date',
-                    rowData: Formatter().dbToUiDateTime(vDataStrToMap['firstRegistrationDate'])[0], 
+                    rowData: Formatter().dbToUiDateTime(vDataStrToMap['firstRegistrationDate'])[0] ?? '', 
                   ), 
                   MyTableRow(
                     rowName: 'Age',
-                    rowData: DateTimeHelper().ageFromDateStr(vDataStrToMap['firstRegistrationDate']),
+                    rowData: DateTimeHelper().ageFromDateStr(vDataStrToMap['firstRegistrationDate']) ?? '',
                   ),
                   MyTableRow(
                     rowName: 'Purchase price',
-                    rowData: addCurrencyCode(vDataStrToMap['purchasePrice']),
+                    rowData: addCurrencyCode(vDataStrToMap['purchasePrice']) ?? '',
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 10.0),

@@ -83,12 +83,11 @@ class _VehicleFormState extends State<VehicleForm> {
             children: [
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
-                  margin: EdgeInsets.only(bottom: 10.0),
+                  margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'License plate number',
-                      // hintText: 'License plate number'
                     ),
                     keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.characters,
@@ -97,12 +96,11 @@ class _VehicleFormState extends State<VehicleForm> {
                         : null,
                     onChanged: (val) => setState(() {
                       vehiclePlateNumber = val;
-                      // print('License plate number => $val');
                     }),
                   )),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
-                  margin: EdgeInsets.only(bottom: 10.0),
+                  margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
                     decoration: InputDecoration(
@@ -117,6 +115,7 @@ class _VehicleFormState extends State<VehicleForm> {
                   )),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
+                  margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: DropdownButtonFormField(
                     isExpanded: true,
@@ -129,11 +128,10 @@ class _VehicleFormState extends State<VehicleForm> {
                   )),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
-                  margin: EdgeInsets.only(bottom: 10.0),
+                  margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
                     decoration: InputDecoration(
-                        // hintText: 'Model',
                         labelText: 'Model'),
                     keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.words,
@@ -141,12 +139,11 @@ class _VehicleFormState extends State<VehicleForm> {
                         val!.isEmpty ? 'Please enter vehicle model' : null,
                     onChanged: (val) => setState(() {
                       vehicleModel = val;
-                      // print('The income amount => $val');
                     }),
                   )),
               Container(
                 width: MediaQuery.of(context).size.width * 0.95,
-                margin: EdgeInsets.only(bottom: 10.0),
+                margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,8 +153,8 @@ class _VehicleFormState extends State<VehicleForm> {
                       width: MediaQuery.of(context).size.width * 0.55,
                       margin: EdgeInsets.only(right: 5.0),
                       child: TextFormField(
-                        // enabled: true,
-                        readOnly: true,
+                        /* enabled: true,
+                        readOnly: true, */
                         decoration: InputDecoration(
                             hintText: initialDateHandler(selectedDate),
                             ),
@@ -179,11 +176,9 @@ class _VehicleFormState extends State<VehicleForm> {
               ),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
-                  margin: EdgeInsets.only(bottom: 10.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
                     decoration: InputDecoration(
-                        // hintText: 'Enter price',
                         labelText: 'Price'),
                     keyboardType: TextInputType.number,
                     onChanged: (val) => setState(() {
@@ -220,15 +215,11 @@ class _VehicleFormState extends State<VehicleForm> {
                           'purchasePrice': vehiclePrice ?? ''
                         };
                         String mapToStr = jsonEncode(vehicleInfo);
-                        /*SharedPreferencesHelper()
-                            .saveData('vehicleData', mapToStr);
-                        PageRouter()
-                            .navigateToPage(InputVehiclePage(), context); */
                         if (_vehicleFormKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
+                          /* ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 content: Text('Saving vehicle information...')),
-                          );
+                          ); */
                            SharedPreferencesHelper()
                             .saveData('vehicleData', mapToStr);
                           PageRouter()

@@ -69,7 +69,7 @@ class StoredVehiclePage extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () => PageRouter()
                                   .navigateToPage(InputVehiclePage(), context),
-                              child: Text('CHANGE'),
+                              child: Text('EDIT'),
                               style: ElevatedButton.styleFrom(primary: myBlue),
                             )),
                         Container(

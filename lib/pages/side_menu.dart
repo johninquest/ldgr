@@ -4,7 +4,7 @@ import 'package:tba/services/router.dart';
 import 'package:tba/pages/inputs/vehicle.dart';
 import 'package:tba/pages/inputs/person.dart';
 import 'package:tba/pages/about.dart';
-import 'package:tba/pages/stored_vehicle.dart';
+import 'package:tba/pages/view/vehicle.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({ Key? key }) : super(key: key);

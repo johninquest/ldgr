@@ -65,7 +65,6 @@ class MyItemList {
       DropdownMenuItem(value: 'egypt', child: Container(child: Text('Egypt', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'equatorial_guinea', child: Container(child: Text('Equatorial Guinea', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'eritrea', child: Container(child: Text('Eritrea', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'dr_congo', child: Container(child: Text('Congo, DRC', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'eswatini', child: Container(child: Text('Eswatini', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'ethiopia', child: Container(child: Text('Ethiopia', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'gabon', child: Container(child: Text('Gabon', style: DropdownListStyle),)),   

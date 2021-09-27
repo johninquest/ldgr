@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/data/sp_helper.dart';
-import 'package:tba/pages/stored_vehicle.dart';
+import 'package:tba/pages/view/vehicle.dart';
 
 class InputVehiclePage extends StatelessWidget {
   const InputVehiclePage({Key? key}) : super(key: key);
@@ -36,6 +36,12 @@ class VehicleForm extends StatefulWidget {
 
 class _VehicleFormState extends State<VehicleForm> {
   final _vehicleFormKey = GlobalKey<FormState>();
+  TextEditingController _plateNumber = TextEditingController(); 
+  TextEditingController _chassisNumber = TextEditingController(); 
+  TextEditingController _maker = TextEditingController();
+  TextEditingController _model = TextEditingController();
+  TextEditingController _firstRegDate = TextEditingController();
+  TextEditingController _price = TextEditingController();
 
   String? vehiclePlateNumber;
   String? vehicleChassisNumber;
@@ -43,7 +49,6 @@ class _VehicleFormState extends State<VehicleForm> {
   String? vehicleModel;
   String? vehicleFirstRegistrationDate;
   String? vehiclePrice;
-
 
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
@@ -67,6 +72,10 @@ class _VehicleFormState extends State<VehicleForm> {
     SharedPreferencesHelper().readData('vehicleData').then((value) {
       setState(() {
         storedVehicleData = value;
+        _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'];
+        _chassisNumber.text = getStoredVehicle(value)['chassisNumber'];
+        _model.text = getStoredVehicle(value)['model'];
+        _price.text = getStoredVehicle(value)['purchasePrice'];
       });
     });
   }
@@ -86,6 +95,7 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
+                    controller: _plateNumber,
                     decoration: InputDecoration(
                       labelText: 'License plate number',
                     ),
@@ -94,15 +104,16 @@ class _VehicleFormState extends State<VehicleForm> {
                     validator: (val) => val!.isEmpty
                         ? 'Please enter license plate number'
                         : null,
-                    onChanged: (val) => setState(() {
+/*                     onChanged: (val) => setState(() {
                       vehiclePlateNumber = val;
-                    }),
+                    }), */
                   )),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
                   margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
+                    controller: _chassisNumber,
                     decoration: InputDecoration(
                       // hintText: 'Chassis number',
                       labelText: 'Chassis number',
@@ -121,8 +132,9 @@ class _VehicleFormState extends State<VehicleForm> {
                     isExpanded: true,
                     hint: Text('Manufacturer'),
                     items: MyItemList().vehicleMakerList,
-                    validator: (val) =>
-                        val == null ? 'Please select vehicle manufacturer' : null,
+                    validator: (val) => val == null
+                        ? 'Please select vehicle manufacturer'
+                        : null,
                     onChanged: (val) =>
                         setState(() => vehicleMaker = val as String?),
                   )),
@@ -131,8 +143,8 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Model'),
+                    controller: _model,
+                    decoration: InputDecoration(labelText: 'Model'),
                     keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.words,
                     validator: (val) =>
@@ -153,16 +165,17 @@ class _VehicleFormState extends State<VehicleForm> {
                       width: MediaQuery.of(context).size.width * 0.55,
                       margin: EdgeInsets.only(right: 5.0),
                       child: TextFormField(
+                        controller: _firstRegDate,
                         /* enabled: true,
                         readOnly: true, */
                         decoration: InputDecoration(
-                            hintText: initialDateHandler(selectedDate),
-                            ),
+                          hintText: initialDateHandler(selectedDate),
+                        ),
                         onTap: () => _selectDate(context),
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: MediaQuery.of(context).size.width * 0.24,
                       margin: EdgeInsets.only(left: 5.0),
                       child: TextFormField(
                         enabled: false,
@@ -178,8 +191,8 @@ class _VehicleFormState extends State<VehicleForm> {
                   width: MediaQuery.of(context).size.width * 0.95,
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Price'),
+                    controller: _price,
+                    decoration: InputDecoration(labelText: 'Price'),
                     keyboardType: TextInputType.number,
                     onChanged: (val) => setState(() {
                       vehiclePrice = val;
@@ -207,12 +220,13 @@ class _VehicleFormState extends State<VehicleForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         Map<String, dynamic> vehicleInfo = {
-                          'licensePlateNumber': vehiclePlateNumber ?? '', 
-                          'chassisNumber': vehicleChassisNumber ?? '',
+                          'licensePlateNumber': _plateNumber.text,
+                          'chassisNumber': _chassisNumber.text,
                           'manufacturer': vehicleMaker ?? '',
-                          'model': vehicleModel ?? '',
-                          'firstRegistrationDate': vehicleFirstRegistrationDate ?? '',
-                          'purchasePrice': vehiclePrice ?? ''
+                          'model': _model.text,
+                          'firstRegistrationDate':
+                              vehicleFirstRegistrationDate ?? '',
+                          'purchasePrice': _price.text,
                         };
                         String mapToStr = jsonEncode(vehicleInfo);
                         if (_vehicleFormKey.currentState!.validate()) {
@@ -220,8 +234,8 @@ class _VehicleFormState extends State<VehicleForm> {
                             SnackBar(
                                 content: Text('Saving vehicle information...')),
                           ); */
-                           SharedPreferencesHelper()
-                            .saveData('vehicleData', mapToStr);
+                          SharedPreferencesHelper()
+                              .saveData('vehicleData', mapToStr);
                           PageRouter()
                               .navigateToPage(StoredVehiclePage(), context);
                         }
@@ -270,9 +284,18 @@ storedDateHandler(DateTime mySelectedDate) {
   }
 }
 
-getStoredVehicleData() {
+/* getStoredVehicleData() {
   SharedPreferencesHelper().readData('vehicleData').then((value) {
     Widget dataHolder = Text('$value');
     return dataHolder;
   });
+} */
+
+getStoredVehicle(String? vehicleStr) {
+  if (vehicleStr != null) {
+    Map strToMap = jsonDecode(vehicleStr);
+    return strToMap;
+  } else {
+    return null;
+  }
 }

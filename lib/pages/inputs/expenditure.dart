@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
+import 'package:tba/services/error_handler.dart';
 import 'package:tba/pages/records/all.dart';
 
 class InputExpenditurePage extends StatelessWidget {
@@ -41,6 +43,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime moment = DateTime.now();
     return Form(
       key: _expenditureFormKey,
       child: SingleChildScrollView(
@@ -48,6 +51,15 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 20.0),
+              padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+              child: Text(
+                DateTimeHelper().dateInWords(moment),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: myRed, fontSize: 18.0),
+              ),
+            ),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -99,8 +111,10 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_expenditureFormKey.currentState!.validate()) {
+                        String parsedExpenditureAmount =
+                            ErrorHandler().moneyInput(expenditureAmount!);
                         SQLiteDatabaseHelper().insertRow('expenditure',
-                            '$expenditureSource', '$expenditureAmount');
+                            '$expenditureSource', '$parsedExpenditureAmount');
                         PageRouter().navigateToPage(AllRecords(), context);
                       }
                     },

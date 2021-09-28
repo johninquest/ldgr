@@ -4,7 +4,7 @@ class Record {
   final int id;
   final String category;
   final String source;
-  final double amount;
+  final num amount;
   final String createdAt;
   final String? lastUpdateAt;
 
@@ -40,7 +40,7 @@ class Record {
 class Income {
   final int id;
   final String source;
-  final double amount;
+  final num amount;
   final String createdAt;
   Income({
     required this.id,

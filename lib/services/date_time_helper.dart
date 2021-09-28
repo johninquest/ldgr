@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class DateTimeHelper {
   timestampForDB() {
@@ -6,7 +7,6 @@ class DateTimeHelper {
     DateTime dt = DateTime.now();
     String dtToString = dbDateTimeFormat.format(dt);
     return dtToString;
-    // print(dtToString);
   }
 
   ageFromDate(DateTime pickedDate) {
@@ -29,6 +29,16 @@ class DateTimeHelper {
       return diffInYears;
     } else {
       return '0';
+    }
+  }
+
+  dateInWords(DateTime? dt) {
+    if (dt != null) {
+      initializeDateFormatting();
+      String displayedDate = DateFormat.yMMMMEEEEd('en').format(dt);
+      return displayedDate;
+    } else {
+      return 'Date not available';
     }
   }
 }

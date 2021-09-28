@@ -88,7 +88,7 @@ class Formatter {
     }
   }
 
-  toNoDecimal(double? amountInDouble) {
+  toNoDecimal(num? amountInDouble) {
     if (amountInDouble != null && amountInDouble is double) {
       String amountAsStr = amountInDouble.toStringAsFixed(0);
       return amountAsStr;

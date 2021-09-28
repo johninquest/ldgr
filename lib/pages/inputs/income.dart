@@ -5,6 +5,8 @@ import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/records/all.dart';
 import 'package:tba/styles/colors.dart';
+import 'package:tba/services/error_handler.dart';
+import 'package:tba/services/date_time_helper.dart';
 
 class InputIncomePage extends StatelessWidget {
   const InputIncomePage({Key? key}) : super(key: key);
@@ -41,6 +43,7 @@ class _IncomeFormState extends State<IncomeForm> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime moment = DateTime.now();
     return Container(
       child: Form(
         key: _incomeFormKey,
@@ -49,6 +52,11 @@ class _IncomeFormState extends State<IncomeForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Container(
+              margin: EdgeInsets.only(bottom: 20.0),
+              padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+              child: Text(DateTimeHelper().dateInWords(moment), style: TextStyle(fontWeight: FontWeight.bold, color: myGreen, fontSize: 18.0),),
+            ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.95, 
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -94,8 +102,10 @@ class _IncomeFormState extends State<IncomeForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_incomeFormKey.currentState!.validate()) {
+                          String parsedIncomeAmount =
+                            ErrorHandler().moneyInput(incomeAmount!);
                         SQLiteDatabaseHelper().insertRow('income',
-                          '$incomeSource', '$incomeAmount');
+                          '$incomeSource', parsedIncomeAmount);
                         PageRouter().navigateToPage(AllRecords(), context);  
                       }
                       },

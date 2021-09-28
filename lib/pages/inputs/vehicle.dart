@@ -76,6 +76,8 @@ class _VehicleFormState extends State<VehicleForm> {
         _chassisNumber.text = getStoredVehicle(value)['chassisNumber'];
         _model.text = getStoredVehicle(value)['model'];
         _price.text = getStoredVehicle(value)['purchasePrice'];
+        vehicleMaker = getStoredVehicle(value)['maker'];
+        print(vehicleMaker);
       });
     });
   }
@@ -129,6 +131,7 @@ class _VehicleFormState extends State<VehicleForm> {
                   margin: EdgeInsets.only(bottom: 5.0),
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
                   child: DropdownButtonFormField(
+                    value: vehicleMaker,
                     isExpanded: true,
                     hint: Text('Manufacturer'),
                     items: MyItemList().vehicleMakerList,
@@ -219,13 +222,13 @@ class _VehicleFormState extends State<VehicleForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        print(_firstRegDate.text);
+                        // print(_firstRegDate.text);
                         Map<String, dynamic> vehicleInfo = {
                           'licensePlateNumber': _plateNumber.text,
                           'chassisNumber': _chassisNumber.text,
                           'manufacturer': vehicleMaker ?? '',
                           'model': _model.text,
-                          'firstRegistrationDate': _firstRegDate.text,
+                          'firstRegistrationDate': vehicleFirstRegistrationDate,
                           'purchasePrice': _price.text,
                         };
                         String mapToStr = jsonEncode(vehicleInfo);

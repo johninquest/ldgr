@@ -30,6 +30,14 @@ class PersonForm extends StatefulWidget {
 
 class _PersonFormState extends State<PersonForm> {
   final _personFormKey = GlobalKey<FormState>();
+  TextEditingController _surname = TextEditingController();
+  TextEditingController _givenNames = TextEditingController(); 
+  TextEditingController _address = TextEditingController(); 
+  TextEditingController _city = TextEditingController(); 
+  TextEditingController _country = TextEditingController();
+  TextEditingController _phone = TextEditingController(); 
+  TextEditingController _email = TextEditingController(); 
+  TextEditingController _role = TextEditingController();
 
   String? surname;
   String? givenNames;
@@ -54,6 +62,7 @@ class _PersonFormState extends State<PersonForm> {
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: TextFormField(
+                  controller: _surname,
                   enabled: true,
                   decoration: InputDecoration(
                       // hintText: 'Surname',
@@ -71,6 +80,7 @@ class _PersonFormState extends State<PersonForm> {
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: TextFormField(
+                  controller: _givenNames,
                   enabled: true,
                   decoration:
                       InputDecoration(labelText: 'First name/Given names'),
@@ -88,6 +98,7 @@ class _PersonFormState extends State<PersonForm> {
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: TextFormField(
+                  controller: _address,
                   enabled: true,
                   decoration: InputDecoration(labelText: 'Address'),
                   keyboardType: TextInputType.streetAddress,
@@ -101,6 +112,7 @@ class _PersonFormState extends State<PersonForm> {
               margin: EdgeInsets.only(bottom: 5.0),
               padding: EdgeInsets.only(left: 25.0, right: 25.0),
               child: TextFormField(
+                controller: _city,
                 enabled: true,
                 decoration: InputDecoration(
                   hintText: 'City/Town',
@@ -117,6 +129,7 @@ class _PersonFormState extends State<PersonForm> {
               margin: EdgeInsets.only(bottom: 5.0),
               padding: EdgeInsets.only(left: 25.0, right: 25.0),
               child: DropdownButtonFormField(
+                // value: '',
                 isExpanded: true,
                 hint: Text('Country'),
                 items: MyItemList().countryList,
@@ -130,6 +143,7 @@ class _PersonFormState extends State<PersonForm> {
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: TextFormField(
+                  controller: _phone,
                   enabled: true,
                   decoration: InputDecoration(hintText: 'Phone number'),
                   keyboardType: TextInputType.phone,
@@ -143,6 +157,7 @@ class _PersonFormState extends State<PersonForm> {
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: TextFormField(
+                  controller: _email,
                   enabled: true,
                   decoration: InputDecoration(labelText: 'E-mail'),
                   keyboardType: TextInputType.emailAddress,
@@ -154,6 +169,7 @@ class _PersonFormState extends State<PersonForm> {
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: DropdownButtonFormField(
+                  // value: '',
                   isExpanded: true,
                   hint: Text('Role'),
                   items: MyItemList().personRoleList,

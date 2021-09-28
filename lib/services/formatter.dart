@@ -46,7 +46,7 @@ class Formatter {
   }
 
   dbToUiDateTime(String? dbDateTime) {
-    print('Date data => $dbDateTime');
+    // print('Date data => $dbDateTime');
     if (dbDateTime != null && dbDateTime != '') {
       DateTime parsedDateTime = DateTime.parse(dbDateTime);
       DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
@@ -88,15 +88,18 @@ class Formatter {
     }
   }
 
-  toNoDecimal(double amountInDouble) {
-    print(amountInDouble);
-    String amountAsStr = amountInDouble.toStringAsFixed(0);
-    return amountAsStr;
+  toNoDecimal(double? amountInDouble) {
+    if (amountInDouble != null && amountInDouble is double) {
+      String amountAsStr = amountInDouble.toStringAsFixed(0);
+      return amountAsStr;
+    } else {
+      return '0';
+    }
   }
 
-  toNoDecimalPlusCurrency(double amountInDouble) {
+/*   toNoDecimalPlusCurrency(double amountInDouble) {
     print(amountInDouble);
     String amountAsStr = amountInDouble.toStringAsFixed(0);
     return 'XAF $amountAsStr';
-  }
+  } */
 }

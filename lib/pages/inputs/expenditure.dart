@@ -69,8 +69,13 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 child: TextFormField(
                   decoration: InputDecoration(hintText: 'Amount'),
                   keyboardType: TextInputType.number,
-                  validator: (val) =>
-                      val!.isEmpty ? 'Please enter an amount!' : null,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Please enter an amount!';
+                    }
+                  },
+                  /* validator: (val) =>
+                      val!.isEmpty ? 'Please enter an amount!' : null, */
                   onChanged: (val) => setState(() {
                     expenditureAmount = val;
                   }),
@@ -95,8 +100,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     onPressed: () {
                       if (_expenditureFormKey.currentState!.validate()) {
                         SQLiteDatabaseHelper().insertRow('expenditure',
-                          '$expenditureSource', '$expenditureAmount');
-                        PageRouter().navigateToPage(AllRecords(), context);  
+                            '$expenditureSource', '$expenditureAmount');
+                        PageRouter().navigateToPage(AllRecords(), context);
                       }
                     },
                     child: Text('SAVE'),

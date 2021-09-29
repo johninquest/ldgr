@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tba/shared/lists.dart';
 import 'dart:convert';
+import 'package:tba/data/sp_helper.dart';
 
 class InputPersonPage extends StatelessWidget {
   const InputPersonPage({Key? key}) : super(key: key);
@@ -44,9 +45,29 @@ class _PersonFormState extends State<PersonForm> {
   String? address;
   String? city;
   String? country;
-  String? phoneNumber;
+  String? phone;
   String? eMail;
   String? role;
+
+   String? storedPersonData;
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesHelper().readData('personData').then((value) {
+      setState(() {
+        storedPersonData = value;
+        _surname.text = getStoredPerson(value)['surname'];
+        _givenNames.text = getStoredPerson(value)['given_names']; 
+        _address.text = getStoredPerson(value)['address'];
+        _city.text = getStoredPerson(value)['city']; 
+        _country.text = getStoredPerson(value)['country']; 
+        _phone.text = getStoredPerson(value)['phone'];
+        _email.text = getStoredPerson(value)['email']; 
+        _role.text = getStoredPerson(value)['role'];
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +170,7 @@ class _PersonFormState extends State<PersonForm> {
                   keyboardType: TextInputType.phone,
                   textCapitalization: TextCapitalization.words,
                   onChanged: (val) => setState(() {
-                    phoneNumber = val;
+                    phone = val;
                   }),
                 )),
             Container(
@@ -199,13 +220,13 @@ class _PersonFormState extends State<PersonForm> {
                   child: ElevatedButton(
                     onPressed: () {
                       Map<String, dynamic> personInfo = {
-                        'surname': surname ?? '',
-                        'given_names': givenNames ?? '',
-                        'address': address ?? '',
-                        'city': city ?? '',
+                        'surname': _surname.text,
+                        'given_names': _givenNames.text,
+                        'address': _address.text,
+                        'city': _city.text,
                         'country': country ?? '',
-                        'phone': phoneNumber ?? '',
-                        'email': eMail ?? '',
+                        'phone': _phone.text,
+                        'email': _email.text,
                         'role': role ?? '',
                       };
                       String personMapToStr = jsonEncode(personInfo);
@@ -230,5 +251,14 @@ class _PersonFormState extends State<PersonForm> {
         )),
       ),
     );
+  }
+}
+
+getStoredPerson(String? personStr) {
+  if (personStr != null) {
+    Map strToMap = jsonDecode(personStr);
+    return strToMap;
+  } else {
+    return null;
   }
 }

@@ -7,7 +7,7 @@ class InputHandler {
     }
   }
 
-  stringInput(String? value) {
+  stringCheck(String? value) {
     if (value == null) {
       return '';
     }

@@ -35,7 +35,7 @@ class MyItemList {
       DropdownMenuItem(value: 'peugeot', child: Container(child: Text('PEUGEOT', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'renault', child: Container(child: Text('RENAULT', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'toyota', child: Container(child: Text('TOYOTA', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'volkswagen', child: Container(child: Text('VW', style: DropdownListStyle),)),
+      DropdownMenuItem(value: 'vw', child: Container(child: Text('VW', style: DropdownListStyle),)),
   ];
 
   List<DropdownMenuItem<String>> personRoleList = [

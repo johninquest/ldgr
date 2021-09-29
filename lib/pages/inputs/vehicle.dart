@@ -77,7 +77,8 @@ class _VehicleFormState extends State<VehicleForm> {
         _model.text = getStoredVehicle(value)['model'];
         _price.text = getStoredVehicle(value)['purchasePrice'];
         vehicleMaker = getStoredVehicle(value)['maker'];
-        print(vehicleMaker);
+        // print(getStoredVehicle(value)['manufacturer']);
+        // print(vehicleMaker);
       });
     });
   }
@@ -226,7 +227,7 @@ class _VehicleFormState extends State<VehicleForm> {
                         Map<String, dynamic> vehicleInfo = {
                           'licensePlateNumber': _plateNumber.text,
                           'chassisNumber': _chassisNumber.text,
-                          'manufacturer': vehicleMaker ?? '',
+                          'maker': vehicleMaker ?? '',
                           'model': _model.text,
                           'firstRegistrationDate': vehicleFirstRegistrationDate,
                           'purchasePrice': _price.text,
@@ -286,13 +287,6 @@ storedDateHandler(DateTime mySelectedDate) {
     return selectedDateFormatted;
   }
 }
-
-/* getStoredVehicleData() {
-  SharedPreferencesHelper().readData('vehicleData').then((value) {
-    Widget dataHolder = Text('$value');
-    return dataHolder;
-  });
-} */
 
 getStoredVehicle(String? vehicleStr) {
   if (vehicleStr != null) {

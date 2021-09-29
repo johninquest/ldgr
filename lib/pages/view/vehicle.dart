@@ -5,7 +5,7 @@ import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
-import 'package:tba/services/formatter.dart'; 
+import 'package:tba/services/formatter.dart';
 import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 import 'dart:convert';
@@ -25,6 +25,7 @@ class StoredVehiclePage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             String? vData = snapshot.data as String;
+            print(vData);
             Map vDataStrToMap = jsonDecode(vData);
             return Container(
               child: Column(
@@ -40,7 +41,7 @@ class StoredVehiclePage extends StatelessWidget {
                   ),
                   MyTableRow(
                     rowName: 'Manufacturer',
-                    rowData: vDataStrToMap['manufacturer'] ?? '',
+                    rowData: vDataStrToMap['maker'] ?? '',
                   ),
                   MyTableRow(
                     rowName: 'Model',
@@ -48,15 +49,20 @@ class StoredVehiclePage extends StatelessWidget {
                   ),
                   MyTableRow(
                     rowName: 'First registration date',
-                    rowData: Formatter().dbToUiDateTime(vDataStrToMap['firstRegistrationDate'])[0] ?? '', 
-                  ), 
+                    rowData: Formatter().dbToUiDateTime(
+                            vDataStrToMap['firstRegistrationDate'])[0] ??
+                        '',
+                  ),
                   MyTableRow(
                     rowName: 'Age',
-                    rowData: DateTimeHelper().ageFromDateStr(vDataStrToMap['firstRegistrationDate']) ?? '',
+                    rowData: DateTimeHelper().ageFromDateStr(
+                            vDataStrToMap['firstRegistrationDate']) ??
+                        '',
                   ),
                   MyTableRow(
                     rowName: 'Purchase price',
-                    rowData: addCurrencyCode(vDataStrToMap['purchasePrice']) ?? '',
+                    rowData:
+                        addCurrencyCode(vDataStrToMap['purchasePrice']) ?? '',
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 10.0),
@@ -162,9 +168,9 @@ class MyTableRow extends StatelessWidget {
 }
 
 addCurrencyCode(String amt) {
-  if(amt != '') {
+  if (amt != '') {
     return 'XAF $amt';
-  }else {
+  } else {
     return 'XAF 0';
   }
 }

@@ -4,7 +4,7 @@ import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
-import 'package:tba/services/error_handler.dart';
+import 'package:tba/services/preprocessor.dart';
 import 'package:tba/pages/records/all.dart';
 
 class InputExpenditurePage extends StatelessWidget {
@@ -112,7 +112,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     onPressed: () {
                       if (_expenditureFormKey.currentState!.validate()) {
                         String parsedExpenditureAmount =
-                            ErrorHandler().moneyInput(expenditureAmount!);
+                            InputHandler().moneyCheck(expenditureAmount!);
                         SQLiteDatabaseHelper().insertRow('expenditure',
                             '$expenditureSource', '$parsedExpenditureAmount');
                         PageRouter().navigateToPage(AllRecords(), context);

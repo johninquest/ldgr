@@ -1,5 +1,5 @@
-class ErrorHandler {
-  moneyInput(String amt) {
+class InputHandler {
+  moneyCheck(String amt) {
     if (num.tryParse(amt) != null) {
       return amt;
     } else {

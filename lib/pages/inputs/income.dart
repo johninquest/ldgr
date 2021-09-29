@@ -5,7 +5,7 @@ import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/records/all.dart';
 import 'package:tba/styles/colors.dart';
-import 'package:tba/services/error_handler.dart';
+import 'package:tba/services/preprocessor.dart';
 import 'package:tba/services/date_time_helper.dart';
 
 class InputIncomePage extends StatelessWidget {
@@ -103,7 +103,7 @@ class _IncomeFormState extends State<IncomeForm> {
                       onPressed: () {
                         if (_incomeFormKey.currentState!.validate()) {
                           String parsedIncomeAmount =
-                            ErrorHandler().moneyInput(incomeAmount!);
+                            InputHandler().moneyCheck(incomeAmount!);
                         SQLiteDatabaseHelper().insertRow('income',
                           '$incomeSource', parsedIncomeAmount);
                         PageRouter().navigateToPage(AllRecords(), context);  

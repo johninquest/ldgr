@@ -6,6 +6,8 @@ import 'package:tba/styles/colors.dart';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
+import 'package:tba/services/preprocessor.dart';
+import 'package:tba/services/currency.dart';
 import 'dart:convert';
 
 class StoredVehiclePage extends StatelessWidget {
@@ -13,6 +15,11 @@ class StoredVehiclePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? currentCountry;
+    SharedPreferencesHelper().readData('personData').then((value) {
+      currentCountry = DataParser().strToMap(value)['country'];
+      // print(currentCountry);
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text('My vehicle'),
@@ -50,12 +57,11 @@ class StoredVehiclePage extends StatelessWidget {
                     rowData: vDataStrToMap['firstRegistrationDate'] ?? '',
                   ),
                   MyTableRow(
-                      rowName: 'Age',
-                      rowData: vDataStrToMap['age'] ?? ''),
+                      rowName: 'Age', rowData: vDataStrToMap['age'] ?? ''),
                   MyTableRow(
                     rowName: 'Purchase price',
-                    rowData:
-                        addCurrencyCode(vDataStrToMap['purchasePrice']) ?? '',
+                    // rowData: vDataStrToMap['purchasePrice'] ?? '', 
+                    rowData: '${CurrencyHandler().fromCountry(currentCountry)} ${vDataStrToMap["purchasePrice"]}',
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 10.0),
@@ -64,32 +70,34 @@ class StoredVehiclePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: ElevatedButton(
+                                  onPressed: () => PageRouter().navigateToPage(
+                                      InputVehiclePage(), context),
+                                  child: Text('EDIT'),
+                                  style:
+                                      ElevatedButton.styleFrom(primary: myBlue),
+                                )),
+                            Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: ElevatedButton(
+                                  onPressed: () => ScaffoldMessenger.of(context)
+                                      .showSnackBar(
+                                    SnackBar(
+                                        content:
+                                            Text('Still under construction!')),
+                                  ),
+                                  child: Text('PRINT'),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.blueGrey),
+                                )),
+                          ],
+                        ),
                         Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: ElevatedButton(
-                              onPressed: () => PageRouter()
-                                  .navigateToPage(InputVehiclePage(), context),
-                              child: Text('EDIT'),
-                              style: ElevatedButton.styleFrom(primary: myBlue),
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: ElevatedButton(
-                              onPressed: () =>
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text('Still under construction!')),
-                              ),
-                              child: Text('PRINT'),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.blueGrey),
-                            )),
-                      ],
-                    ),
-                    Container(
                             margin: EdgeInsets.only(top: 10.0),
                             child: ElevatedButton(
                               onPressed: () {
@@ -104,8 +112,7 @@ class StoredVehiclePage extends StatelessWidget {
                                     InputVehiclePage(), context);
                               },
                               child: Text('DELETE'),
-                              style:
-                                  ElevatedButton.styleFrom(primary: myRed),
+                              style: ElevatedButton.styleFrom(primary: myRed),
                             ))
                       ],
                     ),

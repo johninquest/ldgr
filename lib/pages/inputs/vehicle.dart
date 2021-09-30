@@ -80,10 +80,10 @@ class _VehicleFormState extends State<VehicleForm> {
           _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'] ?? ''; 
           _chassisNumber.text = getStoredVehicle(value)['chassisNumber'] ?? ''; 
           _model.text = getStoredVehicle(value)['model'] ?? ''; 
-          _price.text = getStoredVehicle(value)['purchasePrice'] ?? ''; 
           vehicleMaker = getStoredVehicle(value)['maker'] ?? ''; 
           _firstRegistrationDate.text = getStoredVehicle(value)['firstRegistrationDate'] ?? ''; 
-          _age.text = getStoredVehicle(value)['age'] ?? '';
+          _age.text = getStoredVehicle(value)['age'] ?? ''; 
+          _price.text = getStoredVehicle(value)['purchasePrice'] ?? ''; 
         }
       });
     });
@@ -140,14 +140,15 @@ class _VehicleFormState extends State<VehicleForm> {
                   child: DropdownButtonFormField(
                     value: vehicleMaker,
                     isExpanded: true,
-                    hint: Text('Manufacturer'),
+                    // hint: Text('Manufacturer'),
                     items: MyItemList().vehicleMakerList,
                     validator: (val) => val == null
                         ? 'Please select vehicle manufacturer'
                         : null,
                     onChanged: (val) =>
                         setState(() => vehicleMaker = val as String?),
-                  )),
+                    decoration: InputDecoration(labelText: 'Manufacturer'),    
+                  ),),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
                   margin: EdgeInsets.only(bottom: 5.0),

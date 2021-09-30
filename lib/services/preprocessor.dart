@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class InputHandler {
   moneyCheck(String amt) {
     if (num.tryParse(amt) != null) {
@@ -10,6 +12,22 @@ class InputHandler {
   stringCheck(String? value) {
     if (value == null) {
       return '';
+    }
+  }
+}
+
+class DataParser {
+  strToMap(String? myStr) {
+    if (myStr != null) {
+      Map toMap = jsonDecode(myStr);
+      return toMap;
+    }
+  }
+
+  mapToStr(Map? myMap) {
+    if (myMap != null) {
+      String toStr = jsonEncode(myMap);
+      return toStr;
     }
   }
 }

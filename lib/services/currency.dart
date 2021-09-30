@@ -1,48 +1,82 @@
+import 'dart:convert';
+
+import 'package:tba/data/sp_helper.dart'; 
+
 class CurrencyHandler {
+
+  String? currentCountry; 
+
+  getCountry() {
+    SharedPreferencesHelper().readData('personData').then((value) {
+      if(value != null) {
+        currentCountry = parsePersonData(value)['country'];
+      }
+    });
+  }
+
+  parsePersonData(String? personStr) {
+  if (personStr != null) {
+    Map strToMap = jsonDecode(personStr);
+    return strToMap;
+  } else {
+    return {};
+  }
+}
+
+  
+
   fromCountry(String? country) {
-    switch (country) { 
+    switch (country) {
       case 'burundi':
-        return 'BIF'; 
+        return 'BIF';
       case 'cameroon':
-        return 'XAF'; 
+        return 'XAF';
       case 'ethiopia':
-        return 'ETB'; 
+        return 'ETB';
       case 'eswatini':
-        return 'SZL';   
+        return 'SZL';
       case 'ghana':
-        return 'GHS'; 
+        return 'GHS';
       case 'gambia':
-        return 'GMD'; 
+        return 'GMD';
       case 'kenya':
-        return 'KES';       
+        return 'KES';
       case 'liberia':
-        return 'LRD';  
+        return 'LRD';
       case 'malawi':
-        return 'MWK'; 
+        return 'MWK';
       case 'mauritius':
-        return 'MUR';       
+        return 'MUR';
       case 'nigeria':
         return 'NGN';
       case 'rwanda':
-        return 'RWF'; 
+        return 'RWF';
       case 'seychelles':
-        return 'SCR';     
+        return 'SCR';
       case 'sierra_leone':
-        return 'SLL'; 
+        return 'SLL';
       case 'south_africa':
-        return 'ZAR'; 
+        return 'ZAR';
       case 'south_sudan':
-        return 'SSP';  
+        return 'SSP';
       case 'sudan':
-        return 'SDG';       
+        return 'SDG';
       case 'tanzania':
-        return 'TZS';   
+        return 'TZS';
       case 'uganda':
-        return 'UGX';   
+        return 'UGX';
       case 'zambia':
-        return 'ZMW';      
+        return 'ZMW';
       default:
         return '';
     }
+  }
+
+
+  addCurrencyToAmount(String? currency, String? amount) {
+    if (currency != '') {
+      return '$currency $amount';
+    } else
+      return '';
   }
 }

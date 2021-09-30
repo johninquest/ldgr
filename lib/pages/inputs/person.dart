@@ -35,28 +35,26 @@ class _PersonFormState extends State<PersonForm> {
   TextEditingController _givenNames = TextEditingController(); 
   TextEditingController _address = TextEditingController(); 
   TextEditingController _city = TextEditingController(); 
-  // TextEditingController _country = TextEditingController();
   TextEditingController _phone = TextEditingController(); 
   TextEditingController _email = TextEditingController(); 
-  // TextEditingController _role = TextEditingController();
 
-  String? surname;
+  String? country;
+  String? role;
+
+/*   String? surname;
   String? givenNames;
   String? address;
   String? city;
   String? country;
   String? phone;
   String? eMail;
-  String? role;
-
-   // String? storedPersonData;
+  String? role; */
 
   @override
   void initState() {
     super.initState();
     SharedPreferencesHelper().readData('personData').then((value) {
       setState(() {
-        // storedPersonData = value;
         if(value != null) {
           _surname.text = getStoredPerson(value)['surname'];
         _givenNames.text = getStoredPerson(value)['given_names']; 
@@ -94,9 +92,9 @@ class _PersonFormState extends State<PersonForm> {
                   textCapitalization: TextCapitalization.words,
                   validator: (val) =>
                       val!.isEmpty ? 'Please enter last name / surname' : null,
-                  onChanged: (val) => setState(() {
+                  /* onChanged: (val) => setState(() {
                     surname = val;
-                  }),
+                  }), */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -112,9 +110,9 @@ class _PersonFormState extends State<PersonForm> {
                   /* validator: (val) => val!.isEmpty
                         ? 'Please enter given names'
                         : null, */
-                  onChanged: (val) => setState(() {
+                 /*  onChanged: (val) => setState(() {
                     givenNames = val;
-                  }),
+                  }), */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -126,9 +124,9 @@ class _PersonFormState extends State<PersonForm> {
                   decoration: InputDecoration(labelText: 'Address'),
                   keyboardType: TextInputType.streetAddress,
                   textCapitalization: TextCapitalization.words,
-                  onChanged: (val) => setState(() {
+                  /* onChanged: (val) => setState(() {
                     address = val;
-                  }),
+                  }), */
                 )),
             Container(
               width: MediaQuery.of(context).size.width * 0.95,
@@ -142,9 +140,9 @@ class _PersonFormState extends State<PersonForm> {
                 ),
                 keyboardType: TextInputType.text,
                 textCapitalization: TextCapitalization.words,
-                onChanged: (val) => setState(() {
+                /* onChanged: (val) => setState(() {
                   city = val;
-                }),
+                }), */
               ),
             ),
             Container(
@@ -154,11 +152,12 @@ class _PersonFormState extends State<PersonForm> {
               child: DropdownButtonFormField(
                 value: country,
                 isExpanded: true,
-                hint: Text('Country'),
+                // hint: Text('Country'),
                 items: MyItemList().countryList,
                 validator: (val) =>
                     val == null ? 'Please select country' : null,
-                onChanged: (val) => setState(() => country = val as String?),
+                onChanged: (val) => setState(() => country = val as String?), 
+                decoration: InputDecoration(labelText: 'Country'),
               ),
             ),
             Container(
@@ -171,9 +170,9 @@ class _PersonFormState extends State<PersonForm> {
                   decoration: InputDecoration(hintText: 'Phone number'),
                   keyboardType: TextInputType.phone,
                   textCapitalization: TextCapitalization.words,
-                  onChanged: (val) => setState(() {
+                  /* onChanged: (val) => setState(() {
                     phone = val;
-                  }),
+                  }), */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -184,9 +183,9 @@ class _PersonFormState extends State<PersonForm> {
                   enabled: true,
                   decoration: InputDecoration(labelText: 'E-mail'),
                   keyboardType: TextInputType.emailAddress,
-                  onChanged: (val) => setState(() {
+                  /* onChanged: (val) => setState(() {
                     eMail = val;
-                  }),
+                  }), */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -194,11 +193,12 @@ class _PersonFormState extends State<PersonForm> {
                 child: DropdownButtonFormField(
                   value: role,
                   isExpanded: true,
-                  hint: Text('Role'),
+                  // hint: Text('Role'),
                   items: MyItemList().personRoleList,
                   validator: (val) =>
                       val == null ? 'Please enter your role' : null,
-                  onChanged: (val) => setState(() => role = val as String?),
+                  onChanged: (val) => setState(() => role = val as String?), 
+                  decoration: InputDecoration(labelText: 'Role'),
                 )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -238,8 +238,6 @@ class _PersonFormState extends State<PersonForm> {
                         );
                         SharedPreferencesHelper()
                               .saveData('personData', personMapToStr);
-                        // print(personInfo);
-                        // print(personMapToStr.runtimeType);
                       }
                     },
                     child: Text(

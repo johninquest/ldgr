@@ -44,13 +44,14 @@ class _VehicleFormState extends State<VehicleForm> {
   TextEditingController _age = TextEditingController();
   TextEditingController _price = TextEditingController();
 
-  String? vehiclePlateNumber;
+  String? vehicleMaker;
+ /*  String? vehiclePlateNumber;
   String? vehicleChassisNumber;
   String? vehicleMaker;
   String? vehicleModel;
   String? vehicleFirstRegistrationDate;
   String? vehicleAge;
-  String? vehiclePrice;
+  String? vehiclePrice; */
 
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
@@ -67,24 +68,22 @@ class _VehicleFormState extends State<VehicleForm> {
       });
   }
 
-  String? storedVehicleData;
+  // String? storedVehicleData;
 
   @override
   void initState() {
     super.initState();
     SharedPreferencesHelper().readData('vehicleData').then((value) {
       setState(() {
-        storedVehicleData = value;
+        // storedVehicleData = value;
         if(value != null) {
-           _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'] ?? '';
-        _chassisNumber.text = getStoredVehicle(value)['chassisNumber'] ?? '';
-        _model.text = getStoredVehicle(value)['model'] ?? '';
-        _price.text = getStoredVehicle(value)['purchasePrice'] ?? '';
-        vehicleMaker = getStoredVehicle(value)['maker'] ?? '';
-        _firstRegistrationDate.text =
-            getStoredVehicle(value)['firstRegistrationDate'] ?? '';
-        _age.text = getStoredVehicle(value)['age'] ?? '';
-
+          _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'] ?? ''; 
+          _chassisNumber.text = getStoredVehicle(value)['chassisNumber'] ?? ''; 
+          _model.text = getStoredVehicle(value)['model'] ?? ''; 
+          _price.text = getStoredVehicle(value)['purchasePrice'] ?? ''; 
+          vehicleMaker = getStoredVehicle(value)['maker'] ?? ''; 
+          _firstRegistrationDate.text = getStoredVehicle(value)['firstRegistrationDate'] ?? ''; 
+          _age.text = getStoredVehicle(value)['age'] ?? '';
         }
       });
     });
@@ -130,9 +129,9 @@ class _VehicleFormState extends State<VehicleForm> {
                     ),
                     keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.characters,
-                    onChanged: (val) => setState(() {
+                   /*  onChanged: (val) => setState(() {
                       vehicleChassisNumber = val;
-                    }),
+                    }), */
                   )),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
@@ -160,9 +159,9 @@ class _VehicleFormState extends State<VehicleForm> {
                     textCapitalization: TextCapitalization.words,
                     validator: (val) =>
                         val!.isEmpty ? 'Please enter vehicle model' : null,
-                    onChanged: (val) => setState(() {
+                    /* onChanged: (val) => setState(() {
                       vehicleModel = val;
-                    }),
+                    }), */
                   )),
               Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -194,8 +193,8 @@ class _VehicleFormState extends State<VehicleForm> {
                         enabled: false,
                         decoration: InputDecoration(
                           labelText: 'Age',
-                          // hintText: vehicleAge ?? '',
-                          // hintText: DateTimeHelper().ageFromDate(selectedDate),
+                          /* hintText: vehicleAge ?? '',
+                          hintText: DateTimeHelper().ageFromDate(selectedDate), */
                         ),
                       ),
                     ),
@@ -209,9 +208,9 @@ class _VehicleFormState extends State<VehicleForm> {
                     controller: _price,
                     decoration: InputDecoration(labelText: 'Price'),
                     keyboardType: TextInputType.number,
-                    onChanged: (val) => setState(() {
+                    /* onChanged: (val) => setState(() {
                       vehiclePrice = val;
-                    }),
+                    }), */
                   )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -243,14 +242,14 @@ class _VehicleFormState extends State<VehicleForm> {
                           'age': _age.text,
                           'purchasePrice': _price.text,
                         };
-                        String mapToStr = jsonEncode(vehicleInfo);
+                        String vehicleMapToStr = jsonEncode(vehicleInfo);
                         if (_vehicleFormKey.currentState!.validate()) {
                           /* ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 content: Text('Saving vehicle information...')),
                           ); */
                           SharedPreferencesHelper()
-                              .saveData('vehicleData', mapToStr);
+                              .saveData('vehicleData', vehicleMapToStr);
                           PageRouter()
                               .navigateToPage(StoredVehiclePage(), context);
                         }
@@ -270,6 +269,27 @@ class _VehicleFormState extends State<VehicleForm> {
         ),
       ),
     );
+  }
+}
+
+formatDisplayedDate(String dt) {
+  print(dt);
+  if (DateTime.tryParse(dt) != null && dt != '') {
+    DateTime parsedDatTime = DateTime.parse(dt);
+    DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
+    String toCmrDateFormat = cmrDateFormat.format(parsedDatTime);
+    return toCmrDateFormat;
+  } else {
+    return '--/--/----';
+  }
+}
+
+getStoredVehicle(String? vehicleStr) {
+  if (vehicleStr != null) {
+    Map strToMap = jsonDecode(vehicleStr);
+    return strToMap;
+  } else {
+    return {};
   }
 }
 
@@ -298,24 +318,3 @@ storedDateHandler(DateTime mySelectedDate) {
     return selectedDateFormatted;
   }
 } */
-
-formatDisplayedDate(String dt) {
-  print(dt);
-  if (DateTime.tryParse(dt) != null && dt != '') {
-    DateTime parsedDatTime = DateTime.parse(dt);
-    DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
-    String toCmrDateFormat = cmrDateFormat.format(parsedDatTime);
-    return toCmrDateFormat;
-  } else {
-    return '--/--/----';
-  }
-}
-
-getStoredVehicle(String? vehicleStr) {
-  if (vehicleStr != null) {
-    Map strToMap = jsonDecode(vehicleStr);
-    return strToMap;
-  } else {
-    return {};
-  }
-}

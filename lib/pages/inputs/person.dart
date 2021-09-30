@@ -35,10 +35,10 @@ class _PersonFormState extends State<PersonForm> {
   TextEditingController _givenNames = TextEditingController(); 
   TextEditingController _address = TextEditingController(); 
   TextEditingController _city = TextEditingController(); 
-  TextEditingController _country = TextEditingController();
+  // TextEditingController _country = TextEditingController();
   TextEditingController _phone = TextEditingController(); 
   TextEditingController _email = TextEditingController(); 
-  TextEditingController _role = TextEditingController();
+  // TextEditingController _role = TextEditingController();
 
   String? surname;
   String? givenNames;
@@ -49,22 +49,24 @@ class _PersonFormState extends State<PersonForm> {
   String? eMail;
   String? role;
 
-   String? storedPersonData;
+   // String? storedPersonData;
 
   @override
   void initState() {
     super.initState();
     SharedPreferencesHelper().readData('personData').then((value) {
       setState(() {
-        storedPersonData = value;
-        _surname.text = getStoredPerson(value)['surname'];
+        // storedPersonData = value;
+        if(value != null) {
+          _surname.text = getStoredPerson(value)['surname'];
         _givenNames.text = getStoredPerson(value)['given_names']; 
         _address.text = getStoredPerson(value)['address'];
         _city.text = getStoredPerson(value)['city']; 
-        _country.text = getStoredPerson(value)['country']; 
+        country = getStoredPerson(value)['country']; 
         _phone.text = getStoredPerson(value)['phone'];
         _email.text = getStoredPerson(value)['email']; 
-        _role.text = getStoredPerson(value)['role'];
+        role = getStoredPerson(value)['role'];
+        } 
       });
     });
   }
@@ -150,7 +152,7 @@ class _PersonFormState extends State<PersonForm> {
               margin: EdgeInsets.only(bottom: 5.0),
               padding: EdgeInsets.only(left: 25.0, right: 25.0),
               child: DropdownButtonFormField(
-                // value: '',
+                value: country,
                 isExpanded: true,
                 hint: Text('Country'),
                 items: MyItemList().countryList,
@@ -190,7 +192,7 @@ class _PersonFormState extends State<PersonForm> {
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: DropdownButtonFormField(
-                  // value: '',
+                  value: role,
                   isExpanded: true,
                   hint: Text('Role'),
                   items: MyItemList().personRoleList,
@@ -232,10 +234,12 @@ class _PersonFormState extends State<PersonForm> {
                       String personMapToStr = jsonEncode(personInfo);
                       if (_personFormKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Still under construction!')),
+                          SnackBar(content: Text('Saved personal info!')),
                         );
-                        print(personInfo);
-                        print(personMapToStr.runtimeType);
+                        SharedPreferencesHelper()
+                              .saveData('personData', personMapToStr);
+                        // print(personInfo);
+                        // print(personMapToStr.runtimeType);
                       }
                     },
                     child: Text(

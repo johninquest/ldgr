@@ -38,9 +38,10 @@ class _VehicleFormState extends State<VehicleForm> {
   final _vehicleFormKey = GlobalKey<FormState>();
   TextEditingController _plateNumber = TextEditingController();
   TextEditingController _chassisNumber = TextEditingController();
-  TextEditingController _maker = TextEditingController();
+  // TextEditingController _maker = TextEditingController();
   TextEditingController _model = TextEditingController();
-  TextEditingController _firstRegDate = TextEditingController();
+  TextEditingController _firstRegistrationDate = TextEditingController();
+  TextEditingController _age = TextEditingController();
   TextEditingController _price = TextEditingController();
 
   String? vehiclePlateNumber;
@@ -48,6 +49,7 @@ class _VehicleFormState extends State<VehicleForm> {
   String? vehicleMaker;
   String? vehicleModel;
   String? vehicleFirstRegistrationDate;
+  String? vehicleAge;
   String? vehiclePrice;
 
   DateTime selectedDate = DateTime.now();
@@ -60,7 +62,8 @@ class _VehicleFormState extends State<VehicleForm> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        vehicleFirstRegistrationDate = storedDateHandler(picked);
+        _firstRegistrationDate.text = formatDisplayedDate('$picked');
+        _age.text = DateTimeHelper().ageFromDate(picked);
       });
   }
 
@@ -72,13 +75,17 @@ class _VehicleFormState extends State<VehicleForm> {
     SharedPreferencesHelper().readData('vehicleData').then((value) {
       setState(() {
         storedVehicleData = value;
-        _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'];
-        _chassisNumber.text = getStoredVehicle(value)['chassisNumber'];
-        _model.text = getStoredVehicle(value)['model'];
-        _price.text = getStoredVehicle(value)['purchasePrice'];
-        vehicleMaker = getStoredVehicle(value)['maker'];
-        // print(getStoredVehicle(value)['manufacturer']);
-        // print(vehicleMaker);
+        if(value != null) {
+           _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'] ?? '';
+        _chassisNumber.text = getStoredVehicle(value)['chassisNumber'] ?? '';
+        _model.text = getStoredVehicle(value)['model'] ?? '';
+        _price.text = getStoredVehicle(value)['purchasePrice'] ?? '';
+        vehicleMaker = getStoredVehicle(value)['maker'] ?? '';
+        _firstRegistrationDate.text =
+            getStoredVehicle(value)['firstRegistrationDate'] ?? '';
+        _age.text = getStoredVehicle(value)['age'] ?? '';
+
+        }
       });
     });
   }
@@ -169,11 +176,12 @@ class _VehicleFormState extends State<VehicleForm> {
                       width: MediaQuery.of(context).size.width * 0.55,
                       margin: EdgeInsets.only(right: 5.0),
                       child: TextFormField(
-                        controller: _firstRegDate,
-                        /* enabled: true,
-                        readOnly: true, */
+                        controller: _firstRegistrationDate,
+                        enabled: true,
+                        readOnly: true,
                         decoration: InputDecoration(
-                          hintText: initialDateHandler(selectedDate),
+                          // hintText: initialDateHandler(selectedDate),
+                          labelText: 'First registration date',
                         ),
                         onTap: () => _selectDate(context),
                       ),
@@ -182,9 +190,12 @@ class _VehicleFormState extends State<VehicleForm> {
                       width: MediaQuery.of(context).size.width * 0.24,
                       margin: EdgeInsets.only(left: 5.0),
                       child: TextFormField(
+                        controller: _age,
                         enabled: false,
                         decoration: InputDecoration(
-                          hintText: DateTimeHelper().ageFromDate(selectedDate),
+                          labelText: 'Age',
+                          // hintText: vehicleAge ?? '',
+                          // hintText: DateTimeHelper().ageFromDate(selectedDate),
                         ),
                       ),
                     ),
@@ -223,13 +234,13 @@ class _VehicleFormState extends State<VehicleForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        // print(_firstRegDate.text);
                         Map<String, dynamic> vehicleInfo = {
                           'licensePlateNumber': _plateNumber.text,
                           'chassisNumber': _chassisNumber.text,
                           'maker': vehicleMaker ?? '',
                           'model': _model.text,
-                          'firstRegistrationDate': vehicleFirstRegistrationDate,
+                          'firstRegistrationDate': _firstRegistrationDate.text,
+                          'age': _age.text,
                           'purchasePrice': _price.text,
                         };
                         String mapToStr = jsonEncode(vehicleInfo);
@@ -262,7 +273,7 @@ class _VehicleFormState extends State<VehicleForm> {
   }
 }
 
-initialDateHandler(DateTime dt) {
+/* initialDateHandler(DateTime dt) {
   DateTime today = DateTime.now();
   DateFormat toDateFormat = DateFormat('yyyy-MM-dd');
   DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
@@ -286,6 +297,18 @@ storedDateHandler(DateTime mySelectedDate) {
   } else {
     return selectedDateFormatted;
   }
+} */
+
+formatDisplayedDate(String dt) {
+  print(dt);
+  if (DateTime.tryParse(dt) != null && dt != '') {
+    DateTime parsedDatTime = DateTime.parse(dt);
+    DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
+    String toCmrDateFormat = cmrDateFormat.format(parsedDatTime);
+    return toCmrDateFormat;
+  } else {
+    return '--/--/----';
+  }
 }
 
 getStoredVehicle(String? vehicleStr) {
@@ -293,6 +316,6 @@ getStoredVehicle(String? vehicleStr) {
     Map strToMap = jsonDecode(vehicleStr);
     return strToMap;
   } else {
-    return null;
+    return {};
   }
 }

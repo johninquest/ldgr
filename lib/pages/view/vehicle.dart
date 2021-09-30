@@ -5,8 +5,6 @@ import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
-import 'package:tba/services/formatter.dart';
-import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
 import 'dart:convert';
 
@@ -25,7 +23,7 @@ class StoredVehiclePage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             String? vData = snapshot.data as String;
-            print(vData);
+            // print(vData);
             Map vDataStrToMap = jsonDecode(vData);
             return Container(
               child: Column(
@@ -49,16 +47,11 @@ class StoredVehiclePage extends StatelessWidget {
                   ),
                   MyTableRow(
                     rowName: 'First registration date',
-                    rowData: Formatter().dbToUiDateTime(
-                            vDataStrToMap['firstRegistrationDate'])[0] ??
-                        '',
+                    rowData: vDataStrToMap['firstRegistrationDate'] ?? '',
                   ),
                   MyTableRow(
-                    rowName: 'Age',
-                    rowData: DateTimeHelper().ageFromDateStr(
-                            vDataStrToMap['firstRegistrationDate']) ??
-                        '',
-                  ),
+                      rowName: 'Age',
+                      rowData: vDataStrToMap['age'] ?? ''),
                   MyTableRow(
                     rowName: 'Purchase price',
                     rowData:
@@ -66,9 +59,13 @@ class StoredVehiclePage extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 10.0),
-                    child: Row(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                             margin: EdgeInsets.only(top: 10.0),
@@ -89,6 +86,26 @@ class StoredVehiclePage extends StatelessWidget {
                               child: Text('PRINT'),
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.blueGrey),
+                            )),
+                      ],
+                    ),
+                    Container(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Text('Vehicle information deleted!')),
+                                );
+                                SharedPreferencesHelper()
+                                    .removeData('vehicleData');
+                                PageRouter().navigateToPage(
+                                    InputVehiclePage(), context);
+                              },
+                              child: Text('DELETE'),
+                              style:
+                                  ElevatedButton.styleFrom(primary: myRed),
                             ))
                       ],
                     ),

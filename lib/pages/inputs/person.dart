@@ -209,7 +209,7 @@ class _PersonFormState extends State<PersonForm> {
                       String personMapToStr = jsonEncode(personInfo);
                       if (_personFormKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Personal info saved')),
+                          SnackBar(content: Text('Personal information saved')),
                         );
                         SharedPreferencesHelper()
                               .saveData('personData', personMapToStr);

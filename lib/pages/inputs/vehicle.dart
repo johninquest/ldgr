@@ -38,20 +38,12 @@ class _VehicleFormState extends State<VehicleForm> {
   final _vehicleFormKey = GlobalKey<FormState>();
   TextEditingController _plateNumber = TextEditingController();
   TextEditingController _chassisNumber = TextEditingController();
-  // TextEditingController _maker = TextEditingController();
   TextEditingController _model = TextEditingController();
   TextEditingController _firstRegistrationDate = TextEditingController();
   TextEditingController _age = TextEditingController();
   TextEditingController _price = TextEditingController();
 
   String? vehicleMaker;
- /*  String? vehiclePlateNumber;
-  String? vehicleChassisNumber;
-  String? vehicleMaker;
-  String? vehicleModel;
-  String? vehicleFirstRegistrationDate;
-  String? vehicleAge;
-  String? vehiclePrice; */
 
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
@@ -68,14 +60,11 @@ class _VehicleFormState extends State<VehicleForm> {
       });
   }
 
-  // String? storedVehicleData;
-
   @override
   void initState() {
     super.initState();
     SharedPreferencesHelper().readData('vehicleData').then((value) {
       setState(() {
-        // storedVehicleData = value;
         if(value != null) {
           _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'] ?? ''; 
           _chassisNumber.text = getStoredVehicle(value)['chassisNumber'] ?? ''; 

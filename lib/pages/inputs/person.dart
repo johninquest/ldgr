@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tba/shared/lists.dart';
 import 'dart:convert';
-import 'package:tba/data/sp_helper.dart';
+import 'package:tba/data/sp_helper.dart'; 
+import 'package:tba/services/router.dart'; 
+import 'package:tba/pages/home.dart';
 
 class InputPersonPage extends StatelessWidget {
   const InputPersonPage({Key? key}) : super(key: key);
@@ -41,15 +43,6 @@ class _PersonFormState extends State<PersonForm> {
   String? country;
   String? role;
 
-/*   String? surname;
-  String? givenNames;
-  String? address;
-  String? city;
-  String? country;
-  String? phone;
-  String? eMail;
-  String? role; */
-
   @override
   void initState() {
     super.initState();
@@ -86,7 +79,6 @@ class _PersonFormState extends State<PersonForm> {
                   controller: _surname,
                   enabled: true,
                   decoration: InputDecoration(
-                      // hintText: 'Surname',
                       labelText: 'Last name/Surname'),
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.words,
@@ -110,9 +102,6 @@ class _PersonFormState extends State<PersonForm> {
                   /* validator: (val) => val!.isEmpty
                         ? 'Please enter given names'
                         : null, */
-                 /*  onChanged: (val) => setState(() {
-                    givenNames = val;
-                  }), */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -124,9 +113,6 @@ class _PersonFormState extends State<PersonForm> {
                   decoration: InputDecoration(labelText: 'Address'),
                   keyboardType: TextInputType.streetAddress,
                   textCapitalization: TextCapitalization.words,
-                  /* onChanged: (val) => setState(() {
-                    address = val;
-                  }), */
                 )),
             Container(
               width: MediaQuery.of(context).size.width * 0.95,
@@ -140,9 +126,6 @@ class _PersonFormState extends State<PersonForm> {
                 ),
                 keyboardType: TextInputType.text,
                 textCapitalization: TextCapitalization.words,
-                /* onChanged: (val) => setState(() {
-                  city = val;
-                }), */
               ),
             ),
             Container(
@@ -152,7 +135,6 @@ class _PersonFormState extends State<PersonForm> {
               child: DropdownButtonFormField(
                 value: country,
                 isExpanded: true,
-                // hint: Text('Country'),
                 items: MyItemList().countryList,
                 validator: (val) =>
                     val == null ? 'Please select country' : null,
@@ -170,9 +152,6 @@ class _PersonFormState extends State<PersonForm> {
                   decoration: InputDecoration(hintText: 'Phone number'),
                   keyboardType: TextInputType.phone,
                   textCapitalization: TextCapitalization.words,
-                  /* onChanged: (val) => setState(() {
-                    phone = val;
-                  }), */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -183,9 +162,6 @@ class _PersonFormState extends State<PersonForm> {
                   enabled: true,
                   decoration: InputDecoration(labelText: 'E-mail'),
                   keyboardType: TextInputType.emailAddress,
-                  /* onChanged: (val) => setState(() {
-                    eMail = val;
-                  }), */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -193,10 +169,9 @@ class _PersonFormState extends State<PersonForm> {
                 child: DropdownButtonFormField(
                   value: role,
                   isExpanded: true,
-                  // hint: Text('Role'),
                   items: MyItemList().personRoleList,
                   validator: (val) =>
-                      val == null ? 'Please enter your role' : null,
+                      val == null ? 'Please select role' : null,
                   onChanged: (val) => setState(() => role = val as String?), 
                   decoration: InputDecoration(labelText: 'Role'),
                 )),
@@ -234,10 +209,12 @@ class _PersonFormState extends State<PersonForm> {
                       String personMapToStr = jsonEncode(personInfo);
                       if (_personFormKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Saved personal info!')),
+                          SnackBar(content: Text('Personal info saved')),
                         );
                         SharedPreferencesHelper()
                               .saveData('personData', personMapToStr);
+                        PageRouter()
+                              .navigateToPage(HomePage(), context);      
                       }
                     },
                     child: Text(

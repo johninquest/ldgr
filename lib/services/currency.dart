@@ -1,29 +1,5 @@
-import 'dart:convert';
-
-import 'package:tba/data/sp_helper.dart'; 
 
 class CurrencyHandler {
-
-  String? currentCountry; 
-
-  getCountry() {
-    SharedPreferencesHelper().readData('personData').then((value) {
-      if(value != null) {
-        currentCountry = parsePersonData(value)['country'];
-      }
-    });
-  }
-
-  parsePersonData(String? personStr) {
-  if (personStr != null) {
-    Map strToMap = jsonDecode(personStr);
-    return strToMap;
-  } else {
-    return {};
-  }
-}
-
-  
 
   fromCountry(String? country) {
     switch (country) {

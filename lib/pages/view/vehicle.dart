@@ -18,7 +18,6 @@ class StoredVehiclePage extends StatelessWidget {
     String? currentCountry;
     SharedPreferencesHelper().readData('personData').then((value) {
       currentCountry = DataParser().strToMap(value)['country'];
-      // print(currentCountry);
     });
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +29,6 @@ class StoredVehiclePage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             String? vData = snapshot.data as String;
-            // print(vData);
             Map vDataStrToMap = jsonDecode(vData);
             return Container(
               child: Column(

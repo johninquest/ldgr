@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/colors.dart';
-import 'package:tba/services/formatter.dart';
+import 'package:tba/services/formatter.dart'; 
+import 'package:tba/services/currency.dart';
 
 class SumTotalBoard extends StatelessWidget {
   // const RecordSummary({Key? key}) : super(key: key);
-  final double expenditureSum;
-  final double incomeSum;
-  SumTotalBoard(this.expenditureSum, this.incomeSum);
+  final num expenditureSum;
+  final num incomeSum;
+  final String curCountry;
+  SumTotalBoard(this.expenditureSum, this.incomeSum, this.curCountry);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,7 @@ class SumTotalBoard extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 10.0),
             child: Text(
               'SUMMARY',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, color: myBlue),
+              style: TextStyle(fontWeight: FontWeight.bold, color: myBlue),
             ),
           ),
           Row(
@@ -42,9 +43,10 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(Formatter().toNoDecimal(expenditureSum),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: myBlue),
+                    child: Text(
+                      '${CurrencyHandler().fromCountry(curCountry)} ${Formatter().toNoDecimal(expenditureSum)}',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, color: myBlue),
                     ),
                   )
                 ],
@@ -60,9 +62,10 @@ class SumTotalBoard extends StatelessWidget {
                             letterSpacing: 2.0)),
                   ),
                   Container(
-                    child: Text(Formatter().toNoDecimal(incomeSum),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: myBlue),
+                    child: Text(
+                      '${CurrencyHandler().fromCountry(curCountry)} ${Formatter().toNoDecimal(incomeSum)}',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, color: myBlue),
                     ),
                   )
                 ],
@@ -74,7 +77,6 @@ class SumTotalBoard extends StatelessWidget {
     );
   }
 }
-
 
 class SingleSumTotalBoard extends StatelessWidget {
   // const RecordSummary({Key? key}) : super(key: key);

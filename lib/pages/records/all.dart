@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/data/models.dart';
+import 'package:tba/services/preprocessor.dart';
 import 'package:tba/styles/style.dart';
 // import 'package:tba/styles/colors.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
@@ -7,7 +8,7 @@ import 'package:tba/shared/widgets.dart';
 import 'package:tba/shared/analysis.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/formatter.dart';
-
+import 'package:tba/data/sp_helper.dart';
 
 class AllRecords extends StatefulWidget {
   const AllRecords({Key? key}) : super(key: key);
@@ -17,8 +18,9 @@ class AllRecords extends StatefulWidget {
 }
 
 class _AllRecordsState extends State<AllRecords> {
-  double? expenditureSumTotal;
-  double? incomeSumTotal;
+  num? expenditureSumTotal;
+  num? incomeSumTotal;
+  String? currentCountry;
 
   @override
   initState() {
@@ -28,7 +30,10 @@ class _AllRecordsState extends State<AllRecords> {
         .then((value) => expenditureSumTotal = value['sum_ex']);
     SQLiteDatabaseHelper()
         .getIncomeSum()
-        .then((value) => incomeSumTotal = value['sum_in']);    
+        .then((value) => incomeSumTotal = value['sum_in']);
+    SharedPreferencesHelper().readData('personData').then((value) {
+      currentCountry = DataParser().strToMap(value)['country'];
+    });
   }
 
   @override
@@ -36,7 +41,7 @@ class _AllRecordsState extends State<AllRecords> {
     return Scaffold(
       appBar: AppBar(
         title: Text('All records'),
-        centerTitle: true, 
+        centerTitle: true,
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder(
@@ -45,17 +50,20 @@ class _AllRecordsState extends State<AllRecords> {
           if (snapshot.hasData) {
             List<Record> response = snapshot.data as List<Record>;
             return Column(
-              mainAxisAlignment: MainAxisAlignment.center, 
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0),
+                SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0, currentCountry ?? ''),
                 Expanded(
-                  child: SingleChildScrollView( 
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.95,
-                      alignment: Alignment.center, 
-                      child: buildTable(response),),))
-            ],); 
+                    child: SingleChildScrollView(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    alignment: Alignment.center,
+                    child: buildTable(response),
+                  ),
+                ))
+              ],
+            );
           }
           if (snapshot.hasError) {
             return ErrorOccured();
@@ -69,7 +77,7 @@ class _AllRecordsState extends State<AllRecords> {
     );
   }
 
- Widget buildTable(List<Record> dbRecordsList) {
+  Widget buildTable(List<Record> dbRecordsList) {
     final allColumns = [
       'Date',
       'Type',
@@ -115,10 +123,10 @@ class _AllRecordsState extends State<AllRecords> {
               style: StyleHandler().tableCategoryStyle(e.category),
             )),
             DataCell(Formatter().checkSplit2Words(e.source)),
-            DataCell(Text(Formatter().toNoDecimal(e.amount),
+            DataCell(Text(
+              Formatter().toNoDecimal(e.amount),
               style: TableItemStyle,
             ))
           ]))
       .toList();
 }
-

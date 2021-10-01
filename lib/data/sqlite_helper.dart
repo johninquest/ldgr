@@ -9,8 +9,6 @@ class SQLiteDatabaseHelper {
   final String dbName = 'transporter.db';
   final int schemaVersion = 1;
   final String bkTable = 'bookkeeping';
-  final String pTable = 'person';
-  final String vTable = 'vehicle';
 
   Future<Database> initializeDB() async {
     Directory directory = await getApplicationDocumentsDirectory();
@@ -22,30 +20,6 @@ class SQLiteDatabaseHelper {
 	    "category"	TEXT,
 	    "source"	TEXT,
 	    "amount"	REAL,
-	    "created_at"	TEXT,
-	    "last_update_at"	TEXT,
-	    PRIMARY KEY("id" AUTOINCREMENT)
-      );
-
-      CREATE TABLE IF NOT EXISTS $pTable (
-	    "id"	INTEGER NOT NULL UNIQUE,
-	    "first_name"	TEXT,
-	    "last_name"	TEXT,
-	    "role"	TEXT,
-	    "phone"	TEXT,
-	    "email"	TEXT,
-	    "created_at"	TEXT,
-	    "last_update_at"	TEXT,
-	    PRIMARY KEY("id" AUTOINCREMENT)
-      );
-
-      CREATE TABLE IF NOT EXISTS $vTable (
-	    "id"	INTEGER NOT NULL UNIQUE,
-	    "plate_number"	TEXT,
-	    "manufacturer"	TEXT,
-	    "model"	TEXT,
-	    "mileage"	TEXT,
-    	"first_registration"	TEXT,
 	    "created_at"	TEXT,
 	    "last_update_at"	TEXT,
 	    PRIMARY KEY("id" AUTOINCREMENT)

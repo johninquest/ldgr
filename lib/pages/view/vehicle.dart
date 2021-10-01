@@ -16,8 +16,11 @@ class StoredVehiclePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? currentCountry;
+    String? currentCurrency;
     SharedPreferencesHelper().readData('personData').then((value) {
       currentCountry = DataParser().strToMap(value)['country'];
+      currentCurrency = CurrencyHandler().fromCountry(currentCountry);
+      // print(currentCurrency);
     });
     return Scaffold(
       appBar: AppBar(
@@ -58,8 +61,11 @@ class StoredVehiclePage extends StatelessWidget {
                       rowName: 'Age', rowData: vDataStrToMap['age'] ?? ''),
                   MyTableRow(
                     rowName: 'Purchase price',
-                    // rowData: vDataStrToMap['purchasePrice'] ?? '', 
-                    rowData: '${CurrencyHandler().fromCountry(currentCountry)} ${vDataStrToMap["purchasePrice"]}',
+                    // rowData: vDataStrToMap['purchasePrice'] ?? '',
+                    /* rowData:
+                        '${CurrencyHandler().fromCountry(currentCountry)} ${vDataStrToMap["purchasePrice"]}', */
+                    rowData:
+                        '${showCurrency(currentCurrency, vDataStrToMap["purchasePrice"])}',
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 10.0),
@@ -189,10 +195,9 @@ class MyTableRow extends StatelessWidget {
   }
 }
 
-addCurrencyCode(String amt) {
-  if (amt != '') {
-    return 'XAF $amt';
-  } else {
-    return 'XAF 0';
-  }
+showCurrency(String? currencyCode, String? amount) {
+  if (amount != null && amount != '') {
+    return '$currencyCode $amount';
+  } else
+    return '';
 }

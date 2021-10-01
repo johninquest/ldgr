@@ -76,7 +76,7 @@ class MyItemList {
       DropdownMenuItem(value: 'gambia', child: Container(child: Text('Gambia', style: DropdownListStyle),)),  
       DropdownMenuItem(value: 'ghana', child: Container(child: Text('Ghana', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'guinea', child: Container(child: Text('Guinea', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'guinea-bissau', child: Container(child: Text('Guinea-Bissau', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'guinea_bissau', child: Container(child: Text('Guinea-Bissau', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'kenya', child: Container(child: Text('Kenya', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'lesotho', child: Container(child: Text('Lesotho', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'liberia', child: Container(child: Text('Liberia', style: DropdownListStyle),)), 

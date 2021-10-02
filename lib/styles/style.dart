@@ -7,7 +7,7 @@ const PageHeaderStyle =
 const BodyStyle = TextStyle(
     fontSize: 15.0, color: Color(0xFF0D47A1), fontWeight: FontWeight.bold);
 
-const DropdownListStyle = TextStyle(fontWeight: FontWeight.bold);
+const DropdownListStyle = TextStyle(fontWeight: FontWeight.normal);
 
 const ListTitleStyle = TextStyle(fontWeight: FontWeight.bold);
 const ListItemStyle = TextStyle(fontSize: 5.0);

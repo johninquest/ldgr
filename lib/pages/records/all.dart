@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tba/data/models.dart';
 import 'package:tba/services/preprocessor.dart';
+import 'package:tba/shared/floating_side_menu.dart';
 import 'package:tba/styles/style.dart';
 // import 'package:tba/styles/colors.dart';
 import 'package:tba/pages/bottom_nav_bar.dart';
@@ -75,7 +76,7 @@ class _AllRecordsState extends State<AllRecords> {
           }
         },
       ),
-      floatingActionButton: SideButtomMenu(),
+      floatingActionButton: FloatingSideMenu(),
       bottomNavigationBar: BottomNavBar(),
     );
   }

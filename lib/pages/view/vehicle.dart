@@ -18,9 +18,10 @@ class StoredVehiclePage extends StatelessWidget {
     String? currentCountry;
     String? currentCurrency;
     SharedPreferencesHelper().readData('personData').then((value) {
-      currentCountry = DataParser().strToMap(value)['country'];
-      currentCurrency = CurrencyHandler().fromCountry(currentCountry);
-      // print(currentCurrency);
+      if(value != null) {
+        currentCountry = DataParser().strToMap(value)['country']; 
+        currentCurrency = CurrencyHandler().fromCountry(currentCountry);
+      }
     });
     return Scaffold(
       appBar: AppBar(
@@ -61,9 +62,6 @@ class StoredVehiclePage extends StatelessWidget {
                       rowName: 'Age', rowData: vDataStrToMap['age'] ?? ''),
                   MyTableRow(
                     rowName: 'Purchase price',
-                    // rowData: vDataStrToMap['purchasePrice'] ?? '',
-                    /* rowData:
-                        '${CurrencyHandler().fromCountry(currentCountry)} ${vDataStrToMap["purchasePrice"]}', */
                     rowData:
                         '${showCurrency(currentCurrency, vDataStrToMap["purchasePrice"])}',
                   ),
@@ -171,9 +169,7 @@ class MyTableRow extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
       child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.,
         children: [
           Container(
             margin: EdgeInsets.only(bottom: 1.0, left: 5.0),

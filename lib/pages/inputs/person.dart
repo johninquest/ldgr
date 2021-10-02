@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tba/shared/lists.dart';
 import 'dart:convert';
-import 'package:tba/data/sp_helper.dart'; 
-import 'package:tba/services/router.dart'; 
+import 'package:tba/data/sp_helper.dart';
+import 'package:tba/services/router.dart';
 import 'package:tba/pages/home.dart';
+// import 'package:tba/styles/colors.dart';
 
 class InputPersonPage extends StatelessWidget {
   const InputPersonPage({Key? key}) : super(key: key);
@@ -34,30 +35,30 @@ class PersonForm extends StatefulWidget {
 class _PersonFormState extends State<PersonForm> {
   final _personFormKey = GlobalKey<FormState>();
   TextEditingController _surname = TextEditingController();
-  TextEditingController _givenNames = TextEditingController(); 
-  TextEditingController _address = TextEditingController(); 
-  TextEditingController _city = TextEditingController(); 
-  TextEditingController _phone = TextEditingController(); 
-  TextEditingController _email = TextEditingController(); 
+  TextEditingController _givenNames = TextEditingController();
+  TextEditingController _address = TextEditingController();
+  TextEditingController _city = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _email = TextEditingController();
 
-  String? country;
-  String? role;
+  String? _country;
+  String? _role;
 
   @override
   void initState() {
     super.initState();
     SharedPreferencesHelper().readData('personData').then((value) {
       setState(() {
-        if(value != null) {
+        if (value != null) {
           _surname.text = getStoredPerson(value)['surname'];
-        _givenNames.text = getStoredPerson(value)['given_names']; 
-        _address.text = getStoredPerson(value)['address'];
-        _city.text = getStoredPerson(value)['city']; 
-        country = getStoredPerson(value)['country']; 
-        _phone.text = getStoredPerson(value)['phone'];
-        _email.text = getStoredPerson(value)['email']; 
-        role = getStoredPerson(value)['role'];
-        } 
+          _givenNames.text = getStoredPerson(value)['given_names'];
+          _address.text = getStoredPerson(value)['address'];
+          _city.text = getStoredPerson(value)['city'];
+          _country = getStoredPerson(value)['country'];
+          _phone.text = getStoredPerson(value)['phone'];
+          _email.text = getStoredPerson(value)['email'];
+          _role = getStoredPerson(value)['role'];
+        }
       });
     });
   }
@@ -78,13 +79,12 @@ class _PersonFormState extends State<PersonForm> {
                 child: TextFormField(
                   controller: _surname,
                   enabled: true,
-                  decoration: InputDecoration(
-                      labelText: 'Last name/Surname'),
+                  decoration: InputDecoration(labelText: 'Last name / Surname'),
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.words,
-                  validator: (val) =>
+                  /* validator: (val) =>
                       val!.isEmpty ? 'Please enter last name / surname' : null,
-                  /* onChanged: (val) => setState(() {
+                  onChanged: (val) => setState(() {
                     surname = val;
                   }), */
                 )),
@@ -96,7 +96,7 @@ class _PersonFormState extends State<PersonForm> {
                   controller: _givenNames,
                   enabled: true,
                   decoration:
-                      InputDecoration(labelText: 'First name/Given names'),
+                      InputDecoration(labelText: 'First name / Given names'),
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.words,
                   /* validator: (val) => val!.isEmpty
@@ -133,12 +133,12 @@ class _PersonFormState extends State<PersonForm> {
               margin: EdgeInsets.only(bottom: 5.0),
               padding: EdgeInsets.only(left: 25.0, right: 25.0),
               child: DropdownButtonFormField(
-                value: country,
+                value: _country,
                 isExpanded: true,
                 items: MyItemList().countryList,
                 validator: (val) =>
                     val == null ? 'Please select country' : null,
-                onChanged: (val) => setState(() => country = val as String?), 
+                onChanged: (val) => setState(() => _country = val as String?),
                 decoration: InputDecoration(labelText: 'Country'),
               ),
             ),
@@ -167,12 +167,12 @@ class _PersonFormState extends State<PersonForm> {
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: DropdownButtonFormField(
-                  value: role,
+                  value: _role,
                   isExpanded: true,
                   items: MyItemList().personRoleList,
-                  validator: (val) =>
-                      val == null ? 'Please select role' : null,
-                  onChanged: (val) => setState(() => role = val as String?), 
+                  /* validator: (val) =>
+                      val == null ? 'Please select role' : null, */
+                  onChanged: (val) => setState(() => _role = val as String?),
                   decoration: InputDecoration(labelText: 'Role'),
                 )),
             Row(
@@ -201,10 +201,10 @@ class _PersonFormState extends State<PersonForm> {
                         'given_names': _givenNames.text,
                         'address': _address.text,
                         'city': _city.text,
-                        'country': country ?? '',
+                        'country': _country,
                         'phone': _phone.text,
                         'email': _email.text,
-                        'role': role ?? '',
+                        'role': _role,
                       };
                       String personMapToStr = jsonEncode(personInfo);
                       if (_personFormKey.currentState!.validate()) {
@@ -212,9 +212,8 @@ class _PersonFormState extends State<PersonForm> {
                           SnackBar(content: Text('Personal information saved')),
                         );
                         SharedPreferencesHelper()
-                              .saveData('personData', personMapToStr);
-                        PageRouter()
-                              .navigateToPage(HomePage(), context);      
+                            .saveData('personData', personMapToStr);
+                        PageRouter().navigateToPage(HomePage(), context);
                       }
                     },
                     child: Text(
@@ -224,6 +223,20 @@ class _PersonFormState extends State<PersonForm> {
                     style: ElevatedButton.styleFrom(primary: Colors.blue[900]),
                   ),
                 ),
+                /* Container(
+                    margin: EdgeInsets.only(top: 10.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Person information deleted!')),
+                        );
+                        SharedPreferencesHelper().removeData('personData');
+                        PageRouter().navigateToPage(HomePage(), context);
+                      },
+                      child: Text('DELETE'),
+                      style: ElevatedButton.styleFrom(primary: myRed),
+                    )) */
               ],
             ),
           ],

@@ -53,7 +53,7 @@ class MyItemList {
     List<DropdownMenuItem<String>> countryList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'algeria', child: Container(child: Text('Algeria', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'Angola', child: Container(child: Text('Angola', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'angola', child: Container(child: Text('Angola', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'benin', child: Container(child: Text('Benin', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'botswana', child: Container(child: Text('Botswana', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'burkina_faso', child: Container(child: Text('Burkina Faso', style: DropdownListStyle),)), 

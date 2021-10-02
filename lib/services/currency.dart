@@ -1,26 +1,24 @@
-
 class CurrencyHandler {
-
   fromCountry(String? country) {
     switch (country) {
       case 'burundi':
         return 'BIF';
-      case 'cameroon': 
+      case 'cameroon':
       case 'central_african_republic':
-      case 'chad': 
+      case 'chad':
       case 'congo_republic':
-      case 'equatorial_guinea': 
+      case 'equatorial_guinea':
       case 'gabon':
         return 'XAF';
-      case 'benin': 
+      case 'benin':
       case 'burkina_faso':
-      case 'guinea_bissau': 
+      case 'guinea_bissau':
       case 'ivory_coast':
-      case 'mali': 
-      case 'niger': 
-      case 'senegal': 
-      case 'togo': 
-        return 'XOF';  
+      case 'mali':
+      case 'niger':
+      case 'senegal':
+      case 'togo':
+        return 'XOF';
       case 'ethiopia':
         return 'ETB';
       case 'eswatini':
@@ -61,7 +59,6 @@ class CurrencyHandler {
         return '';
     }
   }
-
 
   addCurrencyToAmount(String? currency, String? amount) {
     if (currency != '' && amount != null && amount != '') {

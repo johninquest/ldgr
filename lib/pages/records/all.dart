@@ -32,7 +32,9 @@ class _AllRecordsState extends State<AllRecords> {
         .getIncomeSum()
         .then((value) => incomeSumTotal = value['sum_in']);
     SharedPreferencesHelper().readData('personData').then((value) {
-      currentCountry = DataParser().strToMap(value)['country'];
+      if (value != null) {
+        currentCountry = DataParser().strToMap(value)['country'];
+      }
     });
   }
 
@@ -53,7 +55,8 @@ class _AllRecordsState extends State<AllRecords> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0, currentCountry ?? ''),
+                SumTotalBoard(expenditureSumTotal ?? 0, incomeSumTotal ?? 0,
+                    currentCountry ?? ''),
                 Expanded(
                     child: SingleChildScrollView(
                   child: Container(

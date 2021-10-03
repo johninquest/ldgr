@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart'; 
-import 'package:tba/styles/style.dart';
+// import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:tba/services/router.dart'; 
@@ -11,7 +11,7 @@ class FloatingSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      animatedIcon: AnimatedIcons.add_event,
+      animatedIcon: AnimatedIcons.ellipsis_search,
       children: [
         SpeedDialChild(
             labelWidget: MyLabelWidget('Expenditure', myRed),

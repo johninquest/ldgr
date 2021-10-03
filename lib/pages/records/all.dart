@@ -45,7 +45,6 @@ class _AllRecordsState extends State<AllRecords> {
       appBar: AppBar(
         title: Text('All records'),
         centerTitle: true,
-        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder(
         future: SQLiteDatabaseHelper().getAllRows(),
@@ -76,7 +75,7 @@ class _AllRecordsState extends State<AllRecords> {
           }
         },
       ),
-      floatingActionButton: FloatingSideMenu(),
+      // floatingActionButton: FloatingSideMenu(),
       bottomNavigationBar: BottomNavBar(),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tba/pages/filters/overview.dart';
 // import 'package:tba/styles/style.dart';
 import '../services/router.dart';
 import 'package:tba/pages/home.dart';
-import 'records/all.dart';
+// import 'records/all.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -49,7 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PageRouter().navigateToPage(HomePage(), context);
     }
     if (currentIndex == 1) {
-      PageRouter().navigateToPage(AllRecords(), context);
+      PageRouter().navigateToPage(FilterOverview(), context);
     }
 /*
     else {

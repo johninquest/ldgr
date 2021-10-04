@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tba/data/models.dart';
+import 'package:tba/pages/filters/overview.dart';
+import 'package:tba/pages/inputs/row_editor.dart';
 import 'package:tba/services/preprocessor.dart';
-import 'package:tba/shared/floating_side_menu.dart';
+import 'package:tba/services/router.dart';
+import 'package:tba/styles/colors.dart';
+// import 'package:tba/shared/floating_side_menu.dart';
 import 'package:tba/styles/style.dart';
 // import 'package:tba/styles/colors.dart';
-import 'package:tba/pages/bottom_nav_bar.dart';
+import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/shared/analysis.dart';
 import 'package:tba/data/sqlite_helper.dart';
@@ -76,6 +80,7 @@ class _AllRecordsState extends State<AllRecords> {
         },
       ),
       // floatingActionButton: FloatingSideMenu(),
+      // endDrawer: Container(child: Text('Hello!'),),
       bottomNavigationBar: BottomNavBar(),
     );
   }
@@ -91,6 +96,7 @@ class _AllRecordsState extends State<AllRecords> {
       columnSpacing: 15.0,
       horizontalMargin: 0.0,
       // showBottomBorder: true,
+      showCheckboxColumn: false,
       columns: getColumns(allColumns),
       rows: getRows(dbRecordsList),
     );
@@ -106,7 +112,16 @@ class _AllRecordsState extends State<AllRecords> {
       .toList();
 
   List<DataRow> getRows(List<Record> rows) => rows
-      .map((e) => DataRow(cells: [
+      .map(
+        (e) => DataRow(
+          selected: false,
+          // color: MaterialStateProperty.all(myBlueLighter),
+          onSelectChanged: (val) {
+            if (val == true) {
+              PageRouter().navigateToPage(RowEditor(rowData: e), context);
+            }
+          },
+          cells: [
             DataCell(Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,10 +141,16 @@ class _AllRecordsState extends State<AllRecords> {
               style: StyleHandler().tableCategoryStyle(e.category),
             )),
             DataCell(Formatter().checkSplit2Words(e.source)),
-            DataCell(Text(
-              Formatter().toNoDecimal(e.amount),
-              style: TableItemStyle,
-            ))
-          ]))
+            DataCell(
+              Text(
+                Formatter().toNoDecimal(e.amount),
+                style: TableItemStyle,
+              ),
+              // onTap: () => print('Row tapped => ${e.amount}'),
+              // onDoubleTap: () => PageRouter().navigateToPage(RowEditor(rowData: e), context)
+            )
+          ],
+        ),
+      )
       .toList();
 }

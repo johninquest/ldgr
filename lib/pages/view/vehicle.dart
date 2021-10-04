@@ -5,7 +5,7 @@ import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
-import 'package:tba/pages/bottom_nav_bar.dart';
+import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/services/preprocessor.dart';
 import 'package:tba/services/currency.dart';
 import 'dart:convert';

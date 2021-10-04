@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tba/pages/bottom_nav_bar.dart';
+import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/pages/records/all.dart';
 import 'package:tba/shared/floating_side_menu.dart';
 import 'package:tba/styles/colors.dart';

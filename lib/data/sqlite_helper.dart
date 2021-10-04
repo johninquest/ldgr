@@ -69,7 +69,8 @@ class SQLiteDatabaseHelper {
   Future<List<Income>> getAllExpentures() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "expenditure" ORDER BY datetime(created_at) DESC';
+      String sql =
+          'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "expenditure" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       return qResult.map((e) => Income.fromMap(e)).toList();
     } else {
@@ -80,7 +81,8 @@ class SQLiteDatabaseHelper {
   Future<List<Income>> getAllIncomes() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "income" ORDER BY datetime(created_at) DESC';
+      String sql =
+          'SELECT id, source, amount, created_at FROM $bkTable WHERE category = "income" ORDER BY datetime(created_at) DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       return qResult.map((e) => Income.fromMap(e)).toList();
     } else {
@@ -111,5 +113,4 @@ class SQLiteDatabaseHelper {
       return null;
     }
   }
-
 }

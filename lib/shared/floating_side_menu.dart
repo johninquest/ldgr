@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:tba/pages/records/all.dart'; 
 // import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:tba/services/router.dart'; 
 import 'package:tba/pages/records/income.dart';
 import 'package:tba/pages/records/expenditure.dart';
-import 'package:tba/pages/filters/overview.dart';
+// import 'package:tba/pages/filters/overview.dart';
 
 class FloatingSideMenu extends StatelessWidget {
   @override
@@ -22,8 +23,8 @@ class FloatingSideMenu extends StatelessWidget {
             onTap: () => PageRouter().navigateToPage(IncomeRecords(), context),
             ),
        SpeedDialChild(
-            labelWidget: MyLabelWidget('Filters', myBlue),
-            onTap: () => PageRouter().navigateToPage(FilterOverview(), context),
+            labelWidget: MyLabelWidget('All', myBlue),
+            onTap: () => PageRouter().navigateToPage(AllRecords(), context),
             ),
       ],
     );

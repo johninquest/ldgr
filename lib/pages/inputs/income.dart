@@ -109,7 +109,7 @@ class _IncomeFormState extends State<IncomeForm> {
                         PageRouter().navigateToPage(AllRecords(), context);  
                       }
                       },
-                      child: Text('SAVE'),
+                      child: Text('ENTER'),
                       style:
                           ElevatedButton.styleFrom(primary: myGreen),
                     ),

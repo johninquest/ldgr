@@ -12,7 +12,8 @@ class FloatingSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      animatedIcon: AnimatedIcons.ellipsis_search,
+      animatedIcon: AnimatedIcons.event_add,
+      // icon: IconData(10),
       children: [
         SpeedDialChild(
             labelWidget: MyLabelWidget('Expenditure', myRed),

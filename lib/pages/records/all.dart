@@ -6,7 +6,7 @@ import 'package:tba/services/preprocessor.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/shared/filter_menu.dart';
 import 'package:tba/styles/colors.dart';
-// import 'package:tba/shared/floating_side_menu.dart';
+import 'package:tba/shared/floating_side_menu.dart';
 import 'package:tba/styles/style.dart';
 // import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/bottom_nav_bar.dart';
@@ -80,8 +80,8 @@ class _AllRecordsState extends State<AllRecords> {
           }
         },
       ),
-      // floatingActionButton: FloatingSideMenu(),
-      endDrawer: FilterMenu(),
+      floatingActionButton: FloatingSideMenu(),
+      // endDrawer: FilterMenu(),
       bottomNavigationBar: BottomNavBar(),
     );
   }
@@ -119,7 +119,7 @@ class _AllRecordsState extends State<AllRecords> {
           // color: MaterialStateProperty.all(myBlueLighter),
           onSelectChanged: (val) {
             if (val == true) {
-              PageRouter().navigateToPage(RowEditor(rowData: e), context);
+              PageRouter().navigateToPage(RowEditorPage(rowData: e), context);
             }
           },
           cells: [

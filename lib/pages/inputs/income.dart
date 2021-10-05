@@ -61,8 +61,9 @@ class _IncomeFormState extends State<IncomeForm> {
                 width: MediaQuery.of(context).size.width * 0.95, 
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
-                    isExpanded: true,
-                    hint: Text('Source of income'),
+                    isExpanded: true, 
+                    decoration: InputDecoration(labelText: 'Source of income'),
+                    // hint: Text('Source of income'),
                     items: MyItemList().incomeList,
                     validator: (val) => val == null
                       ? 'Please select source of income!'
@@ -75,7 +76,7 @@ class _IncomeFormState extends State<IncomeForm> {
                 margin: EdgeInsets.only(bottom: 10.0), 
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: 'Amount'),
+                    decoration: InputDecoration(labelText: 'Amount'),
                     keyboardType: TextInputType.number,
                     validator: (val) =>
                         val!.isEmpty ? 'Please enter an amount!' : null,

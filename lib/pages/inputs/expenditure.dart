@@ -64,7 +64,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
-                  hint: Text('Reason for expenditure'),
+                  // hint: Text('Reason for expenditure'), 
+                  decoration: InputDecoration(labelText: 'Reason for expenditure'),
                   items: MyItemList().expenditureList,
                   validator: (val) => val == null
                       ? 'Please select reason for expenditure!'
@@ -79,7 +80,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
-                  decoration: InputDecoration(hintText: 'Amount'),
+                  decoration: InputDecoration(labelText: 'Amount'),
                   keyboardType: TextInputType.number,
                   validator: (val) {
                     if (val == null || val.isEmpty) {

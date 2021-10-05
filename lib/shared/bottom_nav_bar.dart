@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tba/pages/filters/overview.dart';
+// import 'package:tba/pages/filters/overview.dart';
+import 'package:tba/pages/records/all.dart';
 // import 'package:tba/styles/style.dart';
 import '../services/router.dart';
 import 'package:tba/pages/home.dart';
@@ -50,7 +51,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PageRouter().navigateToPage(HomePage(), context);
     }
     if (currentIndex == 1) {
-      PageRouter().navigateToPage(FilterOverview(), context);
+      PageRouter().navigateToPage(AllRecords(), context);
     }
 /*
     else {

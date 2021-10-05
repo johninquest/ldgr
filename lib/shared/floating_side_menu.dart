@@ -6,16 +6,32 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:tba/services/router.dart'; 
 import 'package:tba/pages/records/income.dart';
 import 'package:tba/pages/records/expenditure.dart';
-// import 'package:tba/pages/filters/overview.dart';
+import 'package:tba/pages/filters/overview.dart';
 
 class FloatingSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      animatedIcon: AnimatedIcons.event_add,
+      animatedIcon: AnimatedIcons.search_ellipsis,
       // icon: IconData(10),
       children: [
         SpeedDialChild(
+            labelWidget: MyLabelWidget('Today', myOrange),
+            onTap: () => print('Tapped today'),
+            ),
+        SpeedDialChild(
+            labelWidget: MyLabelWidget('Week', myBlueLighter),
+            onTap: () => print('Tapped week'),
+            ), 
+        SpeedDialChild(
+            labelWidget: MyLabelWidget('Month', myBrown),
+            onTap: () => print('Tapped month'),
+            ),  
+        SpeedDialChild(
+            labelWidget: MyLabelWidget('Year', myGreen),
+            onTap: () => print('Tapped year'),
+            ),            
+        /* SpeedDialChild(
             labelWidget: MyLabelWidget('Expenditure', myRed),
             onTap: () => PageRouter().navigateToPage(ExpenditureRecords(), context),
             ),
@@ -26,7 +42,7 @@ class FloatingSideMenu extends StatelessWidget {
        SpeedDialChild(
             labelWidget: MyLabelWidget('All', myBlue),
             onTap: () => PageRouter().navigateToPage(AllRecords(), context),
-            ),
+            ), */
       ],
     );
   }

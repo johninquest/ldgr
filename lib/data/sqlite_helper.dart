@@ -38,7 +38,31 @@ class SQLiteDatabaseHelper {
       int qResult = await db.rawInsert(sql, qData);
       return qResult;
     } else {
-      print('SQL SELECT query returned an error!');
+      return null;
+    }
+  }
+
+    Future updateRow(String tDateTime, String tSource, String tAmount, int rId,) async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      List qData = ["$tDateTime", "$tSource", "$tAmount", "$rId"];
+      String sql =
+          '''UPDATE $bkTable SET created_at = ?, source = ? , amount = ?, last_update_at = datetime('now', 'localtime') WHERE id = ?''';
+      int qResult = await db.rawUpdate(sql, qData);
+      return qResult;
+    } else {
+      return null;
+    }
+  }
+
+  Future deleteRow(int rId,) async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql =
+          '''DELETE FROM $bkTable WHERE id = $rId''';
+      int qResult = await db.rawDelete(sql);
+      return qResult;
+    } else {
       return null;
     }
   }

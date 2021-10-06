@@ -7,6 +7,8 @@ import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/services/preprocessor.dart';
 import 'package:tba/pages/records/all.dart';
+import 'package:intl/intl.dart';
+import 'package:tba/services/formatter.dart';
 
 class RowEditorPage extends StatelessWidget {
   final Record rowData;
@@ -68,23 +70,36 @@ class _RowEditorFormState extends State<RowEditorForm> {
   final _rowEditorFormKey = GlobalKey<FormState>();
 
   TextEditingController _amount = TextEditingController();
-  // TextEditingController _source = TextEditingController();
-  // TextEditingController _createdDateTime = TextEditingController();
+  TextEditingController _createdDateTime = TextEditingController();
+  int? _rowId;
   String? _category;
-  String? _createdDateTime;
   String? _source;
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1990, 1, 1),
+        lastDate: DateTime(2101, 12, 31));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        _createdDateTime.text = formatDisplayedDate('$picked');
+      });
+  }
 
   @override
   void initState() {
     super.initState();
     final data = widget.initialFormData;
     setState(() {
-      _amount.text = data.amount.toString();
+      _rowId = data.id;
+      _amount.text = Formatter().toNoDecimal(data.amount);
       _category = data.category;
-      _createdDateTime = data.createdAt;
+      _createdDateTime.text = formatDisplayedDate(data.createdAt);
       _source = data.source;
-      // print(data.category);
-      print(data.createdAt);
+      print(_rowId);
     });
   }
 
@@ -99,12 +114,16 @@ class _RowEditorFormState extends State<RowEditorForm> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width * 0.95,
-              // margin: EdgeInsets.only(bottom: 20.0),
               padding: EdgeInsets.only(left: 20.0, right: 20.0),
-              child: InputDatePickerFormField(
-                  initialDate: DateTime.parse(_createdDateTime!),
-                  firstDate: DateTime(1980),
-                  lastDate: DateTime(2100)),
+              child: TextFormField(
+                controller: _createdDateTime,
+                enabled: true,
+                readOnly: true,
+                decoration: InputDecoration(
+                  labelText: 'Date',
+                ),
+                onTap: () => _selectDate(context),
+              ),
             ),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -120,7 +139,6 @@ class _RowEditorFormState extends State<RowEditorForm> {
                       : null,
                   onChanged: (val) => setState(() {
                     _source = val as String?;
-                    // print('Exp name => $expenditureName');
                   }),
                 )),
             Container(
@@ -161,6 +179,12 @@ class _RowEditorFormState extends State<RowEditorForm> {
                   child: ElevatedButton(
                     onPressed: () {
                       print('Tapped save button!');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Under construction!')));
+                      print('RowId => $_rowId');
+                      print('Source => $_source');
+                      print('Amount => ${_amount.text}');
+                      print('Created at => ${_createdDateTime.text}');
                       /* if (_expenditureFormKey.currentState!.validate()) {
                         String parsedExpenditureAmount =
                             InputHandler().moneyCheck(expenditureAmount!);
@@ -170,9 +194,30 @@ class _RowEditorFormState extends State<RowEditorForm> {
                       } */
                     },
                     child: Text('SAVE'),
-                    style: ElevatedButton.styleFrom(primary: setSaveButtonColor(_category)),
+                    style: ElevatedButton.styleFrom(
+                        // primary: setSaveButtonColor(_category)
+                        primary: myBlue),
                   ),
-                )
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      SQLiteDatabaseHelper().deleteRow(_rowId!).then((value) {
+                        if (value != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Deleted successfully')),
+                          );
+                          PageRouter().navigateToPage(AllRecords(), context);
+                        }
+                      });
+                    },
+                    child: Text('DELETE'),
+                    style: ElevatedButton.styleFrom(
+                      primary: myRed,
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
@@ -199,5 +244,17 @@ setSaveButtonColor(String? editCategory) {
   }
   if (editCategory == 'income') {
     return myGreen;
+  }
+}
+
+formatDisplayedDate(String dt) {
+  print(dt);
+  if (DateTime.tryParse(dt) != null && dt != '') {
+    DateTime parsedDatTime = DateTime.parse(dt);
+    DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
+    String toCmrDateFormat = cmrDateFormat.format(parsedDatTime);
+    return toCmrDateFormat;
+  } else {
+    return '--/--/----';
   }
 }

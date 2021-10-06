@@ -115,11 +115,14 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         String parsedExpenditureAmount =
                             InputHandler().moneyCheck(expenditureAmount!);
                         SQLiteDatabaseHelper().insertRow('expenditure',
-                            '$expenditureSource', '$parsedExpenditureAmount');
-                        PageRouter().navigateToPage(AllRecords(), context);
+                            '$expenditureSource', '$parsedExpenditureAmount').then((value){
+                              if(value != null) {
+                                 PageRouter().navigateToPage(AllRecords(), context);
+                              }
+                            });
                       }
                     },
-                    child: Text('ENTER'),
+                    child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(primary: myRed),
                   ),
                 )

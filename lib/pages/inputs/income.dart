@@ -106,11 +106,14 @@ class _IncomeFormState extends State<IncomeForm> {
                           String parsedIncomeAmount =
                             InputHandler().moneyCheck(incomeAmount!);
                         SQLiteDatabaseHelper().insertRow('income',
-                          '$incomeSource', parsedIncomeAmount);
-                        PageRouter().navigateToPage(AllRecords(), context);  
+                          '$incomeSource', parsedIncomeAmount).then((value) {
+                            if(value != null) {
+                              PageRouter().navigateToPage(AllRecords(), context);
+                            }
+                          }); 
                       }
                       },
-                      child: Text('ENTER'),
+                      child: Text('SAVE'),
                       style:
                           ElevatedButton.styleFrom(primary: myGreen),
                     ),

@@ -263,7 +263,6 @@ class _VehicleFormState extends State<VehicleForm> {
 }
 
 formatDisplayedDate(String dt) {
-  print(dt);
   if (DateTime.tryParse(dt) != null && dt != '') {
     DateTime parsedDatTime = DateTime.parse(dt);
     DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');

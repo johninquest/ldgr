@@ -99,7 +99,7 @@ class _RowEditorFormState extends State<RowEditorForm> {
       _category = data.category;
       _createdDateTime.text = formatDisplayedDate(data.createdAt);
       _source = data.source;
-      print(_rowId);
+      // print(_rowId);
     });
   }
 
@@ -185,6 +185,7 @@ class _RowEditorFormState extends State<RowEditorForm> {
                       print('Source => $_source');
                       print('Amount => ${_amount.text}');
                       print('Created at => ${_createdDateTime.text}');
+                      print(DateFormat('dd/MM/yyyy').parse(_createdDateTime.text));
                       /* if (_expenditureFormKey.currentState!.validate()) {
                         String parsedExpenditureAmount =
                             InputHandler().moneyCheck(expenditureAmount!);
@@ -248,7 +249,6 @@ setSaveButtonColor(String? editCategory) {
 }
 
 formatDisplayedDate(String dt) {
-  print(dt);
   if (DateTime.tryParse(dt) != null && dt != '') {
     DateTime parsedDatTime = DateTime.parse(dt);
     DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');

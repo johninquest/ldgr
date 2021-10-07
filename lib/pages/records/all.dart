@@ -123,7 +123,7 @@ class _AllRecordsState extends State<AllRecords> {
             }
           },
           cells: [
-            DataCell(Column(
+           /*  DataCell(Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -136,7 +136,9 @@ class _AllRecordsState extends State<AllRecords> {
                   style: TableItemStyle,
                 )
               ],
-            )),
+            )), */
+            DataCell(Text(Formatter().dbToUiDateTime(e.createdAt)[0],
+                  style: TableItemStyle,)),
             DataCell(Text(
               Formatter().dbToUiValue(e.category),
               style: StyleHandler().tableCategoryStyle(e.category),

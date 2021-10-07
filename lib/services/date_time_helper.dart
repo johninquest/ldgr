@@ -41,4 +41,13 @@ class DateTimeHelper {
       return 'Date not available';
     }
   }
+
+  toDbDateTimeFormat(String? inputDateStr) {
+    if (inputDateStr != null && inputDateStr != '') {
+      DateTime inputToDbDateTime = DateFormat('dd/MM/yyyy').parse(inputDateStr);
+      return '$inputToDbDateTime';
+    } else {
+      return '0000-00-00 00:00:00';
+    }
+  }
 }

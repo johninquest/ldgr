@@ -79,7 +79,7 @@ class _IncomeFormState extends State<IncomeForm> {
                     decoration: InputDecoration(labelText: 'Amount'),
                     keyboardType: TextInputType.number,
                     validator: (val) =>
-                        val!.isEmpty ? 'Please enter an amount!' : null,
+                        val!.isEmpty ? 'Please enter amount!' : null,
                     onChanged: (val) => setState(() {
                       incomeAmount = val;
                     }),

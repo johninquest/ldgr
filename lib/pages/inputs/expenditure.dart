@@ -84,7 +84,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   keyboardType: TextInputType.number,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter an amount!';
+                      return 'Please enter amount!';
                     }
                   },
                   /* validator: (val) =>

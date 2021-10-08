@@ -44,8 +44,10 @@ class DateTimeHelper {
 
   toDbDateTimeFormat(String? inputDateStr) {
     if (inputDateStr != null && inputDateStr != '') {
-      DateTime inputToDbDateTime = DateFormat('dd/MM/yyyy').parse(inputDateStr);
-      return '$inputToDbDateTime';
+      DateTime inputToDateTime = DateFormat('dd/MM/yyyy').parse(inputDateStr);
+      String toDbFormat =
+          DateFormat('yyyy-MM-dd HH:mm:ss').format(inputToDateTime);
+      return toDbFormat;
     } else {
       return '0000-00-00 00:00:00';
     }

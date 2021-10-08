@@ -3,6 +3,7 @@ import 'package:tba/data/models.dart';
 import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/lists.dart';
+import 'package:tba/shared/snackbar_messages.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/services/preprocessor.dart';
@@ -99,7 +100,6 @@ class _RowEditorFormState extends State<RowEditorForm> {
       _category = data.category;
       _createdDateTime.text = formatDisplayedDate(data.createdAt);
       _source = data.source;
-      // print(_rowId);
     });
   }
 
@@ -151,7 +151,7 @@ class _RowEditorFormState extends State<RowEditorForm> {
                   keyboardType: TextInputType.number,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter an amount!';
+                      return 'Please enter amount!';
                     }
                   },
                   /* validator: (val) =>
@@ -178,21 +178,41 @@ class _RowEditorFormState extends State<RowEditorForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Tapped save button!');
+                      /* print('Tapped save button!');
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Under construction!')));
                       print('RowId => $_rowId');
                       print('Source => $_source');
                       print('Amount => ${_amount.text}');
                       print('Created at => ${_createdDateTime.text}');
-                      print(DateFormat('dd/MM/yyyy').parse(_createdDateTime.text));
-                      /* if (_expenditureFormKey.currentState!.validate()) {
-                        String parsedExpenditureAmount =
-                            InputHandler().moneyCheck(expenditureAmount!);
-                        SQLiteDatabaseHelper().insertRow('expenditure',
-                            '$expenditureSource', '$parsedExpenditureAmount');
-                        PageRouter().navigateToPage(AllRecords(), context);
-                      } */
+                      print(DateFormat('dd/MM/yyyy')
+                          .parse(_createdDateTime.text));
+                      print(DateTimeHelper()
+                          .toDbDateTimeFormat(_createdDateTime.text)); */
+                      /* Map editedRowData = {};
+                      int editRowId = _rowId!;
+                      String editAmount =
+                          InputHandler().moneyCheck(_amount.text); 
+                      String editDate = DateTimeHelper()
+                          .toDbDateTimeFormat(_createdDateTime.text);
+                      String editSource = _source!;   */
+                      if (_rowEditorFormKey.currentState!.validate()) {
+                        String editDate = DateTimeHelper()
+                            .toDbDateTimeFormat(_createdDateTime.text);
+                        String editSource = _source!;
+                        String editAmount =
+                            InputHandler().moneyCheck(_amount.text);
+                        int editRowId = _rowId!;
+                        SQLiteDatabaseHelper()
+                            .updateRow(
+                                editDate, editSource, editAmount, editRowId)
+                            .then((value) {
+                          if (value != null) {
+                            SnackBarMessage().changeSuccess(context);
+                            PageRouter().navigateToPage(AllRecords(), context);
+                          }
+                        });
+                      }
                     },
                     child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(
@@ -206,9 +226,7 @@ class _RowEditorFormState extends State<RowEditorForm> {
                     onPressed: () {
                       SQLiteDatabaseHelper().deleteRow(_rowId!).then((value) {
                         if (value != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Deleted successfully')),
-                          );
+                          SnackBarMessage().deleteSuccess(context);
                           PageRouter().navigateToPage(AllRecords(), context);
                         }
                       });

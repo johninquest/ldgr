@@ -3,6 +3,8 @@ class CurrencyHandler {
     switch (country) {
       case 'burundi':
         return 'BIF';
+      case 'botswana':
+        return 'BWP';  
       case 'cameroon':
       case 'central_african_republic':
       case 'chad':
@@ -19,6 +21,8 @@ class CurrencyHandler {
       case 'senegal':
       case 'togo':
         return 'XOF';
+      case 'eritrea':
+        return 'ERN';  
       case 'ethiopia':
         return 'ETB';
       case 'eswatini':
@@ -29,6 +33,8 @@ class CurrencyHandler {
         return 'GMD';
       case 'kenya':
         return 'KES';
+      case 'lesotho':
+        return 'LSL';    
       case 'liberia':
         return 'LRD';
       case 'malawi':

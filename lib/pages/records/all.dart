@@ -47,9 +47,9 @@ class _AllRecordsState extends State<AllRecords> {
 
   @override
   Widget build(BuildContext context) {
-    String mom = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+   /*  String mom = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
     SQLiteDatabaseHelper().getSumByDate(mom).then((value) => print(value));
-    // print('Current date => $mom');
+    print('Current date => $mom'); */
     return Scaffold(
       appBar: AppBar(
         title: Text('All records'),

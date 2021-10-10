@@ -32,12 +32,14 @@ class _AllRecordsState extends State<AllRecords> {
   @override
   initState() {
     super.initState();
-    SQLiteDatabaseHelper()
-        .getExpenditureSum()
-        .then((value) => expenditureSumTotal = value['sum_ex']);
-    SQLiteDatabaseHelper()
-        .getIncomeSum()
-        .then((value) => incomeSumTotal = value['sum_in']);
+    SQLiteDatabaseHelper().getSumAll().then((value) {
+      if (value != null) {
+       /*  print('Sum exp => ${value["sumExp"]}');
+        print('Sum inc => ${value["sumInc"]}'); */
+        expenditureSumTotal = value['sumExp'];
+        incomeSumTotal = value['sumInc'];
+      }
+    });
     SharedPreferencesHelper().readData('personData').then((value) {
       if (value != null) {
         currentCountry = DataParser().strToMap(value)['country'];
@@ -47,9 +49,6 @@ class _AllRecordsState extends State<AllRecords> {
 
   @override
   Widget build(BuildContext context) {
-   /*  String mom = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
-    SQLiteDatabaseHelper().getSumByDate(mom).then((value) => print(value));
-    print('Current date => $mom'); */
     return Scaffold(
       appBar: AppBar(
         title: Text('All records'),

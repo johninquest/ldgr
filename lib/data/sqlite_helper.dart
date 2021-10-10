@@ -120,7 +120,6 @@ class SQLiteDatabaseHelper {
     }
   }
 
-/* Get sum data */
 /*   Future getExpenditureSum() async {
     final Database? db = await initializeDB();
     if (db != null) {
@@ -144,8 +143,9 @@ class SQLiteDatabaseHelper {
       return null;
     }
   } */
-
-    Future getSumAll() async {
+  
+  /* Get sum data */
+  Future getSumAll() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =

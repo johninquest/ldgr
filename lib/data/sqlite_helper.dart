@@ -42,7 +42,12 @@ class SQLiteDatabaseHelper {
     }
   }
 
-    Future updateRow(String tDateTime, String tSource, String tAmount, int rId,) async {
+  Future updateRow(
+    String tDateTime,
+    String tSource,
+    String tAmount,
+    int rId,
+  ) async {
     final Database? db = await initializeDB();
     if (db != null) {
       List qData = ["$tDateTime", "$tSource", "$tAmount", "$rId"];
@@ -55,11 +60,12 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future deleteRow(int rId,) async {
+  Future deleteRow(
+    int rId,
+  ) async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql =
-          '''DELETE FROM $bkTable WHERE id = $rId''';
+      String sql = '''DELETE FROM $bkTable WHERE id = $rId''';
       int qResult = await db.rawDelete(sql);
       return qResult;
     } else {
@@ -114,6 +120,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
+/* Get sum data */
   Future getExpenditureSum() async {
     final Database? db = await initializeDB();
     if (db != null) {
@@ -133,6 +140,21 @@ class SQLiteDatabaseHelper {
           'SELECT sum(amount) AS sum_in FROM $bkTable WHERE category = "income"';
       List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
       return qResult[0];
+    } else {
+      return null;
+    }
+  }
+
+  Future getSumByDate(String? qDate) async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sqlSumExp =
+          'SELECT sum(amount) AS sum_exp FROM $bkTable WHERE category = "expenditure" AND date(created_at) = date("now", "localtime")';
+      String sqlSumInc =
+          'SELECT sum(amount) AS sum_inc FROM $bkTable WHERE category = "income" AND date(created_at) = date("now", "localtime")';
+      List<Map<String, dynamic>> qResultSumExp = await db.rawQuery(sqlSumExp);
+      List<Map<String, dynamic>> qResultSumInc = await db.rawQuery(sqlSumInc);
+      return {'sumExp': qResultSumExp[0]['sum_exp'], 'sumInc': qResultSumInc[0]['sum_inc']};
     } else {
       return null;
     }

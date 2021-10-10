@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tba/data/models.dart';
 import 'package:tba/pages/filters/overview.dart';
 import 'package:tba/pages/inputs/row_editor.dart';
@@ -46,6 +47,9 @@ class _AllRecordsState extends State<AllRecords> {
 
   @override
   Widget build(BuildContext context) {
+    String mom = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+    SQLiteDatabaseHelper().getSumByDate(mom).then((value) => print(value));
+    // print('Current date => $mom');
     return Scaffold(
       appBar: AppBar(
         title: Text('All records'),
@@ -123,7 +127,7 @@ class _AllRecordsState extends State<AllRecords> {
             }
           },
           cells: [
-           /*  DataCell(Column(
+            /*  DataCell(Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -137,8 +141,10 @@ class _AllRecordsState extends State<AllRecords> {
                 )
               ],
             )), */
-            DataCell(Text(Formatter().dbToUiDateTime(e.createdAt)[0],
-                  style: TableItemStyle,)),
+            DataCell(Text(
+              Formatter().dbToUiDateTime(e.createdAt)[0],
+              style: TableItemStyle,
+            )),
             DataCell(Text(
               Formatter().dbToUiValue(e.category),
               style: StyleHandler().tableCategoryStyle(e.category),
@@ -149,8 +155,6 @@ class _AllRecordsState extends State<AllRecords> {
                 Formatter().toNoDecimal(e.amount),
                 style: TableItemStyle,
               ),
-              // onTap: () => print('Row tapped => ${e.amount}'),
-              // onDoubleTap: () => PageRouter().navigateToPage(RowEditor(rowData: e), context)
             )
           ],
         ),

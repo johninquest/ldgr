@@ -4,7 +4,6 @@ import 'package:tba/pages/records/all.dart';
 // import 'package:tba/styles/style.dart';
 import '../services/router.dart';
 import 'package:tba/pages/home.dart';
-// import 'records/all.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override

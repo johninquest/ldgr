@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tba/services/router.dart';
 import 'dart:convert';
-// import 'package:tba/styles/style.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/data/sp_helper.dart';
-import 'package:tba/pages/view/vehicle.dart';
+import 'package:tba/pages/records/vehicle.dart';
 
 class InputVehiclePage extends StatelessWidget {
   const InputVehiclePage({Key? key}) : super(key: key);

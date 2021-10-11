@@ -160,7 +160,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future getSumByDate() async {
+  Future getSumToday() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =
@@ -169,7 +169,7 @@ class SQLiteDatabaseHelper {
           'SELECT sum(amount) AS sum_inc FROM $bkTable WHERE category = "income" AND DATE(created_at) = DATE("now", "localtime")';
       List<Map<String, dynamic>> qResultSumExp = await db.rawQuery(sqlSumExp);
       List<Map<String, dynamic>> qResultSumInc = await db.rawQuery(sqlSumInc);
-      return {'sumExp': qResultSumExp[0]['sum_exp'], 'sumInc': qResultSumInc[0]['sum_inc']};
+      return {'sumExpToday': qResultSumExp[0]['sum_exp'], 'sumIncToday': qResultSumInc[0]['sum_inc']};
     } else {
       return null;
     }
@@ -184,7 +184,7 @@ class SQLiteDatabaseHelper {
           'SELECT sum(amount) AS sum_inc FROM $bkTable WHERE category = "income" AND strftime("%W", DATE(created_at)) = strftime("%W", DATE("now", "localtime"))';
       List<Map<String, dynamic>> qResultSumExp = await db.rawQuery(sqlSumExp);
       List<Map<String, dynamic>> qResultSumInc = await db.rawQuery(sqlSumInc);
-      return {'sumExp': qResultSumExp[0]['sum_exp'], 'sumInc': qResultSumInc[0]['sum_inc']};
+      return {'sumExpWeek': qResultSumExp[0]['sum_exp'], 'sumIncWeek': qResultSumInc[0]['sum_inc']};
     } else {
       return null;
     }

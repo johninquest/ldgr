@@ -16,34 +16,42 @@ class FilterOverview extends StatelessWidget {
         centerTitle: true, 
         automaticallyImplyLeading: false,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FilterButton(buttonName: 'day'),
-              FilterButton(buttonName: 'week')
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FilterButton(buttonName: 'month'),
-              FilterButton(buttonName: 'year')
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FilterButton(buttonName: 'all'),
-              FilterButton(buttonName: 'other')
-            ],
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            FilterButton(buttonName: 'today'), 
+            FilterButton(buttonName: 'week'), 
+            FilterButton(buttonName: 'month'), 
+            FilterButton(buttonName: 'year'), 
+            FilterButton(buttonName: 'from / to'), 
+            FilterButton(buttonName: 'all'),
+            /* Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FilterButton(buttonName: 'day'),
+                FilterButton(buttonName: 'week')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FilterButton(buttonName: 'month'),
+                FilterButton(buttonName: 'year')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FilterButton(buttonName: 'all'),
+                FilterButton(buttonName: 'other')
+              ],
+            ) */
+          ],
+        ),
       ),
-      floatingActionButton: FloatingSideMenu(),
+      // floatingActionButton: FloatingSideMenu(),
       bottomNavigationBar: BottomNavBar(),
     );
   }
@@ -56,8 +64,8 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80.0,
-      width: 120.0,
+      height: 60.0,
+      width: MediaQuery.of(context).size.width * 0.75, 
       margin: EdgeInsets.all(5.0),
       padding: EdgeInsets.all(5.0),
       child: ElevatedButton(
@@ -74,6 +82,6 @@ localNavigator(String bName, context) {
     Widget targetPage = AllRecords();
     PageRouter().navigateToPage(targetPage, context);
   } else {
-    print('No where to go!');
+    print('Route coming soon');
   }
 }

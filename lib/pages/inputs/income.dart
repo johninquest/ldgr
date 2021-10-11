@@ -4,6 +4,7 @@ import 'package:tba/shared/lists.dart';
 import 'package:tba/data/sqlite_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/records/all.dart';
+import 'package:tba/shared/snackbar_messages.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/services/preprocessor.dart';
 import 'package:tba/services/date_time_helper.dart';
@@ -108,6 +109,7 @@ class _IncomeFormState extends State<IncomeForm> {
                         SQLiteDatabaseHelper().insertRow('income',
                           '$incomeSource', parsedIncomeAmount).then((value) {
                             if(value != null) {
+                              SnackBarMessage().saveSuccess(context);
                               PageRouter().navigateToPage(AllRecords(), context);
                             }
                           }); 

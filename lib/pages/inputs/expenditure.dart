@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/services/date_time_helper.dart';
+import 'package:tba/shared/snackbar_messages.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/lists.dart';
 import 'package:tba/data/sqlite_helper.dart';
@@ -64,8 +65,9 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
-                  // hint: Text('Reason for expenditure'), 
-                  decoration: InputDecoration(labelText: 'Reason for expenditure'),
+                  // hint: Text('Reason for expenditure'),
+                  decoration:
+                      InputDecoration(labelText: 'Reason for expenditure'),
                   items: MyItemList().expenditureList,
                   validator: (val) => val == null
                       ? 'Please select reason for expenditure!'
@@ -114,12 +116,15 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       if (_expenditureFormKey.currentState!.validate()) {
                         String parsedExpenditureAmount =
                             InputHandler().moneyCheck(expenditureAmount!);
-                        SQLiteDatabaseHelper().insertRow('expenditure',
-                            '$expenditureSource', '$parsedExpenditureAmount').then((value){
-                              if(value != null) {
-                                 PageRouter().navigateToPage(AllRecords(), context);
-                              }
-                            });
+                        SQLiteDatabaseHelper()
+                            .insertRow('expenditure', '$expenditureSource',
+                                '$parsedExpenditureAmount')
+                            .then((value) {
+                          if (value != null) {
+                            SnackBarMessage().saveSuccess(context);
+                            PageRouter().navigateToPage(AllRecords(), context);
+                          }
+                        });
                       }
                     },
                     child: Text('SAVE'),

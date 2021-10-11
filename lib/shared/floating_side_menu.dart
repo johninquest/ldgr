@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tba/pages/records/all.dart'; 
+import 'package:tba/pages/records/all.dart';
+import 'package:tba/pages/records/filtered.dart'; 
 // import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -17,11 +18,11 @@ class FloatingSideMenu extends StatelessWidget {
       children: [
         SpeedDialChild(
             labelWidget: MyLabelWidget('Today', myOrange),
-            onTap: () => print('Tapped today'),
+            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'today'), context),
             ),
         SpeedDialChild(
             labelWidget: MyLabelWidget('Week', myBlueLighter),
-            onTap: () => print('Tapped week'),
+            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'week'), context),
             ), 
         SpeedDialChild(
             labelWidget: MyLabelWidget('Month', myBrown),

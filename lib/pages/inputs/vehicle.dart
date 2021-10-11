@@ -281,29 +281,3 @@ getStoredVehicle(String? vehicleStr) {
     return {};
   }
 }
-
-/* initialDateHandler(DateTime dt) {
-  DateTime today = DateTime.now();
-  DateFormat toDateFormat = DateFormat('yyyy-MM-dd');
-  DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
-  String toCmrDateFormat = cmrDateFormat.format(dt);
-  String todayFormatted = toDateFormat.format(today);
-  String dtFormatted = toDateFormat.format(dt);
-  if (dtFormatted == todayFormatted) {
-    return 'First registration date';
-  } else {
-    return toCmrDateFormat;
-  }
-}
-
-storedDateHandler(DateTime mySelectedDate) {
-  DateTime today = DateTime.now();
-  DateFormat toDateFormat = DateFormat('yyyy-MM-dd');
-  String todayFormatted = toDateFormat.format(today);
-  String selectedDateFormatted = toDateFormat.format(mySelectedDate);
-  if (selectedDateFormatted == todayFormatted) {
-    return 'isEmpty';
-  } else {
-    return selectedDateFormatted;
-  }
-} */

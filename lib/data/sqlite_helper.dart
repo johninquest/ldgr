@@ -160,7 +160,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future getSumByDate(String? qDate) async {
+  Future getSumByDate() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =
@@ -175,7 +175,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future getSumByWeek(String? qWeek) async {
+  Future getSumByWeek() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =
@@ -190,7 +190,7 @@ class SQLiteDatabaseHelper {
     }
   } 
 
-  Future getSumByMonth(String? qMonth) async {
+  Future getSumByMonth() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =

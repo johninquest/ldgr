@@ -34,8 +34,6 @@ class _AllRecordsState extends State<AllRecords> {
     super.initState();
     SQLiteDatabaseHelper().getSumAll().then((value) {
       if (value != null) {
-       /*  print('Sum exp => ${value["sumExp"]}');
-        print('Sum inc => ${value["sumInc"]}'); */
         expenditureSumTotal = value['sumExp'];
         incomeSumTotal = value['sumInc'];
       }

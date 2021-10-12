@@ -206,6 +206,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
+  // Filtered row data
   Future<List<Record>> getAllRowsToday() async {
     final Database? db = await initializeDB();
     if (db != null) {

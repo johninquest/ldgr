@@ -114,7 +114,7 @@ class StoredVehiclePage extends StatelessWidget {
                                     InputVehiclePage(), context);
                               },
                               child: Text('DELETE'),
-                              style: ElevatedButton.styleFrom(primary: myRed),
+                              style: ElevatedButton.styleFrom(primary: myLightRed),
                             ))
                       ],
                     ),

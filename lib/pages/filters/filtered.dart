@@ -84,7 +84,7 @@ class _FilteredDataState extends State<FilteredData> {
       });
     }
     if (widget.filterPeriod == 'month') {
-      SQLiteDatabaseHelper().getCurrentWeekSum().then((value) {
+      SQLiteDatabaseHelper().getCurrentMonthSum().then((value) {
         if (value != null) {
           setState(() {
             expSum = value['sumExpMonth'];
@@ -99,7 +99,7 @@ class _FilteredDataState extends State<FilteredData> {
       });
     }
     if (widget.filterPeriod == 'year') {
-      SQLiteDatabaseHelper().getCurrentWeekSum().then((value) {
+      SQLiteDatabaseHelper().getCurrentYearSum().then((value) {
         if (value != null) {
           setState(() {
             expSum = value['sumExpYear'];

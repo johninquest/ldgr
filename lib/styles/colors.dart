@@ -6,6 +6,7 @@ final Color myBlueLighter = Color(0xFF0583F2);
 final Color myBrown = Color(0xFF8C7A79);
 final Color myGreen = Color(0xFF19A108);
 final Color myOrange = Color(0xFFED6B18);
+final Color myLightRed = Color(0xFFEF5350);
 final Color myRed = Color(0xFFA11F10);
 final Color myYellow = Color(0xFFEDCE18); 
 // final Colors myWhite = Colors.white

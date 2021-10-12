@@ -5,9 +5,9 @@ import 'package:tba/pages/filters/filtered.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:tba/services/router.dart'; 
-import 'package:tba/pages/records/income.dart';
-import 'package:tba/pages/records/expenditure.dart';
-import 'package:tba/pages/filters/overview.dart';
+// import 'package:tba/pages/records/income.dart';
+// import 'package:tba/pages/records/expenditure.dart';
+// import 'package:tba/pages/filters/overview.dart';
 
 class FloatingSideMenu extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class FloatingSideMenu extends StatelessWidget {
       // icon: IconData(10),
       children: [
         SpeedDialChild(
-            labelWidget: MyLabelWidget('Today', myOrange),
+            labelWidget: MyLabelWidget('Today', myLightRed),
             onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'today'), context),
             ),
         SpeedDialChild(
@@ -25,11 +25,11 @@ class FloatingSideMenu extends StatelessWidget {
             onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'week'), context),
             ), 
         SpeedDialChild(
-            labelWidget: MyLabelWidget('Month', myBrown),
+            labelWidget: MyLabelWidget('Month', myGreen),
             onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'month'), context),
             ),  
         SpeedDialChild(
-            labelWidget: MyLabelWidget('Year', myGreen),
+            labelWidget: MyLabelWidget('Year', myYellow),
             onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'year'), context),
             ),            
         /* SpeedDialChild(

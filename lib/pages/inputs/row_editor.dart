@@ -130,7 +130,6 @@ class _RowEditorFormState extends State<RowEditorForm> {
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
                   value: _source,
-                  // hint: Text('Reason for expenditure'),
                   decoration:
                       InputDecoration(labelText: 'Reason for expenditure'),
                   items: assignSourceList(_category),
@@ -178,24 +177,6 @@ class _RowEditorFormState extends State<RowEditorForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      /* print('Tapped save button!');
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Under construction!')));
-                      print('RowId => $_rowId');
-                      print('Source => $_source');
-                      print('Amount => ${_amount.text}');
-                      print('Created at => ${_createdDateTime.text}');
-                      print(DateFormat('dd/MM/yyyy')
-                          .parse(_createdDateTime.text));
-                      print(DateTimeHelper()
-                          .toDbDateTimeFormat(_createdDateTime.text)); */
-                      /* Map editedRowData = {};
-                      int editRowId = _rowId!;
-                      String editAmount =
-                          InputHandler().moneyCheck(_amount.text); 
-                      String editDate = DateTimeHelper()
-                          .toDbDateTimeFormat(_createdDateTime.text);
-                      String editSource = _source!;   */
                       if (_rowEditorFormKey.currentState!.validate()) {
                         String editDate = DateTimeHelper()
                             .toDbDateTimeFormat(_createdDateTime.text);
@@ -216,8 +197,9 @@ class _RowEditorFormState extends State<RowEditorForm> {
                     },
                     child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(
-                        // primary: setSaveButtonColor(_category)
-                        primary: myBlue),
+                        primary: setSaveButtonColor(_category)
+                        /* primary: myBlue */
+                        ),
                   ),
                 ),
                 Container(
@@ -233,7 +215,7 @@ class _RowEditorFormState extends State<RowEditorForm> {
                     },
                     child: Text('DELETE'),
                     style: ElevatedButton.styleFrom(
-                      primary: myRed,
+                      primary: myLightRed,
                     ),
                   ),
                 ),

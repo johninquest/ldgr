@@ -9,7 +9,6 @@ import 'package:tba/pages/filters/filter_menu.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/floating_side_menu.dart';
 import 'package:tba/styles/style.dart';
-// import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/shared/analysis.dart';
@@ -38,7 +37,6 @@ class _AllRecordsState extends State<AllRecords> {
           expenditureSumTotal = value['sumExp']; 
           incomeSumTotal = value['sumInc'];
         });
-        
       }
     });
     SharedPreferencesHelper().readData('personData').then((value) {
@@ -92,8 +90,8 @@ class _AllRecordsState extends State<AllRecords> {
     );
   }
 
-  Widget buildTable(List<Record> dbRecordsList) {
-    final allColumns = [
+Widget buildTable(List<Record> dbRecordsList) {
+  final allColumns = [
       'Date',
       'Type',
       'Source',
@@ -109,7 +107,7 @@ class _AllRecordsState extends State<AllRecords> {
     );
   }
 
-  List<DataColumn> getColumns(List<String> columns) => columns
+List<DataColumn> getColumns(List<String> columns) => columns
       .map((String column) => DataColumn(
             label: Text(
               column,
@@ -118,7 +116,7 @@ class _AllRecordsState extends State<AllRecords> {
           ))
       .toList();
 
-  List<DataRow> getRows(List<Record> rows) => rows
+List<DataRow> getRows(List<Record> rows) => rows
       .map(
         (e) => DataRow(
           selected: false,

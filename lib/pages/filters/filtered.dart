@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tba/data/models.dart';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/data/sqlite_helper.dart';
+import 'package:tba/pages/inputs/row_editor.dart';
 import 'package:tba/services/currency.dart';
 import 'package:tba/services/preprocessor.dart';
+import 'package:tba/services/router.dart';
 import 'package:tba/shared/analysis.dart';
+import 'package:tba/services/formatter.dart'; 
+import 'package:tba/styles/style.dart';
 
 class Filtered extends StatelessWidget {
   final String periodName;
@@ -35,23 +40,21 @@ class _FilteredDataState extends State<FilteredData> {
   num? expSum;
   num? incSum;
   String? currentCurrency;
+  List<Record>? rowData;
 
   @override
   initState() {
     super.initState();
     SharedPreferencesHelper().readData('personData').then((value) {
       if (value != null) {
-        print(value);
         setState(() {
           String? currentCountry = DataParser().strToMap(value)['country'];
           currentCurrency = CurrencyHandler().fromCountry(currentCountry);
-          print(currentCountry);
-          print(currentCurrency);
         });
       }
     });
     if (widget.filterPeriod == 'today') {
-      SQLiteDatabaseHelper().getSumToday().then((value) {
+      SQLiteDatabaseHelper().getTodaySum().then((value) {
         if (value != null) {
           setState(() {
             expSum = value['sumExpToday'];
@@ -59,10 +62,14 @@ class _FilteredDataState extends State<FilteredData> {
           });
         }
       });
-      SQLiteDatabaseHelper().getAllRowsToday().then((value) => print(value.length));
+      SQLiteDatabaseHelper().getAllRowsToday().then((value) {
+        setState(() {
+          rowData = value;
+        });
+      });
     }
     if (widget.filterPeriod == 'week') {
-      SQLiteDatabaseHelper().getSumByWeek().then((value) {
+      SQLiteDatabaseHelper().getCurrentWeekSum().then((value) {
         if (value != null) {
           setState(() {
             expSum = value['sumExpWeek'];
@@ -70,7 +77,43 @@ class _FilteredDataState extends State<FilteredData> {
           });
         }
       });
-      SQLiteDatabaseHelper().getAllRowsCurrentWeek().then((value) => print(value.length));
+      SQLiteDatabaseHelper().getAllRowsCurrentWeek().then((value) { 
+        setState(() {
+          rowData = value;
+        });
+      });
+    }
+    if (widget.filterPeriod == 'month') {
+      SQLiteDatabaseHelper().getCurrentWeekSum().then((value) {
+        if (value != null) {
+          setState(() {
+            expSum = value['sumExpMonth'];
+            incSum = value['sumIncMonth'];
+          });
+        }
+      });
+      SQLiteDatabaseHelper().getAllRowsCurrentMonth().then((value) {
+        setState(() {
+          rowData = value;
+        });
+      });
+    }
+    if (widget.filterPeriod == 'year') {
+      SQLiteDatabaseHelper().getCurrentWeekSum().then((value) {
+        if (value != null) {
+          setState(() {
+            expSum = value['sumExpYear'];
+            incSum = value['sumIncYear'];
+          });
+        }
+      });
+      SQLiteDatabaseHelper()
+          .getAllRowsCurrentYear()
+          .then((value) {
+        setState(() {
+          rowData = value;
+        });
+      });
     }
   }
 
@@ -81,16 +124,75 @@ class _FilteredDataState extends State<FilteredData> {
         Container(
             child: BalanceByPeriod(expSum ?? 0, incSum ?? 0,
                 widget.filterPeriod, currentCurrency ?? '')),
-        Container(
-          margin: EdgeInsets.all(10.0),
-          child: Center(
-            child: Text('Hello world!'),
-          ),
-        )
+                        Expanded(
+                    child: SingleChildScrollView(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    alignment: Alignment.center,
+                    child: buildTable(rowData ?? []),
+                  ),
+                ))
       ],
     );
   }
+
+Widget buildTable(List<Record> dbRecordsList) {
+  final allColumns = [
+      'Date',
+      'Type',
+      'Source',
+      'Amount',
+    ];
+    return DataTable(
+      columnSpacing: 15.0,
+      horizontalMargin: 0.0,
+      // showBottomBorder: true,
+      showCheckboxColumn: false,
+      columns: getColumns(allColumns),
+      rows: getRows(dbRecordsList),
+    );
+  }
+
+List<DataColumn> getColumns(List<String> columns) => columns
+      .map((String column) => DataColumn(
+            label: Text(
+              column,
+              style: ListTitleStyle,
+            ),
+          ))
+      .toList();
+
+List<DataRow> getRows(List<Record> rows) => rows
+      .map(
+        (e) => DataRow(
+          selected: false,
+          onSelectChanged: (val) {
+            if (val == true) {
+              PageRouter().navigateToPage(RowEditorPage(rowData: e), context);
+            }
+          },
+          cells: [
+            DataCell(Text(
+              Formatter().dbToUiDateTime(e.createdAt)[0],
+              style: TableItemStyle,
+            )),
+            DataCell(Text(
+              Formatter().dbToUiValue(e.category),
+              style: StyleHandler().tableCategoryStyle(e.category),
+            )),
+            DataCell(Formatter().checkSplit2Words(e.source)),
+            DataCell(
+              Text(
+                Formatter().toNoDecimal(e.amount),
+                style: TableItemStyle,
+              ),
+            )
+          ],
+        ),
+      )
+      .toList();
 }
+
 
 appTitleHandler(String pName) {
   if (pName == 'today') {

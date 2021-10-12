@@ -25,7 +25,7 @@ class SumTotalBoard extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(bottom: 10.0),
             child: Text(
-              'SUMMARY',
+              'OVERALL BALANCE',
               style: TextStyle(fontWeight: FontWeight.bold, color: myBlue),
             ),
           ),
@@ -155,16 +155,16 @@ class BalanceByPeriod extends StatelessWidget {
 
   balanceTitle(String period) {
     if (period == 'today') {
-      return '''Today's balance''';
+      return '''today's balance'''.toUpperCase();
     }
     if (period == 'week') {
-      return '''Week's balance''';
+      return '''this week's balance'''.toUpperCase();
     }
     if (period == 'month') {
-      return '''Month's balance''';
+      return '''this month's balance'''.toUpperCase();
     }
     if (period == 'year') {
-      return '''Year's balance''';
+      return '''this year's balance'''.toUpperCase();
     }
   }
 }

@@ -26,23 +26,15 @@ class FloatingSideMenu extends StatelessWidget {
             ), 
         SpeedDialChild(
             labelWidget: MyLabelWidget('Month', myBrown),
-            onTap: () => print('Tapped month'),
+            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'month'), context),
             ),  
         SpeedDialChild(
             labelWidget: MyLabelWidget('Year', myGreen),
-            onTap: () => print('Tapped year'),
+            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'year'), context),
             ),            
         /* SpeedDialChild(
             labelWidget: MyLabelWidget('Expenditure', myRed),
             onTap: () => PageRouter().navigateToPage(ExpenditureRecords(), context),
-            ),
-        SpeedDialChild(
-            labelWidget: MyLabelWidget('Income', myGreen),
-            onTap: () => PageRouter().navigateToPage(IncomeRecords(), context),
-            ),
-       SpeedDialChild(
-            labelWidget: MyLabelWidget('All', myBlue),
-            onTap: () => PageRouter().navigateToPage(AllRecords(), context),
             ), */
       ],
     );

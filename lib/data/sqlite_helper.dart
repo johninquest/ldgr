@@ -120,30 +120,6 @@ class SQLiteDatabaseHelper {
       return [];
     }
   }
-
-/*   Future getExpenditureSum() async {
-    final Database? db = await initializeDB();
-    if (db != null) {
-      String sql =
-          'SELECT sum(amount) AS sum_ex FROM $bkTable WHERE category = "expenditure"';
-      List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
-      return qResult[0];
-    } else {
-      return null;
-    }
-  }
-
-  Future getIncomeSum() async {
-    final Database? db = await initializeDB();
-    if (db != null) {
-      String sql =
-          'SELECT sum(amount) AS sum_in FROM $bkTable WHERE category = "income"';
-      List<Map<String, dynamic>> qResult = await db.rawQuery(sql);
-      return qResult[0];
-    } else {
-      return null;
-    }
-  } */
   
   /* Get sum data */
   Future getSumAll() async {
@@ -161,7 +137,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future getSumToday() async {
+  Future getTodaySum() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =
@@ -176,7 +152,7 @@ class SQLiteDatabaseHelper {
     }
   }
 
-  Future getSumByWeek() async {
+  Future getCurrentWeekSum() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =
@@ -191,7 +167,7 @@ class SQLiteDatabaseHelper {
     }
   } 
 
-  Future getSumByMonth() async {
+  Future getCurrentMonthSum() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sqlSumExp =
@@ -200,7 +176,22 @@ class SQLiteDatabaseHelper {
           'SELECT sum(amount) AS sum_inc FROM $bkTable WHERE category = "income" AND strftime("%m", DATE(created_at)) = strftime("%m", DATE("now", "localtime"))';
       List<Map<String, dynamic>> qResultSumExp = await db.rawQuery(sqlSumExp);
       List<Map<String, dynamic>> qResultSumInc = await db.rawQuery(sqlSumInc);
-      return {'sumExp': qResultSumExp[0]['sum_exp'], 'sumInc': qResultSumInc[0]['sum_inc']};
+      return {'sumExpMonth': qResultSumExp[0]['sum_exp'], 'sumIncMonth': qResultSumInc[0]['sum_inc']};
+    } else {
+      return null;
+    }
+  }
+
+  Future getCurrentYearSum() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sqlSumExp =
+          'SELECT sum(amount) AS sum_exp FROM $bkTable WHERE category = "expenditure" AND strftime("%m", DATE(created_at)) = strftime("%m", DATE("now", "localtime"))';
+      String sqlSumInc =
+          'SELECT sum(amount) AS sum_inc FROM $bkTable WHERE category = "income" AND strftime("%m", DATE(created_at)) = strftime("%m", DATE("now", "localtime"))';
+      List<Map<String, dynamic>> qResultSumExp = await db.rawQuery(sqlSumExp);
+      List<Map<String, dynamic>> qResultSumInc = await db.rawQuery(sqlSumInc);
+      return {'sumExpYear': qResultSumExp[0]['sum_exp'], 'sumIncYear': qResultSumInc[0]['sum_inc']};
     } else {
       return null;
     }
@@ -218,10 +209,54 @@ class SQLiteDatabaseHelper {
     }
   }
 
-    Future<List<Record>> getAllRowsCurrentWeek() async {
+  Future<List<Record>> getAllRowsCurrentWeek() async {
     final Database? db = await initializeDB();
     if (db != null) {
       String sql = 'SELECT * FROM $bkTable WHERE strftime("%W", DATE(created_at)) = strftime("%W", DATE("now", "localtime")) ORDER BY id DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<Record>> getAllRowsCurrentMonth() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable WHERE strftime("%m", DATE(created_at)) = strftime("%m", DATE("now", "localtime")) ORDER BY id DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<Record>> getAllRowsCurrentYear() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable WHERE strftime("%Y", DATE(created_at)) = strftime("%Y", DATE("now", "localtime")) ORDER BY id DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      return [];
+    }
+  } 
+
+    Future<List<Record>> getAllRowsByDate(String? queryDate) async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable WHERE DATE(created_at) = DATE($queryDate) ORDER BY id DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<Record>> getAllRowsByPeriod(String? fromDate, String? toDate) async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable WHERE DATE(created_at) BETWEEN "$fromDate" AND "$toDate" ORDER BY id DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       return qResult.map((e) => Record.fromMap(e)).toList();
     } else {

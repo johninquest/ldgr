@@ -6,6 +6,7 @@ import 'package:tba/shared/lists.dart';
 import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/pages/records/vehicle.dart';
+import 'package:tba/shared/snackbar_messages.dart';
 
 class InputVehiclePage extends StatelessWidget {
   const InputVehiclePage({Key? key}) : super(key: key);
@@ -64,14 +65,16 @@ class _VehicleFormState extends State<VehicleForm> {
     super.initState();
     SharedPreferencesHelper().readData('vehicleData').then((value) {
       setState(() {
-        if(value != null) {
-          _plateNumber.text = getStoredVehicle(value)['licensePlateNumber'] ?? ''; 
-          _chassisNumber.text = getStoredVehicle(value)['chassisNumber'] ?? ''; 
-          _model.text = getStoredVehicle(value)['model'] ?? ''; 
-          vehicleMaker = getStoredVehicle(value)['maker'] ?? ''; 
-          _firstRegistrationDate.text = getStoredVehicle(value)['firstRegistrationDate'] ?? ''; 
-          _age.text = getStoredVehicle(value)['age'] ?? ''; 
-          _price.text = getStoredVehicle(value)['purchasePrice'] ?? ''; 
+        if (value != null) {
+          _plateNumber.text =
+              getStoredVehicle(value)['licensePlateNumber'] ?? '';
+          _chassisNumber.text = getStoredVehicle(value)['chassisNumber'] ?? '';
+          _model.text = getStoredVehicle(value)['model'] ?? '';
+          vehicleMaker = getStoredVehicle(value)['maker'] ?? '';
+          _firstRegistrationDate.text =
+              getStoredVehicle(value)['firstRegistrationDate'] ?? '';
+          _age.text = getStoredVehicle(value)['age'] ?? '';
+          _price.text = getStoredVehicle(value)['purchasePrice'] ?? '';
         }
       });
     });
@@ -117,26 +120,26 @@ class _VehicleFormState extends State<VehicleForm> {
                     ),
                     keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.characters,
-                   /*  onChanged: (val) => setState(() {
+                    /*  onChanged: (val) => setState(() {
                       vehicleChassisNumber = val;
                     }), */
                   )),
               Container(
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  margin: EdgeInsets.only(bottom: 5.0),
-                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
-                  child: DropdownButtonFormField(
-                    value: vehicleMaker,
-                    isExpanded: true,
-                    // hint: Text('Manufacturer'),
-                    items: MyItemList().vehicleMakerList,
-                    validator: (val) => val == null
-                        ? 'Please select vehicle manufacturer'
-                        : null,
-                    onChanged: (val) =>
-                        setState(() => vehicleMaker = val as String?),
-                    decoration: InputDecoration(labelText: 'Manufacturer'),    
-                  ),),
+                width: MediaQuery.of(context).size.width * 0.95,
+                margin: EdgeInsets.only(bottom: 5.0),
+                padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                child: DropdownButtonFormField(
+                  value: vehicleMaker,
+                  isExpanded: true,
+                  // hint: Text('Manufacturer'),
+                  items: MyItemList().vehicleMakerList,
+                  validator: (val) =>
+                      val == null ? 'Please select vehicle manufacturer' : null,
+                  onChanged: (val) =>
+                      setState(() => vehicleMaker = val as String?),
+                  decoration: InputDecoration(labelText: 'Manufacturer'),
+                ),
+              ),
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
                   margin: EdgeInsets.only(bottom: 5.0),
@@ -233,12 +236,9 @@ class _VehicleFormState extends State<VehicleForm> {
                         };
                         String vehicleMapToStr = jsonEncode(vehicleInfo);
                         if (_vehicleFormKey.currentState!.validate()) {
-                          /* ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text('Saving vehicle information...')),
-                          ); */
                           SharedPreferencesHelper()
                               .saveData('vehicleData', vehicleMapToStr);
+                          SnackBarMessage().saveSuccess(context);
                           PageRouter()
                               .navigateToPage(StoredVehiclePage(), context);
                         }

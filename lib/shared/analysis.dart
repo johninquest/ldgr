@@ -80,10 +80,11 @@ class SumTotalBoard extends StatelessWidget {
 
 class BalanceByPeriod extends StatelessWidget {
   // const RecordSummary({Key? key}) : super(key: key);
-  final String balancePeriod;
   final num expenditureSum;
   final num incomeSum;
-  BalanceByPeriod(this.expenditureSum, this.incomeSum, this.balancePeriod);
+    final String balancePeriod;
+  final String setCurrency;
+  BalanceByPeriod(this.expenditureSum, this.incomeSum, this.balancePeriod, this.setCurrency);
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +120,7 @@ class BalanceByPeriod extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      '${Formatter().toNoDecimal(expenditureSum)}',
+                      '$setCurrency ${Formatter().toNoDecimal(expenditureSum)}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, color: myBlue),
                     ),
@@ -138,7 +139,7 @@ class BalanceByPeriod extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      '${Formatter().toNoDecimal(incomeSum)}',
+                      '$setCurrency ${Formatter().toNoDecimal(incomeSum)}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, color: myBlue),
                     ),
@@ -155,12 +156,15 @@ class BalanceByPeriod extends StatelessWidget {
   balanceTitle(String period) {
     if (period == 'today') {
       return '''Today's balance''';
-    }if(period == 'week') {
-      return '''This week's balance''';
-    }if(period == 'month') {
-      return '''This month's balance''';
-    }if(period == 'year') {
-      return '''This year's balance''';
+    }
+    if (period == 'week') {
+      return '''Week's balance''';
+    }
+    if (period == 'month') {
+      return '''Month's balance''';
+    }
+    if (period == 'year') {
+      return '''Year's balance''';
     }
   }
 }

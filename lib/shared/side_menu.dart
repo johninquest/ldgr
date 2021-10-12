@@ -26,7 +26,7 @@ class SideMenu extends StatelessWidget {
                       color: Colors.white))),
           ListTile(
             leading: Icon(Icons.person, color: Colors.blue[900],),
-            title: Text('Personal info', style: TextStyle(color: Colors.blue[900]),),
+            title: Text('Person info', style: TextStyle(color: Colors.blue[900]),),
             onTap: () => PageRouter().navigateToPage(InputPersonPage(), context),
           ),
           ListTile(

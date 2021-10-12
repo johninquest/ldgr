@@ -76,7 +76,8 @@ class SQLiteDatabaseHelper {
   Future<List<Record>> getAllRows() async {
     final Database? db = await initializeDB();
     if (db != null) {
-      String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
+      /* String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC'; */
+      String sql = 'SELECT * FROM $bkTable ORDER BY id DESC';
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       return qResult.map((e) => Record.fromMap(e)).toList();
     } else {
@@ -202,6 +203,28 @@ class SQLiteDatabaseHelper {
       return {'sumExp': qResultSumExp[0]['sum_exp'], 'sumInc': qResultSumInc[0]['sum_inc']};
     } else {
       return null;
+    }
+  }
+
+  Future<List<Record>> getAllRowsToday() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable WHERE DATE(created_at) = DATE("now", "localtime") ORDER BY id DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      return [];
+    }
+  }
+
+    Future<List<Record>> getAllRowsCurrentWeek() async {
+    final Database? db = await initializeDB();
+    if (db != null) {
+      String sql = 'SELECT * FROM $bkTable WHERE strftime("%W", DATE(created_at)) = strftime("%W", DATE("now", "localtime")) ORDER BY id DESC';
+      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
+      return qResult.map((e) => Record.fromMap(e)).toList();
+    } else {
+      return [];
     }
   }
 }

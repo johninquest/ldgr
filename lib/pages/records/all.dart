@@ -34,13 +34,18 @@ class _AllRecordsState extends State<AllRecords> {
     super.initState();
     SQLiteDatabaseHelper().getSumAll().then((value) {
       if (value != null) {
-        expenditureSumTotal = value['sumExp'];
-        incomeSumTotal = value['sumInc'];
+        setState(() {
+          expenditureSumTotal = value['sumExp']; 
+          incomeSumTotal = value['sumInc'];
+        });
+        
       }
     });
     SharedPreferencesHelper().readData('personData').then((value) {
       if (value != null) {
-        currentCountry = DataParser().strToMap(value)['country'];
+        setState(() {
+           currentCountry = DataParser().strToMap(value)['country'];
+        });
       }
     });
   }

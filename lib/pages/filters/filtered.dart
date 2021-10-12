@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tba/data/sp_helper.dart';
 import 'package:tba/data/sqlite_helper.dart';
+import 'package:tba/services/currency.dart';
+import 'package:tba/services/preprocessor.dart';
 import 'package:tba/shared/analysis.dart';
 
 class Filtered extends StatelessWidget {
@@ -31,27 +34,43 @@ class FilteredData extends StatefulWidget {
 class _FilteredDataState extends State<FilteredData> {
   num? expSum;
   num? incSum;
+  String? currentCurrency;
 
   @override
   initState() {
     super.initState();
+    SharedPreferencesHelper().readData('personData').then((value) {
+      if (value != null) {
+        print(value);
+        setState(() {
+          String? currentCountry = DataParser().strToMap(value)['country'];
+          currentCurrency = CurrencyHandler().fromCountry(currentCountry);
+          print(currentCountry);
+          print(currentCurrency);
+        });
+      }
+    });
     if (widget.filterPeriod == 'today') {
       SQLiteDatabaseHelper().getSumToday().then((value) {
         if (value != null) {
-          print(value);
-          expSum = value['sumExpToday'];
-          incSum = value['sumIncToday'];
+          setState(() {
+            expSum = value['sumExpToday'];
+            incSum = value['sumIncToday'];
+          });
         }
       });
+      SQLiteDatabaseHelper().getAllRowsToday().then((value) => print(value.length));
     }
     if (widget.filterPeriod == 'week') {
       SQLiteDatabaseHelper().getSumByWeek().then((value) {
         if (value != null) {
-          print(value);
-          expSum = value['sumExpWeek'];
-          incSum = value['sumIncWeek'];
+          setState(() {
+            expSum = value['sumExpWeek'];
+            incSum = value['sumIncWeek'];
+          });
         }
       });
+      SQLiteDatabaseHelper().getAllRowsCurrentWeek().then((value) => print(value.length));
     }
   }
 
@@ -60,8 +79,8 @@ class _FilteredDataState extends State<FilteredData> {
     return Column(
       children: [
         Container(
-            child:
-                BalanceByPeriod(expSum ?? 0, incSum ?? 0, widget.filterPeriod)),
+            child: BalanceByPeriod(expSum ?? 0, incSum ?? 0,
+                widget.filterPeriod, currentCurrency ?? '')),
         Container(
           margin: EdgeInsets.all(10.0),
           child: Center(

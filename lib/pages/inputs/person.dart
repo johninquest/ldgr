@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:tba/data/sp_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/home.dart';
+import 'package:tba/shared/snackbar_messages.dart';
 // import 'package:tba/styles/colors.dart';
 
 class InputPersonPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class InputPersonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter personal info'),
+        title: Text('Enter person info'),
         centerTitle: true,
       ),
       body: Container(
@@ -208,12 +209,9 @@ class _PersonFormState extends State<PersonForm> {
                       };
                       String personMapToStr = jsonEncode(personInfo);
                       if (_personFormKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Personal information saved')),
-                        );
-                        SharedPreferencesHelper()
-                            .saveData('personData', personMapToStr);
-                        PageRouter().navigateToPage(HomePage(), context);
+                        SharedPreferencesHelper().saveData('personData', personMapToStr);
+                            SnackBarMessage().saveSuccess(context);
+                            PageRouter().navigateToPage(HomePage(), context);
                       }
                     },
                     child: Text(

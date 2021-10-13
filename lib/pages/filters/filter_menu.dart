@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/pages/records/all.dart';
-// import 'package:tba/styles/colors.dart'; 
 import 'package:tba/services/router.dart';
-// import 'package:tba/pages/inputs/vehicle.dart';
-import 'package:tba/pages/inputs/person.dart';
-import 'package:tba/pages/about.dart';
-import 'package:tba/pages/records/vehicle.dart';
 import 'package:tba/styles/colors.dart';
 
 class FilterMenu extends StatelessWidget {

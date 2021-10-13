@@ -14,9 +14,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TRANSPOTA', style: PageHeaderStyle,), 
+        title: Text('transpota', style: PageHeaderStyle,), 
         centerTitle: true, 
-        // automaticallyImplyLeading: false,
       ),
       drawer: SideMenu(),
       body: Center(

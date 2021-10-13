@@ -19,7 +19,7 @@ class Filtered extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appTitleHandler(periodName)),
+        title: Text(appTitleHandler(periodName), style: AppBarTitleStyle,),
         centerTitle: true,
       ),
       body: FilteredData(

@@ -26,7 +26,7 @@ class StoredVehiclePage extends StatelessWidget {
     });
     return Scaffold(
       appBar: AppBar(
-        title: Text('My vehicle'),
+        title: Text('My vehicle', style: AppBarTitleStyle,),
         centerTitle: true,
       ),
       body: FutureBuilder(

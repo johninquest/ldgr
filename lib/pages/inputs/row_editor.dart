@@ -34,8 +34,6 @@ class RowEditorPage extends StatelessWidget {
               initialFormData: rowData,
               cameFromPage: fromPageName,
             ),
-            /* child: Text(
-                '${rowData.id}, ${rowData.createdAt}, ${rowData.category}, ${rowData.source}, ${rowData.amount}'), */
           ),
         ));
   }
@@ -50,7 +48,7 @@ setPageTitle(String? recordCategory) {
       return Text('Edit income');
     }
   } else
-    return Text('Nada');
+    return Text('🤷');
 }
 
 setPageTitleBackgroundColor(String? recordCategory) {
@@ -140,10 +138,10 @@ class _RowEditorFormState extends State<RowEditorForm> {
                 child: DropdownButtonFormField(
                   value: _source,
                   decoration:
-                      InputDecoration(labelText: 'Reason for expenditure'),
+                      InputDecoration(labelText: setSourceLabel(_category)),
                   items: assignSourceList(_category),
                   validator: (val) => val == null
-                      ? 'Please select reason for expenditure!'
+                      ? 'Please select from list!'
                       : null,
                   onChanged: (val) => setState(() {
                     _source = val as String?;
@@ -253,6 +251,15 @@ setSaveButtonColor(String? editCategory) {
   }
   if (editCategory == 'income') {
     return myGreen;
+  }
+}
+
+setSourceLabel(String? editCategory) {
+  if (editCategory == 'expenditure') {
+    return 'Reason for expenditure';
+  }
+  if (editCategory == 'income') {
+    return 'Source of income';
   }
 }
 

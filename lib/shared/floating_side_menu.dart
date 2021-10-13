@@ -57,7 +57,7 @@ class MyLabelWidget extends StatelessWidget {
             fontSize: 15.0,
             fontWeight: FontWeight.bold,
             color: Colors.white,
-            letterSpacing: 1.0),
+            letterSpacing: 2.0),
       ),
       decoration: BoxDecoration(
           color: myLabelBackgroundColor,

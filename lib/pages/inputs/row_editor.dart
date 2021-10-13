@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tba/data/models.dart';
+import 'package:tba/pages/filters/filtered.dart';
 import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/shared/lists.dart';
@@ -13,7 +14,10 @@ import 'package:tba/services/formatter.dart';
 
 class RowEditorPage extends StatelessWidget {
   final Record rowData;
-  const RowEditorPage({Key? key, required this.rowData}) : super(key: key);
+  final String fromPageName;
+  const RowEditorPage(
+      {Key? key, required this.rowData, required this.fromPageName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,10 @@ class RowEditorPage extends StatelessWidget {
         ),
         body: Container(
           child: Center(
-            child: RowEditorForm(initialFormData: rowData),
+            child: RowEditorForm(
+              initialFormData: rowData,
+              cameFromPage: fromPageName,
+            ),
             /* child: Text(
                 '${rowData.id}, ${rowData.createdAt}, ${rowData.category}, ${rowData.source}, ${rowData.amount}'), */
           ),
@@ -60,7 +67,9 @@ setPageTitleBackgroundColor(String? recordCategory) {
 
 class RowEditorForm extends StatefulWidget {
   final Record initialFormData;
-  const RowEditorForm({Key? key, required this.initialFormData})
+  final String cameFromPage;
+  const RowEditorForm(
+      {Key? key, required this.initialFormData, required this.cameFromPage})
       : super(key: key);
 
   @override
@@ -190,7 +199,7 @@ class _RowEditorFormState extends State<RowEditorForm> {
                             .then((value) {
                           if (value != null) {
                             SnackBarMessage().changeSuccess(context);
-                            PageRouter().navigateToPage(AllRecords(), context);
+                            routeBackAndRefresh(widget.cameFromPage, context);
                           }
                         });
                       }
@@ -198,7 +207,6 @@ class _RowEditorFormState extends State<RowEditorForm> {
                     child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(
                         primary: setSaveButtonColor(_category)
-                        /* primary: myBlue */
                         ),
                   ),
                 ),
@@ -209,7 +217,7 @@ class _RowEditorFormState extends State<RowEditorForm> {
                       SQLiteDatabaseHelper().deleteRow(_rowId!).then((value) {
                         if (value != null) {
                           SnackBarMessage().deleteSuccess(context);
-                          PageRouter().navigateToPage(AllRecords(), context);
+                          routeBackAndRefresh(widget.cameFromPage, context);
                         }
                       });
                     },
@@ -256,5 +264,32 @@ formatDisplayedDate(String dt) {
     return toCmrDateFormat;
   } else {
     return '--/--/----';
+  }
+}
+
+routeBackAndRefresh(String? fromPage, myContext) {
+  if (fromPage == 'all') {
+    var toPage = PageRouter().navigateToPage(AllRecords(), myContext);
+    return toPage;
+  }
+  if (fromPage == 'today') {
+    var toPage =
+        PageRouter().navigateToPage(Filtered(periodName: 'today'), myContext);
+    return toPage;
+  }
+  if (fromPage == 'week') {
+    var toPage =
+        PageRouter().navigateToPage(Filtered(periodName: 'week'), myContext);
+    return toPage;
+  }
+  if (fromPage == 'month') {
+    var toPage =
+        PageRouter().navigateToPage(Filtered(periodName: 'month'), myContext);
+    return toPage;
+  }
+  if (fromPage == 'year') {
+    var toPage =
+        PageRouter().navigateToPage(Filtered(periodName: 'year'), myContext);
+    return toPage;
   }
 }

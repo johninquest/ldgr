@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tba/pages/inputs/vehicle.dart';
 import 'package:tba/services/router.dart';
+import 'package:tba/shared/snackbar_messages.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/data/sp_helper.dart';
@@ -18,8 +19,8 @@ class StoredVehiclePage extends StatelessWidget {
     String? currentCountry;
     String? currentCurrency;
     SharedPreferencesHelper().readData('personData').then((value) {
-      if(value != null) {
-        currentCountry = DataParser().strToMap(value)['country']; 
+      if (value != null) {
+        currentCountry = DataParser().strToMap(value)['country'];
         currentCurrency = CurrencyHandler().fromCountry(currentCountry);
       }
     });
@@ -87,12 +88,7 @@ class StoredVehiclePage extends StatelessWidget {
                             Container(
                                 margin: EdgeInsets.only(top: 10.0),
                                 child: ElevatedButton(
-                                  onPressed: () => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                        content:
-                                            Text('Still under construction!')),
-                                  ),
+                                  onPressed: () => SnackBarMessage().underConstruction(context),
                                   child: Text('PRINT'),
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.blueGrey),
@@ -103,18 +99,15 @@ class StoredVehiclePage extends StatelessWidget {
                             margin: EdgeInsets.only(top: 10.0),
                             child: ElevatedButton(
                               onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content:
-                                          Text('Vehicle information deleted!')),
-                                );
                                 SharedPreferencesHelper()
                                     .removeData('vehicleData');
+                                SnackBarMessage().deleteSuccess(context);
                                 PageRouter().navigateToPage(
                                     InputVehiclePage(), context);
                               },
                               child: Text('DELETE'),
-                              style: ElevatedButton.styleFrom(primary: myLightRed),
+                              style:
+                                  ElevatedButton.styleFrom(primary: myLightRed),
                             ))
                       ],
                     ),

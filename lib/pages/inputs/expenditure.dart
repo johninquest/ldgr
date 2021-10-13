@@ -21,9 +21,6 @@ class InputExpenditurePage extends StatelessWidget {
         ),
         body: Center(
           child: ExpenditureForm(),
-          /* child: Container(
-            child: Text('Enter expenditure!'),
-          ), */
         ));
   }
 }
@@ -74,7 +71,6 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       : null,
                   onChanged: (val) => setState(() {
                     expenditureSource = val as String?;
-                    // print('Exp name => $expenditureName');
                   }),
                 )),
             Container(

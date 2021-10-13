@@ -30,7 +30,7 @@ class _AllRecordsState extends State<AllRecords> {
     SQLiteDatabaseHelper().getSumAll().then((value) {
       if (value != null) {
         setState(() {
-          expenditureSumTotal = value['sumExp']; 
+          expenditureSumTotal = value['sumExp'];
           incomeSumTotal = value['sumInc'];
         });
       }
@@ -38,7 +38,7 @@ class _AllRecordsState extends State<AllRecords> {
     SharedPreferencesHelper().readData('personData').then((value) {
       if (value != null) {
         setState(() {
-           currentCountry = DataParser().strToMap(value)['country'];
+          currentCountry = DataParser().strToMap(value)['country'];
         });
       }
     });
@@ -86,8 +86,14 @@ class _AllRecordsState extends State<AllRecords> {
     );
   }
 
-Widget buildTable(List<Record> dbRecordsList) {
-  final allColumns = [
+  Widget buildTable(List<Record> dbRecordsList) {
+    if (dbRecordsList.length < 1) {
+      return Container(
+        margin: EdgeInsets.only(top: 50.0),
+        child: Center(child: Text('No records found!', style: BodyStyle,),),
+      );
+    }else {
+      final allColumns = [
       'Date',
       'Type',
       'Source',
@@ -99,11 +105,12 @@ Widget buildTable(List<Record> dbRecordsList) {
       // showBottomBorder: true,
       showCheckboxColumn: false,
       columns: getColumns(allColumns),
-      rows: getRows(dbRecordsList),
-    );
+      rows: getRows(dbRecordsList), 
+      );
+    }
   }
 
-List<DataColumn> getColumns(List<String> columns) => columns
+  List<DataColumn> getColumns(List<String> columns) => columns
       .map((String column) => DataColumn(
             label: Text(
               column,
@@ -112,14 +119,19 @@ List<DataColumn> getColumns(List<String> columns) => columns
           ))
       .toList();
 
-List<DataRow> getRows(List<Record> rows) => rows
+  List<DataRow> getRows(List<Record> rows) => rows
       .map(
         (e) => DataRow(
           selected: false,
           // color: MaterialStateProperty.all(myBlueLighter),
           onSelectChanged: (val) {
             if (val == true) {
-              PageRouter().navigateToPage(RowEditorPage(rowData: e), context);
+              PageRouter().navigateToPage(
+                  RowEditorPage(
+                    rowData: e,
+                    fromPageName: 'all',
+                  ),
+                  context);
             }
           },
           cells: [

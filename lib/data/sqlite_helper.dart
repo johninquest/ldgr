@@ -92,7 +92,6 @@ class SQLiteDatabaseHelper {
       List<Map<String, Object?>> qResult = await db.rawQuery(sql);
       return qResult.toList();
     } else {
-      // print('SQL SELECT query returned an error!');
       return null;
     }
   } */

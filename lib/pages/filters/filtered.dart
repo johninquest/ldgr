@@ -7,7 +7,8 @@ import 'package:tba/services/currency.dart';
 import 'package:tba/services/preprocessor.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/shared/analysis.dart';
-import 'package:tba/services/formatter.dart'; 
+import 'package:tba/services/formatter.dart';
+import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/styles/style.dart';
 
 class Filtered extends StatelessWidget {
@@ -24,6 +25,7 @@ class Filtered extends StatelessWidget {
       body: FilteredData(
         filterPeriod: periodName,
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -77,7 +79,7 @@ class _FilteredDataState extends State<FilteredData> {
           });
         }
       });
-      SQLiteDatabaseHelper().getAllRowsCurrentWeek().then((value) { 
+      SQLiteDatabaseHelper().getAllRowsCurrentWeek().then((value) {
         setState(() {
           rowData = value;
         });
@@ -107,9 +109,7 @@ class _FilteredDataState extends State<FilteredData> {
           });
         }
       });
-      SQLiteDatabaseHelper()
-          .getAllRowsCurrentYear()
-          .then((value) {
+      SQLiteDatabaseHelper().getAllRowsCurrentYear().then((value) {
         setState(() {
           rowData = value;
         });
@@ -124,20 +124,27 @@ class _FilteredDataState extends State<FilteredData> {
         Container(
             child: BalanceByPeriod(expSum ?? 0, incSum ?? 0,
                 widget.filterPeriod, currentCurrency ?? '')),
-                        Expanded(
-                    child: SingleChildScrollView(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    alignment: Alignment.center,
-                    child: buildTable(rowData ?? []),
-                  ),
-                ))
+        Expanded(
+            child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.95,
+            alignment: Alignment.center,
+            child: buildTable(rowData ?? []),
+          ),
+        ))
       ],
     );
   }
 
-Widget buildTable(List<Record> dbRecordsList) {
-  final allColumns = [
+  Widget buildTable(List<Record> dbRecordsList) {
+    // print(dbRecordsList.length);
+    if (dbRecordsList.length < 1) {
+      return Container(
+        margin: EdgeInsets.only(top: 50.0),
+        child: Center(child: Text('No records found!', style: BodyStyle,),),
+      );
+    }else {
+      final allColumns = [
       'Date',
       'Type',
       'Source',
@@ -151,9 +158,10 @@ Widget buildTable(List<Record> dbRecordsList) {
       columns: getColumns(allColumns),
       rows: getRows(dbRecordsList),
     );
+    }
   }
 
-List<DataColumn> getColumns(List<String> columns) => columns
+  List<DataColumn> getColumns(List<String> columns) => columns
       .map((String column) => DataColumn(
             label: Text(
               column,
@@ -162,13 +170,18 @@ List<DataColumn> getColumns(List<String> columns) => columns
           ))
       .toList();
 
-List<DataRow> getRows(List<Record> rows) => rows
+  List<DataRow> getRows(List<Record> rows) => rows
       .map(
         (e) => DataRow(
           selected: false,
           onSelectChanged: (val) {
             if (val == true) {
-              PageRouter().navigateToPage(RowEditorPage(rowData: e), context);
+              PageRouter().navigateToPage(
+                  RowEditorPage(
+                    rowData: e,
+                    fromPageName: widget.filterPeriod,
+                  ),
+                  context);
             }
           },
           cells: [
@@ -192,7 +205,6 @@ List<DataRow> getRows(List<Record> rows) => rows
       )
       .toList();
 }
-
 
 appTitleHandler(String pName) {
   if (pName == 'today') {

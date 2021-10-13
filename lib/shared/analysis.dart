@@ -89,7 +89,6 @@ class BalanceByPeriod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: MediaQuery.of(context).size.width * 0.95,
       alignment: Alignment.center,
       margin: EdgeInsets.only(top: 1.0),
       decoration: BoxDecoration(color: myYellow),

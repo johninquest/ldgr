@@ -30,4 +30,10 @@ class SnackBarMessage {
         .showSnackBar(SnackBar(content: Text('Deleted successfully \u{2713}')));
     return message;
   }
+
+  underConstruction(context) {
+    var message = ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Still under construction \u{1F6A7}')));
+    return message;
+  }
 }

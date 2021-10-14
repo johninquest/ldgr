@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/services/formatter.dart';
-// import 'package:tba/pages/all_records.dart';
 
 class ErrorOccured extends StatelessWidget {
   @override

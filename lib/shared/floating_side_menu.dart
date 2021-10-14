@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tba/pages/records/all.dart';
 import 'package:tba/pages/filters/filtered.dart'; 
-// import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:tba/services/router.dart'; 
-// import 'package:tba/pages/records/income.dart';
-// import 'package:tba/pages/records/expenditure.dart';
-// import 'package:tba/pages/filters/overview.dart';
 
 class FloatingSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
       animatedIcon: AnimatedIcons.search_ellipsis,
-      // icon: IconData(10),
       children: [
         SpeedDialChild(
             labelWidget: MyLabelWidget('Today', myLightRed),

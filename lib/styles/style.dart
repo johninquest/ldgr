@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tba/styles/colors.dart';
 
 const PageHeaderStyle =
-    TextStyle(fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 3.0); 
+    TextStyle(fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 2.0); 
 
 const AppBarTitleStyle =
     TextStyle(letterSpacing: 1.0);    
 
-const BodyStyle = TextStyle(
-    fontSize: 15.0, color: Color(0xFF0D47A1), fontWeight: FontWeight.bold);
+const BodyStyle = TextStyle(color: Color(0xFF0D47A1), fontWeight: FontWeight.bold);
 
 const DropdownListStyle = TextStyle(fontWeight: FontWeight.normal);
 

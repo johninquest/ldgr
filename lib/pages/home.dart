@@ -23,8 +23,8 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 50.0),
-          child: Text('The management app for transporters', style: BodyStyle,),),
+              margin: EdgeInsets.only(bottom: 50.0), 
+              child: Text('The management app for transporters', style: BodyStyle,),),
           Container(
             height: 80.0, 
             width: 200.0, 

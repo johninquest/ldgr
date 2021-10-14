@@ -9,7 +9,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About', style: AppBarTitleStyle,), 
+        title: Text('About app', style: AppBarTitleStyle,), 
         centerTitle: true,
       ),
       body: Container(
@@ -20,10 +20,10 @@ class AboutPage extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 10.0),
-                child: Text('Transpota', style: TextStyle(color: Colors.blue[900], fontWeight: FontWeight.bold),),),
+                child: Text('transpota', style: TextStyle(color: Colors.blue[900], fontWeight: FontWeight.bold),),),
               Container(
                 margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                child: Text('Transpota is a simple app designed to help transporters keep track of their finances and better manage their operations.', textAlign: TextAlign.center,),), 
+                child: Text('transpota is a simple app designed to help transporters keep track of their finances and better manage their operations.', textAlign: TextAlign.center,),), 
               Container(
                 margin: EdgeInsets.only(top: 100.0),
                 child: Text('\u00A9 Phil Transport Solutions Ltd.'),)  

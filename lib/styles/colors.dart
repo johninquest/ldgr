@@ -9,4 +9,3 @@ final Color myOrange = Color(0xFFED6B18);
 final Color myLightRed = Color(0xFFEF5350);
 final Color myRed = Color(0xFFA11F10);
 final Color myYellow = Color(0xFFEDCE18); 
-// final Colors myWhite = Colors.white

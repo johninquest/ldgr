@@ -90,7 +90,7 @@ class _AllRecordsState extends State<AllRecords> {
     if (dbRecordsList.length < 1) {
       return Container(
         margin: EdgeInsets.only(top: 50.0),
-        child: Center(child: Text('No records found!', style: BodyStyle,),),
+        child: Center(child: EmptyTable(),),
       );
     }else {
       final allColumns = [

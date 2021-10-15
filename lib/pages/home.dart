@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart'; 
 import 'package:tba/styles/colors.dart';
@@ -23,8 +25,8 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 50.0), 
-              child: Text('The management app for transporters', style: BodyStyle,),),
+              margin: EdgeInsets.only(bottom: 25.0), 
+              child: Text('Enter', style: TextStyle(fontSize: 20.0, color: myBlue, fontWeight: FontWeight.bold),),),
           Container(
             height: 80.0, 
             width: 200.0, 

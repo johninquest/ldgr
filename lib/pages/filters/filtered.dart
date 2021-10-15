@@ -9,6 +9,7 @@ import 'package:tba/services/router.dart';
 import 'package:tba/shared/analysis.dart';
 import 'package:tba/services/formatter.dart';
 import 'package:tba/shared/bottom_nav_bar.dart';
+import 'package:tba/shared/widgets.dart';
 import 'package:tba/styles/style.dart';
 
 class Filtered extends StatelessWidget {
@@ -137,11 +138,10 @@ class _FilteredDataState extends State<FilteredData> {
   }
 
   Widget buildTable(List<Record> dbRecordsList) {
-    // print(dbRecordsList.length);
     if (dbRecordsList.length < 1) {
       return Container(
         margin: EdgeInsets.only(top: 50.0),
-        child: Center(child: Text('No records found!', style: BodyStyle,),),
+        child: Center(child: EmptyTable()),
       );
     }else {
       final allColumns = [

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tba/pages/home.dart';
+import 'package:tba/services/router.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
 import 'package:tba/services/formatter.dart';
@@ -91,6 +93,31 @@ class ListItem extends StatelessWidget {
         Container(child: Formatter().checkSplit2Words(sourceData)),
         Text('$amountData'),
       ]),
+    );
+  }
+}
+
+class EmptyTable extends StatelessWidget {
+  const EmptyTable({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Container(
+        margin: EdgeInsets.only(bottom: 20.0, top: 50.0),
+        child: Text('No records found!', style: BodyStyle,),), 
+      Container(
+        child: ElevatedButton(
+          onPressed: () => PageRouter().navigateToPage(HomePage(), context), 
+          style: ElevatedButton.styleFrom(
+            primary: myBlue, 
+            padding: EdgeInsets.all(10.0),), 
+          child: Column(
+            children: [
+              Icon(Icons.add, size: 25.0,), 
+              ],) )),
+    ],
+      
     );
   }
 }

@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('transpota', style: PageHeaderStyle,), 
+        title: Text('phita', style: PageHeaderStyle,), 
         centerTitle: true, 
       ),
       drawer: SideMenu(),
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.only(bottom: 25.0), 
-              child: Text('Enter', style: TextStyle(fontSize: 20.0, color: myBlue, fontWeight: FontWeight.bold),),),
+              child: Text('ENTER', style: TextStyle(fontSize: 20.0, color: myBlue, fontWeight: FontWeight.bold),),),
           Container(
             height: 80.0, 
             width: 200.0, 

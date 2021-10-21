@@ -8,8 +8,12 @@ import 'package:tba/data/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/services/preprocessor.dart';
-import 'package:tba/services/currency.dart';
-import 'dart:convert';
+import 'package:tba/services/currency.dart'; 
+import 'package:tba/services/printing.dart';
+import 'dart:convert'; 
+import 'dart:io';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pd;
 
 class StoredVehiclePage extends StatelessWidget {
   const StoredVehiclePage({Key? key}) : super(key: key);
@@ -88,7 +92,8 @@ class StoredVehiclePage extends StatelessWidget {
                             Container(
                                 margin: EdgeInsets.only(top: 10.0),
                                 child: ElevatedButton(
-                                  onPressed: () => SnackBarMessage().underConstruction(context),
+                                  // onPressed: () => SnackBarMessage().underConstruction(context),
+                                  onPressed: () => PrintService().saveAsPdf(),
                                   child: Text('PRINT'),
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.blueGrey),
@@ -189,4 +194,18 @@ showCurrency(String? currencyCode, String? amount) {
     return '$currencyCode $amount';
   } else
     return '';
+}
+
+Future<void> printDoc() async {
+  final pdf = pd.Document();
+  pdf.addPage(
+    pd.Page(
+      build: (pd.Context context) => pd.Center(
+        child: pd.Text('Hello World!'),
+      ),
+    ),
+  );
+
+  final file = File('example.pdf');
+  await file.writeAsBytes(await pdf.save());
 }

@@ -9,12 +9,11 @@ class PrintService {
 
   generatePdf() async {
     final Directory? dir = await getTemporaryDirectory();
-    // final Directory? dir = await getExternalStorageDirectory();
-    // final Directory? dir = Directory('/storage/emulated/0/Download');
-    // final dir = (await getExternalStorageDirectories(type: StorageDirectory.downloads))!.first;
-    // final String tempPath = dir!.path;
+    /* final Directory? dir = await getExternalStorageDirectory();
+    final Directory? dir = Directory('/storage/emulated/0/Download');
+    final dir = (await getExternalStorageDirectories(type: StorageDirectory.downloads))!.first;
     print('Temp directory => $dir');
-    print('Temp path => ${dir!.path}');
+    print('Temp path => ${dir!.path}'); */
     final pdf = pw.Document();
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -25,7 +24,7 @@ class PrintService {
         }));
     final String fileName =
         'phita_${DateTimeHelper().timestampAsString(DateTime.now())}.pdf';
-    final file = File('${dir.path}/$fileName');
+    final file = File('${dir!.path}/$fileName');
     print(file);
     print('PDF location => ${file.path}');
     await file.writeAsBytes(await pdf.save());

@@ -52,4 +52,11 @@ class DateTimeHelper {
       return '0000-00-00 00:00:00';
     }
   }
+
+  timestampAsString(DateTime datetime) {
+    DateFormat dbDateTimeFormat = DateFormat('yyMMddHHmmss');
+    DateTime dt = DateTime.now();
+    String dtToString = dbDateTimeFormat.format(dt);
+    return dtToString;
+  }
 }

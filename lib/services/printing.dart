@@ -1,50 +1,40 @@
 import 'dart:io';
-import 'package:pdf/widgets.dart' as pd;
 import 'package:path_provider/path_provider.dart';
-// import 'package:open_file/open_file.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:open_file/open_file.dart';
+import 'package:tba/services/date_time_helper.dart';
 
 class PrintService {
-  final String downloadDir = '/storage/emulated/0/Download/';
 
-  initializeDir() async {
-    Directory tempDir = await getTemporaryDirectory();
-    // String tempPath = tempDir.path;
-    print('Temp directory => $tempDir');
-    print('Temp path => ${tempDir.path}');
-    return tempDir;
-  }
-
-  showPath() async {
-    // final Directory testDir = Directory('/storage/emulated/0/Download');
-    // final Directory? testDir = await getTemporaryDirectory();
-    final Directory? testDir = await getExternalStorageDirectory();
-    // final testDir = (await getExternalStorageDirectories(type: StorageDirectory.downloads))!.first;
-    print(testDir);
-    print(testDir!.path);
-  }
-
-  saveAsPdf() async {
-    final dir = await getTemporaryDirectory();
+  generatePdf() async {
+    final Directory? dir = await getTemporaryDirectory();
     // final Directory? dir = await getExternalStorageDirectory();
-    // final Directory dir = Directory('/storage/emulated/0/Download');
+    // final Directory? dir = Directory('/storage/emulated/0/Download');
     // final dir = (await getExternalStorageDirectories(type: StorageDirectory.downloads))!.first;
     // final String tempPath = dir!.path;
     print('Temp directory => $dir');
-    print('Temp path => ${dir.path}');
-    final pdf = pd.Document();
-    pdf.addPage(
-      pd.Page(
-        build: (pd.Context context) => pd.Center(
-          child: pd.Text('Hello World!'),
-        ),
-      ),
-    );
-    // final file = File(downloadDir + 'example.pdf');
-    final file = File('${dir.path}/example.pdf');
+    print('Temp path => ${dir!.path}');
+    final pdf = pw.Document();
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Text('Leben und leben lassen - F. von Schiller'),
+          );
+        }));
+    final String fileName =
+        'phita_${DateTimeHelper().timestampAsString(DateTime.now())}.pdf';
+    final file = File('${dir.path}/$fileName');
     print(file);
+    print('PDF location => ${file.path}');
     await file.writeAsBytes(await pdf.save());
-    // await OpenFile.open('$file');
+    await Future.delayed(Duration(seconds: 3), showGeneratedPdf(file.path));
   }
 
-  saveToPrinter() {}
+  showGeneratedPdf(String? givenPath) {
+    if(givenPath.runtimeType == String) {
+      OpenFile.open(givenPath);
+    } 
+  }
 }

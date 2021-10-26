@@ -1,6 +1,6 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:tba/data/models.dart';
+import 'package:tba/db/models.dart';
 // import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'dart:io';

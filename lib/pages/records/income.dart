@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
-import 'package:tba/data/sqlite_helper.dart';
-import 'package:tba/data/models.dart';
+import 'package:tba/db/sqlite_helper.dart';
+import 'package:tba/db/models.dart';
 import 'package:tba/services/formatter.dart';
 import 'package:tba/shared/widgets.dart';
 

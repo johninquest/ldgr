@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tba/shared/lists.dart';
 import 'dart:convert';
-import 'package:tba/data/sp_helper.dart';
+import 'package:tba/db/sp_helper.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/home.dart';
 import 'package:tba/shared/snackbar_messages.dart';
@@ -123,7 +123,7 @@ class _PersonFormState extends State<PersonForm> {
                 controller: _city,
                 enabled: true,
                 decoration: InputDecoration(
-                  hintText: 'City/Town',
+                  hintText: 'City / Town',
                 ),
                 keyboardType: TextInputType.text,
                 textCapitalization: TextCapitalization.words,

@@ -4,7 +4,7 @@ import 'package:tba/services/router.dart';
 import 'package:tba/shared/snackbar_messages.dart';
 import 'package:tba/styles/style.dart';
 import 'package:tba/styles/colors.dart';
-import 'package:tba/data/sp_helper.dart';
+import 'package:tba/db/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/services/preprocessor.dart';
@@ -93,7 +93,7 @@ class StoredVehiclePage extends StatelessWidget {
                                 margin: EdgeInsets.only(top: 10.0),
                                 child: ElevatedButton(
                                   // onPressed: () => SnackBarMessage().underConstruction(context),
-                                  onPressed: () => PrintService().saveAsPdf(),
+                                  onPressed: () => PrintService().generatePdf(),
                                   child: Text('PRINT'),
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.blueGrey),

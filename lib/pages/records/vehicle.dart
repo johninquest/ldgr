@@ -93,7 +93,7 @@ class StoredVehiclePage extends StatelessWidget {
                                 margin: EdgeInsets.only(top: 10.0),
                                 child: ElevatedButton(
                                   // onPressed: () => SnackBarMessage().underConstruction(context),
-                                  onPressed: () => PrintService().generatePdf(),
+                                  onPressed: () => PrintService().vehiclePdf(),
                                   child: Text('PRINT'),
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.blueGrey),

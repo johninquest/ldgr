@@ -12,7 +12,7 @@ import 'package:tba/services/currency.dart';
 import 'package:tba/services/printing.dart';
 import 'dart:convert'; 
 import 'dart:io';
-import 'package:pdf/pdf.dart';
+// import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pd;
 
 class StoredVehiclePage extends StatelessWidget {

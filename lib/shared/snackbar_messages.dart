@@ -7,7 +7,7 @@ class SnackBarMessage {
     return message;
   }
 
-    saveFail(context) {
+  saveFail(context) {
     var message = ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('An error occured!')));
     return message;
@@ -34,6 +34,12 @@ class SnackBarMessage {
   underConstruction(context) {
     var message = ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('Still under construction \u{1F6A7}')));
+    return message;
+  }
+
+  generalErrorMessage(context) {
+    var message = ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('An error occured!')));
     return message;
   }
 }

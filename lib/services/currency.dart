@@ -1,10 +1,13 @@
+import 'package:tba/db/sp_helper.dart';
+import 'package:tba/services/preprocessor.dart';
+
 class CurrencyHandler {
   fromCountry(String? country) {
     switch (country) {
       case 'burundi':
         return 'BIF';
       case 'botswana':
-        return 'BWP';  
+        return 'BWP';
       case 'cameroon':
       case 'central_african_republic':
       case 'chad':
@@ -22,7 +25,7 @@ class CurrencyHandler {
       case 'togo':
         return 'XOF';
       case 'eritrea':
-        return 'ERN';  
+        return 'ERN';
       case 'ethiopia':
         return 'ETB';
       case 'eswatini':
@@ -34,7 +37,7 @@ class CurrencyHandler {
       case 'kenya':
         return 'KES';
       case 'lesotho':
-        return 'LSL';    
+        return 'LSL';
       case 'liberia':
         return 'LRD';
       case 'malawi':
@@ -71,5 +74,12 @@ class CurrencyHandler {
       return '$currency $amount';
     } else
       return '';
+  }
+
+  Future<String?> getCurrencyData() async {
+    final rawResponse = await SharedPreferencesHelper().readData('personData');
+    Map parsedResponse = DataParser().strToMap(rawResponse);
+    String _currency = fromCountry(parsedResponse['country']);
+    return _currency;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:tba/services/router.dart';
 import 'dart:convert';
@@ -120,6 +121,9 @@ class _VehicleFormState extends State<VehicleForm> {
                     ),
                     keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.characters,
+                    maxLength: 17, 
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                    // inputFormatters: [],
                     /*  onChanged: (val) => setState(() {
                       vehicleChassisNumber = val;
                     }), */

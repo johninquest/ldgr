@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tba/services/printing.dart';
 import 'package:tba/shared/lists.dart';
 import 'dart:convert';
 import 'package:tba/db/sp_helper.dart';
@@ -209,9 +210,10 @@ class _PersonFormState extends State<PersonForm> {
                       };
                       String personMapToStr = jsonEncode(personInfo);
                       if (_personFormKey.currentState!.validate()) {
-                        SharedPreferencesHelper().saveData('personData', personMapToStr);
-                            SnackBarMessage().saveSuccess(context);
-                            PageRouter().navigateToPage(HomePage(), context);
+                        SharedPreferencesHelper()
+                            .saveData('personData', personMapToStr);
+                        SnackBarMessage().saveSuccess(context);
+                        PageRouter().navigateToPage(HomePage(), context);
                       }
                     },
                     child: Text(
@@ -221,20 +223,13 @@ class _PersonFormState extends State<PersonForm> {
                     style: ElevatedButton.styleFrom(primary: Colors.blue[900]),
                   ),
                 ),
-                /* Container(
+                Container(
                     margin: EdgeInsets.only(top: 10.0),
                     child: ElevatedButton(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text('Person information deleted!')),
-                        );
-                        SharedPreferencesHelper().removeData('personData');
-                        PageRouter().navigateToPage(HomePage(), context);
-                      },
-                      child: Text('DELETE'),
-                      style: ElevatedButton.styleFrom(primary: myRed),
-                    )) */
+                      onPressed: () => PrintService().personPdf(),
+                      child: Text('PRINT'),
+                      style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+                    ))
               ],
             ),
           ],

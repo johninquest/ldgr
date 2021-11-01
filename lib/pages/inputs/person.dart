@@ -226,7 +226,7 @@ class _PersonFormState extends State<PersonForm> {
                 Container(
                     margin: EdgeInsets.only(top: 10.0),
                     child: ElevatedButton(
-                      onPressed: () => PrintService().personPdf(),
+                      onPressed: () => PrintService().personPdf(context),
                       child: Text('PRINT'),
                       style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
                     ))

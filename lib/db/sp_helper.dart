@@ -16,4 +16,9 @@ class SharedPreferencesHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(strKey);
   }
+
+    Future storeData(String strKey, String strValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(strKey, strValue);
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tba/services/preprocessor.dart';
 import 'package:tba/services/printing.dart';
+import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/shared/lists.dart';
 import 'dart:convert';
 import 'package:tba/db/sp_helper.dart';
@@ -23,6 +25,7 @@ class InputPersonPage extends StatelessWidget {
           child: PersonForm(),
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -43,7 +46,7 @@ class _PersonFormState extends State<PersonForm> {
   TextEditingController _phone = TextEditingController();
   TextEditingController _email = TextEditingController();
 
-  String? _country;
+  // String? _country;
   String? _role;
 
   @override
@@ -52,14 +55,13 @@ class _PersonFormState extends State<PersonForm> {
     SharedPreferencesHelper().readData('personData').then((value) {
       setState(() {
         if (value != null) {
-          _surname.text = getStoredPerson(value)['surname'];
-          _givenNames.text = getStoredPerson(value)['given_names'];
-          _address.text = getStoredPerson(value)['address'];
-          _city.text = getStoredPerson(value)['city'];
-          _country = getStoredPerson(value)['country'];
-          _phone.text = getStoredPerson(value)['phone'];
-          _email.text = getStoredPerson(value)['email'];
-          _role = getStoredPerson(value)['role'];
+          _surname.text = DataParser().strToMap(value)['surname'];
+          _givenNames.text = DataParser().strToMap(value)['given_names'];
+          _address.text = DataParser().strToMap(value)['address'];
+          _city.text = DataParser().strToMap(value)['city'];
+          _phone.text = DataParser().strToMap(value)['phone'];
+          _email.text = DataParser().strToMap(value)['email'];
+          _role = DataParser().strToMap(value)['role'];
         }
       });
     });
@@ -131,20 +133,6 @@ class _PersonFormState extends State<PersonForm> {
               ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.95,
-              margin: EdgeInsets.only(bottom: 5.0),
-              padding: EdgeInsets.only(left: 25.0, right: 25.0),
-              child: DropdownButtonFormField(
-                value: _country,
-                isExpanded: true,
-                items: MyItemList().countryList,
-                validator: (val) =>
-                    val == null ? 'Please select country' : null,
-                onChanged: (val) => setState(() => _country = val as String?),
-                decoration: InputDecoration(labelText: 'Country'),
-              ),
-            ),
-            Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
@@ -178,11 +166,11 @@ class _PersonFormState extends State<PersonForm> {
                   decoration: InputDecoration(labelText: 'Role'),
                 )),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  margin: EdgeInsets.only(top: 10.0),
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(
@@ -195,7 +183,7 @@ class _PersonFormState extends State<PersonForm> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  margin: EdgeInsets.only(top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
                       Map<String, dynamic> personInfo = {
@@ -203,7 +191,6 @@ class _PersonFormState extends State<PersonForm> {
                         'given_names': _givenNames.text,
                         'address': _address.text,
                         'city': _city.text,
-                        'country': _country,
                         'phone': _phone.text,
                         'email': _email.text,
                         'role': _role,
@@ -211,9 +198,9 @@ class _PersonFormState extends State<PersonForm> {
                       String personMapToStr = jsonEncode(personInfo);
                       if (_personFormKey.currentState!.validate()) {
                         SharedPreferencesHelper()
-                            .saveData('personData', personMapToStr);
+                            .storeData('personData', personMapToStr);
                         SnackBarMessage().saveSuccess(context);
-                        PageRouter().navigateToPage(HomePage(), context);
+                        // PageRouter().navigateToPage(HomePage(), context);
                       }
                     },
                     child: Text(

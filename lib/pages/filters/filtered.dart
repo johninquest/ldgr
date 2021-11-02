@@ -4,7 +4,6 @@ import 'package:tba/db/sp_helper.dart';
 import 'package:tba/db/sqlite_helper.dart';
 import 'package:tba/pages/inputs/row_editor.dart';
 import 'package:tba/services/currency.dart';
-import 'package:tba/services/preprocessor.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/shared/analysis.dart';
 import 'package:tba/services/formatter.dart';
@@ -48,10 +47,10 @@ class _FilteredDataState extends State<FilteredData> {
   @override
   initState() {
     super.initState();
-    SharedPreferencesHelper().readData('personData').then((value) {
+    SharedPreferencesHelper().readData('countryName').then((value) {
       if (value != null) {
         setState(() {
-          String? currentCountry = DataParser().strToMap(value)['country'];
+          String? currentCountry = value;
           currentCurrency = CurrencyHandler().fromCountry(currentCountry);
         });
       }

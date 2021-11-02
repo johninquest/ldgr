@@ -35,10 +35,10 @@ class _AllRecordsState extends State<AllRecords> {
         });
       }
     });
-    SharedPreferencesHelper().readData('personData').then((value) {
+    SharedPreferencesHelper().readData('countryName').then((value) {
       if (value != null) {
         setState(() {
-          currentCountry = DataParser().strToMap(value)['country'];
+          currentCountry = value;
         });
       }
     });
@@ -48,7 +48,10 @@ class _AllRecordsState extends State<AllRecords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All records', style: AppBarTitleStyle,),
+        title: Text(
+          'All records',
+          style: AppBarTitleStyle,
+        ),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -90,22 +93,24 @@ class _AllRecordsState extends State<AllRecords> {
     if (dbRecordsList.length < 1) {
       return Container(
         margin: EdgeInsets.only(top: 50.0),
-        child: Center(child: EmptyTable(),),
+        child: Center(
+          child: EmptyTable(),
+        ),
       );
-    }else {
+    } else {
       final allColumns = [
-      'Date',
-      'Type',
-      'Source',
-      'Amount',
-    ];
-    return DataTable(
-      columnSpacing: 15.0,
-      horizontalMargin: 0.0,
-      // showBottomBorder: true,
-      showCheckboxColumn: false,
-      columns: getColumns(allColumns),
-      rows: getRows(dbRecordsList), 
+        'Date',
+        'Type',
+        'Source',
+        'Amount',
+      ];
+      return DataTable(
+        columnSpacing: 15.0,
+        horizontalMargin: 0.0,
+        // showBottomBorder: true,
+        showCheckboxColumn: false,
+        columns: getColumns(allColumns),
+        rows: getRows(dbRecordsList),
       );
     }
   }

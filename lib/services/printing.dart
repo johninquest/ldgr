@@ -54,11 +54,12 @@ class PrintService {
                     mainAxisAlignment: pw.MainAxisAlignment.center,
                     children: [
                       pw.Container(
-                        margin: pw.EdgeInsets.only(bottom: 20.0),
+                        margin: pw.EdgeInsets.only(bottom: 10.0),
                         child: pw.Text('Person information',
                             style: pw.TextStyle(
                                 fontSize: 20, fontWeight: pw.FontWeight.bold)),
                       ),
+                      pw.Divider(),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -89,14 +90,6 @@ class PrintService {
                             pw.Text('City / Town',
                                 style: pw.TextStyle(fontSize: 18)),
                             pw.Text(parsed['city'],
-                                style: pw.TextStyle(fontSize: 18)),
-                          ]),
-                      pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
-                            pw.Text('Country',
-                                style: pw.TextStyle(fontSize: 18)),
-                            pw.Text(capitalizeStr((parsed['country'])),
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Row(
@@ -152,11 +145,12 @@ class PrintService {
                   mainAxisAlignment: pw.MainAxisAlignment.center,
                   children: [
                     pw.Container(
-                      margin: pw.EdgeInsets.only(bottom: 20.0),
+                      margin: pw.EdgeInsets.only(bottom: 10.0),
                       child: pw.Text('Vehicle information',
                           style: pw.TextStyle(
                               fontSize: 20, fontWeight: pw.FontWeight.bold)),
                     ),
+                    pw.Divider(),
                     pw.Row(
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [

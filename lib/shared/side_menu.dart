@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tba/pages/inputs/country.dart';
 import 'package:tba/services/router.dart';
 import 'package:tba/pages/inputs/person.dart';
 import 'package:tba/pages/about.dart';
 import 'package:tba/pages/records/vehicle.dart';
-import 'package:tba/shared/lists.dart';
 import 'package:tba/styles/colors.dart';
 
 class SideMenu extends StatelessWidget {
@@ -46,7 +46,18 @@ class SideMenu extends StatelessWidget {
                   style: TextStyle(color: Colors.blue[900]),
                 ),
                 onTap: () =>
-                    PageRouter().navigateToPage(StoredVehiclePage(), context)),
+                    PageRouter().navigateToPage(StoredVehiclePage(), context)), 
+            ListTile(
+                leading: Icon(
+                  Icons.language,
+                  color: myBlue,
+                ),
+                title: Text(
+                  'Country',
+                  style: TextStyle(color: Colors.blue[900]),
+                ),
+                onTap: () =>
+                    PageRouter().navigateToPage(CountryPage(), context)),        
             ListTile(
               leading: Icon(
                 Icons.info,

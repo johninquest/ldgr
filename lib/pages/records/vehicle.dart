@@ -8,9 +8,9 @@ import 'package:tba/db/sp_helper.dart';
 import 'package:tba/shared/widgets.dart';
 import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/services/preprocessor.dart';
-import 'package:tba/services/currency.dart'; 
+import 'package:tba/services/currency.dart';
 import 'package:tba/services/printing.dart';
-import 'dart:convert'; 
+import 'dart:convert';
 import 'dart:io';
 // import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pd;
@@ -20,17 +20,18 @@ class StoredVehiclePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? currentCountry;
     String? currentCurrency;
-    SharedPreferencesHelper().readData('personData').then((value) {
+    CurrencyHandler().getCurrencyData().then((value) {
       if (value != null) {
-        currentCountry = DataParser().strToMap(value)['country'];
-        currentCurrency = CurrencyHandler().fromCountry(currentCountry);
+        currentCurrency = value;
       }
     });
     return Scaffold(
       appBar: AppBar(
-        title: Text('My vehicle', style: AppBarTitleStyle,),
+        title: Text(
+          'My vehicle',
+          style: AppBarTitleStyle,
+        ),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -92,8 +93,8 @@ class StoredVehiclePage extends StatelessWidget {
                             Container(
                                 margin: EdgeInsets.only(top: 10.0),
                                 child: ElevatedButton(
-                                  // onPressed: () => SnackBarMessage().underConstruction(context),
-                                  onPressed: () => PrintService().vehiclePdf(context),
+                                  onPressed: () =>
+                                      PrintService().vehiclePdf(context),
                                   child: Text('PRINT'),
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.blueGrey),

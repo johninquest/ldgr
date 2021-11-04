@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
 import 'package:tba/db/sp_helper.dart';
+import 'package:tba/db/sqlite_helper.dart';
 import 'package:tba/services/currency.dart';
 import 'package:tba/services/date_time_helper.dart';
 import 'package:tba/services/preprocessor.dart';
@@ -14,9 +16,7 @@ class PrintService {
     final Directory? dir = await getTemporaryDirectory();
     /* final Directory? dir = await getExternalStorageDirectory();
     final Directory? dir = Directory('/storage/emulated/0/Download');
-    final dir = (await getExternalStorageDirectories(type: StorageDirectory.downloads))!.first;
-    print('Temp directory => $dir');
-    print('Temp path => ${dir!.path}'); */
+    final dir = (await getExternalStorageDirectories(type: StorageDirectory.downloads))!.first; */
     final pdf = pw.Document();
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -41,7 +41,7 @@ class PrintService {
   }
 
   personPdf(appContext) async {
-    final Directory? dir = await getTemporaryDirectory();
+    /*   final Directory? dir = await getTemporaryDirectory(); */
     await SharedPreferencesHelper().readData('personData').then((value) async {
       if (value != null) {
         Map parsed = DataParser().strToMap(value);
@@ -58,8 +58,12 @@ class PrintService {
                         child: pw.Text('Person information',
                             style: pw.TextStyle(
                                 fontSize: 20, fontWeight: pw.FontWeight.bold)),
+                      ), 
+                      pw.Container(
+                        margin: pw.EdgeInsets.only(bottom: 10.0), 
+                        child: pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'), thickness: 3.0),
                       ),
-                      pw.Divider(),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -68,6 +72,8 @@ class PrintService {
                             pw.Text(parsed['surname'],
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
+                       pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),      
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -76,6 +82,8 @@ class PrintService {
                             pw.Text(parsed['given_names'],
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),      
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -84,6 +92,8 @@ class PrintService {
                             pw.Text(parsed['address'],
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),      
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -92,13 +102,17 @@ class PrintService {
                             pw.Text(parsed['city'],
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),      
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text('Phone', style: pw.TextStyle(fontSize: 18)),
                             pw.Text(parsed['phone'],
                                 style: pw.TextStyle(fontSize: 18)),
-                          ]),
+                          ]), 
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),      
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -107,6 +121,8 @@ class PrintService {
                             pw.Text(parsed['email'],
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),      
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -114,11 +130,14 @@ class PrintService {
                             pw.Text(capitalizeStr(parsed['role']),
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'), thickness: 1.0),
                     ]),
               );
             }));
+        final Directory? dir = await getExternalStorageDirectory();
         final String fileName = 'person_info_${parsed["surname"]}';
-        final file = File('${dir!.path}/$fileName');
+        File file = File('${dir!.path}/$fileName');
         await file.writeAsBytes(await pdf.save());
         await Future.delayed(Duration(seconds: 3), showGeneratedPdf(file.path));
       } else {
@@ -128,99 +147,126 @@ class PrintService {
   }
 
   vehiclePdf(appContext) async {
-    final Directory? dir = await getTemporaryDirectory();
     String? currencyValue;
     await CurrencyHandler()
         .getCurrencyData()
         .then((value) => currencyValue = value);
     await SharedPreferencesHelper().readData('vehicleData').then((value) async {
-      if(value != null) {
-         Map parsedData = DataParser().strToMap(value);
-      final pdf = pw.Document();
-      pdf.addPage(pw.Page(
-          pageFormat: PdfPageFormat.a4,
-          build: (pw.Context context) {
-            return pw.Center(
-              child: pw.Column(
-                  mainAxisAlignment: pw.MainAxisAlignment.center,
-                  children: [
-                    pw.Container(
-                      margin: pw.EdgeInsets.only(bottom: 10.0),
-                      child: pw.Text('Vehicle information',
-                          style: pw.TextStyle(
-                              fontSize: 20, fontWeight: pw.FontWeight.bold)),
-                    ),
-                    pw.Divider(),
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                        children: [
-                          pw.Text('License plate number',
-                              style: pw.TextStyle(fontSize: 18)),
-                          pw.Text(parsedData['licensePlateNumber'],
-                              style: pw.TextStyle(fontSize: 18)),
-                        ]),
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                        children: [
-                          pw.Text('Chassis number',
-                              style: pw.TextStyle(fontSize: 18)),
-                          pw.Text(parsedData['chassisNumber'],
-                              style: pw.TextStyle(fontSize: 18)),
-                        ]),
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                        children: [
-                          pw.Text('Manufacturer',
-                              style: pw.TextStyle(fontSize: 18)),
-                          pw.Text(convertToUpperCase(parsedData['maker']),
-                              style: pw.TextStyle(fontSize: 18)),
-                        ]),
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                        children: [
-                          pw.Text('Model', style: pw.TextStyle(fontSize: 18)),
-                          pw.Text(parsedData['model'],
-                              style: pw.TextStyle(fontSize: 18)),
-                        ]),
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                        children: [
-                          pw.Text('First registration date',
-                              style: pw.TextStyle(fontSize: 18)),
-                          pw.Text(parsedData['firstRegistrationDate'],
-                              style: pw.TextStyle(fontSize: 18)),
-                        ]),
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                        children: [
-                          pw.Text('Age', style: pw.TextStyle(fontSize: 18)),
-                          pw.Text(parsedData['age'],
-                              style: pw.TextStyle(fontSize: 18)),
-                        ]),
-                    pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                        children: [
-                          pw.Text('Purchase price',
-                              style: pw.TextStyle(fontSize: 18)),
-                          pw.Text(
-                              '$currencyValue ${parsedData["purchasePrice"]}',
-                              style: pw.TextStyle(fontSize: 18)),
-                        ]),
-                  ]),
-            );
-          }));
-/*       final String fileName =
-          '${DateTimeHelper().timestampAsString(DateTime.now())}.pdf'; */
-      final String fileName =
-          'vehicle_info_${parsedData["licensePlateNumber"]}';
-      final file = File('${dir!.path}/$fileName');
-      await file.writeAsBytes(await pdf.save());
-      await Future.delayed(Duration(seconds: 3), showGeneratedPdf(file.path));
-      }else {
+      if (value != null) {
+        Map parsedData = DataParser().strToMap(value);
+        final pdf = pw.Document();
+        pdf.addPage(pw.Page(
+            pageFormat: PdfPageFormat.a4,
+            build: (pw.Context context) {
+              return pw.Center(
+                child: pw.Column(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      pw.Container(
+                        margin: pw.EdgeInsets.only(bottom: 10.0),
+                        child: pw.Text('Vehicle information',
+                            style: pw.TextStyle(
+                                fontSize: 20, fontWeight: pw.FontWeight.bold)),
+                      ),
+                      pw.Container(
+                        margin: pw.EdgeInsets.only(bottom: 10.0),
+                        child: pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'), thickness: 3.0),),
+                      pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('License plate number',
+                                style: pw.TextStyle(fontSize: 18)),
+                            pw.Text(parsedData['licensePlateNumber'],
+                                style: pw.TextStyle(fontSize: 18)),
+                          ]),
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),    
+                      pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('Chassis number',
+                                style: pw.TextStyle(fontSize: 18)),
+                            pw.Text(parsedData['chassisNumber'],
+                                style: pw.TextStyle(fontSize: 18)),
+                          ]), 
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),    
+                      pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('Manufacturer',
+                                style: pw.TextStyle(fontSize: 18)),
+                            pw.Text(convertToUpperCase(parsedData['maker']),
+                                style: pw.TextStyle(fontSize: 18)),
+                          ]), 
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),    
+                      pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('Model', style: pw.TextStyle(fontSize: 18)),
+                            pw.Text(parsedData['model'],
+                                style: pw.TextStyle(fontSize: 18)),
+                          ]), 
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),    
+                      pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('First registration date',
+                                style: pw.TextStyle(fontSize: 18)),
+                            pw.Text(parsedData['firstRegistrationDate'],
+                                style: pw.TextStyle(fontSize: 18)),
+                          ]), 
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),    
+                      pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('Age', style: pw.TextStyle(fontSize: 18)),
+                            pw.Text(parsedData['age'],
+                                style: pw.TextStyle(fontSize: 18)),
+                          ]), 
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),    
+                      pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('Purchase price',
+                                style: pw.TextStyle(fontSize: 18)),
+                            pw.Text(
+                                '$currencyValue ${parsedData["purchasePrice"]}',
+                                style: pw.TextStyle(fontSize: 18)),
+                          ]),
+                      pw.Divider(
+                          color: PdfColor.fromHex('#0046A1'),),
+                      /*  pw.Container(
+                          margin: pw.EdgeInsets.only(top: 200.0),
+                          child: pw.Text('Generated with the phita app')), */
+                    ]),
+              );
+            }));
+
+        final Directory? dir = await getExternalStorageDirectory();
+        final String fileName =
+            'vehicle_info_${parsedData["licensePlateNumber"]}';
+        File file = File('${dir!.path}/$fileName');
+        await file.writeAsBytes(await pdf.save());
+        await Future.delayed(Duration(seconds: 3), showGeneratedPdf(file.path));
+      } else {
         return SnackBarMessage().generalErrorMessage(appContext);
       }
-     
     });
+  }
+
+  recordsPdf(String period, context) async {
+    String? currencyValue;
+    await CurrencyHandler()
+        .getCurrencyData()
+        .then((value) => currencyValue = value);
+    print('Current currency => $currencyValue');
+    SQLiteDatabaseHelper().getAllRowsToday().then((value) => print(value));
   }
 }
 

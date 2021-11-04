@@ -5,8 +5,6 @@ import 'package:tba/shared/bottom_nav_bar.dart';
 import 'package:tba/shared/lists.dart';
 import 'dart:convert';
 import 'package:tba/db/sp_helper.dart';
-import 'package:tba/services/router.dart';
-import 'package:tba/pages/home.dart';
 import 'package:tba/shared/snackbar_messages.dart';
 // import 'package:tba/styles/colors.dart';
 
@@ -200,7 +198,6 @@ class _PersonFormState extends State<PersonForm> {
                         SharedPreferencesHelper()
                             .storeData('personData', personMapToStr);
                         SnackBarMessage().saveSuccess(context);
-                        // PageRouter().navigateToPage(HomePage(), context);
                       }
                     },
                     child: Text(
@@ -213,7 +210,27 @@ class _PersonFormState extends State<PersonForm> {
                 Container(
                     margin: EdgeInsets.only(top: 10.0),
                     child: ElevatedButton(
-                      onPressed: () => PrintService().personPdf(context),
+                      onPressed: () {
+                        Map<String, dynamic> personInfo = {
+                          'surname': _surname.text,
+                          'given_names': _givenNames.text,
+                          'address': _address.text,
+                          'city': _city.text,
+                          'phone': _phone.text,
+                          'email': _email.text,
+                          'role': _role,
+                        };
+                        String personMapToStr = jsonEncode(personInfo);
+                        if (_personFormKey.currentState!.validate()) {
+                          SharedPreferencesHelper()
+                              .storeData('personData', personMapToStr)
+                              .then((value) {
+                            SnackBarMessage().saveSuccess(context);
+                            CustomDelay().bySeconds(3);
+                            PrintService().personPdf(context);
+                          });
+                        }
+                      },
                       child: Text('PRINT'),
                       style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
                     ))
@@ -223,14 +240,5 @@ class _PersonFormState extends State<PersonForm> {
         )),
       ),
     );
-  }
-}
-
-getStoredPerson(String? personStr) {
-  if (personStr != null) {
-    Map strToMap = jsonDecode(personStr);
-    return strToMap;
-  } else {
-    return null;
   }
 }

@@ -32,9 +32,11 @@ class DataParser {
   }
 }
 
-delayBySeconds(int delayTime) async {
-  if(delayTime.runtimeType == int) {
-    final dt = await Future.delayed(Duration(seconds: delayTime)); 
-    return dt;
+class CustomDelay {
+  bySeconds(int delayTime) async {
+      if(delayTime.runtimeType == int) { 
+        final dt = await Future.delayed(Duration(seconds: delayTime)); 
+        return dt;
+        }
   }
 }

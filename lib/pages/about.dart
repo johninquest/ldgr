@@ -23,7 +23,7 @@ class AboutPage extends StatelessWidget {
                 child: Text('phita', style: TextStyle(color: Colors.blue[900], fontWeight: FontWeight.bold),),),
               Container(
                 margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                child: Text('phita is a simple app designed to help transporters keep track of their finances and better manage their operations.', textAlign: TextAlign.center,),), 
+                child: Text('phita is a simple app designed to help transport workers keep track of their finances, organize and better manage their operations.', textAlign: TextAlign.center,),), 
               Container(
                 margin: EdgeInsets.only(top: 100.0),
                 child: Text('\u00A9 Phil Transport App'),)  

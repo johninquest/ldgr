@@ -1,9 +1,13 @@
 import 'package:tba/db/sp_helper.dart';
-import 'package:tba/services/preprocessor.dart';
+// import 'package:tba/services/preprocessor.dart';
 
 class CurrencyHandler {
   fromCountry(String? country) {
     switch (country) {
+      case 'algeria':
+        return 'DZD';
+      case 'angola':
+        return 'AOA';
       case 'burundi':
         return 'BIF';
       case 'botswana':
@@ -24,6 +28,12 @@ class CurrencyHandler {
       case 'senegal':
       case 'togo':
         return 'XOF';
+      case 'congo_drc':
+        return 'CDF'; 
+      case 'djibouti':
+        return 'DJF'; 
+      case 'egypt':
+        return 'EGP';      
       case 'eritrea':
         return 'ERN';
       case 'ethiopia':
@@ -33,17 +43,27 @@ class CurrencyHandler {
       case 'ghana':
         return 'GHS';
       case 'gambia':
-        return 'GMD';
+        return 'GMD'; 
+      case 'guinea':
+        return 'GNF';  
       case 'kenya':
         return 'KES';
       case 'lesotho':
         return 'LSL';
       case 'liberia':
-        return 'LRD';
+        return 'LRD'; 
+      case 'libya':
+        return 'LYD';  
       case 'malawi':
         return 'MWK';
       case 'mauritius':
-        return 'MUR';
+        return 'MUR'; 
+      case 'morocco':
+        return 'MAD'; 
+      case 'mozambique':
+        return 'MZN';   
+      case 'namibia':
+        return 'NAD';  
       case 'nigeria':
         return 'NGN';
       case 'rwanda':
@@ -52,6 +72,8 @@ class CurrencyHandler {
         return 'SCR';
       case 'sierra_leone':
         return 'SLL';
+      case 'somalia':
+        return 'SOS';  
       case 'south_africa':
         return 'ZAR';
       case 'south_sudan':
@@ -59,7 +81,9 @@ class CurrencyHandler {
       case 'sudan':
         return 'SDG';
       case 'tanzania':
-        return 'TZS';
+        return 'TZS'; 
+      case 'tunisia':
+        return 'TND';  
       case 'uganda':
         return 'UGX';
       case 'zambia':

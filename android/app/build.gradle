@@ -43,8 +43,8 @@ android {
         applicationId "phil.transporter.app"
         minSdkVersion 16
         targetSdkVersion 30 
-        versionCode 12 
-        versionName '0.4.2'
+        versionCode 13 
+        versionName '0.4.3'
         /* versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName */ 
 

@@ -12,25 +12,6 @@ import 'package:tba/services/preprocessor.dart';
 import 'package:tba/shared/snackbar_messages.dart';
 
 class PrintService {
-  generatePdf() async {
-    final Directory? dir = await getTemporaryDirectory();
-    /* final Directory? dir = await getExternalStorageDirectory();
-    final Directory? dir = Directory('/storage/emulated/0/Download');
-    final dir = (await getExternalStorageDirectories(type: StorageDirectory.downloads))!.first; */
-    final pdf = pw.Document();
-    pdf.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Center(
-            child: pw.Text('Leben und leben lassen - F. von Schiller'),
-          );
-        }));
-    final String fileName =
-        'phita_${DateTimeHelper().timestampAsString(DateTime.now())}.pdf';
-    final file = File('${dir!.path}/$fileName');
-    await file.writeAsBytes(await pdf.save());
-    await Future.delayed(Duration(seconds: 3), showGeneratedPdf(file.path));
-  }
 
   showGeneratedPdf(String? givenPath) {
     if (givenPath.runtimeType == String) {

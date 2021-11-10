@@ -135,11 +135,11 @@ class PrintService {
                     ]),
               );
             }));
-        final Directory? dir = await getExternalStorageDirectory();
+        final Directory? dir = await getTemporaryDirectory();
         final String fileName = 'person_info_${parsed["surname"]}';
         File file = File('${dir!.path}/$fileName');
         await file.writeAsBytes(await pdf.save());
-        await Future.delayed(Duration(seconds: 3), showGeneratedPdf(file.path));
+        await Future.delayed(Duration(seconds: 3), await showGeneratedPdf(file.path));
       } else {
         return SnackBarMessage().generalErrorMessage(appContext);
       }
@@ -248,12 +248,12 @@ class PrintService {
               );
             }));
 
-        final Directory? dir = await getExternalStorageDirectory();
+        final Directory? dir = await getTemporaryDirectory();
         final String fileName =
             'vehicle_info_${parsedData["licensePlateNumber"]}';
         File file = File('${dir!.path}/$fileName');
         await file.writeAsBytes(await pdf.save());
-        await Future.delayed(Duration(seconds: 3), showGeneratedPdf(file.path));
+        await Future.delayed(Duration(seconds: 3), await showGeneratedPdf(file.path));
       } else {
         return SnackBarMessage().generalErrorMessage(appContext);
       }

@@ -20,7 +20,9 @@ class Formatter {
         case 'food':
           return 'Food';
         case 'fuel':
-          return 'Fuel';
+          return 'Fuel'; 
+        case 'freight':
+          return 'Freight';  
         case 'income':
           return 'Income';
         case 'luggage':
@@ -96,10 +98,4 @@ class Formatter {
       return '0';
     }
   }
-
-/*   toNoDecimalPlusCurrency(double amountInDouble) {
-    print(amountInDouble);
-    String amountAsStr = amountInDouble.toStringAsFixed(0);
-    return 'XAF $amountAsStr';
-  } */
 }

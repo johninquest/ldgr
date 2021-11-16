@@ -101,8 +101,6 @@ class CurrencyHandler {
 
   Future<String?> getCurrencyData() async {
     final responseData = await SharedPreferencesHelper().readData('countryName');
-    // Map parsedResponse = DataParser().strToMap(rawResponse);
-    // String _currency = fromCountry(parsedResponse['country']);
     String _currency = fromCountry(responseData);
     return _currency;
   }

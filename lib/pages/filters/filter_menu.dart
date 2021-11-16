@@ -22,27 +22,20 @@ class FilterMenu extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white))),
           ListTile(
-            // leading: Icon(Icons.person, color: Colors.blue[900],),
             title: Text('Day', style: TextStyle(color: myBlue),),
             onTap: () => print('Pressed day button!'),
           ),
           ListTile(
-              // leading: Icon(Icons.directions_car, color: Colors.blue[900],),
               title: Text('Week', style: TextStyle(color: myBlue),),
               onTap: () => print('Pressed week button!')
-              // onTap: () => PageRouter().navigateToPage(StoredVehiclePage(), context)
               ),   
           ListTile(
-            // leading: Icon(Icons.info, color: Colors.blue[900],),
             title: Text('Month', style: TextStyle(color: myBlue),),
             onTap: () => print('Pressed month button!'),
-            // onTap: () => PageRouter().navigateToPage(AboutPage(), context),
           ),
           ListTile(
-            // leading: Icon(Icons.info, color: Colors.blue[900],),
             title: Text('Year', style: TextStyle(color: myBlue),),
             onTap: () => print('Pressed year button!'),
-            // onTap: () => PageRouter().navigateToPage(AboutPage(), context),
           ),
           ListTile(
             // leading: Icon(Icons.info, color: Colors.blue[900],),
@@ -58,12 +51,6 @@ class FilterMenu extends StatelessWidget {
                 style: ElevatedButton.styleFrom(primary: myBlue),),),    
             trailing: Container(child: Text(''),),    
           ),
-          /* Container(
-            width: 40.0,
-              child: ElevatedButton(
-                onPressed: () => print('Show button pressed!'), 
-                child: Text('Show'), 
-                style: ElevatedButton.styleFrom(primary: myBlue),),), */
         ],
       ),
     ),);

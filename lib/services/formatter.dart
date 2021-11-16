@@ -48,7 +48,6 @@ class Formatter {
   }
 
   dbToUiDateTime(String? dbDateTime) {
-    // print('Date data => $dbDateTime');
     if (dbDateTime != null && dbDateTime != '') {
       DateTime parsedDateTime = DateTime.parse(dbDateTime);
       DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');

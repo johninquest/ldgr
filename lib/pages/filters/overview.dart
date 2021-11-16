@@ -18,7 +18,6 @@ class FilterOverview extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             FilterButton(buttonName: 'today'), 
             FilterButton(buttonName: 'week'), 
@@ -26,27 +25,6 @@ class FilterOverview extends StatelessWidget {
             FilterButton(buttonName: 'year'), 
             FilterButton(buttonName: 'from / to'), 
             FilterButton(buttonName: 'all'),
-            /* Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FilterButton(buttonName: 'day'),
-                FilterButton(buttonName: 'week')
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FilterButton(buttonName: 'month'),
-                FilterButton(buttonName: 'year')
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FilterButton(buttonName: 'all'),
-                FilterButton(buttonName: 'other')
-              ],
-            ) */
           ],
         ),
       ),

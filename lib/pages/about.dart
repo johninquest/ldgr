@@ -20,13 +20,13 @@ class AboutPage extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 10.0),
-                child: Text('phita', style: TextStyle(color: Colors.blue[900], fontWeight: FontWeight.bold),),),
+                child: Text('rba', style: TextStyle(color: Colors.blue[900], fontWeight: FontWeight.bold, letterSpacing: 2.0),),),
               Container(
                 margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                child: Text('phita is a simple app aiming to help transporters, transport workers and other transport-related businesses keep track of their finances, better manage and organize their daily operations.', textAlign: TextAlign.center,),), 
+                child: Text('rba is a simple bookkeeping app for bars and restaurants.', textAlign: TextAlign.center,),), 
               Container(
                 margin: EdgeInsets.only(top: 100.0),
-                child: Text('\u00A9 Phil Transport Solutions Ltd.'),)  
+                child: Text('\u00A9 XYZ Ltd.'),)  
             ],
           ),),),
           bottomNavigationBar: BottomNavBar(), 

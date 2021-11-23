@@ -14,7 +14,7 @@ class InputPersonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter person info'),
+        title: Text('Enter business info'),
         centerTitle: true,
       ),
       body: Container(
@@ -36,7 +36,7 @@ class PersonForm extends StatefulWidget {
 
 class _PersonFormState extends State<PersonForm> {
   final _personFormKey = GlobalKey<FormState>();
-  TextEditingController _surname = TextEditingController();
+  TextEditingController _businessname = TextEditingController();
   TextEditingController _givenNames = TextEditingController();
   TextEditingController _address = TextEditingController();
   TextEditingController _city = TextEditingController();
@@ -52,7 +52,7 @@ class _PersonFormState extends State<PersonForm> {
     SharedPreferencesHelper().readData('personData').then((value) {
       setState(() {
         if (value != null) {
-          _surname.text = DataParser().strToMap(value)['surname'];
+          _businessname.text = DataParser().strToMap(value)['surname'];
           _givenNames.text = DataParser().strToMap(value)['given_names'];
           _address.text = DataParser().strToMap(value)['address'];
           _city.text = DataParser().strToMap(value)['city'];
@@ -78,9 +78,9 @@ class _PersonFormState extends State<PersonForm> {
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
                 child: TextFormField(
-                  controller: _surname,
+                  controller: _businessname,
                   enabled: true,
-                  decoration: InputDecoration(labelText: 'Last name / Surname'),
+                  decoration: InputDecoration(labelText: 'Business name'),
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.words,
                   /* validator: (val) =>
@@ -89,7 +89,7 @@ class _PersonFormState extends State<PersonForm> {
                     surname = val;
                   }), */
                 )),
-            Container(
+           /*  Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
@@ -103,7 +103,7 @@ class _PersonFormState extends State<PersonForm> {
                   /* validator: (val) => val!.isEmpty
                         ? 'Please enter given names'
                         : null, */
-                )),
+                )), */
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 5.0),
@@ -123,7 +123,7 @@ class _PersonFormState extends State<PersonForm> {
                 controller: _city,
                 enabled: true,
                 decoration: InputDecoration(
-                  hintText: 'City / Town',
+                  labelText: 'City / Town',
                 ),
                 keyboardType: TextInputType.text,
                 textCapitalization: TextCapitalization.words,
@@ -136,7 +136,7 @@ class _PersonFormState extends State<PersonForm> {
                 child: TextFormField(
                   controller: _phone,
                   enabled: true,
-                  decoration: InputDecoration(hintText: 'Phone number'),
+                  decoration: InputDecoration(labelText: 'Phone number'),
                   keyboardType: TextInputType.phone,
                   textCapitalization: TextCapitalization.words,
                 )),
@@ -184,7 +184,7 @@ class _PersonFormState extends State<PersonForm> {
                   child: ElevatedButton(
                     onPressed: () {
                       Map<String, dynamic> personInfo = {
-                        'surname': _surname.text,
+                        'surname': _businessname.text,
                         'given_names': _givenNames.text,
                         'address': _address.text,
                         'city': _city.text,
@@ -211,8 +211,8 @@ class _PersonFormState extends State<PersonForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         Map<String, dynamic> personInfo = {
-                          'surname': _surname.text,
-                          'given_names': _givenNames.text,
+                          'surname': _businessname.text,
+                          // 'given_names': _givenNames.text,
                           'address': _address.text,
                           'city': _city.text,
                           'phone': _phone.text,

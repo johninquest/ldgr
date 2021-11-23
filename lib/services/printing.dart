@@ -58,7 +58,7 @@ class PrintService {
                           children: [
                             pw.Text('Given names',
                                 style: pw.TextStyle(fontSize: 18)),
-                            pw.Text(parsed['given_names'],
+                            pw.Text(parsed['given_names'] ?? '',
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(

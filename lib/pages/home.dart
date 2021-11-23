@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('phita', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
+        title: Text('rba', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
         centerTitle: true, 
       ),
       drawer: SideMenu(),

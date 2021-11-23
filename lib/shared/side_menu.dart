@@ -26,6 +26,29 @@ class SideMenu extends StatelessWidget {
                         color: Colors.white))),
             ListTile(
               leading: Icon(
+                Icons.business,
+                color: myBlue,
+              ),
+              title: Text(
+                'Business',
+                style: TextStyle(color: Colors.blue[900]),
+              ),
+              onTap: () =>
+                  PageRouter().navigateToPage(InputPersonPage(), context),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.category,
+                color: myBlue,
+              ),
+              title: Text(
+                'Categories',
+                style: TextStyle(color: Colors.blue[900]),
+              ),
+              onTap: () =>print('Tapped category'),
+            ),
+            /* ListTile(
+              leading: Icon(
                 Icons.person,
                 color: myBlue,
               ),
@@ -46,7 +69,7 @@ class SideMenu extends StatelessWidget {
                   style: TextStyle(color: Colors.blue[900]),
                 ),
                 onTap: () =>
-                    PageRouter().navigateToPage(StoredVehiclePage(), context)), 
+                    PageRouter().navigateToPage(StoredVehiclePage(), context)),  */
             ListTile(
                 leading: Icon(
                   Icons.language,

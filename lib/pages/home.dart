@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart'; 
-import 'package:tba/styles/colors.dart';
-import 'package:tba/services/router.dart';
-import 'package:tba/pages/inputs/expenditure.dart';
-import 'package:tba/pages/inputs/income.dart';
-import 'package:tba/shared/side_menu.dart';
-import 'package:tba/shared/bottom_nav_bar.dart';
+import 'package:rba/styles/colors.dart';
+import 'package:rba/services/router.dart';
+import 'package:rba/pages/inputs/expenditure.dart';
+import 'package:rba/pages/inputs/income.dart';
+import 'package:rba/shared/side_menu.dart';
+import 'package:rba/shared/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({ Key? key }) : super(key: key);

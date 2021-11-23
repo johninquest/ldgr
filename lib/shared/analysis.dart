@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tba/styles/colors.dart';
-import 'package:tba/services/formatter.dart';
-import 'package:tba/services/currency.dart';
+import 'package:rba/styles/colors.dart';
+import 'package:rba/services/formatter.dart';
+import 'package:rba/services/currency.dart';
 
 class SumTotalBoard extends StatelessWidget {
   // const RecordSummary({Key? key}) : super(key: key);

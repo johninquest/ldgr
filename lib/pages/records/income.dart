@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tba/styles/style.dart';
-import 'package:tba/styles/colors.dart';
-import 'package:tba/db/sqlite_helper.dart';
-import 'package:tba/db/models.dart';
-import 'package:tba/services/formatter.dart';
-import 'package:tba/shared/widgets.dart';
+import 'package:rba/styles/style.dart';
+import 'package:rba/styles/colors.dart';
+import 'package:rba/db/sqlite_helper.dart';
+import 'package:rba/db/models.dart';
+import 'package:rba/services/formatter.dart';
+import 'package:rba/shared/widgets.dart';
 
 class IncomeRecords extends StatefulWidget {
   const IncomeRecords({Key? key}) : super(key: key);

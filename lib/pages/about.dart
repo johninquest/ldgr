@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart'; 
-import 'package:tba/shared/bottom_nav_bar.dart';
-import 'package:tba/styles/style.dart';
+import 'package:rba/shared/bottom_nav_bar.dart';
+import 'package:rba/styles/style.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({ Key? key }) : super(key: key);

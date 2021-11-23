@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tba/pages/home.dart';
-import 'package:tba/styles/colors.dart';
+import 'package:rba/pages/home.dart';
+import 'package:rba/styles/colors.dart';
 
 void main() => runApp(MyApp());
 

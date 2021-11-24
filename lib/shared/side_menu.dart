@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rba/pages/inputs/category.dart';
 import 'package:rba/pages/inputs/country.dart';
 import 'package:rba/services/router.dart';
 import 'package:rba/pages/inputs/person.dart';
 import 'package:rba/pages/about.dart';
-import 'package:rba/pages/records/vehicle.dart';
+// import 'package:rba/pages/records/vehicle.dart';
 import 'package:rba/styles/colors.dart';
 
 class SideMenu extends StatelessWidget {
@@ -45,7 +46,7 @@ class SideMenu extends StatelessWidget {
                 'Categories',
                 style: TextStyle(color: Colors.blue[900]),
               ),
-              onTap: () =>print('Tapped category'),
+              onTap: () => PageRouter().navigateToPage(InputCategoryPage(), context),
             ),
             /* ListTile(
               leading: Icon(

@@ -23,7 +23,7 @@ class StyleHandler {
     }
     if (category == 'income') {
       return TextStyle(
-          color: myGreen,
+          color: myTeal,
           fontWeight: FontWeight.bold);
     }
   }

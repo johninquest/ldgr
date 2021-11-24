@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:rba/pages/inputs/revenue.dart'; 
 import 'package:rba/styles/colors.dart';
 import 'package:rba/services/router.dart';
 import 'package:rba/pages/inputs/expenditure.dart';
@@ -32,13 +33,21 @@ class HomePage extends StatelessWidget {
               onPressed: () => PageRouter().navigateToPage(InputExpenditurePage(), context), 
               child: Text('EXPENDITURE', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),), 
               style: ElevatedButton.styleFrom(primary: myRed),),), 
-           Container(
+         /*  Container(
              height: 80.0, 
              width: 200.0, 
              margin: EdgeInsets.only(bottom: 25.0),
             child: ElevatedButton(
               onPressed: () => PageRouter().navigateToPage(InputIncomePage(), context), 
-              child: Text('INCOME', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: myGreen)),),
+              child: Text('INCOME', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: myGreen)),),  */
+          Container(
+             height: 80.0, 
+             width: 200.0, 
+             margin: EdgeInsets.only(bottom: 25.0),
+            child: ElevatedButton(
+              onPressed: () => PageRouter().navigateToPage(InputRevenuePage(), context), 
+              child: Text('REVENUE', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: myTeal)),),    
+
           ],
         ),
         ),

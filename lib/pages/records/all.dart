@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rba/db/models.dart';
 import 'package:rba/pages/inputs/row_editor.dart';
-import 'package:rba/services/preprocessor.dart';
+// import 'package:rba/services/preprocessor.dart';
 import 'package:rba/services/router.dart';
 import 'package:rba/shared/floating_side_menu.dart';
 import 'package:rba/styles/style.dart';
@@ -140,20 +140,6 @@ class _AllRecordsState extends State<AllRecords> {
             }
           },
           cells: [
-            /*  DataCell(Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  Formatter().dbToUiDateTime(e.createdAt)[0],
-                  style: TableItemStyle,
-                ),
-                Text(
-                  Formatter().dbToUiDateTime(e.createdAt)[1],
-                  style: TableItemStyle,
-                )
-              ],
-            )), */
             DataCell(Text(
               Formatter().dbToUiDateTime(e.createdAt)[0],
               style: TableItemStyle,

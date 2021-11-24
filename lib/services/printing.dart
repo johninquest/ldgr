@@ -34,7 +34,7 @@ class PrintService {
                     children: [
                       pw.Container(
                         margin: pw.EdgeInsets.only(bottom: 10.0),
-                        child: pw.Text('Person information',
+                        child: pw.Text('Business information',
                             style: pw.TextStyle(
                                 fontSize: 20, fontWeight: pw.FontWeight.bold)),
                       ), 
@@ -46,14 +46,14 @@ class PrintService {
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
-                            pw.Text('Surname',
+                            pw.Text('Business name',
                                 style: pw.TextStyle(fontSize: 18)),
-                            pw.Text(parsed['surname'],
+                            pw.Text(parsed['businessName'],
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                        pw.Divider(
                           color: PdfColor.fromHex('#0046A1'),),      
-                      pw.Row(
+                      /* pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text('Given names',
@@ -62,7 +62,7 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),      
+                          color: PdfColor.fromHex('#0046A1'),),       */
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -102,15 +102,15 @@ class PrintService {
                           ]),
                       pw.Divider(
                           color: PdfColor.fromHex('#0046A1'),),      
-                      pw.Row(
+                      /* pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text('Role', style: pw.TextStyle(fontSize: 18)),
-                            pw.Text(capitalizeStr(parsed['role']),
+                            pw.Text(capitalizeStr(parsed['role']) ?? '',
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'), thickness: 1.0),
+                          color: PdfColor.fromHex('#0046A1'), thickness: 1.0), */
                     ]),
               );
             }));

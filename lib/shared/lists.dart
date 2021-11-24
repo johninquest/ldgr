@@ -3,15 +3,65 @@ import 'package:rba/styles/style.dart';
 
 class MyItemList {
 
-    List<DropdownMenuItem<String>> accountingCategories = [
+    List<DropdownMenuItem<String>> expenseCategories = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'cleaning', child: Container(child: Text('Cleaning', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'kitchen', child: Container(child: Text('Kitchen', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'operating_costs', child: Container(child: Text('Operating costs', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'toilet', child: Container(child: Text('Toilet', style: DropdownListStyle),)),  
+  ];
+
+  List<DropdownMenuItem<String>> barItemList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'beer', child: Container(child: Text('Beer'),)),
+      DropdownMenuItem(value: 'fruits', child: Container(child: Text('Fruits (Cocktail)', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'liquor', child: Container(child: Text('Liquor', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'wine', child: Container(child: Text('Wine', style: DropdownListStyle),)),
       DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)),  
   ];
 
-    List<DropdownMenuItem<String>> businessTypeList = [
+  List<DropdownMenuItem<String>> cleaningItemList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'cafe', child: Container(child: Text('Café', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'soap', child: Container(child: Text('Soap', style: DropdownListStyle),)),  
+  ];
+
+  List<DropdownMenuItem<String>> kitchenItemList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'beef_filet', child: Container(child: Text('Beef filet'),)), 
+      DropdownMenuItem(value: 'chicken', child: Container(child: Text('Chicken'),)), 
+      DropdownMenuItem(value: 'fish_filet', child: Container(child: Text('Fish filet'),)), 
+      DropdownMenuItem(value: 'simba_store', child: Container(child: Text('Simba store'),)),
+      DropdownMenuItem(value: 'vegetables', child: Container(child: Text('Vegetables', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)),   
+  ];
+
+  List<DropdownMenuItem<String>> operatingCostsItemList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'electricity', child: Container(child: Text('Electricity', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'rent', child: Container(child: Text('Rent', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'salary', child: Container(child: Text('Salary', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'water', child: Container(child: Text('Water', style: DropdownListStyle),)),  
+  ];
+
+  List<DropdownMenuItem<String>> othersItemList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'cafe', child: Container(child: Text('Café', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'restaurant', child: Container(child: Text('Restaurant', style: DropdownListStyle),)),  
+  ];
+
+  List<DropdownMenuItem<String>> toiletItemList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'air_refresher', child: Container(child: Text('Air refresher', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'soap', child: Container(child: Text('Soap', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'toilet_paper', child: Container(child: Text('Toilet paper', style: DropdownListStyle),)),  
+  ];
+
+  List<DropdownMenuItem<String>> businessTypeList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
       DropdownMenuItem(value: 'cafe', child: Container(child: Text('Café', style: DropdownListStyle),)), 

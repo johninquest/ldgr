@@ -7,7 +7,7 @@ class InputCategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter accounting categories'),
+        title: Text('Enter category'),
         centerTitle: true,
       ),
       body: Center(child: Text('Hello world!'),),

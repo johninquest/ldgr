@@ -59,4 +59,9 @@ class DateTimeHelper {
     String dtToString = dbDateTimeFormat.format(dt);
     return dtToString;
   }
+
+  currentYear(DateTime now) {
+    String yearToString = DateFormat('yyyy').format(now);
+    return yearToString;
+  }
 }

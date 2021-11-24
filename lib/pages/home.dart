@@ -3,7 +3,7 @@ import 'package:rba/pages/inputs/revenue.dart';
 import 'package:rba/styles/colors.dart';
 import 'package:rba/services/router.dart';
 import 'package:rba/pages/inputs/expenditure.dart';
-import 'package:rba/pages/inputs/income.dart';
+// import 'package:rba/pages/inputs/income.dart';
 import 'package:rba/shared/side_menu.dart';
 import 'package:rba/shared/bottom_nav_bar.dart';
 
@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('rba', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
+        title: Text('rebo', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
         centerTitle: true, 
       ),
       drawer: SideMenu(),
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 25.0),
             child: ElevatedButton(
               onPressed: () => PageRouter().navigateToPage(InputExpenditurePage(), context), 
-              child: Text('EXPENDITURE', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),), 
+              child: Text('EXPENSE', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),), 
               style: ElevatedButton.styleFrom(primary: myRed),),), 
          /*  Container(
              height: 80.0, 

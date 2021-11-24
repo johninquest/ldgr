@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rba/pages/records/all.dart';
+import 'package:rba/styles/colors.dart';
 import '../services/router.dart';
 import 'package:rba/pages/home.dart';
 
@@ -14,7 +15,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return BottomNavigationBar(
       currentIndex: 0,
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.blue[900],
+      backgroundColor: myBlue,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white,
       selectedIconTheme: IconThemeData(color: Colors.black),

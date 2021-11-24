@@ -15,9 +15,9 @@ class InputRevenuePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Enter income'),
+          title: Text('Enter revenue'),
           centerTitle: true,
-          backgroundColor: myGreen,
+          backgroundColor: myTeal,
         ),
         body: Center(
           child: Container(

@@ -19,7 +19,7 @@ class SideMenu extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue[900]),
+                decoration: BoxDecoration(color: myBlue),
                 child: Text('Settings',
                     style: TextStyle(
                         fontSize: 25,
@@ -32,7 +32,7 @@ class SideMenu extends StatelessWidget {
               ),
               title: Text(
                 'Business',
-                style: TextStyle(color: Colors.blue[900]),
+                style: TextStyle(color: myBlue),
               ),
               onTap: () =>
                   PageRouter().navigateToPage(InputPersonPage(), context),
@@ -44,7 +44,7 @@ class SideMenu extends StatelessWidget {
               ),
               title: Text(
                 'Categories',
-                style: TextStyle(color: Colors.blue[900]),
+                style: TextStyle(color: myBlue),
               ),
               onTap: () => PageRouter().navigateToPage(InputCategoryPage(), context),
             ),
@@ -78,18 +78,18 @@ class SideMenu extends StatelessWidget {
                 ),
                 title: Text(
                   'Country',
-                  style: TextStyle(color: Colors.blue[900]),
+                  style: TextStyle(color: myBlue),
                 ),
                 onTap: () =>
                     PageRouter().navigateToPage(CountryPage(), context)),        
             ListTile(
               leading: Icon(
                 Icons.info,
-                color: Colors.blue[900],
+                color: myBlue,
               ),
               title: Text(
                 'About app',
-                style: TextStyle(color: Colors.blue[900]),
+                style: TextStyle(color: myBlue),
               ),
               onTap: () => PageRouter().navigateToPage(AboutPage(), context),
             ),

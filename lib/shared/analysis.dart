@@ -58,7 +58,7 @@ class SumTotalBoard extends StatelessWidget {
                     child: Text('INCOME',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: myGreen,
+                            color: myTeal,
                             letterSpacing: 2.0)),
                   ),
                   Container(
@@ -133,7 +133,7 @@ class BalanceByPeriod extends StatelessWidget {
                     child: Text('INCOME',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: myGreen,
+                            color: myTeal,
                             letterSpacing: 2.0)),
                   ),
                   Container(

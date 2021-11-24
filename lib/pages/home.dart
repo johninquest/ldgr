@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('rebo', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
+        title: Text('joba', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
         centerTitle: true, 
       ),
       drawer: SideMenu(),

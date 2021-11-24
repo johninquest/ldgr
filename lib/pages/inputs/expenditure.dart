@@ -15,7 +15,7 @@ class InputExpenditurePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Enter expenditure'),
+          title: Text('Enter expense'),
           centerTitle: true,
           backgroundColor: myRed,
         ),
@@ -34,10 +34,16 @@ class ExpenditureForm extends StatefulWidget {
 
 class _ExpenditureFormState extends State<ExpenditureForm> {
   final _expenditureFormKey = GlobalKey<FormState>();
+  TextEditingController expenseAmount = TextEditingController();
+  TextEditingController expenseAdditionalDetail = TextEditingController();
 
   //Form values
-  String? expenditureSource;
-  String? expenditureAmount;
+  String? expenseCategory;
+  String? expenseItem;
+  String? paymentMethod;
+
+  // String? expenseAdditionalDetail;
+  // String? expenditureAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +68,25 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
-                  // hint: Text('Reason for expenditure'),
-                  decoration:
-                      InputDecoration(labelText: 'Reason for expenditure'),
-                  items: MyItemList().expenditureList,
-                  validator: (val) => val == null
-                      ? 'Please select reason for expenditure!'
-                      : null,
+                  decoration: InputDecoration(labelText: 'Expense category'),
+                  items: MyItemList().expenseCategoryList,
+                  validator: (val) =>
+                      val == null ? 'Please select an expense category!' : null,
                   onChanged: (val) => setState(() {
-                    expenditureSource = val as String?;
+                    expenseCategory = val as String?;
+                  }),
+                )),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(labelText: 'Expense item'),
+                  //items: MyItemList().expenseItemList,
+                  items: setExpenseItemList(expenseCategory ?? ''),
+                  validator: (val) =>
+                      val == null ? 'Please select reason for expense!' : null,
+                  onChanged: (val) => setState(() {
+                    expenseItem = val as String?;
                   }),
                 )),
             Container(
@@ -78,6 +94,26 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
+                  controller: expenseAdditionalDetail,
+                  decoration: InputDecoration(labelText: 'Additional detail'),
+                  keyboardType: TextInputType.text,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Please provide details!';
+                    }
+                  },
+                  /* validator: (val) =>
+                      val!.isEmpty ? 'Please enter an amount!' : null,
+                  onChanged: (val) => setState(() {
+                    expenseAdditionalDetail = val;
+                  }), */
+                )),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                margin: EdgeInsets.only(bottom: 10.0),
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: TextFormField(
+                  controller: expenseAmount,
                   decoration: InputDecoration(labelText: 'Amount'),
                   keyboardType: TextInputType.number,
                   validator: (val) {
@@ -85,10 +121,17 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       return 'Please enter amount!';
                     }
                   },
-                  /* validator: (val) =>
-                      val!.isEmpty ? 'Please enter an amount!' : null, */
+                )),
+                Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(labelText: 'Payment method'),
+                  items: MyItemList().paymentMethodList,
+                  validator: (val) =>
+                      val == null ? 'Please enter a payment method' : null,
                   onChanged: (val) => setState(() {
-                    expenditureAmount = val;
+                    paymentMethod = val as String?;
                   }),
                 )),
             Row(
@@ -109,7 +152,13 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_expenditureFormKey.currentState!.validate()) {
+                      print('Expense category => $expenseCategory');
+                      print('Expense item => $expenseItem');
+                      print(
+                          'Expense detail => ${expenseAdditionalDetail.text}');
+                      print('Expense item => ${expenseAmount.text}');
+                      print('Payment method => $paymentMethod');
+                      /* if (_expenditureFormKey.currentState!.validate()) {
                         String parsedExpenditureAmount =
                             InputHandler().moneyCheck(expenditureAmount!);
                         SQLiteDatabaseHelper()
@@ -121,7 +170,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                             PageRouter().navigateToPage(AllRecords(), context);
                           }
                         });
-                      }
+                      } */
                     },
                     child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(primary: myRed),
@@ -134,4 +183,25 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
       ),
     );
   }
+}
+
+setExpenseItemList(String category) {
+    if (category == 'bar') {
+      return MyItemList().barItemList;
+    }
+    if (category == 'kitchen') {
+      return MyItemList().kitchenItemList;
+    }
+    if (category == 'operating_costs') {
+      return MyItemList().operatingCostsItemList;
+    }
+    if (category == 'toilet') {
+      return MyItemList().toiletItemList;
+    }
+    if (category == 'others') {
+      return MyItemList().othersItemList;
+    }
+     else {
+      return MyItemList().emptyList;
+    }
 }

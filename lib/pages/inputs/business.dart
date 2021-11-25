@@ -83,9 +83,9 @@ class _PersonFormState extends State<PersonForm> {
                   decoration: InputDecoration(labelText: 'Business name'),
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.words,
-                  /* validator: (val) =>
-                      val!.isEmpty ? 'Please enter last name / surname' : null,
-                  onChanged: (val) => setState(() {
+                  validator: (val) =>
+                      val!.isEmpty ? 'Please enter business name' : null,
+                  /* onChanged: (val) => setState(() {
                     surname = val;
                   }), */
                 )),

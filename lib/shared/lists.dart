@@ -3,6 +3,12 @@ import 'package:rba/styles/style.dart';
 
 class MyItemList {
 
+  List<DropdownMenuItem<String>> accountList = [
+    DropdownMenuItem(value: null, child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'expense', child: Container(child: Text('Expense'),)), 
+      DropdownMenuItem(value: 'income', child: Container(child: Text('Income', style: DropdownListStyle),)),    
+  ];
+
   List<DropdownMenuItem<String>> businessTypeList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
@@ -10,13 +16,14 @@ class MyItemList {
       DropdownMenuItem(value: 'restaurant', child: Container(child: Text('Restaurant', style: DropdownListStyle),)),  
   ];
 
-  List<DropdownMenuItem<String>> expenseCategoryList = [
-      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
-      DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),   
+  List<DropdownMenuItem<String>> expenseAreaList = [
+      DropdownMenuItem(value: null, child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'cleaning', child: Container(child: Text('Cleaning', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'kitchen', child: Container(child: Text('Kitchen', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'operating_costs', child: Container(child: Text('Operating costs', style: DropdownListStyle),)),  
-      DropdownMenuItem(value: 'toilet', child: Container(child: Text('Toilet', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)),
+      DropdownMenuItem(value: 'toilet', child: Container(child: Text('Toilet', style: DropdownListStyle),)),  
   ];
 
 
@@ -85,7 +92,7 @@ class MyItemList {
   ];
   
 
-    List<DropdownMenuItem<String>> incomeList = [
+  List<DropdownMenuItem<String>> incomeList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'delivery_service', child: Container(child: Text('Delivery service', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'luggage', child: Container(child: Text('Luggage', style: DropdownListStyle),)), 

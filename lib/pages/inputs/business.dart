@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rba/services/preprocessor.dart';
-import 'package:rba/services/printing.dart';
-import 'package:rba/shared/bottom_nav_bar.dart';
-// import 'package:rba/shared/lists.dart';
 import 'dart:convert';
-import 'package:rba/db/sp_helper.dart';
-import 'package:rba/shared/snackbar_messages.dart';
+import 'package:ldgr/services/preprocessor.dart';
+import 'package:ldgr/services/printing.dart';
+import 'package:ldgr/shared/bottom_nav_bar.dart';
+import 'package:ldgr/db/sp_helper.dart';
+import 'package:ldgr/shared/snackbar_messages.dart';
 
 class InputPersonPage extends StatelessWidget {
   const InputPersonPage({Key? key}) : super(key: key);

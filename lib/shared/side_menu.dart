@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rba/pages/inputs/country.dart';
-import 'package:rba/pages/records/items.dart';
-import 'package:rba/services/router.dart';
-import 'package:rba/pages/inputs/business.dart';
-import 'package:rba/pages/about.dart';
-import 'package:rba/styles/colors.dart';
+import 'package:ldgr/pages/inputs/country.dart';
+import 'package:ldgr/pages/records/items.dart';
+import 'package:ldgr/services/router.dart';
+import 'package:ldgr/pages/inputs/business.dart';
+import 'package:ldgr/pages/about.dart';
+import 'package:ldgr/styles/colors.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);

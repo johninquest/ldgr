@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rba/shared/lists.dart';
-import 'package:rba/styles/colors.dart';
+import 'package:ldgr/shared/lists.dart';
+import 'package:ldgr/styles/colors.dart';
 
 class AddItemPage extends StatelessWidget {
   const AddItemPage({Key? key}) : super(key: key);

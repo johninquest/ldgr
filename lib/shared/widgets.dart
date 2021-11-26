@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rba/pages/home.dart';
-import 'package:rba/services/router.dart';
-import 'package:rba/styles/style.dart';
-import 'package:rba/styles/colors.dart';
-import 'package:rba/services/formatter.dart';
+import 'package:ldgr/pages/home.dart';
+import 'package:ldgr/services/router.dart';
+import 'package:ldgr/styles/style.dart';
+import 'package:ldgr/styles/colors.dart';
+import 'package:ldgr/services/formatter.dart';
 
 class ErrorOccured extends StatelessWidget {
   @override

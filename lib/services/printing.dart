@@ -3,11 +3,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
-import 'package:rba/db/sp_helper.dart';
-import 'package:rba/db/sqlite_helper.dart';
-import 'package:rba/services/currency.dart';
-import 'package:rba/services/preprocessor.dart';
-import 'package:rba/shared/snackbar_messages.dart';
+import 'package:ldgr/db/sp_helper.dart';
+import 'package:ldgr/db/sqlite_helper.dart';
+import 'package:ldgr/services/currency.dart';
+import 'package:ldgr/services/preprocessor.dart';
+import 'package:ldgr/shared/snackbar_messages.dart';
 
 class PrintService {
 

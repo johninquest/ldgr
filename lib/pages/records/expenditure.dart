@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rba/styles/style.dart';
-import 'package:rba/styles/colors.dart';
-import 'package:rba/db/models.dart';
-import 'package:rba/db/sqlite_helper.dart';
-import 'package:rba/shared/widgets.dart';
-import 'package:rba/services/formatter.dart';
+import 'package:ldgr/styles/style.dart';
+import 'package:ldgr/styles/colors.dart';
+import 'package:ldgr/db/models.dart';
+import 'package:ldgr/db/sqlite_helper.dart';
+import 'package:ldgr/shared/widgets.dart';
+import 'package:ldgr/services/formatter.dart';
 
 class ExpenditureRecords extends StatefulWidget {
   const ExpenditureRecords({Key? key}) : super(key: key);

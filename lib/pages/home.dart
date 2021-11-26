@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rba/pages/inputs/revenue.dart'; 
-import 'package:rba/styles/colors.dart';
-import 'package:rba/services/router.dart';
-import 'package:rba/pages/inputs/expense.dart';
+import 'package:ldgr/pages/inputs/revenue.dart'; 
+import 'package:ldgr/styles/colors.dart';
+import 'package:ldgr/services/router.dart';
+import 'package:ldgr/pages/inputs/expense.dart';
 // import 'package:rba/pages/inputs/income.dart';
-import 'package:rba/shared/side_menu.dart';
-import 'package:rba/shared/bottom_nav_bar.dart';
+import 'package:ldgr/shared/side_menu.dart';
+import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'inputs/income.dart';
 
 class HomePage extends StatelessWidget {

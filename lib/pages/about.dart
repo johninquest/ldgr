@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rba/shared/bottom_nav_bar.dart';
-import 'package:rba/styles/style.dart';
-import 'package:rba/services/date_time_helper.dart';
+import 'package:ldgr/shared/bottom_nav_bar.dart';
+import 'package:ldgr/styles/style.dart';
+import 'package:ldgr/services/date_time_helper.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);

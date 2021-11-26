@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:rba/pages/home.dart';
-import 'package:rba/styles/colors.dart';
+import 'package:ldgr/pages/home.dart';
+import 'package:ldgr/styles/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

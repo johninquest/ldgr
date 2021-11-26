@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rba/styles/style.dart';
+import 'package:ldgr/styles/style.dart';
 
 class MyItemList {
 

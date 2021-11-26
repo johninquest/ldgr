@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:rba/db/models.dart';
-import 'package:rba/pages/filters/filtered.dart';
-import 'package:rba/services/date_time_helper.dart';
-import 'package:rba/styles/colors.dart';
-import 'package:rba/shared/lists.dart';
-import 'package:rba/shared/snackbar_messages.dart';
-import 'package:rba/db/sqlite_helper.dart';
-import 'package:rba/services/router.dart';
-import 'package:rba/services/preprocessor.dart';
-import 'package:rba/pages/records/all.dart';
+import 'package:ldgr/db/models.dart';
+import 'package:ldgr/pages/filters/filtered.dart';
+import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/styles/colors.dart';
+import 'package:ldgr/shared/lists.dart';
+import 'package:ldgr/shared/snackbar_messages.dart';
+import 'package:ldgr/db/sqlite_helper.dart';
+import 'package:ldgr/services/router.dart';
+import 'package:ldgr/services/preprocessor.dart';
+import 'package:ldgr/pages/records/all.dart';
 import 'package:intl/intl.dart';
-import 'package:rba/services/formatter.dart';
+import 'package:ldgr/services/formatter.dart';
 
 class RowEditorPage extends StatelessWidget {
   final Record rowData;

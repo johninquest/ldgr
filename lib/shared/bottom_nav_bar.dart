@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rba/pages/records/all.dart';
-import 'package:rba/styles/colors.dart';
+import 'package:ldgr/pages/records/all.dart';
+import 'package:ldgr/styles/colors.dart';
 import '../services/router.dart';
-import 'package:rba/pages/home.dart';
+import 'package:ldgr/pages/home.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override

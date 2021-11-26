@@ -6,7 +6,6 @@ import 'package:rba/pages/inputs/expense.dart';
 // import 'package:rba/pages/inputs/income.dart';
 import 'package:rba/shared/side_menu.dart';
 import 'package:rba/shared/bottom_nav_bar.dart';
-
 import 'inputs/income.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,7 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('joba', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
+        title: Text('bkapp', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
         centerTitle: true, 
       ),
       drawer: SideMenu(),

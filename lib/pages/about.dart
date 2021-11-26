@@ -37,13 +37,13 @@ class AboutPage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 10.0, right: 10.0),
                 child: Text(
-                  'joba is a simple bookkeeping app designed to help bars and restaurants keep track of their finances.',
+                  'bkapp is a simple bookkeeping app designed to help bars and restaurants keep track of their finances.',
                   textAlign: TextAlign.center,
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 100.0),
-                child: Text('\u00A9 $_currentYear joba app'),
+                child: Text('\u00A9 $_currentYear bkapp Ltd.'),
               )
             ],
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rba/pages/inputs/country.dart';
-import 'package:rba/pages/inputs/items.dart';
+import 'package:rba/pages/records/items.dart';
 import 'package:rba/services/router.dart';
 import 'package:rba/pages/inputs/business.dart';
 import 'package:rba/pages/about.dart';
@@ -45,7 +45,18 @@ class SideMenu extends StatelessWidget {
                 'Items',
                 style: TextStyle(color: myBlue),
               ),
-              onTap: () => PageRouter().navigateToPage(AddItemPage(), context),
+              onTap: () => PageRouter().navigateToPage(ItemsPage(), context),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.store,
+                color: myBlue,
+              ),
+              title: Text(
+                'Inventory',
+                style: TextStyle(color: myBlue),
+              ),
+              onTap: () => print('Tapped inventory button'),
             ),
             /* ListTile(
               leading: Icon(

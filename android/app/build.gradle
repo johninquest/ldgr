@@ -45,7 +45,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 30 
         versionCode 1 
-        versionName '0.0.1'
+        versionName '0.0.1' 
+        multiDexEnabled true
         /* versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName */ 
     }
@@ -74,5 +75,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version" 
-    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation platform('com.google.firebase:firebase-bom:29.0.0') 
+    implementation 'com.android.support:multidex:1.0.3'
 }

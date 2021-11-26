@@ -4,7 +4,7 @@ import 'package:rba/styles/style.dart';
 class MyItemList {
 
   List<DropdownMenuItem<String>> accountList = [
-    DropdownMenuItem(value: null, child: Container(child: Text(''),)), 
+    DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'expense', child: Container(child: Text('Expense'),)), 
       DropdownMenuItem(value: 'income', child: Container(child: Text('Income', style: DropdownListStyle),)),    
   ];
@@ -17,7 +17,7 @@ class MyItemList {
   ];
 
   List<DropdownMenuItem<String>> expenseAreaList = [
-      DropdownMenuItem(value: null, child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
       DropdownMenuItem(value: 'cleaning', child: Container(child: Text('Cleaning', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'kitchen', child: Container(child: Text('Kitchen', style: DropdownListStyle),)), 

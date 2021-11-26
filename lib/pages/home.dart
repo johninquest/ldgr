@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('bkapp', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
+        title: Text('ldgr', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white,),), 
         centerTitle: true, 
       ),
       drawer: SideMenu(),

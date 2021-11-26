@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "548466159303",
+    "project_id": "johnappsde",
+    "storage_bucket": "johnappsde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548466159303:android:44e72822b80f36c2f1d8e2",
+        "android_client_info": {
+          "package_name": "de.johnapps.ldgr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548466159303-0grrqkckfolbrej80qg5mjq0589bdm03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0DzCmCTriKQvBuQlvs6c022DX_YIWKwc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548466159303-0grrqkckfolbrej80qg5mjq0589bdm03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

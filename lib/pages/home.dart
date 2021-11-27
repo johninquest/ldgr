@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ldgr',
+          'Ldgr',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             letterSpacing: 3.0,

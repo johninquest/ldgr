@@ -45,7 +45,7 @@ class _AddItemFormState extends State<AddItemForm> {
                     width: MediaQuery.of(context).size.width * 0.95,
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
                     child: DropdownButtonFormField(
-                      decoration: InputDecoration(labelText: 'Select accounting area'),
+                      decoration: InputDecoration(labelText: 'Select account'),
                       items: MyItemList().accountList,
                       validator: (val) =>
                           val == null ? 'Please select accounting area!' : null,

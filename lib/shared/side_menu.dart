@@ -4,6 +4,7 @@ import 'package:ldgr/pages/records/items.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business.dart';
 import 'package:ldgr/pages/about.dart';
+import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 
 class SideMenu extends StatelessWidget {
@@ -56,7 +57,10 @@ class SideMenu extends StatelessWidget {
                 'Inventory',
                 style: TextStyle(color: myBlue),
               ),
-              onTap: () => print('Tapped inventory button'),
+              onTap: () => showDialog(
+                  context: context, 
+                  builder: (_) => InfoDialog(), 
+                  barrierDismissible: false),
             ),
             /* ListTile(
               leading: Icon(

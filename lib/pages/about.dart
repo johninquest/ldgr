@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
+import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/styles/style.dart';
 import 'package:ldgr/services/date_time_helper.dart';
 
@@ -24,26 +25,32 @@ class AboutPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              /* Container(
+              Container(
                 margin: EdgeInsets.only(bottom: 10.0),
                 child: Text(
-                  'rebo app',
+                  'Ldgr',
                   style: TextStyle(
-                      color: Colors.blue[900],
+                      color: myBlue,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2.0),
                 ),
-              ), */
+              ),
               Container(
                 margin: EdgeInsets.only(left: 10.0, right: 10.0),
                 child: Text(
-                  'Ldgr is a simple bookkeeping app designed to help bars and restaurants keep track of their finances.',
+                  'Ldgr is a simple bookkeeping app for bars and restaurants.',
                   textAlign: TextAlign.center,
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 100.0),
-                child: Text('\u00A9 $_currentYear john apps Ltd.'),
+                child: Text('\u00A9 $_currentYear JOHN APPS Ltd.', 
+                style: TextStyle(
+                  // fontStyle: FontStyle.italic, 
+                  color: myBlue,
+                  fontWeight: FontWeight.bold, 
+                  // decoration: TextDecoration.underline
+                  ),),
               )
             ],
           ),

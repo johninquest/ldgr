@@ -58,7 +58,7 @@ class _AddItemFormState extends State<AddItemForm> {
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Select business area'),
-                      items: MyItemList().expenseAreaList,
+                      items: MyItemList().costAreaList,
                       validator: (val) =>
                           val == null ? 'Please select business area!' : null,
                       onChanged: (val) => setState(() {

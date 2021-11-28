@@ -33,19 +33,21 @@ class ExpenditureForm extends StatefulWidget {
 }
 
 class _ExpenditureFormState extends State<ExpenditureForm> {
-  final _expenditureFormKey = GlobalKey<FormState>();
-  TextEditingController _expenseAmount = TextEditingController();
+  final _expenseFormKey = GlobalKey<FormState>();
+  TextEditingController _itemName = TextEditingController();
+  TextEditingController _price = TextEditingController();
+  TextEditingController _quantity = TextEditingController();
 
   //Form values
   // String? expenseCategory;
-  String? _expenseItem;
+  String? _costArea;
   String? _paymentMethod;
 
   @override
   Widget build(BuildContext context) {
     DateTime moment = DateTime.now();
     return Form(
-      key: _expenditureFormKey,
+      key: _expenseFormKey,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,25 +66,12 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
-                  decoration: InputDecoration(labelText: 'Select item'),
-                  items: MyItemList().expenseAreaList,
+                  decoration: InputDecoration(labelText: 'Cost area'),
+                  items: MyItemList().costAreaList,
                   validator: (val) =>
-                      val == null ? 'Please select expense category!' : null,
+                      val == null ? 'Please select cost area!' : null,
                   onChanged: (val) => setState(() {
-                    _expenseItem = val as String?;
-                  }),
-                )),
-            /* Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(labelText: 'Item category'),
-                  //items: MyItemList().expenseItemList,
-                  items: setExpenseItemList(expenseCategory ?? ''),
-                  validator: (val) =>
-                      val == null ? 'Please select item category!' : null,
-                  onChanged: (val) => setState(() {
-                    expenseItem = val as String?;
+                    _costArea = val as String?;
                   }),
                 )),
             Container(
@@ -90,34 +79,43 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
-                  controller: expenseAdditionalDetail,
+                  controller: _itemName,
                   decoration: InputDecoration(labelText: 'Item name'),
                   keyboardType: TextInputType.text,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please provide item name!';
+                      return 'Please enter item name!';
                     }
                   },
-                  /* validator: (val) =>
-                      val!.isEmpty ? 'Please enter an amount!' : null,
-                  onChanged: (val) => setState(() {
-                    expenseAdditionalDetail = val;
-                  }), */
-                )), */
+                )),    
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
-                  controller: _expenseAmount,
-                  decoration: InputDecoration(labelText: 'Enter amount'),
+                  controller: _price,
+                  decoration: InputDecoration(labelText: 'Price'),
                   keyboardType: TextInputType.number,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter amount!';
+                      return 'Please enter price!';
                     }
                   },
-                )),
+                )), 
+             Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                margin: EdgeInsets.only(bottom: 10.0),
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: TextFormField(
+                  controller: _quantity,
+                  decoration: InputDecoration(labelText: 'Quantity'),
+                  keyboardType: TextInputType.number,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Please enter quantity!';
+                    }
+                  },
+                )),    
                 Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -125,7 +123,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   decoration: InputDecoration(labelText: 'Payment method'),
                   items: MyItemList().paymentMethodList,
                   validator: (val) =>
-                      val == null ? 'Please select a payment method' : null,
+                      val == null ? 'Please select payment method' : null,
                   onChanged: (val) => setState(() {
                     _paymentMethod = val as String?;
                   }),
@@ -148,8 +146,10 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Expense item => $_expenseItem');
-                      print('Expense item => ${_expenseAmount.text}');
+                      print('Cost area => $_costArea'); 
+                      print('Item name => ${_itemName.text}');
+                      print('Price => ${_price.text}');
+                      print('Quantity => ${_quantity.text}');
                       print('Payment method => $_paymentMethod');
                       /* if (_expenditureFormKey.currentState!.validate()) {
                         String parsedExpenditureAmount =

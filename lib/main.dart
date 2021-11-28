@@ -19,12 +19,6 @@ class MyApp extends StatelessWidget {
       theme: myTheme.copyWith(
         colorScheme: myTheme.colorScheme.copyWith(primary: myBlue, secondary: myBlue,),
       ),
-      /* theme: ThemeData(
-        primaryColor: myBlue,
-        //accentColor: myBlue,
-        primarySwatch: Colors.indigo,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ), */
       home: HomePage(),
     );
   }

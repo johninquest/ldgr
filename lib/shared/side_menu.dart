@@ -46,7 +46,11 @@ class SideMenu extends StatelessWidget {
                 'Items',
                 style: TextStyle(color: myBlue),
               ),
-              onTap: () => PageRouter().navigateToPage(ItemsPage(), context),
+              // onTap: () => PageRouter().navigateToPage(ItemsPage(), context), 
+              onTap: () => showDialog(
+                  context: context, 
+                  builder: (_) => InfoDialog(), 
+                  barrierDismissible: false),
             ),
             ListTile(
               leading: Icon(

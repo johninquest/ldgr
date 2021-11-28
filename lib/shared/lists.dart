@@ -16,7 +16,7 @@ class MyItemList {
       DropdownMenuItem(value: 'restaurant', child: Container(child: Text('Restaurant', style: DropdownListStyle),)),  
   ];
 
-  List<DropdownMenuItem<String>> expenseAreaList = [
+  List<DropdownMenuItem<String>> costAreaList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
       DropdownMenuItem(value: 'cleaning', child: Container(child: Text('Cleaning', style: DropdownListStyle),)), 
@@ -88,7 +88,13 @@ class MyItemList {
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'card', child: Container(child: Text('Card', style: DropdownListStyle),)),  
       DropdownMenuItem(value: 'cash', child: Container(child: Text('Cash', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'mobile_money', child: Container(child: Text('Mobile money', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'mobile money', child: Container(child: Text('Mobile money', style: DropdownListStyle),)),  
+  ];
+
+List<DropdownMenuItem<String>> measurementUnitList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'kg', child: Container(child: Text('Kg', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'piece', child: Container(child: Text('Piece(s)', style: DropdownListStyle),)),  
   ];
   
 

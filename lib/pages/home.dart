@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/inputs/revenue.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/expense.dart';
-// import 'package:rba/pages/inputs/income.dart';
 import 'package:ldgr/shared/side_menu.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/firebase/auth.dart';
-import 'inputs/income.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AuthService().getFbUser();
+    // AuthService().getFbUser();
+    // FirestoreService().getData();
     return Scaffold(
       appBar: AppBar(
         title: Text(

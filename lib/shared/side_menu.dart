@@ -49,7 +49,7 @@ class SideMenu extends StatelessWidget {
               // onTap: () => PageRouter().navigateToPage(ItemsPage(), context), 
               onTap: () => showDialog(
                   context: context, 
-                  builder: (_) => InfoDialog(), 
+                  builder: (_) => InfoDialog('Still under construction!'), 
                   barrierDismissible: false),
             ),
             ListTile(
@@ -63,7 +63,7 @@ class SideMenu extends StatelessWidget {
               ),
               onTap: () => showDialog(
                   context: context, 
-                  builder: (_) => InfoDialog(), 
+                  builder: (_) => InfoDialog('Still under construction!'), 
                   barrierDismissible: false),
             ),
             /* ListTile(

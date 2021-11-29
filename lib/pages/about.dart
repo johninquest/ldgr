@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/services/web.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/styles/style.dart';
@@ -44,13 +45,16 @@ class AboutPage extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(top: 100.0),
-                child: Text('\u00A9 $_currentYear JOHN APPS Ltd.', 
-                style: TextStyle(
-                  // fontStyle: FontStyle.italic, 
-                  color: myBlue,
-                  fontWeight: FontWeight.bold, 
-                  // decoration: TextDecoration.underline
-                  ),),
+                child: GestureDetector(
+                  onTap: () => WebService().openUrl('https://johnapps.de', context),
+                  child: Text('\u00A9 $_currentYear JOHN APPS Ltd.', 
+                  style: TextStyle(
+                    // fontStyle: FontStyle.italic, 
+                    color: myBlue,
+                    fontWeight: FontWeight.bold, 
+                    // decoration: TextDecoration.underline
+                    ),),
+                ),
               )
             ],
           ),

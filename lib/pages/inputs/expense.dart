@@ -41,6 +41,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   //Form values
   // String? expenseCategory;
   String? _costArea;
+  String? _unit;
   String? _paymentMethod;
 
   @override
@@ -87,7 +88,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       return 'Please enter item name!';
                     }
                   },
-                )),    
+                )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 10.0),
@@ -101,22 +102,46 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       return 'Please enter price!';
                     }
                   },
-                )), 
-             Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                margin: EdgeInsets.only(bottom: 10.0),
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: TextFormField(
-                  controller: _quantity,
-                  decoration: InputDecoration(labelText: 'Quantity'),
-                  keyboardType: TextInputType.number,
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Please enter quantity!';
-                    }
-                  },
-                )),    
-                Container(
+                )),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.55,
+                    margin: EdgeInsets.only(right: 10.0),
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: TextFormField(
+                      controller: _quantity,
+                      decoration: InputDecoration(labelText: 'Quantity'),
+                      keyboardType: TextInputType.number,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return 'Please enter quantity!';
+                        }
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    margin: EdgeInsets.only(left: 10.0, bottom: 5.0), 
+                    padding: EdgeInsets.only(right: 20.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(labelText: 'Unit'),
+                      items: MyItemList().measurementUnitList,
+                      validator: (val) =>
+                          val == null ? 'Please select unit!' : null,
+                      onChanged: (val) => setState(() {
+                        _unit = val as String?;
+                      }),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
@@ -146,7 +171,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Cost area => $_costArea'); 
+                      print('Cost area => $_costArea');
                       print('Item name => ${_itemName.text}');
                       print('Price => ${_price.text}');
                       print('Quantity => ${_quantity.text}');
@@ -179,22 +204,21 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
 }
 
 setExpenseItemList(String category) {
-    if (category == 'bar') {
-      return MyItemList().barItemList;
-    }
-    if (category == 'kitchen') {
-      return MyItemList().kitchenItemList;
-    }
-    if (category == 'operating_costs') {
-      return MyItemList().operatingCostsItemList;
-    }
-    if (category == 'toilet') {
-      return MyItemList().toiletItemList;
-    }
-    if (category == 'others') {
-      return MyItemList().othersItemList;
-    }
-     else {
-      return MyItemList().emptyList;
-    }
+  if (category == 'bar') {
+    return MyItemList().barItemList;
+  }
+  if (category == 'kitchen') {
+    return MyItemList().kitchenItemList;
+  }
+  if (category == 'operating_costs') {
+    return MyItemList().operatingCostsItemList;
+  }
+  if (category == 'toilet') {
+    return MyItemList().toiletItemList;
+  }
+  if (category == 'others') {
+    return MyItemList().othersItemList;
+  } else {
+    return MyItemList().emptyList;
+  }
 }

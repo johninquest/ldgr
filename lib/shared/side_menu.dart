@@ -46,15 +46,15 @@ class SideMenu extends StatelessWidget {
                 'Items',
                 style: TextStyle(color: myBlue),
               ),
-              // onTap: () => PageRouter().navigateToPage(ItemsPage(), context), 
-              onTap: () => showDialog(
+              onTap: () => PageRouter().navigateToPage(ItemsPage(), context), 
+              /* onTap: () => showDialog(
                   context: context, 
                   builder: (_) => InfoDialog('Still under construction!'), 
-                  barrierDismissible: false),
+                  barrierDismissible: false), */
             ),
             ListTile(
               leading: Icon(
-                Icons.store,
+                Icons.inventory_outlined,
                 color: myBlue,
               ),
               title: Text(
@@ -102,7 +102,7 @@ class SideMenu extends StatelessWidget {
                     PageRouter().navigateToPage(CountryPage(), context)),        
             ListTile(
               leading: Icon(
-                Icons.info,
+                Icons.info_outline,
                 color: myBlue,
               ),
               title: Text(

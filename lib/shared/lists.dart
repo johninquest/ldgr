@@ -93,8 +93,9 @@ class MyItemList {
 
 List<DropdownMenuItem<String>> measurementUnitList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
-      DropdownMenuItem(value: 'kg', child: Container(child: Text('Kg', style: DropdownListStyle),)),  
-      DropdownMenuItem(value: 'piece', child: Container(child: Text('Piece(s)', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'kg', child: Container(child: Text('Kg', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'litre', child: Container(child: Text('L', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'piece', child: Container(child: Text('Pcs', style: DropdownListStyle),)),  
   ];
   
 

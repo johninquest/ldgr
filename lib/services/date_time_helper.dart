@@ -2,9 +2,9 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class DateTimeHelper {
-  timestampForDB() {
+  timestampForDB(DateTime dt) {
+    // DateTime dt = DateTime.now();
     DateFormat dbDateTimeFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-    DateTime dt = DateTime.now();
     String dtToString = dbDateTimeFormat.format(dt);
     return dtToString;
   }

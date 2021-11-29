@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
@@ -34,6 +35,7 @@ class ExpenditureForm extends StatefulWidget {
 
 class _ExpenditureFormState extends State<ExpenditureForm> {
   final _expenseFormKey = GlobalKey<FormState>();
+  TextEditingController _itemCategory = TextEditingController();
   TextEditingController _itemName = TextEditingController();
   TextEditingController _price = TextEditingController();
   TextEditingController _quantity = TextEditingController();
@@ -80,9 +82,25 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
+                  controller: _itemCategory,
+                  decoration: InputDecoration(labelText: 'Item category'),
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.words,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Please enter item category!';
+                    }
+                  },
+                )),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                margin: EdgeInsets.only(bottom: 10.0),
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: TextFormField(
                   controller: _itemName,
                   decoration: InputDecoration(labelText: 'Item name'),
                   keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.sentences,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return 'Please enter item name!';
@@ -126,13 +144,13 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.35,
-                    margin: EdgeInsets.only(left: 10.0, bottom: 5.0), 
+                    margin: EdgeInsets.only(left: 10.0, bottom: 5.0),
                     padding: EdgeInsets.only(right: 20.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Unit'),
                       items: MyItemList().measurementUnitList,
-                      validator: (val) =>
-                          val == null ? 'Please select unit!' : null,
+                      /* validator: (val) =>
+                          val == null ? 'Please select unit!' : null, */
                       onChanged: (val) => setState(() {
                         _unit = val as String?;
                       }),
@@ -171,11 +189,22 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Cost area => $_costArea');
-                      print('Item name => ${_itemName.text}');
-                      print('Price => ${_price.text}');
-                      print('Quantity => ${_quantity.text}');
-                      print('Payment method => $_paymentMethod');
+                      DateTime ts = DateTime.now();
+                      Map<String, dynamic> _fsPayload = {
+                        'account': 'expense',
+                        'cost_area': _costArea ?? '',
+                        'item_category': _itemCategory.text,
+                        'item_name': _itemName.text,
+                        'price': _price.text,
+                        'quantity': _quantity.text,
+                        'unit': _unit ?? '',
+                        'payment_method': _paymentMethod ?? '',
+                        'created_at': DateTimeHelper().timestampForDB(ts)
+                      };
+                      print(_fsPayload);
+                      FirestoreService().saveDoc(_fsPayload);
+                      // if (_expenseFormKey.currentState!.validate()) {}
+
                       /* if (_expenditureFormKey.currentState!.validate()) {
                         String parsedExpenditureAmount =
                             InputHandler().moneyCheck(expenditureAmount!);

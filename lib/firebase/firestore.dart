@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore fsInstance = FirebaseFirestore.instance;
   CollectionReference appData = FirebaseFirestore.instance.collection('ldgr');
 
 /*   getData() async {
@@ -23,8 +23,9 @@ class FirestoreService {
     return _docData;
   }
 
-  getCurrentUser() {
-    final firebaseUser = FirebaseAuth.instance.currentUser;
-    print(firebaseUser);
+  saveDoc(Map<String, dynamic> _data) async {
+    await fsInstance.collection('daybook').add(_data).then((value) {
+      print('Firestore response => $value');
+    });
   }
 }

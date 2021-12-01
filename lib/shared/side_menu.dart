@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/inputs/country.dart';
 import 'package:ldgr/pages/inputs/login.dart';
 import 'package:ldgr/pages/records/items.dart';
@@ -47,7 +48,7 @@ class SideMenu extends StatelessWidget {
                 'Items',
                 style: TextStyle(color: myBlue),
               ),
-              onTap: () => PageRouter().navigateToPage(ItemsPage(), context), 
+              onTap: () => PageRouter().navigateToPage(ItemsPage(), context),
               /* onTap: () => showDialog(
                   context: context, 
                   builder: (_) => InfoDialog('Still under construction!'), 
@@ -63,8 +64,8 @@ class SideMenu extends StatelessWidget {
                 style: TextStyle(color: myBlue),
               ),
               onTap: () => showDialog(
-                  context: context, 
-                  builder: (_) => InfoDialog('Still under construction!'), 
+                  context: context,
+                  builder: (_) => InfoDialog('Still under construction!'),
                   barrierDismissible: false),
             ),
             /* ListTile(
@@ -100,7 +101,7 @@ class SideMenu extends StatelessWidget {
                   style: TextStyle(color: myBlue),
                 ),
                 onTap: () =>
-                    PageRouter().navigateToPage(CountryPage(), context)),        
+                    PageRouter().navigateToPage(CountryPage(), context)),
             ListTile(
               leading: Icon(
                 Icons.info_outline,
@@ -121,7 +122,10 @@ class SideMenu extends StatelessWidget {
                 'Log out',
                 style: TextStyle(color: myBlue),
               ),
-              onTap: () => PageRouter().navigateToPage(LoginPage(), context),
+              onTap: () {
+                FirebaseAuthService().logoutUser();
+                PageRouter().navigateToPage(LoginPage(), context);
+              },
             ),
           ],
         ),
@@ -129,4 +133,3 @@ class SideMenu extends StatelessWidget {
     );
   }
 }
-

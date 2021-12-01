@@ -35,7 +35,7 @@ class ErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Icon(Icons.error_outline, color: myRed, size: 40.0,), 
+      title: Icon(Icons.report_outlined, color: myRed, size: 40.0,), 
       content: Text(errorMessage, textAlign: TextAlign.center,), 
       actions:[
         TextButton(

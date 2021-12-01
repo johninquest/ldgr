@@ -44,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _loginFormKey,
-      child: SingleChildScrollView(
+      child: Center(
         child: Column(
           children: [
             Container(
@@ -57,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             Container(
-                width: MediaQuery.of(context).size.width * 0.95,
+                width: MediaQuery.of(context).size.width * 0.75,
                 margin: EdgeInsets.only(bottom: 10.0, top: 100.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
@@ -72,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
                   },
                 )),
             Container(
-                width: MediaQuery.of(context).size.width * 0.95,
+                width: MediaQuery.of(context).size.width * 0.75,
                 margin: EdgeInsets.only(bottom: 20.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
@@ -94,15 +94,18 @@ class _LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_loginFormKey.currentState!.validate()) {
-                    var _authUsername = AuthService().verifyUser(
+                    var _authUser = FirebaseAuthService().loginUser(
                         _userName.text.trim(), _userPassword.text.trim());
-                        print(_authUsername);
-                    if (_authUsername == _userName.text) {
+                    _authUser.then((val) => print(val));    
+                        // print(_authUsername);
+                    /* if (_authUsername == _userName.text) {
                       PageRouter().navigateToPage(HomePage(), context);
-                    } else
+                    } else {
                       showDialog(
                           context: context,
-                          builder: (_) => ErrorDialog('An error occured!'));
+                          builder: (_) => ErrorDialog('Wrong username or password!'));
+                    } */
+                      
                   }
                 },
                 child: Text(

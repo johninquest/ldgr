@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ldgr/pages/home.dart';
+// import 'package:ldgr/pages/home.dart';
+import 'package:ldgr/pages/inputs/login.dart';
 import 'package:ldgr/styles/colors.dart';
 
 void main() async {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: myTheme.copyWith(
         colorScheme: myTheme.colorScheme.copyWith(primary: myBlue, secondary: myBlue,),
       ),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }

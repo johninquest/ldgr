@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/pages/inputs/country.dart';
+import 'package:ldgr/pages/inputs/login.dart';
 import 'package:ldgr/pages/records/items.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business.dart';
@@ -110,6 +111,17 @@ class SideMenu extends StatelessWidget {
                 style: TextStyle(color: myBlue),
               ),
               onTap: () => PageRouter().navigateToPage(AboutPage(), context),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                color: myBlue,
+              ),
+              title: Text(
+                'Log out',
+                style: TextStyle(color: myBlue),
+              ),
+              onTap: () => PageRouter().navigateToPage(LoginPage(), context),
             ),
           ],
         ),

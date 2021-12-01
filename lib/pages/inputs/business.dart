@@ -5,6 +5,7 @@ import 'package:ldgr/services/printing.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
+import 'package:ldgr/styles/colors.dart';
 
 class InputPersonPage extends StatelessWidget {
   const InputPersonPage({Key? key}) : super(key: key);
@@ -202,7 +203,7 @@ class _PersonFormState extends State<PersonForm> {
                       'SAVE',
                       style: TextStyle(color: Colors.white),
                     ),
-                    style: ElevatedButton.styleFrom(primary: Colors.blue[900]),
+                    style: ElevatedButton.styleFrom(primary: myBlue),
                   ),
                 ),
                 Container(

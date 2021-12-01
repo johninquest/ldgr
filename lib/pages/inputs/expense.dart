@@ -48,7 +48,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime moment = DateTime.now();
+    // DateTime moment = DateTime.now();
     return Form(
       key: _expenseFormKey,
       child: SingleChildScrollView(
@@ -60,7 +60,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
               margin: EdgeInsets.only(bottom: 20.0),
               padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
               child: Text(
-                DateTimeHelper().dateInWords(moment),
+                DateTimeHelper().dateInWords(DateTime.now()),
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: myRed, fontSize: 18.0),
               ),

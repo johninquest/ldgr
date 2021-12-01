@@ -22,7 +22,8 @@ class MyItemList {
       DropdownMenuItem(value: 'cleaning', child: Container(child: Text('Cleaning', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'kitchen', child: Container(child: Text('Kitchen', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'operating_costs', child: Container(child: Text('Operating costs', style: DropdownListStyle),)),  
-      DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)),
+      DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'restaurant', child: Container(child: Text('Restaurant', style: DropdownListStyle),)),
       DropdownMenuItem(value: 'toilet', child: Container(child: Text('Toilet', style: DropdownListStyle),)),  
   ];
 

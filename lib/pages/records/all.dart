@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/models.dart';
+import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/inputs/row_editor.dart';
 // import 'package:rba/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
@@ -46,6 +47,7 @@ class _AllRecordsState extends State<AllRecords> {
 
   @override
   Widget build(BuildContext context) {
+    FirestoreService().getCollection('daybook').then((val) => print(val));
     return Scaffold(
       appBar: AppBar(
         title: Text(

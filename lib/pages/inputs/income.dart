@@ -17,7 +17,7 @@ class InputIncomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Enter income'),
           centerTitle: true,
-          backgroundColor: myGreen,
+          backgroundColor: myTeal,
         ),
         body: Center(
           child: Container(
@@ -38,12 +38,12 @@ class IncomeForm extends StatefulWidget {
 class _IncomeFormState extends State<IncomeForm> {
   final _incomeFormKey = GlobalKey<FormState>();
 
+  String? _costArea;
   String? incomeSource;
   String? incomeAmount;
 
   @override
   Widget build(BuildContext context) {
-    DateTime moment = DateTime.now();
     return Container(
       child: Form(
         key: _incomeFormKey,
@@ -53,28 +53,45 @@ class _IncomeFormState extends State<IncomeForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-              child: Text(DateTimeHelper().dateInWords(moment), style: TextStyle(fontWeight: FontWeight.bold, color: myGreen, fontSize: 18.0),),
-            ),
+                margin: EdgeInsets.only(bottom: 20.0),
+                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                child: Text(
+                  DateTimeHelper().dateInWords(DateTime.now()),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: myTeal,
+                      fontSize: 18.0),
+                ),
+              ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.95, 
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: DropdownButtonFormField(
-                    isExpanded: true, 
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(labelText: 'Cost area'),
+                    items: MyItemList().costAreaList,
+                    validator: (val) =>
+                        val == null ? 'Please select cost area!' : null,
+                    onChanged: (val) => setState(() {
+                      _costArea = val as String?;
+                    }),
+                  )),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: DropdownButtonFormField(
+                    isExpanded: true,
                     decoration: InputDecoration(labelText: 'Source of income'),
                     // hint: Text('Source of income'),
                     items: MyItemList().incomeList,
-                    validator: (val) => val == null
-                      ? 'Please select source of income!'
-                      : null,
+                    validator: (val) =>
+                        val == null ? 'Please select source of income!' : null,
                     onChanged: (val) =>
                         setState(() => incomeSource = val as String?),
                   )),
               Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                margin: EdgeInsets.only(bottom: 10.0), 
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  margin: EdgeInsets.only(bottom: 10.0),
+                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
                   child: TextFormField(
                     decoration: InputDecoration(labelText: 'Amount'),
                     keyboardType: TextInputType.number,
@@ -104,19 +121,21 @@ class _IncomeFormState extends State<IncomeForm> {
                       onPressed: () {
                         if (_incomeFormKey.currentState!.validate()) {
                           String parsedIncomeAmount =
-                            InputHandler().moneyCheck(incomeAmount!);
-                        SQLiteDatabaseHelper().insertRow('income',
-                          '$incomeSource', parsedIncomeAmount).then((value) {
-                            if(value != null) {
+                              InputHandler().moneyCheck(incomeAmount!);
+                          SQLiteDatabaseHelper()
+                              .insertRow(
+                                  'income', '$incomeSource', parsedIncomeAmount)
+                              .then((value) {
+                            if (value != null) {
                               SnackBarMessage().saveSuccess(context);
-                              PageRouter().navigateToPage(AllRecords(), context);
+                              PageRouter()
+                                  .navigateToPage(AllRecords(), context);
                             }
-                          }); 
-                      }
+                          });
+                        }
                       },
                       child: Text('SAVE'),
-                      style:
-                          ElevatedButton.styleFrom(primary: myGreen),
+                      style: ElevatedButton.styleFrom(primary: myTeal),
                     ),
                   )
                 ],

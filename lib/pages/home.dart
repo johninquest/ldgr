@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/pages/inputs/revenue.dart';
+import 'package:ldgr/firebase/auth.dart';
+import 'package:ldgr/pages/inputs/income.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/expense.dart';
@@ -11,8 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AuthService().getFbUser();
-    // FirestoreService().getData();
+    FirebaseAuthService().checkAuthStatus();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
                   onPressed: () =>
-                      PageRouter().navigateToPage(InputRevenuePage(), context),
+                      PageRouter().navigateToPage(InputIncomePage(), context),
                   child: Text('INCOME',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),

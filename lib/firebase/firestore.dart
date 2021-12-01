@@ -24,8 +24,19 @@ class FirestoreService {
   }
 
   saveDoc(Map<String, dynamic> _data) async {
-    await fsInstance.collection('daybook').add(_data).then((value) {
-      print('Firestore response => $value');
-    });
+    var fsResponse = await fsInstance.collection('daybook').add(_data);
+    return fsResponse;
+  }
+
+  getCollection(String collectionName) async {
+    CollectionReference _collection = fsInstance.collection(collectionName);
+    try {
+      QuerySnapshot snapshot = await _collection.get();
+      List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
+      return fsReponse;
+    } catch (e) {
+      // print('Error occured => $e');
+      return null;
+    }
   }
 }

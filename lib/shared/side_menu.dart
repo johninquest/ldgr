@@ -48,11 +48,11 @@ class SideMenu extends StatelessWidget {
                 'Items',
                 style: TextStyle(color: myBlue),
               ),
-              onTap: () => PageRouter().navigateToPage(ItemsPage(), context),
-              /* onTap: () => showDialog(
+              // onTap: () => PageRouter().navigateToPage(ItemsPage(), context),
+              onTap: () => showDialog(
                   context: context, 
                   builder: (_) => InfoDialog('Still under construction!'), 
-                  barrierDismissible: false), */
+                  barrierDismissible: false),
             ),
             ListTile(
               leading: Icon(
@@ -68,29 +68,6 @@ class SideMenu extends StatelessWidget {
                   builder: (_) => InfoDialog('Still under construction!'),
                   barrierDismissible: false),
             ),
-            /* ListTile(
-              leading: Icon(
-                Icons.person,
-                color: myBlue,
-              ),
-              title: Text(
-                'Person info',
-                style: TextStyle(color: Colors.blue[900]),
-              ),
-              onTap: () =>
-                  PageRouter().navigateToPage(InputPersonPage(), context),
-            ),
-            ListTile(
-                leading: Icon(
-                  Icons.directions_car,
-                  color: myBlue,
-                ),
-                title: Text(
-                  'Vehicle info',
-                  style: TextStyle(color: Colors.blue[900]),
-                ),
-                onTap: () =>
-                    PageRouter().navigateToPage(StoredVehiclePage(), context)),  */
             ListTile(
                 leading: Icon(
                   Icons.language,

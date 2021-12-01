@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/pages/records/all.dart';
+import 'package:ldgr/pages/records/entrylist.dart';
 import 'package:ldgr/styles/colors.dart';
 import '../services/router.dart';
 import 'package:ldgr/pages/home.dart';
@@ -49,7 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PageRouter().navigateToPage(HomePage(), context);
     }
     if (currentIndex == 1) {
-      PageRouter().navigateToPage(AllRecords(), context);
+      PageRouter().navigateToPage(EntryListPage(), context);
     }
 /*
     else {

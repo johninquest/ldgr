@@ -1,9 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ldgr/firebase/auth.dart';
-import 'package:ldgr/pages/home.dart';
-// import 'package:ldgr/pages/home.dart';
 import 'package:ldgr/pages/inputs/login.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -27,19 +23,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: LoginPage(), 
-      // home: chooseStartPage(),
     );
   }
-}
-
-chooseStartPage() {
-  FirebaseAuthService().fbAuth.authStateChanges().listen((User? user) {
-    if (user == null) {
-      print('User not authenticated!');
-      LoginPage();
-    } else {
-       print('User has been authenticated!');
-      HomePage();
-    }
-  });
 }

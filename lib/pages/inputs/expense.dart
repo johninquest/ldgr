@@ -4,10 +4,6 @@ import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
-import 'package:ldgr/db/sqlite_helper.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/pages/records/all.dart';
 
 class InputExpenditurePage extends StatelessWidget {
   // const InputExpenditure({ Key? key })//  : super(key: key);
@@ -86,11 +82,11 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   decoration: InputDecoration(labelText: 'Item category'),
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.words,
-                  validator: (val) {
+/*                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return 'Please enter item category!';
                     }
-                  },
+                  }, */
                 )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -135,11 +131,11 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       controller: _quantity,
                       decoration: InputDecoration(labelText: 'Quantity'),
                       keyboardType: TextInputType.number,
-                      validator: (val) {
+/*                       validator: (val) {
                         if (val == null || val.isEmpty) {
                           return 'Please enter quantity!';
                         }
-                      },
+                      }, */
                     ),
                   ),
                   Container(
@@ -202,13 +198,16 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'created_at': DateTimeHelper().timestampForDB(ts)
                       };
                       print(_fsPayload);
-                      FirestoreService().saveDoc(_fsPayload);
-                      // if (_expenseFormKey.currentState!.validate()) {}
+                      if (_expenseFormKey.currentState!.validate()) {
+                        FirestoreService().saveDoc(_fsPayload).then((val) {
+                          if (val != null) {
+                            SnackBarMessage().saveSuccess(context);
+                          } else {
+                            SnackBarMessage().generalErrorMessage(context);
+                          }
+                        });
 
-                      /* if (_expenditureFormKey.currentState!.validate()) {
-                        String parsedExpenditureAmount =
-                            InputHandler().moneyCheck(expenditureAmount!);
-                        SQLiteDatabaseHelper()
+/*                         SQLiteDatabaseHelper()
                             .insertRow('expenditure', '$expenditureSource',
                                 '$parsedExpenditureAmount')
                             .then((value) {
@@ -216,8 +215,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                             SnackBarMessage().saveSuccess(context);
                             PageRouter().navigateToPage(AllRecords(), context);
                           }
-                        });
-                      } */
+                        }); */
+                      }
                     },
                     child: Text('SAVE'),
                     style: ElevatedButton.styleFrom(primary: myRed),

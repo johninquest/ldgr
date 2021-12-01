@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/home.dart';
+import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
@@ -47,7 +48,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Center(
         child: Column(
           children: [
-            Container(
+            /* Container(
               margin: EdgeInsets.only(bottom: 20.0),
               padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
               child: Text(
@@ -55,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: myRed, fontSize: 18.0),
               ),
-            ),
+            ), */
             Container(
                 width: MediaQuery.of(context).size.width * 0.75,
                 margin: EdgeInsets.only(bottom: 10.0, top: 100.0),
@@ -94,18 +95,24 @@ class _LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_loginFormKey.currentState!.validate()) {
-                    var _authUser = FirebaseAuthService().loginUser(
-                        _userName.text.trim(), _userPassword.text.trim());
-                    _authUser.then((val) => print(val));    
-                        // print(_authUsername);
-                    /* if (_authUsername == _userName.text) {
+                    var adminAuth = AdminAuthService()
+                        .verifyAdmin(_userName.text, _userPassword.text);
+                    if (adminAuth == 'auth_success') {
                       PageRouter().navigateToPage(HomePage(), context);
                     } else {
-                      showDialog(
-                          context: context,
-                          builder: (_) => ErrorDialog('Wrong username or password!'));
-                    } */
-                      
+                      var _authUser = FirebaseAuthService().loginUser(
+                          _userName.text.trim(), _userPassword.text.trim());
+                      _authUser.then((val) {
+                        // print('Auth response => $val');
+                        if (val == null) {
+                          showDialog(
+                              context: context,
+                              builder: (_) => ErrorDialog('Access denied!'));
+                        } else {
+                          PageRouter().navigateToPage(HomePage(), context);
+                        }
+                      });
+                    }
                   }
                 },
                 child: Text(

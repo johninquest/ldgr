@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/services/date_time_helper.dart';
@@ -197,25 +198,21 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'payment_method': _paymentMethod ?? '',
                         'created_at': DateTimeHelper().timestampForDB(ts)
                       };
-                      print(_fsPayload);
+                      // print(_fsPayload);
                       if (_expenseFormKey.currentState!.validate()) {
-                        FirestoreService().saveDoc(_fsPayload).then((val) {
-                          if (val != null) {
-                            SnackBarMessage().saveSuccess(context);
+                        FirestoreService().addDocument(_fsPayload).then((val) {
+                          // print('Added id => ${val.id}');
+                          if (val == 'add-success') {
+                            return SnackBarMessage().saveSuccess(context);
+                          } else if (val == 'permission-denied') {
+                            String eMessage = 'Permission denied';
+                            return SnackBarMessage()
+                                .customErrorMessage(eMessage, context);
                           } else {
-                            SnackBarMessage().generalErrorMessage(context);
+                            return SnackBarMessage()
+                                .generalErrorMessage(context);
                           }
                         });
-
-/*                         SQLiteDatabaseHelper()
-                            .insertRow('expenditure', '$expenditureSource',
-                                '$parsedExpenditureAmount')
-                            .then((value) {
-                          if (value != null) {
-                            SnackBarMessage().saveSuccess(context);
-                            PageRouter().navigateToPage(AllRecords(), context);
-                          }
-                        }); */
                       }
                     },
                     child: Text('SAVE'),

@@ -5,27 +5,21 @@ class FirestoreService {
   FirebaseFirestore fsInstance = FirebaseFirestore.instance;
   CollectionReference appData = FirebaseFirestore.instance.collection('ldgr');
 
-/*   getData() async {
-    QuerySnapshot _collection = await appData.get();
-    DocumentSnapshot _doc = await appData.doc('areas').get();
-    var _showData = _doc['accounting'];
-    print(_showData[0]);
-    print('Firestore collection => $_collection');
-    print('Firestore document(s) => $_doc');
-    /* print(_doc['name'] ?? ''); 
-    print(_doc['age'] ?? '');
-    print(_doc['country']); */
-  } */
-
-  getDocumentData(String docName) async {
+  getDocument(String docName) async {
     DocumentSnapshot _doc = await appData.doc('areas').get();
     var _docData = _doc[docName];
     return _docData;
   }
 
-  saveDoc(Map<String, dynamic> _data) async {
-    var fsResponse = await fsInstance.collection('daybook').add(_data);
-    return fsResponse;
+  addDocument(Map<String, dynamic> _data) async {
+    try {
+      await fsInstance.collection('daybook').add(_data);
+      return 'add-success';
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'permission-denied';
+      }
+    }
   }
 
   getCollection(String collectionName) async {

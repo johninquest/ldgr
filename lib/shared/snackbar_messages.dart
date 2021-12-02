@@ -41,5 +41,11 @@ class SnackBarMessage {
     var message = ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('An error occured!')));
     return message;
+  } 
+
+    customErrorMessage(String msg, context) {
+    var message = ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(msg)));
+    return message;
   }
 }

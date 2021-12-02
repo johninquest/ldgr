@@ -11,7 +11,7 @@ class ItemsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accounts = FirestoreService().getDocumentData('accounting');
+    final accounts = FirestoreService().getDocument('accounting');
     // accounts.then((value) => print(value));
     // print(accounts);
     return Scaffold(

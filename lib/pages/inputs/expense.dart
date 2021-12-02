@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
+import 'package:ldgr/pages/records/entrylist.dart';
 import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
@@ -45,7 +46,6 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
 
   @override
   Widget build(BuildContext context) {
-    // DateTime moment = DateTime.now();
     return Form(
       key: _expenseFormKey,
       child: SingleChildScrollView(
@@ -54,12 +54,14 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+              margin: EdgeInsets.only(bottom: 10.0, top: 5.0),
+              // padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
               child: Text(
                 DateTimeHelper().dateInWords(DateTime.now()),
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: myRed, fontSize: 18.0),
+                  fontWeight: FontWeight.bold,
+                  color: myRed,
+                ),
               ),
             ),
             Container(
@@ -187,6 +189,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   child: ElevatedButton(
                     onPressed: () {
                       DateTime ts = DateTime.now();
+                      print('Date time now => $ts');
                       Map<String, dynamic> _fsPayload = {
                         'account': 'expense',
                         'cost_area': _costArea ?? '',
@@ -196,14 +199,17 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'quantity': _quantity.text,
                         'unit': _unit ?? '',
                         'payment_method': _paymentMethod ?? '',
-                        'created_at': DateTimeHelper().timestampForDB(ts)
+                        'created_at': DateTimeHelper().timestampForDB(ts),
+                        // 'created_datetime': DateTimeHelper().timestampForDB(ts)
                       };
                       // print(_fsPayload);
                       if (_expenseFormKey.currentState!.validate()) {
                         FirestoreService().addDocument(_fsPayload).then((val) {
                           // print('Added id => ${val.id}');
                           if (val == 'add-success') {
-                            return SnackBarMessage().saveSuccess(context);
+                            SnackBarMessage().saveSuccess(context);
+                            PageRouter()
+                                .navigateToPage(EntryListPage(), context);
                           } else if (val == 'permission-denied') {
                             String eMessage = 'Permission denied';
                             return SnackBarMessage()

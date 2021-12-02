@@ -6,39 +6,21 @@ class Formatter {
   dbToUiValue(String? dbValue) {
     if (dbValue != null) {
       switch (dbValue) {
-        case 'car_maintenance':
-          return 'Car maintenance';
-        // break;
-        case 'car_repairs':
-          return 'Car repairs';
-        case 'delivery_service':
-          return 'Delivery service';
-        case 'drinks':
-          return 'Drinks';
-        case 'expenditure':
-          return 'Expenditure';
-        case 'food':
-          return 'Food';
-        case 'fuel':
-          return 'Fuel'; 
-        case 'freight':
-          return 'Freight';  
-        case 'income':
-          return 'Income';
-        case 'luggage':
-          return 'Luggage';
+        case 'bar':
+          return 'Bar';
+        case 'cleaning':
+          return 'Cleaning';
+        case 'kitchen':
+          return 'Kitchen';
+        case 'operating_costs':
+        case 'operations':
+          return 'Operations';
         case 'others':
           return 'Other(s)';
-        case 'none':
-          return 'None';
-        case 'park_fees':
-          return 'Park fees';
-        case 'passengers':
-          return 'Passengers';
-        case 'police_controls':
-          return 'Police controls';
-        case 'tollgate_fees':
-          return 'Tollgate fees';
+        case 'restaurant':
+          return 'Restaurant';
+        case 'toilet':
+          return 'Toilet';
         default:
           return 'None';
       }
@@ -54,6 +36,8 @@ class Formatter {
       DateFormat cmrTimeFormat = DateFormat('HH:mm');
       String uiDate = cmrDateFormat.format(parsedDateTime);
       String uiTime = cmrTimeFormat.format(parsedDateTime);
+      print('Formatted date => $uiDate'); 
+      print('Formatted time => $uiTime');
       return [uiDate, uiTime];
     } else {
       return ['--/--/----', '--:--'];

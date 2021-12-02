@@ -47,7 +47,6 @@ class _AllRecordsState extends State<AllRecords> {
 
   @override
   Widget build(BuildContext context) {
-    FirestoreService().getCollection('daybook').then((val) => print(val));
     return Scaffold(
       appBar: AppBar(
         title: Text(

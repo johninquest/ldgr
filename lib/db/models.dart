@@ -64,3 +64,50 @@ class Income {
     };
   }
 }
+
+// Basic record data model
+/* class Entry {
+  final String account;
+  final String costArea;
+  final String itemCategory;
+  final String itemName;
+  final String itemPrice ;
+  final String itemQty; 
+  final String itemUnit; 
+  final String paymentMethod;
+  final String createdDateTime; 
+  final String lastUpdateDateTime;
+
+  Entry(
+      {required this.account,
+      required this.costArea,
+      required this.itemCategory,
+      required this.itemName,
+      required this.itemPrice, 
+      required this.itemQty, 
+      required this.itemUnit, 
+      required this.paymentMethod,
+      required this.createdDateTime, 
+      required this.lastUpdateDateTime 
+      });
+
+  Entry.fromMap(Map<String, dynamic> res)
+      : account = res['account'],
+        category = res['category'],
+        source = res['source'],
+        amount = res['amount'],
+        createdAt = res['created_at'],
+        lastUpdateAt = res['last_update_at'];
+
+  Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'category': category,
+      'source': source,
+      'amount': amount,
+      'created_at': createdAt,
+      'last_update_at': lastUpdateAt
+    };
+  }
+}
+ */

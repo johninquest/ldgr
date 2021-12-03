@@ -32,10 +32,10 @@ class Formatter {
   dbToUiDateTime(String? dbDateTime) {
     if (dbDateTime != null && dbDateTime != '') {
       DateTime parsedDateTime = DateTime.parse(dbDateTime);
-      DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
-      DateFormat cmrTimeFormat = DateFormat('HH:mm');
-      String uiDate = cmrDateFormat.format(parsedDateTime);
-      String uiTime = cmrTimeFormat.format(parsedDateTime);
+      DateFormat fDateFormat = DateFormat('dd/MM/yyyy');
+      DateFormat fTimeFormat = DateFormat('HH:mm');
+      String uiDate = fDateFormat.format(parsedDateTime);
+      String uiTime = fTimeFormat.format(parsedDateTime);
       return [uiDate, uiTime];
     } else {
       return ['--/--/----', '--:--'];

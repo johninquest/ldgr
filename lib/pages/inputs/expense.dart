@@ -147,7 +147,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     padding: EdgeInsets.only(right: 20.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Unit'),
-                      items: MyItemList().measurementUnitList,
+                      items: MyItemList().unitList,
                       /* validator: (val) =>
                           val == null ? 'Please select unit!' : null, */
                       onChanged: (val) => setState(() {

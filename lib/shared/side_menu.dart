@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/inputs/country.dart';
 import 'package:ldgr/pages/inputs/login.dart';
-import 'package:ldgr/pages/records/items.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business.dart';
 import 'package:ldgr/pages/about.dart';
@@ -29,6 +28,21 @@ class SideMenu extends StatelessWidget {
                         color: Colors.white))),
             ListTile(
               leading: Icon(
+                Icons.bar_chart,
+                color: myBlue,
+              ),
+              title: Text(
+                'Analysis',
+                style: TextStyle(color: myBlue),
+              ),
+              // onTap: () => PageRouter().navigateToPage(ItemsPage(), context),
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => InfoDialog('Still under construction!'),
+                  barrierDismissible: false),
+            ),
+            ListTile(
+              leading: Icon(
                 Icons.business,
                 color: myBlue,
               ),
@@ -39,7 +53,7 @@ class SideMenu extends StatelessWidget {
               onTap: () =>
                   PageRouter().navigateToPage(InputPersonPage(), context),
             ),
-            ListTile(
+            /* ListTile(
               leading: Icon(
                 Icons.category,
                 color: myBlue,
@@ -53,7 +67,7 @@ class SideMenu extends StatelessWidget {
                   context: context, 
                   builder: (_) => InfoDialog('Still under construction!'), 
                   barrierDismissible: false),
-            ),
+            ), */
             ListTile(
               leading: Icon(
                 Icons.inventory_outlined,

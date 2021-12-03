@@ -37,13 +37,6 @@ class MyItemList {
       DropdownMenuItem(value: 'others', child: Container(child: Text('Other(s)', style: DropdownListStyle),)),  
   ];
 
-/*   List<DropdownMenuItem<String>> cleaningItemList = [
-      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
-      DropdownMenuItem(value: 'bar', child: Container(child: Text('Bar', style: DropdownListStyle),)),  
-      DropdownMenuItem(value: 'cafe', child: Container(child: Text('Café', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'soap', child: Container(child: Text('Soap', style: DropdownListStyle),)),  
-  ]; */
-
   List<DropdownMenuItem<String>> kitchenItemList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'beef_filet', child: Container(child: Text('Beef filet'),)), 
@@ -92,12 +85,12 @@ class MyItemList {
       DropdownMenuItem(value: 'mobile_money', child: Container(child: Text('Mobile money', style: DropdownListStyle),)),  
   ];
 
-List<DropdownMenuItem<String>> measurementUnitList = [
+List<DropdownMenuItem<String>> unitList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)),  
-      DropdownMenuItem(value: 'bottle', child: Container(child: Text('Bottle(s)'),)),
-      DropdownMenuItem(value: 'kg', child: Container(child: Text('Kg(s)', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'bottle', child: Container(child: Text('Bottle'),)),
+      DropdownMenuItem(value: 'kg', child: Container(child: Text('Kg', style: DropdownListStyle),)), 
       DropdownMenuItem(value: 'litre', child: Container(child: Text('L', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'piece', child: Container(child: Text('Pc(s)', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'piece', child: Container(child: Text('Pcs', style: DropdownListStyle),)),  
   ];
   
 

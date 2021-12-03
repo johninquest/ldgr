@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/inputs/item_detail.dart';
+import 'package:ldgr/pages/records/item_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/widgets.dart';
-import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/styles/style.dart';
 
 class EntryListPage extends StatefulWidget {
@@ -30,9 +29,7 @@ class _EntryListPageState extends State<EntryListPage> {
             }
             if (snapshot.hasData) {
               List _responseData = snapshot.data as List;
-              /*  print('Response type => ${_responseData.runtimeType}');
-              print('Response length => ${_responseData.length}'); */
-              // return buildTable(_responseData);
+              // print(_responseData);
               return SingleChildScrollView(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.95,
@@ -89,11 +86,11 @@ class _EntryListPageState extends State<EntryListPage> {
           selected: false,
           // color: MaterialStateProperty.all(myBlueLighter),
           onSelectChanged: (val) {
-          if (val == true) {
-            return PageRouter()
-                .navigateToPage(ItemDetailPage(rowData: e), context);
-          }
-        },
+            if (val == true) {
+              return PageRouter()
+                  .navigateToPage(ItemDetailPage(rowData: e), context);
+            }
+          },
           cells: [
             DataCell(Text(
               Formatter().dbToUiDateTime(e['created_at'])[0] ?? '',

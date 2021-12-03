@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/firebase/auth.dart';
-import 'package:ldgr/pages/inputs/income.dart';
+import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/expense.dart';
@@ -52,20 +51,12 @@ class HomePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(primary: myRed),
               ),
             ),
-            /* Container(
-             height: 80.0, 
-             width: 200.0, 
-             margin: EdgeInsets.only(bottom: 25.0),
-            child: ElevatedButton(
-              onPressed: () => PageRouter().navigateToPage(InputIncomePage(), context), 
-              child: Text('INCOME', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)), style: ElevatedButton.styleFrom(primary: myGreen)),), */
             Container(
               height: 80.0,
               width: 200.0,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                  onPressed: () =>
-                      PageRouter().navigateToPage(InputIncomePage(), context),
+                  onPressed: () => showDialog(context: context, builder: (_) => InfoDialog('Coming soon')),
                   child: Text('INCOME',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),

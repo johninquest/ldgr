@@ -10,10 +10,6 @@ class DateTimeHelper {
   }
 
   ageFromDate(DateTime pickedDate) {
-    // String dateStr = '2001-09-11';
-    // DateFormat InputFormat = DateFormat('dd/MM/yyyy');
-    // var inputToDateTime = InputFormat.format(dateStr);
-    // DateTime parsedDateTime = DateTime.parse(dateStr);
     DateTime currentDateTime = DateTime.now();
     int diffInDays = currentDateTime.difference(pickedDate).inDays;
     String diffInYears = (diffInDays / 365).toStringAsFixed(0);
@@ -63,5 +59,16 @@ class DateTimeHelper {
   currentYear(DateTime now) {
     String yearToString = DateFormat('yyyy').format(now);
     return yearToString;
+  }
+
+  toUiDateTime(String? dbDateTime) {
+    if (dbDateTime != null && dbDateTime != '') {
+      DateTime parsedDateTime = DateTime.parse(dbDateTime);
+      DateFormat fDateTimeFormat = DateFormat('dd/MM/yyyy HH:mm');
+      String uiDateTime = fDateTimeFormat.format(parsedDateTime);
+      return uiDateTime;
+    } else {
+      return '--/--/---- --:--';
+    }
   }
 }

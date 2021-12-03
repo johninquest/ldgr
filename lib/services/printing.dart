@@ -115,7 +115,7 @@ class PrintService {
               );
             }));
         final Directory? dir = await getTemporaryDirectory();
-        final String fileName = 'person_info_${parsed["surname"]}';
+        final String fileName = 'business_info_${parsed["businessName"]}';
         File file = File('${dir!.path}/$fileName');
         await file.writeAsBytes(await pdf.save());
         await Future.delayed(Duration(seconds: 3), await showGeneratedPdf(file.path));

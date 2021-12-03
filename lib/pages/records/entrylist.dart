@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/db/models.dart';
 import 'package:ldgr/firebase/firestore.dart';
+import 'package:ldgr/pages/inputs/item_detail.dart';
 import 'package:ldgr/services/formatter.dart';
+import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/styles/style.dart';
@@ -24,16 +25,16 @@ class EntryListPage extends StatelessWidget {
             }
             if (snapshot.hasData) {
               List _responseData = snapshot.data as List;
-             /*  print('Response type => ${_responseData.runtimeType}');
+              /*  print('Response type => ${_responseData.runtimeType}');
               print('Response length => ${_responseData.length}'); */
-              // return buildTable(_responseData); 
+              // return buildTable(_responseData);
               return SingleChildScrollView(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    alignment: Alignment.center,
-                    child: buildTable(_responseData),
-                  ),
-                );
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  alignment: Alignment.center,
+                  child: buildTable(_responseData),
+                ),
+              );
             } else {
               return WaitingForResponse();
             }
@@ -83,16 +84,12 @@ List<DataRow> getRows(List rows) => rows
         color: MaterialStateProperty.all(Colors.transparent),
         selected: false,
         // color: MaterialStateProperty.all(myBlueLighter),
-/*           onSelectChanged: (val) {
-            if (val == true) {
-              PageRouter().navigateToPage(
-                  RowEditorPage(
-                    rowData: e,
-                    fromPageName: 'all',
-                  ),
-                  context);
-            }
-          }, */
+        /* onSelectChanged: (val) {
+          if (val == true) {
+            return PageRouter()
+                .navigateToPage(ItemDetailPage(rowData: e), context);
+          }
+        }, */
         cells: [
           DataCell(Text(
             Formatter().dbToUiDateTime(e['created_at'])[0] ?? '',
@@ -111,21 +108,6 @@ List<DataRow> getRows(List rows) => rows
             e['price'] ?? '',
             style: TableItemStyle,
           )),
-          /* DataCell(Text(
-              Formatter().dbToUiDateTime(e.createdAt)[0],
-              style: TableItemStyle,
-            )),
-            DataCell(Text(
-              Formatter().dbToUiValue(e.category),
-              style: StyleHandler().tableCategoryStyle(e.category),
-            )),
-            DataCell(Formatter().checkSplit2Words(e.source)),
-            DataCell(
-              Text(
-                Formatter().toNoDecimal(e.amount),
-                style: TableItemStyle,
-              ),
-            ) */
         ],
       ),
     )

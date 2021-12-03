@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAuthService().checkAuthStatus();
+    // FirebaseAuthService().checkAuthStatus();
     return Scaffold(
       appBar: AppBar(
         title: Text(

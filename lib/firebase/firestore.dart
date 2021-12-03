@@ -25,7 +25,7 @@ class FirestoreService {
   getCollection(String collectionName) async {
     CollectionReference _collection = fsInstance.collection(collectionName);
     try {
-      QuerySnapshot snapshot = await _collection.get();
+      QuerySnapshot snapshot = await _collection.orderBy('created_at', descending: true).get();
       List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
       return fsReponse;
     } catch (e) {
@@ -33,4 +33,6 @@ class FirestoreService {
       return null;
     }
   }
+
+  removeDocument() {}
 }

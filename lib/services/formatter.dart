@@ -36,8 +36,6 @@ class Formatter {
       DateFormat cmrTimeFormat = DateFormat('HH:mm');
       String uiDate = cmrDateFormat.format(parsedDateTime);
       String uiTime = cmrTimeFormat.format(parsedDateTime);
-      print('Formatted date => $uiDate'); 
-      print('Formatted time => $uiTime');
       return [uiDate, uiTime];
     } else {
       return ['--/--/----', '--:--'];

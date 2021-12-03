@@ -11,9 +11,7 @@ class ItemsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accounts = FirestoreService().getDocument('accounting');
-    // accounts.then((value) => print(value));
-    // print(accounts);
+    final accounts = FirestoreService().getDocument('', '');
     return Scaffold(
       appBar: AppBar(
         title: Text('Items overview'),
@@ -26,9 +24,6 @@ class ItemsPage extends StatelessWidget {
               return ErrorOccured();
             } else if (snapshot.hasData) {
               List _data = snapshot.data as List;
-              print(_data);
-              print(_data.length);
-              print(_data.runtimeType);
               return ListView.builder(
                   itemCount: _data.length,
                   itemBuilder: (context, index) {

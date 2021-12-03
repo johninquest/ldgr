@@ -103,7 +103,6 @@ class _LoginFormState extends State<LoginForm> {
                       var _authUser = FirebaseAuthService().loginUser(
                           _userName.text.trim(), _userPassword.text.trim());
                       _authUser.then((val) {
-                        // print('Auth response => $val');
                         if (val == null) {
                           showDialog(
                               context: context,

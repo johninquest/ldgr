@@ -3,10 +3,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
   FirebaseFirestore fsInstance = FirebaseFirestore.instance;
-  CollectionReference appData = FirebaseFirestore.instance.collection('ldgr');
 
-  getDocument(String docName) async {
-    DocumentSnapshot _doc = await appData.doc('areas').get();
+  getCollection(String collectionName) async {
+    CollectionReference _collection = fsInstance.collection(collectionName);
+    try {
+      QuerySnapshot snapshot =
+          await _collection.orderBy('created_at', descending: true).get();
+      List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
+      return fsReponse;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  getDocument(String colName, String docName) async {
+    DocumentSnapshot _doc =
+        await FirebaseFirestore.instance.collection(colName).doc(docName).get();
     var _docData = _doc[docName];
     return _docData;
   }
@@ -22,17 +34,6 @@ class FirestoreService {
     }
   }
 
-  getCollection(String collectionName) async {
-    CollectionReference _collection = fsInstance.collection(collectionName);
-    try {
-      QuerySnapshot snapshot = await _collection.orderBy('created_at', descending: true).get();
-      List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
-      return fsReponse;
-    } catch (e) {
-      // print('Error occured => $e');
-      return null;
-    }
-  }
-
   removeDocument() {}
+  updateDocument() {}
 }

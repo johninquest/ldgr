@@ -3,7 +3,6 @@ import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/home.dart';
 import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -12,8 +11,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /* var uuid = Uuid();
-    print(uuid.v1()); */
     return Scaffold(
       appBar: AppBar(
         title: Text('Ldgr',
@@ -48,19 +45,18 @@ class _LoginFormState extends State<LoginForm> {
       key: _loginFormKey,
       child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /* Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+            Container(
               child: Text(
-                '',
+                'The bookkeeping app for bars and restaurants',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: myRed, fontSize: 18.0),
+                    fontWeight: FontWeight.bold, color: myBlue, fontSize: 16.0),
               ),
-            ), */
+            ),
             Container(
                 width: MediaQuery.of(context).size.width * 0.75,
-                margin: EdgeInsets.only(bottom: 10.0, top: 100.0),
+                margin: EdgeInsets.only(bottom: 10.0, top: 40.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
                   controller: _userName,

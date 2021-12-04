@@ -30,7 +30,7 @@ class _EntryListPageState extends State<EntryListPage> {
             }
             if (snapshot.hasData) {
               List _responseData = snapshot.data as List;
-              // print(_responseData);
+              print('Res data => _responseData');
               return SingleChildScrollView(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.95,

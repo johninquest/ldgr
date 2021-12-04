@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/home.dart';
@@ -13,6 +12,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /* var uuid = Uuid();
+    print(uuid.v1()); */
     return Scaffold(
       appBar: AppBar(
         title: Text('Ldgr',
@@ -25,7 +26,7 @@ class LoginPage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: LoginForm(),
-      bottomNavigationBar: BottomNavBar(),
+      // bottomNavigationBar: BottomNavBar(),
     );
   }
 }

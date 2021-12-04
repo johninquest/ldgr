@@ -16,6 +16,21 @@ class FirestoreService {
     }
   }
 
+  getSubCollection() async {
+    CollectionReference _collection = fsInstance
+        .collection('the_wine_reserve')
+        .doc('records')
+        .collection('daybook');
+    try {
+      QuerySnapshot snapshot =
+          await _collection.orderBy('created_at', descending: true).get();
+      List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
+      return fsReponse;
+    } catch (e) {
+      return null;
+    }
+  }
+
   getDocument(String colName, String docName) async {
     DocumentSnapshot _doc =
         await FirebaseFirestore.instance.collection(colName).doc(docName).get();
@@ -34,6 +49,34 @@ class FirestoreService {
     }
   }
 
-  removeDocument() {}
+  addDocumentWithId(String _id, Map<String, dynamic> _data) async {
+    var targetCollection = fsInstance
+        .collection('the_wine_reserve')
+        .doc('records')
+        .collection('daybook');
+    try {
+      // await fsInstance.collection('daybook').doc(_id).set(_data);
+      await targetCollection.doc(_id).set(_data);
+      return 'add-success';
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'permission-denied';
+      }
+    }
+  }
+
+  removeDocument(String _docId) async {
+    CollectionReference _entries = fsInstance
+        .collection('the_wine_reserve')
+        .doc('records')
+        .collection('daybook');
+    try {
+      var delResponse = await _entries.doc(_docId).delete();
+      return delResponse;
+    } on FirebaseException catch (e) {
+      print(e.code);
+    }
+  }
+
   updateDocument() {}
 }

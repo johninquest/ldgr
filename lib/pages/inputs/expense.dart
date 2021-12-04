@@ -6,6 +6,7 @@ import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
+import 'package:uuid/uuid.dart';
 
 class InputExpenditurePage extends StatelessWidget {
   // const InputExpenditure({ Key? key })//  : super(key: key);
@@ -40,6 +41,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
 
   //Form values
   // String? expenseCategory;
+  String? _customDate;
   String? _costArea;
   String? _unit;
   String? _paymentMethod;
@@ -188,8 +190,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      DateTime ts = DateTime.now();
-                      print('Date time now => $ts');
+                      String _tsToString = DateTimeHelper().timestampForDB(DateTime.now());
+                      var _uuid = Uuid().v1();
                       Map<String, dynamic> _fsPayload = {
                         'account': 'expense',
                         'cost_area': _costArea ?? '',
@@ -199,12 +201,16 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'quantity': _quantity.text,
                         'unit': _unit ?? '',
                         'payment_method': _paymentMethod ?? '',
-                        'created_at': DateTimeHelper().timestampForDB(ts),
-                        // 'created_datetime': DateTimeHelper().timestampForDB(ts)
+                        'custom_datetime': _customDate ?? _tsToString,
+                        'created_at': _tsToString,
+                        'last_update_at': '',
+                        'doc_id': _uuid,
+                        'entered_by': '',
                       };
-                      // print(_fsPayload);
                       if (_expenseFormKey.currentState!.validate()) {
-                        FirestoreService().addDocument(_fsPayload).then((val) {
+                        FirestoreService()
+                            .addDocumentWithId(_uuid, _fsPayload)
+                            .then((val) {
                           // print('Added id => ${val.id}');
                           if (val == 'add-success') {
                             SnackBarMessage().saveSuccess(context);

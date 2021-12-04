@@ -3,6 +3,7 @@ import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/item_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
+import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/style.dart';
 
@@ -22,7 +23,7 @@ class _EntryListPageState extends State<EntryListPage> {
         centerTitle: true,
       ),
       body: FutureBuilder(
-          future: FirestoreService().getCollection('daybook'),
+          future: FirestoreService().getSubCollection(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return ErrorOccured();
@@ -41,6 +42,7 @@ class _EntryListPageState extends State<EntryListPage> {
               return WaitingForResponse();
             }
           }),
+           bottomNavigationBar: BottomNavBar(),
     );
   }
 

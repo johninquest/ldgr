@@ -82,7 +82,7 @@ class MyItemList {
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'card', child: Container(child: Text('Card', style: DropdownListStyle),)),  
       DropdownMenuItem(value: 'cash', child: Container(child: Text('Cash', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'mobile_money', child: Container(child: Text('Mobile money', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'mobile money', child: Container(child: Text('Mobile money', style: DropdownListStyle),)),  
   ];
 
 List<DropdownMenuItem<String>> unitList = [

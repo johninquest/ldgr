@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/firebase/firestore.dart';
+import 'package:ldgr/pages/records/entrylist.dart';
 import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
+import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 
 class ItemDetailPage extends StatelessWidget {
@@ -10,7 +14,8 @@ class ItemDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print('Row data => $rowData');
+    /* print('Row data => $rowData');
+    print('Doc id => ${rowData['doc_id']}'); */
     return Scaffold(
       appBar: AppBar(
         title: Text('Item details'),
@@ -54,9 +59,13 @@ class ItemDetailPage extends StatelessWidget {
           children: [
             Container(
               child: ElevatedButton(
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => InfoDialog('Coming soon')),
+                onPressed: () {
+                  String _docId = rowData['doc_id'];
+                  FirestoreService().removeDocument(_docId).then((val) {
+                    PageRouter().navigateToPage(EntryListPage(), context);
+                  }).catchError((e) => SnackBarMessage().generalErrorMessage(context));
+                  // print(_docId);
+                },
                 child: Text('DELETE'),
                 style: ElevatedButton.styleFrom(primary: myRed),
               ),

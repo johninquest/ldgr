@@ -43,24 +43,29 @@ class _PersonFormState extends State<PersonForm> {
   TextEditingController _phone = TextEditingController();
   TextEditingController _email = TextEditingController();
 
-  // String? _country;
-  // String? _role;
-
   @override
   void initState() {
     super.initState();
     SharedPreferencesHelper().readData('personData').then((value) {
-      setState(() {
-        if (value != null) {
-          _businessName.text = DataParser().strToMap(value)['businessName'];
+      if (value != null) {
+        setState(() {
+          // _businessName.text = DataParser().strToMap(value)['businessName'];
           // _givenNames.text = DataParser().strToMap(value)['given_names'];
           _address.text = DataParser().strToMap(value)['address'];
           _city.text = DataParser().strToMap(value)['city'];
           _phone.text = DataParser().strToMap(value)['phone'];
           _email.text = DataParser().strToMap(value)['email'];
-          // _role = DataParser().strToMap(value)['role'];
-        }
-      });
+        });
+      }
+    });
+    SharedPreferencesHelper().readData('currentUserData').then((value) {
+      if (value != null) {
+        setState(() {
+          _businessName.text =
+              DataParser().strToMap(value)['businessName'] ?? '';
+          // _city.text = DataParser().strToMap(value)['businessLocation'] ?? '';
+        });
+      }
     });
   }
 
@@ -89,7 +94,7 @@ class _PersonFormState extends State<PersonForm> {
                     surname = val;
                   }), */
                 )),
-           /*  Container(
+            /*  Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 5.0),
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),

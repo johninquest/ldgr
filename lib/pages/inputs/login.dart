@@ -5,7 +5,6 @@ import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/home.dart';
 import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'dart:convert';
@@ -28,7 +27,6 @@ class LoginPage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: LoginForm(),
-      // bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -97,7 +95,7 @@ class _LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_loginFormKey.currentState!.validate()) {
-                    var adminAuth = AdminAuthService()
+                    var adminAuth = AuthService()
                         .verifyAdmin(_userName.text, _userPassword.text);
                     if (adminAuth == 'auth_success') {
                       PageRouter().navigateToPage(HomePage(), context);
@@ -105,10 +103,11 @@ class _LoginFormState extends State<LoginForm> {
                       FirestoreService()
                           .getDocumentWithId(_userName.text)
                           .then((val) {
-                        String _name = val['name'];
-                        String _role = val['role'];
-                        // print('Name => $_name, Role => $_role');
-                        storeCurrentUser(_name, _role);
+                        String name = val['name'];
+                        String role = val['role'];
+                        String businessName = val['business_name']; 
+                        String businessLocation = val['location'];
+                        storeCurrentUser(name, role, businessName, businessLocation);
                         PageRouter().navigateToPage(HomePage(), context);
                       }).catchError((e) => showDialog(
                               context: context,
@@ -150,8 +149,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-storeCurrentUser(String userName, String userRole) {
-  Map _toMap = {'name': userName, 'role': userRole};
+storeCurrentUser(String userName, String userRole, String bName, String bLocation) {
+  Map _toMap = {'name': userName, 'role': userRole, 'businessName': bName, 'businessLocation': bLocation};
   String _currentUserData = jsonEncode(_toMap);
   SharedPreferencesHelper().storeData('currentUserData', _currentUserData);
 }

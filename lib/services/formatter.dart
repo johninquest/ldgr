@@ -80,3 +80,39 @@ class Formatter {
     }
   }
 }
+
+class DateTimeFormatter {
+  toDateTimeStr() {}
+
+  toDateString(DateTime? ts) {
+    if (ts != null) {
+      DateFormat toDateFormat = DateFormat('dd/MM/yyyy');
+      String formatted = toDateFormat.format(ts);
+      return formatted;
+    } else {
+      return '--/--/----';
+    }
+  }
+
+  isoToDateString(String dt) {
+    if (DateTime.tryParse(dt) != null && dt != '') {
+      DateTime parsedDatTime = DateTime.parse(dt);
+      DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');
+      String toCmrDateFormat = cmrDateFormat.format(parsedDatTime);
+      return toCmrDateFormat;
+    } else {
+      return '--/--/----';
+    }
+  }
+
+  toUiDateTime(String? dbDateTime) {
+    if (dbDateTime != null && dbDateTime != '') {
+      DateTime parsedDateTime = DateTime.parse(dbDateTime);
+      DateFormat fDateTimeFormat = DateFormat('dd/MM/yyyy HH:mm');
+      String uiDateTime = fDateTimeFormat.format(parsedDateTime);
+      return uiDateTime;
+    } else {
+      return '--/--/---- --:--';
+    }
+  }
+}

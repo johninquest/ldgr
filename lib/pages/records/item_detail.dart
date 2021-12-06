@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entrylist.dart';
+import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/currency.dart';
-import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/services/formatter.dart';
+import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
@@ -19,9 +22,12 @@ class ItemDetailPage extends StatefulWidget {
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
   String? _currency;
+  String? _currentUserRole;
+  var _rbac = RoleBasedAccessControl();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     CurrencyHandler().getCurrencyData().then((val) {
       if (val != null) {
         setState(() {
@@ -33,6 +39,17 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         });
       }
     });
+    SharedPreferencesHelper().readData('currentUserData').then((value) {
+      if (value != null) {
+        setState(() {
+          _currentUserRole = DataParser().strToMap(value)['role'];
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Item details'),
@@ -42,7 +59,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         MyTableRow(
           rowName: 'Date',
-          rowData: DateTimeHelper().toUiDateTime(widget.rowData['created_at']),
+          rowData: DateTimeFormatter().isoToDateString(widget.rowData['picked_date']) ?? '',
+          // rowData: widget.rowData['picked_date'] ?? '',
         ),
         MyTableRow(
           rowName: 'Account',
@@ -75,7 +93,14 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           rowName: 'Entered by',
           rowData: widget.rowData['entered_by'] ?? '',
         ),
-        Row(
+        _rbac.hideWidget(
+          _currentUserRole,
+          MyTableRow(
+            rowName: 'Entry timestamp',
+            rowData: DateTimeFormatter().toUiDateTime(widget.rowData['created_at']) ?? '',
+          ),
+        ),
+        _rbac.hideWidget(_currentUserRole, Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
@@ -101,7 +126,35 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               ),
             )
           ],
-        ),
+        ),),
+
+       /* Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              child: ElevatedButton(
+                onPressed: () {
+                  String _docId = widget.rowData['doc_id'];
+                  FirestoreService().removeDocument(_docId).then((val) {
+                    PageRouter().navigateToPage(EntryListPage(), context);
+                  }).catchError(
+                      (e) => SnackBarMessage().generalErrorMessage(context));
+                },
+                child: Text('DELETE'),
+                style: ElevatedButton.styleFrom(primary: myRed),
+              ),
+            ),
+            Container(
+              child: ElevatedButton(
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => InfoDialog('Coming soon')),
+                child: Text('UPDATE'),
+                style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+              ),
+            )
+          ],
+        ), */
       ])),
       bottomNavigationBar: BottomNavBar(),
     );
@@ -141,4 +194,5 @@ class MyTableRow extends StatelessWidget {
       ),
     );
   }
-}
+} 
+

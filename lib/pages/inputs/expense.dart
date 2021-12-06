@@ -3,6 +3,7 @@ import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entrylist.dart';
 import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
@@ -39,15 +40,28 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   TextEditingController _itemCategory = TextEditingController();
   TextEditingController _itemName = TextEditingController();
   TextEditingController _price = TextEditingController();
+  TextEditingController _pickedDate = TextEditingController();
   TextEditingController _quantity = TextEditingController();
 
-  //Form values
-  // String? expenseCategory;
-  String? _customDate;
   String? _costArea;
   String? _unit;
   String? _paymentMethod;
   String? _currentUser;
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1990, 1),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        _pickedDate.text = DateTimeFormatter().toDateString(picked);
+        print(_pickedDate);
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +76,21 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 10.0, top: 5.0),
-              // padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-              child: Text(
-                DateTimeHelper().dateInWords(DateTime.now()),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: myRed,
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.95,
+                margin: EdgeInsets.only(bottom: 10.0),
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: TextFormField(
+                  controller: _pickedDate,
+                  enabled: true,
+                  readOnly: true,
+                  decoration: InputDecoration(labelText: 'Date'),
+                  onTap: () => _selectDate(context),
+/*                   validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Please enter item category!';
+                    }
+                  }, */
+                )),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -198,7 +217,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     onPressed: () {
                       String _tsToString =
                           DateTimeHelper().timestampForDB(DateTime.now());
-                      var _uuid = Uuid().v1();
+                      String _uuid = Uuid().v1();
                       Map<String, dynamic> _fsPayload = {
                         'account': 'expense',
                         'cost_area': _costArea ?? '',
@@ -208,7 +227,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'quantity': _quantity.text,
                         'unit': _unit ?? '',
                         'payment_method': _paymentMethod ?? '',
-                        'custom_datetime': _customDate ?? _tsToString,
+                        'picked_date': '$selectedDate', 
                         'created_at': _tsToString,
                         'last_update_at': '',
                         'doc_id': _uuid,

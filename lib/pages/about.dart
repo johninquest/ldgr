@@ -47,12 +47,12 @@ class AboutPage extends StatelessWidget {
                 margin: EdgeInsets.only(top: 100.0),
                 child: GestureDetector(
                   onTap: () => WebService().openUrl('https://johnapps.de', context),
-                  child: Text('\u00A9 $_currentYear JOHN APPS Ltd.', 
+                  child: Text('\u00A9 $_currentYear JOHN APPS', 
                   style: TextStyle(
                     // fontStyle: FontStyle.italic, 
                     color: myBlue,
                     fontWeight: FontWeight.bold, 
-                    // decoration: TextDecoration.underline
+                    decoration: TextDecoration.underline
                     ),),
                 ),
               )

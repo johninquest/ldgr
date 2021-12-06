@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/inputs/country.dart';
 import 'package:ldgr/pages/inputs/login.dart';
@@ -115,6 +116,7 @@ class SideMenu extends StatelessWidget {
               ),
               onTap: () {
                 // FirebaseAuthService().logoutUser();
+                SharedPreferencesHelper().removeData('currentUserData');
                 PageRouter().navigateToPage(LoginPage(), context);
               },
             ),

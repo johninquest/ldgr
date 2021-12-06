@@ -1,4 +1,6 @@
-class AdminAuthService {
+import 'package:flutter/material.dart';
+
+class AuthService {
   verifyAdmin(String username, String password) {
     if (username == 'admin' && password == '#johnapps21') {
       return 'auth_success';
@@ -6,16 +8,14 @@ class AdminAuthService {
       return 'auth_failed';
     }
   }
+}
 
-  rbacCheck(String role) {
-    if (role == 'owner') {
-      print('Owner => $role');
-    }
-    if (role == 'manager') {
-      print('Manager => $role');
-    }
-    if (role == 'employee') {
-      print('Employee => $role');
+class RoleBasedAccessControl {
+  hideWidget(String? _role, Widget _widget) {
+    if (_role == 'owner' || _role == 'manager') {
+      return _widget;
+    } else {
+      return SizedBox();
     }
   }
 }

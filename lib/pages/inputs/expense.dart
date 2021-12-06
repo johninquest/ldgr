@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entrylist.dart';
 import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
@@ -45,9 +47,13 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   String? _costArea;
   String? _unit;
   String? _paymentMethod;
+  String? _currentUser;
 
   @override
   Widget build(BuildContext context) {
+    SharedPreferencesHelper()
+        .readData('currentUserData')
+        .then((value) => _currentUser = DataParser().strToMap(value)['name']);
     return Form(
       key: _expenseFormKey,
       child: SingleChildScrollView(
@@ -190,7 +196,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      String _tsToString = DateTimeHelper().timestampForDB(DateTime.now());
+                      String _tsToString =
+                          DateTimeHelper().timestampForDB(DateTime.now());
                       var _uuid = Uuid().v1();
                       Map<String, dynamic> _fsPayload = {
                         'account': 'expense',
@@ -205,7 +212,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'created_at': _tsToString,
                         'last_update_at': '',
                         'doc_id': _uuid,
-                        'entered_by': '',
+                        'entered_by': _currentUser ?? '',
                       };
                       if (_expenseFormKey.currentState!.validate()) {
                         FirestoreService()

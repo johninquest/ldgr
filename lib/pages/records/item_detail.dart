@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entrylist.dart';
+import 'package:ldgr/services/currency.dart';
 import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
@@ -8,14 +9,30 @@ import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 
-class ItemDetailPage extends StatelessWidget {
+class ItemDetailPage extends StatefulWidget {
   final rowData;
   const ItemDetailPage({Key? key, required this.rowData}) : super(key: key);
 
   @override
+  State<ItemDetailPage> createState() => _ItemDetailPageState();
+}
+
+class _ItemDetailPageState extends State<ItemDetailPage> {
+  String? _currency;
+
+  @override
   Widget build(BuildContext context) {
-    /* print('Row data => $rowData');
-    print('Doc id => ${rowData['doc_id']}'); */
+    CurrencyHandler().getCurrencyData().then((val) {
+      if (val != null) {
+        setState(() {
+          _currency = val;
+        });
+      } else {
+        setState(() {
+          _currency = '';
+        });
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text('Item details'),
@@ -25,34 +42,38 @@ class ItemDetailPage extends StatelessWidget {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         MyTableRow(
           rowName: 'Date',
-          rowData: DateTimeHelper().toUiDateTime(rowData['created_at']),
+          rowData: DateTimeHelper().toUiDateTime(widget.rowData['created_at']),
         ),
         MyTableRow(
           rowName: 'Account',
-          rowData: rowData['account'] ?? '',
+          rowData: widget.rowData['account'] ?? '',
         ),
         MyTableRow(
           rowName: 'Cost area',
-          rowData: rowData['cost_area'] ?? '',
+          rowData: widget.rowData['cost_area'] ?? '',
         ),
         MyTableRow(
           rowName: 'Item categoy',
-          rowData: rowData['item_category'] ?? '',
+          rowData: widget.rowData['item_category'] ?? '',
         ),
         MyTableRow(
           rowName: 'Item name',
-          rowData: rowData['item_name'] ?? '',
+          rowData: widget.rowData['item_name'] ?? '',
         ),
         MyTableRow(
           rowName: 'Price',
-          rowData: rowData['price'] ?? '',
+          rowData: "$_currency ${widget.rowData['price']}",
         ),
         MyTableRow(
             rowName: 'Quantity',
-            rowData: '${rowData['quantity']} ${rowData['unit']}'),
+            rowData: "${widget.rowData['quantity']} ${widget.rowData['unit']}"),
         MyTableRow(
           rowName: 'Payment method',
-          rowData: rowData['payment_method'] ?? '',
+          rowData: widget.rowData['payment_method'] ?? '',
+        ),
+        MyTableRow(
+          rowName: 'Entered by',
+          rowData: widget.rowData['entered_by'] ?? '',
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,11 +81,11 @@ class ItemDetailPage extends StatelessWidget {
             Container(
               child: ElevatedButton(
                 onPressed: () {
-                  String _docId = rowData['doc_id'];
+                  String _docId = widget.rowData['doc_id'];
                   FirestoreService().removeDocument(_docId).then((val) {
                     PageRouter().navigateToPage(EntryListPage(), context);
-                  }).catchError((e) => SnackBarMessage().generalErrorMessage(context));
-                  // print(_docId);
+                  }).catchError(
+                      (e) => SnackBarMessage().generalErrorMessage(context));
                 },
                 child: Text('DELETE'),
                 style: ElevatedButton.styleFrom(primary: myRed),

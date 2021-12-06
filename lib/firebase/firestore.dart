@@ -27,7 +27,6 @@ class FirestoreService {
       List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
       return fsReponse;
     } catch (e) {
-      // print(e);
       return null;
     }
   }
@@ -35,8 +34,7 @@ class FirestoreService {
   getDocument(String colName, String docName) async {
     DocumentSnapshot _doc =
         await FirebaseFirestore.instance.collection(colName).doc(docName).get();
-    var _docData = _doc[docName];
-    return _docData;
+    return _doc;
   }
 
   addDocument(Map<String, dynamic> _data) async {
@@ -63,6 +61,20 @@ class FirestoreService {
       if (e.code == 'permission-denied') {
         return 'permission-denied';
       }
+    }
+  }
+
+  getDocumentWithId(String _id) async {
+    var targetDoc = fsInstance
+        .collection('the_wine_reserve')
+        .doc('users')
+        .collection('user_list')
+        .doc(_id);
+    try {
+      var getResponse = await targetDoc.get();
+      return getResponse;
+    } on FirebaseException catch (e) {
+      print(e);
     }
   }
 

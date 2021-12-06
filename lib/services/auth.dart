@@ -6,4 +6,16 @@ class AdminAuthService {
       return 'auth_failed';
     }
   }
+
+  rbacCheck(String role) {
+    if (role == 'owner') {
+      print('Owner => $role');
+    }
+    if (role == 'manager') {
+      print('Manager => $role');
+    }
+    if (role == 'employee') {
+      print('Employee => $role');
+    }
+  }
 }

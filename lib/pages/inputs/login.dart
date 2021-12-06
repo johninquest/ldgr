@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/firebase/auth.dart';
+import 'package:ldgr/db/sp_helper.dart';
+// import 'package:ldgr/firebase/auth.dart';
+import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/home.dart';
 import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/router.dart';
+import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
+import 'dart:convert';
+
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -60,12 +65,12 @@ class _LoginFormState extends State<LoginForm> {
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
                   controller: _userName,
-                  decoration: InputDecoration(labelText: 'Username'),
+                  decoration: InputDecoration(labelText: 'UserId'),
                   keyboardType: TextInputType.text,
                   // textCapitalization: TextCapitalization.words,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter username!';
+                      return 'Please enter UserId!';
                     }
                   },
                 )),
@@ -80,11 +85,11 @@ class _LoginFormState extends State<LoginForm> {
                   autocorrect: false,
                   decoration: InputDecoration(labelText: 'Password'),
                   keyboardType: TextInputType.text,
-                  validator: (val) {
+/*                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return 'Please enter password!';
                     }
-                  },
+                  }, */
                 )),
             Container(
               width: MediaQuery.of(context).size.width * 0.50,
@@ -93,6 +98,24 @@ class _LoginFormState extends State<LoginForm> {
                 onPressed: () {
                   if (_loginFormKey.currentState!.validate()) {
                     var adminAuth = AdminAuthService()
+                        .verifyAdmin(_userName.text, _userPassword.text);
+                    if (adminAuth == 'auth_success') {
+                      PageRouter().navigateToPage(HomePage(), context);
+                    } else {
+                      FirestoreService()
+                          .getDocumentWithId(_userName.text)
+                          .then((val) {
+                        String _name = val['name'];
+                        String _role = val['role'];
+                        // print('Name => $_name, Role => $_role');
+                        storeCurrentUser(_name, _role);
+                        PageRouter().navigateToPage(HomePage(), context);
+                      }).catchError((e) => showDialog(
+                              context: context,
+                              builder: (_) => ErrorDialog('Access denied!')));
+                    }
+
+                    /* var adminAuth = AdminAuthService()
                         .verifyAdmin(_userName.text, _userPassword.text);
                     if (adminAuth == 'auth_success') {
                       PageRouter().navigateToPage(HomePage(), context);
@@ -108,7 +131,7 @@ class _LoginFormState extends State<LoginForm> {
                           PageRouter().navigateToPage(HomePage(), context);
                         }
                       });
-                    }
+                    } */
                   }
                 },
                 child: Text(
@@ -125,4 +148,10 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
   }
+}
+
+storeCurrentUser(String userName, String userRole) {
+  Map _toMap = {'name': userName, 'role': userRole};
+  String _currentUserData = jsonEncode(_toMap);
+  SharedPreferencesHelper().storeData('currentUserData', _currentUserData);
 }

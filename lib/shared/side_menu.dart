@@ -114,7 +114,7 @@ class SideMenu extends StatelessWidget {
                 style: TextStyle(color: myBlue),
               ),
               onTap: () {
-                FirebaseAuthService().logoutUser();
+                // FirebaseAuthService().logoutUser();
                 PageRouter().navigateToPage(LoginPage(), context);
               },
             ),

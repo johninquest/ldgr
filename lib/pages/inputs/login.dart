@@ -50,13 +50,13 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            /* Container(
               child: Text(
                 'The bookkeeping app for bars and restaurants',
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: myBlue, fontSize: 16.0),
               ),
-            ),
+            ), */
             Container(
                 width: MediaQuery.of(context).size.width * 0.75,
                 margin: EdgeInsets.only(bottom: 10.0, top: 40.0),

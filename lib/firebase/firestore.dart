@@ -54,7 +54,6 @@ class FirestoreService {
         .doc('records')
         .collection('daybook');
     try {
-      // await fsInstance.collection('daybook').doc(_id).set(_data);
       await targetCollection.doc(_id).set(_data);
       return 'add-success';
     } on FirebaseException catch (e) {
@@ -91,5 +90,11 @@ class FirestoreService {
     }
   }
 
-  updateDocument() {}
+  updateDocument(String _docId) async{ 
+    CollectionReference _entries = fsInstance
+        .collection('the_wine_reserve')
+        .doc('records')
+        .collection('daybook');
+
+  }
 }

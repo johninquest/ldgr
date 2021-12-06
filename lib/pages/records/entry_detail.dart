@@ -52,7 +52,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Item details'),
+        title: Text('Entry details'),
         centerTitle: true,
       ),
       body: Center(

@@ -99,7 +99,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   decoration: InputDecoration(labelText: 'Cost area'),
                   items: MyItemList().costAreaList,
                   validator: (val) =>
-                      val == null ? 'Please select cost area!' : null,
+                      val == null ? 'Please select cost area' : null,
                   onChanged: (val) => setState(() {
                     _costArea = val as String?;
                   }),
@@ -130,7 +130,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   textCapitalization: TextCapitalization.sentences,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter item name!';
+                      return 'Please enter item name';
                     }
                   },
                 )),
@@ -182,7 +182,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   keyboardType: TextInputType.number,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter price!';
+                      return 'Please enter price';
                     }
                   },
                 )),
@@ -200,7 +200,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       decoration: InputDecoration(labelText: 'Payment status'),
                       items: MyItemList().paymentStatusList,
                       validator: (val) =>
-                          val == null ? 'Please select payment status!' : null,
+                          val == null ? 'Payment status ?' : null,
                       onChanged: (val) => setState(() {
                         _paymentStatus = val as String?;
                       }),

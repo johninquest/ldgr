@@ -78,6 +78,12 @@ class MyItemList {
       DropdownMenuItem(value: 'none', child: Container(child: Text('First select a category'),)),  
   ];
 
+  List<DropdownMenuItem<String>> paymentStatusList = [
+      DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
+      DropdownMenuItem(value: 'paid', child: Container(child: Text('Paid', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'unpaid', child: Container(child: Text('Unpaid', style: DropdownListStyle),)),   
+  ];
+
   List<DropdownMenuItem<String>> paymentMethodList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)), 
       DropdownMenuItem(value: 'card', child: Container(child: Text('Card', style: DropdownListStyle),)),  
@@ -87,10 +93,10 @@ class MyItemList {
 
 List<DropdownMenuItem<String>> unitList = [
       DropdownMenuItem(value: 'none', child: Container(child: Text(''),)),  
-      DropdownMenuItem(value: 'bottle', child: Container(child: Text('Bottle'),)),
-      DropdownMenuItem(value: 'kg', child: Container(child: Text('Kg', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'litre', child: Container(child: Text('L', style: DropdownListStyle),)), 
-      DropdownMenuItem(value: 'piece', child: Container(child: Text('Pcs', style: DropdownListStyle),)),  
+      DropdownMenuItem(value: 'Bottle', child: Container(child: Text('Bottle'),)),
+      DropdownMenuItem(value: 'Kg', child: Container(child: Text('Kg', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'L', child: Container(child: Text('L', style: DropdownListStyle),)), 
+      DropdownMenuItem(value: 'Pcs', child: Container(child: Text('Pcs', style: DropdownListStyle),)),  
   ];
   
 

@@ -79,12 +79,16 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           rowData: widget.rowData['item_name'] ?? '',
         ),
         MyTableRow(
+            rowName: 'Quantity',
+            rowData: "${widget.rowData['quantity']} ${widget.rowData['unit']}"),
+        MyTableRow(
           rowName: 'Price',
           rowData: "$_currency ${widget.rowData['price']}",
         ),
         MyTableRow(
-            rowName: 'Quantity',
-            rowData: "${widget.rowData['quantity']} ${widget.rowData['unit']}"),
+          rowName: 'Payment status',
+          rowData: widget.rowData['payment_status'] ?? '',
+        ),    
         MyTableRow(
           rowName: 'Payment method',
           rowData: widget.rowData['payment_method'] ?? '',

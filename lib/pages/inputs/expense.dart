@@ -46,6 +46,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   String? _costArea;
   String? _unit;
   String? _paymentMethod;
+  String? _paymentStatus;
   String? _currentUser;
 
   DateTime selectedDate = DateTime.now();
@@ -76,7 +77,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                width: MediaQuery.of(context).size.width * 0.95,
+                width: MediaQuery.of(context).size.width * 0.95, 
                 margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
@@ -92,7 +93,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   }, */
                 )),
             Container(
-                width: MediaQuery.of(context).size.width * 0.95,
+                width: MediaQuery.of(context).size.width * 0.95, 
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
                   decoration: InputDecoration(labelText: 'Cost area'),
@@ -130,20 +131,6 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return 'Please enter item name!';
-                    }
-                  },
-                )),
-            Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                margin: EdgeInsets.only(bottom: 10.0),
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: TextFormField(
-                  controller: _price,
-                  decoration: InputDecoration(labelText: 'Price'),
-                  keyboardType: TextInputType.number,
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Please enter price!';
                     }
                   },
                 )),
@@ -187,22 +174,61 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
             ),
             Container(
                 width: MediaQuery.of(context).size.width * 0.95,
+                margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(labelText: 'Payment method'),
-                  items: MyItemList().paymentMethodList,
-                  validator: (val) =>
-                      val == null ? 'Please select payment method' : null,
-                  onChanged: (val) => setState(() {
-                    _paymentMethod = val as String?;
-                  }),
+                child: TextFormField(
+                  controller: _price,
+                  decoration: InputDecoration(labelText: 'Price'),
+                  keyboardType: TextInputType.number,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Please enter price!';
+                    }
+                  },
                 )),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                                    Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    margin: EdgeInsets.only(right: 10.0),
+                    padding: EdgeInsets.only(left: 15.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(labelText: 'Payment status'),
+                      items: MyItemList().paymentStatusList,
+                      validator: (val) =>
+                          val == null ? 'Please select payment status!' : null,
+                      onChanged: (val) => setState(() {
+                        _paymentStatus = val as String?;
+                      }),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    margin: EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.only(right: 15.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(labelText: 'Payment method'),
+                      items: MyItemList().paymentMethodList,
+                      /* validator: (val) =>
+                          val == null ? 'Please select payment method' : null, */
+                      onChanged: (val) => setState(() {
+                        _paymentMethod = val as String?;
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  margin: EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text('CANCEL'),
@@ -212,7 +238,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  margin: EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () {
                       String _tsToString =
@@ -226,8 +252,9 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'price': _price.text,
                         'quantity': _quantity.text,
                         'unit': _unit ?? '',
-                        'payment_method': _paymentMethod ?? '',
-                        'picked_date': '$selectedDate', 
+                        'payment_method': _paymentMethod ?? '', 
+                        'payment_status': _paymentStatus ?? '',
+                        'picked_date': '$selectedDate',
                         'created_at': _tsToString,
                         'last_update_at': '',
                         'doc_id': _uuid,

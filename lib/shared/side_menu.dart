@@ -3,6 +3,7 @@ import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/inputs/country.dart';
 import 'package:ldgr/pages/inputs/login.dart';
+import 'package:ldgr/pages/records/analysis.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business.dart';
 import 'package:ldgr/pages/about.dart';
@@ -36,11 +37,11 @@ class SideMenu extends StatelessWidget {
                 'Analysis',
                 style: TextStyle(color: myBlue),
               ),
-              // onTap: () => PageRouter().navigateToPage(ItemsPage(), context),
-              onTap: () => showDialog(
+              onTap: () => PageRouter().navigateToPage(AnalysisPage(), context),
+              /* onTap: () => showDialog(
                   context: context,
                   builder: (_) => InfoDialog('Still under construction!'),
-                  barrierDismissible: false),
+                  barrierDismissible: false), */
             ),
             ListTile(
               leading: Icon(

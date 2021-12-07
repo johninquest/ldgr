@@ -108,7 +108,7 @@ class _EntryListPageState extends State<EntryListPage> {
             )),
             DataCell(Text(
               e['price'] ?? '',
-              style: TableItemStyle,
+              style: StyleHandler().paymentStatus(e['payment_status']),
             )),
           ],
         ),

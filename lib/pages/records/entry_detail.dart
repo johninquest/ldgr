@@ -50,6 +50,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    // print('Price data type => ${widget.rowData['price'].runtimeType}');
     return Scaffold(
       appBar: AppBar(
         title: Text('Entry details'),
@@ -59,7 +60,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         MyTableRow(
           rowName: 'Date',
-          rowData: DateTimeFormatter().isoToUiDate(widget.rowData['picked_date']) ?? '',
+          rowData:
+              DateTimeFormatter().isoToUiDate(widget.rowData['picked_date']) ??
+                  '',
         ),
         MyTableRow(
           rowName: 'Account',
@@ -87,7 +90,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         MyTableRow(
           rowName: 'Payment status',
           rowData: widget.rowData['payment_status'] ?? '',
-        ),    
+        ),
         MyTableRow(
           rowName: 'Payment method',
           rowData: widget.rowData['payment_method'] ?? '',
@@ -100,38 +103,43 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           _currentUserRole,
           MyTableRow(
             rowName: 'Entry timestamp',
-            rowData: DateTimeFormatter().toUiDateTime(widget.rowData['created_at']) ?? '',
+            rowData: DateTimeFormatter()
+                    .toUiDateTime(widget.rowData['created_at']) ??
+                '',
           ),
         ),
-        _rbac.hideWidget(_currentUserRole, Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              child: ElevatedButton(
-                onPressed: () {
-                  String _docId = widget.rowData['doc_id'];
-                  FirestoreService().removeDocument(_docId).then((val) {
-                    PageRouter().navigateToPage(EntryListPage(), context);
-                  }).catchError(
-                      (e) => SnackBarMessage().generalErrorMessage(context));
-                },
-                child: Text('DELETE'),
-                style: ElevatedButton.styleFrom(primary: myRed),
+        _rbac.hideWidget(
+          _currentUserRole,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                child: ElevatedButton(
+                  onPressed: () {
+                    String _docId = widget.rowData['doc_id'];
+                    FirestoreService().removeDocument(_docId).then((val) {
+                      PageRouter().navigateToPage(EntryListPage(), context);
+                    }).catchError(
+                        (e) => SnackBarMessage().generalErrorMessage(context));
+                  },
+                  child: Text('DELETE'),
+                  style: ElevatedButton.styleFrom(primary: myRed),
+                ),
               ),
-            ),
-            Container(
-              child: ElevatedButton(
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => InfoDialog('Coming soon')),
-                child: Text('UPDATE'),
-                style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
-              ),
-            )
-          ],
-        ),),
+              Container(
+                child: ElevatedButton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (_) => InfoDialog('Coming soon')),
+                  child: Text('UPDATE'),
+                  style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+                ),
+              )
+            ],
+          ),
+        ),
 
-       /* Row(
+        /* Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
@@ -197,5 +205,4 @@ class MyTableRow extends StatelessWidget {
       ),
     );
   }
-} 
-
+}

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/pages/records/all.dart';
 import 'package:ldgr/pages/records/entrylist.dart';
 import 'package:ldgr/styles/colors.dart';
 import '../services/router.dart';
@@ -28,15 +27,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
           icon: Icon(
             Icons.home,
             color: Colors.white,
-            size: 25.0,
           ),
-          label: 'HOME',
+          label: 'START',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.storage,
+            Icons.view_list,
             color: Colors.white,
-            size: 25.0,
           ),
           label: 'RECORDS',
         ),

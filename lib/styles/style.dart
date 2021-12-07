@@ -27,4 +27,14 @@ class StyleHandler {
           fontWeight: FontWeight.bold);
     }
   }
+
+  paymentStatus(String ps) {
+    if(ps == 'paid') {
+      return TextStyle(
+          color: myGreen);
+    }    if(ps == 'unpaid') {
+      return TextStyle(
+          color: myAmber);
+    }
+  }
 }

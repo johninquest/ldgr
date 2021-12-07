@@ -94,7 +94,7 @@ class DateTimeFormatter {
     }
   }
 
-  isoToDateString(String dt) {
+  isoToUiDate(String dt) {
     if (DateTime.tryParse(dt) != null && dt != '') {
       DateTime parsedDatTime = DateTime.parse(dt);
       DateFormat cmrDateFormat = DateFormat('dd/MM/yyyy');

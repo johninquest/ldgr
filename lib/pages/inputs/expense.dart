@@ -60,7 +60,6 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
       setState(() {
         selectedDate = picked;
         _pickedDate.text = DateTimeFormatter().toDateString(picked);
-        print(_pickedDate);
       });
   }
 
@@ -77,7 +76,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                width: MediaQuery.of(context).size.width * 0.95, 
+                width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.only(bottom: 10.0),
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
@@ -93,7 +92,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   }, */
                 )),
             Container(
-                width: MediaQuery.of(context).size.width * 0.95, 
+                width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: DropdownButtonFormField(
                   decoration: InputDecoration(labelText: 'Cost area'),
@@ -192,7 +191,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                                    Container(
+                  Container(
                     width: MediaQuery.of(context).size.width * 0.4,
                     margin: EdgeInsets.only(right: 10.0),
                     padding: EdgeInsets.only(left: 15.0),
@@ -252,7 +251,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'price': _price.text,
                         'quantity': _quantity.text,
                         'unit': _unit ?? '',
-                        'payment_method': _paymentMethod ?? '', 
+                        'payment_method': _paymentMethod ?? '',
                         'payment_status': _paymentStatus ?? '',
                         'picked_date': '$selectedDate',
                         'created_at': _tsToString,

@@ -59,8 +59,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         MyTableRow(
           rowName: 'Date',
-          rowData: DateTimeFormatter().isoToDateString(widget.rowData['picked_date']) ?? '',
-          // rowData: widget.rowData['picked_date'] ?? '',
+          rowData: DateTimeFormatter().isoToUiDate(widget.rowData['picked_date']) ?? '',
         ),
         MyTableRow(
           rowName: 'Account',

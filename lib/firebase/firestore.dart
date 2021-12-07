@@ -23,7 +23,7 @@ class FirestoreService {
         .collection('daybook');
     try {
       QuerySnapshot snapshot =
-          await _collection.orderBy('created_at', descending: true).get();
+          await _collection.orderBy('picked_date', descending: true).get();
       List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
       return fsReponse;
     } catch (e) {

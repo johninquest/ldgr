@@ -95,8 +95,7 @@ class _EntryListPageState extends State<EntryListPage> {
           },
           cells: [
             DataCell(Text(
-              Formatter().dbToUiDateTime(e['created_at'])[0] ?? '',
-              // e['created_at'] ?? '',_
+              DateTimeFormatter().isoToUiDate(e['picked_date']) ?? '',
               style: TableItemStyle,
             )),
             DataCell(Text(

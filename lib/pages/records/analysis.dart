@@ -45,10 +45,10 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
               children: [
               Container(
                 margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                child: Text('expenses total'.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, color: myBlue),),), 
-              Container(
-                margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                child: Text(getSum(resData), style: TextStyle(fontWeight: FontWeight.bold),)),
+                child: Text('OVERVIEW', style: TextStyle(fontWeight: FontWeight.bold, color: myBlue),),), 
+              CustomRow(rowName: 'Paid', rowData: '---'), 
+              CustomRow(rowName: 'Unpaid', rowData: '---'), 
+              CustomRow(rowName: 'Total', rowData: getSum(resData))      
             ],),
           );
         } else {
@@ -67,3 +67,39 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
     }); 
     return addn.toString();
   }
+
+
+class CustomRow extends StatelessWidget {
+  final String? rowName;
+  final String? rowData;
+  const CustomRow({Key? key, required this.rowName, required this.rowData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.0),
+      width: MediaQuery.of(context).size.width * 0.90,
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 1.0, left: 5.0),
+            padding: EdgeInsets.only(bottom: 1.0, left: 5.0),
+            child: Text(
+              rowName!,
+              style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 1.0, right: 5.0),
+            padding: EdgeInsets.only(bottom: 1.0, right: 5.0),
+            child: Text(rowData!.toUpperCase(),
+                style: TextStyle(fontWeight: FontWeight.bold)),
+          )
+        ],
+      ),
+    );
+  }
+}

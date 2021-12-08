@@ -30,12 +30,9 @@ class _EntryListPageState extends State<EntryListPage> {
             }
             if (snapshot.hasData) {
               List _responseData = snapshot.data as List;
-              // print('Res data => _responseData');
               return SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  alignment: Alignment.center,
-                  child: buildTable(_responseData),
+                scrollDirection: Axis.vertical,
+                child: Center(child: buildTable(_responseData),
                 ),
               );
             } else {
@@ -96,19 +93,23 @@ class _EntryListPageState extends State<EntryListPage> {
           cells: [
             DataCell(Text(
               DateTimeFormatter().isoToUiDate(e['picked_date']) ?? '',
-              style: TableItemStyle,
+              style: TableItemStyle,textAlign: TextAlign.left
             )),
             DataCell(Text(
               Formatter().dbToUiValue(e['cost_area']) ?? '',
-              style: TableItemStyle,
+              style: TableItemStyle, textAlign: TextAlign.left, overflow: TextOverflow.ellipsis,
             )),
-            DataCell(Text(
-              e['item_name'] ?? '',
-              style: TableItemStyle,
-            )),
+            DataCell(
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.20,),
+                child: Text(
+                e['item_name'] ?? '',
+                style: TableItemStyle, textAlign: TextAlign.left, overflow: TextOverflow.ellipsis,
+            ),
+              )),
             DataCell(Text(
               e['price'] ?? '',
-              style: StyleHandler().paymentStatus(e['payment_status']),
+              style: StyleHandler().paymentStatus(e['payment_status']), textAlign: TextAlign.right
             )),
           ],
         ),

@@ -78,23 +78,40 @@ class FirestoreService {
   }
 
   removeDocument(String _docId) async {
-    CollectionReference _entries = fsInstance
+    CollectionReference _col = fsInstance
         .collection('the_wine_reserve')
         .doc('records')
         .collection('daybook');
     try {
-      var delResponse = await _entries.doc(_docId).delete();
+      var delResponse = await _col.doc(_docId).delete();
       return delResponse;
     } on FirebaseException catch (e) {
       print(e.code);
     }
   }
 
-  updateDocument(String _docId) async{ 
-    CollectionReference _entries = fsInstance
+  updateDocument(String _docId, Map<String, Object?> _docData) async {
+    CollectionReference _col = fsInstance
         .collection('the_wine_reserve')
         .doc('records')
         .collection('daybook');
-
+    try {
+      var updateResponse = await _col.doc(_docId).update({
+        'picked_date':  _docData[''],
+        'cost_area': _docData[''], 
+        'item_category': _docData[''], 
+        'item_name': _docData[''],  
+        'quantity': _docData[''], 
+        'unit': _docData[''], 
+        'price': _docData[''],
+        'payment_status': _docData[''], 
+        'payment_method': _docData[''], 
+        'last_update_at': _docData[''], 
+        'entered_by': _docData[''], 
+      });
+      return updateResponse;
+    } on FirebaseException catch (e) {
+      print(e.code);
+    }
   }
 }

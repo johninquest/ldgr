@@ -244,16 +244,16 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                           DateTimeHelper().timestampForDB(DateTime.now());
                       String _uuid = Uuid().v1();
                       Map<String, dynamic> _fsPayload = {
+                        'picked_date': '$selectedDate',
                         'account': 'expense',
                         'cost_area': _costArea ?? '',
                         'item_category': _itemCategory.text,
                         'item_name': _itemName.text,
-                        'price': _price.text,
                         'quantity': _quantity.text,
-                        'unit': _unit ?? '',
-                        'payment_method': _paymentMethod ?? '',
+                        'unit': _unit ?? '', 
+                        'price': _price.text,
                         'payment_status': _paymentStatus ?? '',
-                        'picked_date': '$selectedDate',
+                        'payment_method': _paymentMethod ?? '',
                         'created_at': _tsToString,
                         'last_update_at': '',
                         'doc_id': _uuid,

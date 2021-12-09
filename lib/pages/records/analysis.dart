@@ -43,13 +43,19 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                child: Text('OVERVIEW', style: TextStyle(fontWeight: FontWeight.bold, color: myBlue),),), 
-              CustomRow(rowName: 'Paid', rowData: '---'), 
-              CustomRow(rowName: 'Unpaid', rowData: '---'), 
-              CustomRow(rowName: 'Total', rowData: getSum(resData))      
-            ],),
+                Container(
+                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                  child: Text(
+                    'EXPENSES OVERVIEW',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: myBlue),
+                  ),
+                ),
+                CustomRow(rowName: 'Paid', rowData: getSumByPaidStatus(resData, 'paid')),
+                CustomRow(rowName: 'Unpaid', rowData: getSumByPaidStatus(resData, 'unpaid')),
+                CustomRow(rowName: 'Total', rowData: getSum(resData))
+              ],
+            ),
           );
         } else {
           return WaitingForResponse();
@@ -59,20 +65,31 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
   }
 }
 
-  getSum(List resList) {
-    num addn = 0;
-    resList.forEach((i) {
-      num val = num.tryParse(i['price']) ?? 0; 
-      addn += val;
-    }); 
-    return addn.toString();
-  }
+getSum(List resList) {
+  num additioner = 0;
+  resList.forEach((i) {
+    num val = num.tryParse(i['price']) ?? 0;
+    additioner += val;
+  });
+  return additioner.toString();
+}
 
+getSumByPaidStatus(List resList, String ps) {
+  num addn = 0;
+  resList.forEach((i) {
+    if (i['payment_status'] == ps) {
+      num val = num.tryParse(i['price']) ?? 0;
+      addn += val;
+    }
+  });
+  return addn.toString();
+}
 
 class CustomRow extends StatelessWidget {
   final String? rowName;
   final String? rowData;
-  const CustomRow({Key? key, required this.rowName, required this.rowData}) : super(key: key);
+  const CustomRow({Key? key, required this.rowName, required this.rowData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

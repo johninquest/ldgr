@@ -64,10 +64,19 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    SharedPreferencesHelper().readData('currentUserData').then((value) {
+      if (value != null) {
+        setState(() {
+          _currentUser = DataParser().strToMap(value)['name'];
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    SharedPreferencesHelper()
-        .readData('currentUserData')
-        .then((value) => _currentUser = DataParser().strToMap(value)['name']);
     return Form(
       key: _expenseFormKey,
       child: SingleChildScrollView(
@@ -250,7 +259,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'item_category': _itemCategory.text,
                         'item_name': _itemName.text,
                         'quantity': _quantity.text,
-                        'unit': _unit ?? '', 
+                        'unit': _unit ?? '',
                         'price': _price.text,
                         'payment_status': _paymentStatus ?? '',
                         'payment_method': _paymentMethod ?? '',
@@ -292,7 +301,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   }
 }
 
-setExpenseItemList(String category) {
+/* setExpenseItemList(String category) {
   if (category == 'bar') {
     return MyItemList().barItemList;
   }
@@ -311,3 +320,4 @@ setExpenseItemList(String category) {
     return MyItemList().emptyList;
   }
 }
+ */

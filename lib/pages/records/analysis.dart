@@ -46,14 +46,151 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 Container(
                   margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                   child: Text(
-                    'EXPENSES OVERVIEW',
+                    'OVERVIEW',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, color: myBlue),
                   ),
                 ),
-                CustomRow(rowName: 'Paid', rowData: getSumByPaidStatus(resData, 'paid')),
-                CustomRow(rowName: 'Unpaid', rowData: getSumByPaidStatus(resData, 'unpaid')),
-                CustomRow(rowName: 'Total', rowData: getSum(resData))
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      child: Text('###'),
+                    ),
+                    Container(
+                        // width: MediaQuery.of(context).size.width * 0.25,
+                        margin: EdgeInsets.only(right: 20.0, top: 10.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(10.0),
+                              child: Text(
+                                'Paid',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: myGreen),
+                              ),
+                            ),
+                            Container(
+                              child: Text(getSumByPaidStatus(resData, 'paid')),
+                            )
+                          ],
+                        )),
+                    Container(
+                        // width: MediaQuery.of(context).size.width * 0.25,
+                        margin: EdgeInsets.only(left: 20.0, top: 10.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(10.0),
+                              child: Text(
+                                'Unpaid',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: myAmber),
+                              ),
+                            ),
+                            Container(
+                              child:
+                                  Text(getSumByPaidStatus(resData, 'unpaid')),
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
+                AnalysisRow(
+                  w1: Container(
+                      child: Text(
+                    'Bar',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: myBlue),
+                  )),
+                  w2: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'bar')),
+                  w3: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'bar')),
+                ),
+                AnalysisRow(
+                  w1: Container(
+                      child: Text(
+                    'Cleaning',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: myBlue),
+                  )),
+                  w2: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'cleaning')),
+                  w3: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'cleaning')),
+                ),
+                AnalysisRow(
+                  w1: Container(
+                      child: Text(
+                    'Kitchen',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: myBlue),
+                  )),
+                  w2: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'kitchen')),
+                  w3: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'kitchen')),
+                ),
+                AnalysisRow(
+                  w1: Container(
+                      child: Text(
+                    'Operation',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: myBlue),
+                  )),
+                  w2: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'operation')),
+                  w3: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'operation')),
+                ),
+                AnalysisRow(
+                  w1: Container(
+                      child: Text(
+                    'Other(s)',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: myBlue),
+                  )),
+                  w2: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'others')),
+                  w3: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'others')),
+                ),
+                AnalysisRow(
+                  w1: Container(
+                      child: Text(
+                    'Toilet',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: myBlue),
+                  )),
+                  w2: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'toilet')),
+                  w3: DataBox(
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'toilet')),
+                ), 
+                SizedBox(height: 10.0,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                  Container(
+                    child: Text('Total', style: TextStyle(fontWeight: FontWeight.bold, color: myBlue),),), 
+                    Container(
+                      child: Text(getSum(resData), style: TextStyle(fontWeight: FontWeight.bold),),)
+                    ],)
               ],
             ),
           );
@@ -83,6 +220,105 @@ getSumByPaidStatus(List resList, String ps) {
     }
   });
   return addn.toString();
+}
+
+getSumByPaidStatusAndCostArea(List resList, String ps, String ca) {
+  num addn = 0;
+  resList.forEach((i) {
+    if (i['payment_status'] == ps && i['cost_area'] == ca) {
+      num val = num.tryParse(i['price']) ?? 0;
+      addn += val;
+    }
+  });
+  return addn.toString();
+}
+
+class AnalysisRow extends StatelessWidget {
+  // const AnalysisRow({ Key? key }) : super(key: key);
+  final Widget? w1;
+  final Widget? w2;
+  final Widget? w3;
+  const AnalysisRow(
+      {Key? key, required this.w1, required this.w2, required this.w3})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: dead_code
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
+    children: [
+      w1!,
+      Container(
+          // width: MediaQuery.of(context).size.width * 0.25,
+          margin: EdgeInsets.only(right: 20.0, top: 10.0),
+          child: Column(
+            children: [
+              /* Container(
+                              margin: EdgeInsets.all(10.0),
+                              child: Text(
+                                'Paid',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: myGreen),
+                              ),
+                            ), */
+              Container(
+                child: w2,
+              )
+            ],
+          )),
+      Container(
+          // width: MediaQuery.of(context).size.width * 0.25,
+          margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+          child: Column(
+            children: [
+              /* Container(
+                              margin: EdgeInsets.all(10.0),
+                              child: Text(
+                                'Unpaid',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: myAmber),
+                              ),
+                            ), */
+              Container(
+                child: w3,
+              ),
+            ],
+          )),
+    ]);
+  }
+}
+
+class DataBox extends StatelessWidget {
+  // final String? boxName;
+  final String? boxData;
+  const DataBox({Key? key, required this.boxData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // width: MediaQuery.of(context).size.width * 0.25,
+      margin: EdgeInsets.all(10.0),
+      child: Container(
+        child: Text(boxData!),
+      ),
+      /* child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: Text(
+                  boxName!,
+                  style: TextStyle(fontWeight: FontWeight.bold, color: myGreen),
+                ),
+              ),
+              Container(
+                child: Text(boxData!),
+              )
+            ],
+          ) */
+    );
+  }
 }
 
 class CustomRow extends StatelessWidget {

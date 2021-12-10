@@ -82,7 +82,7 @@ class _IncomeFormState extends State<IncomeForm> {
                     isExpanded: true,
                     decoration: InputDecoration(labelText: 'Source of income'),
                     // hint: Text('Source of income'),
-                    items: MyItemList().incomeList,
+                    items: MyItemList().emptyList,
                     validator: (val) =>
                         val == null ? 'Please select source of income!' : null,
                     onChanged: (val) =>

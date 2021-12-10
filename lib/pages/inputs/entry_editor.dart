@@ -190,7 +190,7 @@ class _EntryEditorFormState extends State<EntryEditorForm> {
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Unit'),
                       items: MyItemList().unitList,
-                      value: _unit,
+                      value: _unit ?? '',
                       /* validator: (val) =>
                           val == null ? 'Please select unit!' : null, */
                       onChanged: (val) => setState(() {
@@ -228,7 +228,7 @@ class _EntryEditorFormState extends State<EntryEditorForm> {
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Payment status'),
                       items: MyItemList().paymentStatusList,
-                      value: _paymentStatus ?? 'none',
+                      value: _paymentStatus ?? '',
                       validator: (val) =>
                           val == null ? 'Payment status ?' : null,
                       onChanged: (val) => setState(() {
@@ -243,7 +243,7 @@ class _EntryEditorFormState extends State<EntryEditorForm> {
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Payment method'),
                       items: MyItemList().paymentMethodList,
-                      value: _paymentMethod ?? 'none',
+                      value: _paymentMethod ?? '',
                       /* validator: (val) =>
                           val == null ? 'Please select payment method' : null, */
                       onChanged: (val) => setState(() {

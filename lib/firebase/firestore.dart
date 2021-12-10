@@ -97,17 +97,17 @@ class FirestoreService {
         .collection('daybook');
     try {
       var updateResponse = await _col.doc(_docId).update({
-        'picked_date':  _docData[''],
-        'cost_area': _docData[''], 
-        'item_category': _docData[''], 
-        'item_name': _docData[''],  
-        'quantity': _docData[''], 
-        'unit': _docData[''], 
-        'price': _docData[''],
-        'payment_status': _docData[''], 
-        'payment_method': _docData[''], 
-        'last_update_at': _docData[''], 
-        'entered_by': _docData[''], 
+        'picked_date':  _docData['pickedDate'],
+        'cost_area': _docData['costArea'], 
+        'item_category': _docData['itemCcategory'], 
+        'item_name': _docData['itemName'],  
+        'quantity': _docData['quantity'], 
+        'unit': _docData['unit'], 
+        'price': _docData['price'],
+        'payment_status': _docData['paymentStatus'], 
+        'payment_method': _docData['paymentMethod'], 
+        'last_update_at': _docData['lastUpdateAt'], 
+        'entered_by': _docData['enteredBy'], 
       });
       return updateResponse;
     } on FirebaseException catch (e) {

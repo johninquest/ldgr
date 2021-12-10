@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/pages/filters/filtered.dart'; 
 import 'package:ldgr/styles/colors.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:ldgr/services/router.dart'; 
@@ -12,20 +11,12 @@ class FloatingSideMenu extends StatelessWidget {
       children: [
         SpeedDialChild(
             labelWidget: MyLabelWidget('Today', myLightRed),
-            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'today'), context),
+            onTap: () => print('Do nothing!'),
             ),
         SpeedDialChild(
             labelWidget: MyLabelWidget('Week', myBlueLighter),
-            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'week'), context),
-            ), 
-        SpeedDialChild(
-            labelWidget: MyLabelWidget('Month', myGreen),
-            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'month'), context),
-            ),  
-        SpeedDialChild(
-            labelWidget: MyLabelWidget('Year', myYellow),
-            onTap: () => PageRouter().navigateToPage(Filtered(periodName: 'year'), context),
-            ),            
+            onTap: () => print('Do nothing!'),
+            ),    
         /* SpeedDialChild(
             labelWidget: MyLabelWidget('Expenditure', myRed),
             onTap: () => PageRouter().navigateToPage(ExpenditureRecords(), context),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
+import 'package:ldgr/pages/inputs/entry_editor.dart';
 import 'package:ldgr/pages/records/entrylist.dart';
 import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/currency.dart';
@@ -8,7 +9,6 @@ import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -129,9 +129,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               ),
               Container(
                 child: ElevatedButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) => InfoDialog('Coming soon')),
+                  onPressed: () => PageRouter().navigateToPage(EntryEditorPage(entryData: widget.rowData,), context),
                   child: Text('UPDATE'),
                   style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
                 ),
@@ -139,34 +137,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
             ],
           ),
         ),
-
-        /* Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              child: ElevatedButton(
-                onPressed: () {
-                  String _docId = widget.rowData['doc_id'];
-                  FirestoreService().removeDocument(_docId).then((val) {
-                    PageRouter().navigateToPage(EntryListPage(), context);
-                  }).catchError(
-                      (e) => SnackBarMessage().generalErrorMessage(context));
-                },
-                child: Text('DELETE'),
-                style: ElevatedButton.styleFrom(primary: myRed),
-              ),
-            ),
-            Container(
-              child: ElevatedButton(
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => InfoDialog('Coming soon')),
-                child: Text('UPDATE'),
-                style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
-              ),
-            )
-          ],
-        ), */
       ])),
       bottomNavigationBar: BottomNavBar(),
     );

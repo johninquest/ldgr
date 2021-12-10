@@ -19,9 +19,9 @@ class SnackBarMessage {
     return message;
   }
 
-  changeSuccess(context) {
+  updateSuccess(context) {
     var message = ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Change saved successfully \u{2713}')));
+        .showSnackBar(SnackBar(content: Text('Updated successfully \u{2713}')));
     return message;
   }
 

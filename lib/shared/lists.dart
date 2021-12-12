@@ -142,22 +142,37 @@ class MyItemList {
           child: Text(''),
         )),
     DropdownMenuItem(
-        value: 'Bottle',
+        value: 'bottle',
         child: Container(
           child: Text('Bottle'),
-        )),
+        )), 
     DropdownMenuItem(
-        value: 'Kg',
+        value: 'box',
+        child: Container(
+          child: Text('Box'),
+        )),    
+    DropdownMenuItem(
+        value: 'crate',
+        child: Container(
+          child: Text('Crate'),
+        )), 
+    DropdownMenuItem(
+        value: 'g',
+        child: Container(
+          child: Text('g', style: DropdownListStyle),
+        )),        
+    DropdownMenuItem(
+        value: 'kg',
         child: Container(
           child: Text('Kg', style: DropdownListStyle),
         )),
     DropdownMenuItem(
-        value: 'L',
+        value: 'l',
         child: Container(
           child: Text('L', style: DropdownListStyle),
         )),
     DropdownMenuItem(
-        value: 'Pcs',
+        value: 'pcs',
         child: Container(
           child: Text('Pcs', style: DropdownListStyle),
         )),

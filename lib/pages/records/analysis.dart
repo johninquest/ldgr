@@ -54,11 +54,20 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 // border: TableBorder.all(),
                 children: [
                   TableRow(children: [
-                    TableDataBox(
-                      boxTitle: 'Total',
-                      boxData: getSum(resData),
-                      boxColor: myBlue,
-                    ),
+                    TableCell(child: Container(
+                      margin: EdgeInsets.only(bottom: 1.0, top: 1.0, right: 2.0),
+                      color: myBlue,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
+                          child: Text('Total', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),), 
+                        Container(
+                          margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
+                          child: Text(getSum(resData), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),)
+                      ],),
+                    )),
                     TableDataBox(
                       boxTitle: 'Paid',
                       boxData: getSumByPaidStatus(resData, 'paid'),

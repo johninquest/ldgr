@@ -3,69 +3,56 @@ import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entry_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/style.dart';
 
-class EntryListPage extends StatefulWidget {
+class EntryListPage extends StatelessWidget {
   const EntryListPage({Key? key}) : super(key: key);
-
-  @override
-  State<EntryListPage> createState() => _EntryListPageState();
-}
-
-class _EntryListPageState extends State<EntryListPage> {
-  List? _collectionData;
-  int? sortColumnIndex;
-  bool isAscending = false;
-
-  @override
-  void initState() {
-    super.initState();
-    FirestoreService().getSubCollection().then((val) {
-      if (val != null) {
-        setState(() {
-          _collectionData = val;
-        });
-      }
-    }).catchError((e) => print(e));
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Entry list'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Center(
-          child: buildTable(_collectionData ?? []),
+        appBar: AppBar(
+          title: Text('Entry list'),
+          centerTitle: true,
         ),
+        body: FutureBuilder(
+            future: FirestoreService().getSubCollection(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return ErrorOccured();
+              }
+              if (snapshot.hasData) {
+                List daybookData = snapshot.data as List;
+                return EntryListTable(
+                  fsData: daybookData,
+                );
+              } else {
+                return WaitingForResponse();
+              }
+            }));
+  }
+}
+
+class EntryListTable extends StatefulWidget {
+  final List? fsData;
+  const EntryListTable({Key? key, required this.fsData}) : super(key: key);
+
+  @override
+  State<EntryListTable> createState() => _EntryListTableState();
+}
+
+class _EntryListTableState extends State<EntryListTable> {
+  int? sortColumnIndex;
+  bool isAscending = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Center(
+        child: buildTable(widget.fsData ?? []),
       ),
-      /* FutureBuilder(
-          future: FirestoreService().getSubCollection(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return ErrorOccured();
-            }
-            if (snapshot.hasData) {
-              _collectionData = snapshot.data as List;
-              /* setState(() {
-                _collectionData = snapshot.data as List;
-              }); */
-              return SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Center(
-                  child: buildTable(_collectionData!),
-                ),
-              );
-            } else {
-              return WaitingForResponse();
-            }
-          }), */
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 
@@ -150,13 +137,13 @@ class _EntryListPageState extends State<EntryListPage> {
 
   void onSort(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
-      _collectionData!.sort((item1, item2) =>
+      widget.fsData!.sort((item1, item2) =>
           compareString(ascending, item1['picked_date'], item2['picked_date']));
     } else if (columnIndex == 1) {
-      _collectionData!.sort((item1, item2) =>
+      widget.fsData!.sort((item1, item2) =>
           compareString(ascending, item1['cost_area'], item2['cost_area']));
-    }  else if (columnIndex == 2) {
-      _collectionData!.sort((item1, item2) =>
+    } else if (columnIndex == 2) {
+      widget.fsData!.sort((item1, item2) =>
           compareString(ascending, item1['item_name'], item2['item_name']));
     }
 

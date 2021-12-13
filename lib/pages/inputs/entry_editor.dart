@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entrylist.dart';
@@ -21,7 +20,7 @@ class EntryEditorPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Update entry'),
         centerTitle: true,
-        // automaticallyImplyLeading: true,
+        automaticallyImplyLeading: true,
       ),
       body: Center(
         child: EntryEditorForm(
@@ -74,7 +73,7 @@ class _EntryEditorFormState extends State<EntryEditorForm> {
     _itemCategory.text = widget.initialData['item_category'] ?? '';
     _itemName.text = widget.initialData['item_name'] ?? '';
     _quantity.text = widget.initialData['quantity'] ?? '';
-    _unit = widget.initialData['unit'];
+    _unit = widget.initialData['unit'].toLowerCase() ?? '';
     _price.text = widget.initialData['price'] ?? '';
     _paymentStatus = widget.initialData['payment_status'];
     _paymentMethod = widget.initialData['payment_method'];

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entry_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/widgets.dart';
+import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/styles/style.dart';
 
 class EntryListPage extends StatelessWidget {
@@ -12,25 +14,27 @@ class EntryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Entry list'),
-          centerTitle: true,
-        ),
-        body: FutureBuilder(
-            future: FirestoreService().getSubCollection(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return ErrorOccured();
-              }
-              if (snapshot.hasData) {
-                List daybookData = snapshot.data as List;
-                return EntryListTable(
-                  fsData: daybookData,
-                );
-              } else {
-                return WaitingForResponse();
-              }
-            }));
+      appBar: AppBar(
+        title: Text('Entry list'),
+        centerTitle: true,
+      ),
+      body: FutureBuilder(
+          future: FirestoreService().getSubCollection(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return ErrorOccured();
+            }
+            if (snapshot.hasData) {
+              List daybookData = snapshot.data as List;
+              return EntryListTable(
+                fsData: daybookData,
+              );
+            } else {
+              return WaitingForResponse();
+            }
+          }),
+      floatingActionButton: FloatingAdd(),
+    );
   }
 }
 
@@ -98,7 +102,6 @@ class _EntryListTableState extends State<EntryListTable> {
         (e) => DataRow(
           color: MaterialStateProperty.all(Colors.transparent),
           selected: false,
-          // color: MaterialStateProperty.all(myBlueLighter),
           onSelectChanged: (val) {
             if (val == true) {
               return PageRouter()
@@ -155,4 +158,30 @@ class _EntryListTableState extends State<EntryListTable> {
 
   int compareString(bool ascending, String value1, String value2) =>
       ascending ? value1.compareTo(value2) : value2.compareTo(value1);
+}
+
+class FloatingAdd extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SpeedDial(
+      icon: Icons.tune,
+      children: [
+        SpeedDialChild(
+          labelWidget: Container(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              'under construction',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 2.0),
+            ),
+            decoration: BoxDecoration(
+                color: myBlue, borderRadius: BorderRadius.circular(5.0)),
+          ),
+          onTap: () => null,
+        ),
+      ],
+    );
+  }
 }

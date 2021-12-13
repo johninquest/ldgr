@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/entry_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/widgets.dart';
-import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/styles/style.dart';
 
 class EntryListPage extends StatelessWidget {
@@ -33,7 +31,7 @@ class EntryListPage extends StatelessWidget {
               return WaitingForResponse();
             }
           }),
-      floatingActionButton: FloatingAdd(),
+     /*  floatingActionButton: FloatingAdd(), */
     );
   }
 }
@@ -148,6 +146,9 @@ class _EntryListTableState extends State<EntryListTable> {
     } else if (columnIndex == 2) {
       widget.fsData!.sort((item1, item2) =>
           compareString(ascending, item1['item_name'], item2['item_name']));
+    }else if (columnIndex == 3) {
+      widget.fsData!.sort((item1, item2) =>
+          compareString(ascending, item1['payment_status'], item2['payment_status']));
     }
 
     setState(() {
@@ -160,7 +161,7 @@ class _EntryListTableState extends State<EntryListTable> {
       ascending ? value1.compareTo(value2) : value2.compareTo(value1);
 }
 
-class FloatingAdd extends StatelessWidget {
+/* class FloatingAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
@@ -184,4 +185,4 @@ class FloatingAdd extends StatelessWidget {
       ],
     );
   }
-}
+} */

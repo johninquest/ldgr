@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/shared/lists.dart';
 import 'package:ldgr/db/sqlite_helper.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/pages/records/all.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/preprocessor.dart';
@@ -21,7 +19,6 @@ class InputIncomePage extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            // child: Text('Enter income!'),
             child: IncomeForm(),
           ),
         ));
@@ -128,8 +125,8 @@ class _IncomeFormState extends State<IncomeForm> {
                               .then((value) {
                             if (value != null) {
                               SnackBarMessage().saveSuccess(context);
-                              PageRouter()
-                                  .navigateToPage(AllRecords(), context);
+                              /* PageRouter()
+                                  .navigateToPage(AllRecords(), context); */
                             }
                           });
                         }

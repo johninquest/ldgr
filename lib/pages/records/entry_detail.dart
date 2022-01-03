@@ -50,10 +50,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print('Price data type => ${widget.rowData['price'].runtimeType}');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Entry details'),
+        title: Text('Expense details'),
         centerTitle: true,
       ),
       body: Center(

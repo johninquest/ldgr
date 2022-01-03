@@ -18,7 +18,7 @@ class EntryEditorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update entry'),
+        title: Text('Update expense'),
         centerTitle: true,
         automaticallyImplyLeading: true,
       ),

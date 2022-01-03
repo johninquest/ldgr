@@ -13,7 +13,7 @@ class EntryListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Entry list'),
+        title: Text('Expense list'),
         centerTitle: true,
       ),
       body: FutureBuilder(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/records/entrylist.dart';
+import 'package:ldgr/pages/records/expense_list.dart';
 import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';

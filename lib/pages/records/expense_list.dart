@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/records/entry_detail.dart';
+import 'package:ldgr/pages/records/expense_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/widgets.dart';
@@ -31,7 +31,7 @@ class EntryListPage extends StatelessWidget {
               return WaitingForResponse();
             }
           }),
-     /*  floatingActionButton: FloatingAdd(), */
+    //  floatingActionButton: FloatingAdd(),
     );
   }
 }

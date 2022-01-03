@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/inputs/entry_editor.dart';
-import 'package:ldgr/pages/records/entrylist.dart';
+import 'package:ldgr/pages/inputs/expense_editor.dart';
+import 'package:ldgr/pages/records/expense_list.dart';
 import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/currency.dart';
 import 'package:ldgr/services/formatter.dart';

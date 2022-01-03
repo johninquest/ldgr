@@ -54,19 +54,34 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 // border: TableBorder.all(),
                 children: [
                   TableRow(children: [
-                    TableCell(child: Container(
-                      margin: EdgeInsets.only(bottom: 1.0, top: 1.0, right: 2.0),
+                    TableCell(
+                        child: Container(
+                      margin:
+                          EdgeInsets.only(bottom: 1.0, top: 1.0, right: 2.0),
                       color: myBlue,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
-                          child: Text('Total', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),), 
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
-                          child: Text(getSum(resData), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),)
-                      ],),
+                          Container(
+                            margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
+                            child: Text(
+                              'Total',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
+                            child: Text(
+                              getSum(resData),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
                     )),
                     TableDataBox(
                       boxTitle: 'Paid',
@@ -87,15 +102,17 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'paid', 'bar'),
+                      boxData:
+                          getSumByPaidStatusAndCostArea(resData, 'paid', 'bar'),
                       boxColor: myGreen,
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'unpaid', 'bar'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'bar'),
                       boxColor: myAmber,
                     ),
-                  ]), 
+                  ]),
                   TableRow(children: [
                     TableDataBox(
                       boxTitle: '',
@@ -104,15 +121,17 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'paid', 'cleaning'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'cleaning'),
                       boxColor: myGreen,
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'unpaid', 'cleaning'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'cleaning'),
                       boxColor: myAmber,
                     ),
-                  ]), 
+                  ]),
                   TableRow(children: [
                     TableDataBox(
                       boxTitle: '',
@@ -121,15 +140,17 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'paid', 'kitchen'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'kitchen'),
                       boxColor: myGreen,
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'unpaid', 'kitchen'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'kitchen'),
                       boxColor: myAmber,
                     ),
-                  ]), 
+                  ]),
                   TableRow(children: [
                     TableDataBox(
                       boxTitle: '',
@@ -138,15 +159,17 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'paid', 'operation'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'operation'),
                       boxColor: myGreen,
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'unpaid', 'operation'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'operation'),
                       boxColor: myAmber,
                     ),
-                  ]), 
+                  ]),
                   TableRow(children: [
                     TableDataBox(
                       boxTitle: '',
@@ -155,15 +178,17 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'paid', 'others'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'others'),
                       boxColor: myGreen,
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'unpaid', 'others'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'others'),
                       boxColor: myAmber,
                     ),
-                  ]), 
+                  ]),
                   TableRow(children: [
                     TableDataBox(
                       boxTitle: '',
@@ -172,17 +197,20 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'paid', 'toilet'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'paid', 'toilet'),
                       boxColor: myGreen,
                     ),
                     TableDataBox(
                       boxTitle: '',
-                      boxData: getSumByPaidStatusAndCostArea(resData, 'unpaid', 'toilet'),
+                      boxData: getSumByPaidStatusAndCostArea(
+                          resData, 'unpaid', 'toilet'),
                       boxColor: myAmber,
                     ),
                   ]),
                 ],
-              ),
+              ), 
+              // FilterForm(),
             ],
           );
         } else {
@@ -241,8 +269,8 @@ class TableDataBox extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 1.0, top: 1.0),
         decoration: BoxDecoration(
-           color: boxColor,
-          borderRadius: BorderRadius.all(Radius.circular(0.0))),
+            color: boxColor,
+            borderRadius: BorderRadius.all(Radius.circular(0.0))),
         child: Column(
           children: [
             Container(
@@ -259,6 +287,63 @@ class TableDataBox extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FilterForm extends StatefulWidget {
+  const FilterForm({Key? key}) : super(key: key);
+
+  @override
+  _FilterFormState createState() => _FilterFormState();
+}
+
+class _FilterFormState extends State<FilterForm> {
+  // final _filterFormKey = GlobalKey<FormState>();
+  TextEditingController _monthNumber = TextEditingController();
+  TextEditingController _yearNumber = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       width: MediaQuery.of(context).size.width * 0.90, 
+       height: 15.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.30, 
+          height: 10.0,
+          child: TextFormField(
+            controller: _monthNumber,
+            enabled: true,
+            decoration: InputDecoration(labelText: 'Month'),
+            keyboardType: TextInputType.number,
+            maxLength: 2,
+            // maxLengthEnforcement: MaxLengthEnforcement.enforced,
+          ),
+        ),
+         Container(
+           width: MediaQuery.of(context).size.width * 0.30, 
+           height: 10.0,
+          child: TextFormField(
+            controller: _yearNumber,
+            enabled: true,
+            decoration: InputDecoration(labelText: 'Month'),
+            keyboardType: TextInputType.number,
+            maxLength: 4,
+          ),
+        ),
+        Container(
+           width: MediaQuery.of(context).size.width * 0.20, 
+           height: 10.0,
+          child: ElevatedButton(
+            onPressed: () => print('Button tapped'),
+            child: Text('Go'),
+            style: ElevatedButton.styleFrom(primary: myBlue),
+          ),
+        )
+      ]),
     );
   }
 }

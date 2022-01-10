@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
+import 'package:ldgr/services/filter.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
+import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -15,8 +17,16 @@ class AnalysisPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Analysis'),
         centerTitle: true,
+        actions: [
+          Container(
+            child: IconButton(
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => InfoDialog('Under construction!')),
+                icon: Icon(Icons.tune)),
+          )
+        ],
       ),
-      // body: AnalysisDashboard(),
       body: FutureBuilder(
           future: _fsQuery,
           builder: (context, snapshot) {
@@ -25,6 +35,8 @@ class AnalysisPage extends StatelessWidget {
             }
             if (snapshot.hasData) {
               List resData = snapshot.data as List;
+              // List filteredResData = ListFilterService().byMonthAndYear(resData, 1, 2022);
+              // List filteredResData = ListFilterService().byDate(resData, '2022-01-01');
               return AnalysisDashboard(fsData: resData);
             } else {
               return WaitingForResponse();
@@ -57,8 +69,12 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
             Container(
               margin: EdgeInsets.only(bottom: 10.0, top: 30.0),
               child: Text(
-                '',
-                style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+                'Expense overview',
+                style: TextStyle(
+                    color: myBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    letterSpacing: 1.0),
               ),
             ),
             Table(
@@ -78,7 +94,8 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                           child: Text(
                             'Total',
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         Container(
@@ -86,7 +103,8 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                           child: Text(
                             getSum(resData),
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                         )
                       ],
@@ -149,8 +167,8 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                   ),
                   TableDataBox(
                     boxTitle: '',
-                    boxData:
-                        getSumByPaidStatusAndCostArea(resData, 'paid', 'kitchen'),
+                    boxData: getSumByPaidStatusAndCostArea(
+                        resData, 'paid', 'kitchen'),
                     boxColor: myGreen,
                   ),
                   TableDataBox(
@@ -187,8 +205,8 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                   ),
                   TableDataBox(
                     boxTitle: '',
-                    boxData:
-                        getSumByPaidStatusAndCostArea(resData, 'paid', 'others'),
+                    boxData: getSumByPaidStatusAndCostArea(
+                        resData, 'paid', 'others'),
                     boxColor: myGreen,
                   ),
                   TableDataBox(
@@ -206,8 +224,8 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                   ),
                   TableDataBox(
                     boxTitle: '',
-                    boxData:
-                        getSumByPaidStatusAndCostArea(resData, 'paid', 'toilet'),
+                    boxData: getSumByPaidStatusAndCostArea(
+                        resData, 'paid', 'toilet'),
                     boxColor: myGreen,
                   ),
                   TableDataBox(
@@ -219,7 +237,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 ]),
               ],
             ),
-            Container(
+/*             Container(
               margin: EdgeInsets.only(top: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -233,8 +251,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                         decoration: InputDecoration(labelText: 'Month'),
                       )),
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.20, 
-                     
+                      width: MediaQuery.of(context).size.width * 0.20,
                       margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                       child: TextFormField(
                         keyboardType: TextInputType.number,
@@ -242,7 +259,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                         decoration: InputDecoration(labelText: 'Year'),
                       )),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.18, 
+                    width: MediaQuery.of(context).size.width * 0.18,
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: ElevatedButton(
                       child: Text('Filter'),
@@ -251,7 +268,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                   ),
                 ],
               ),
-            ),
+            ), */
           ],
         ),
       ),
@@ -328,4 +345,3 @@ class TableDataBox extends StatelessWidget {
     );
   }
 }
-

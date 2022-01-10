@@ -3,6 +3,7 @@ import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/expense_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
+import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/style.dart';
 
@@ -14,7 +15,14 @@ class EntryListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense list'),
-        centerTitle: true,
+        centerTitle: true, 
+        actions: [
+          Container(
+            child: IconButton(
+                onPressed: () => showDialog(context: context, builder: (_) => InfoDialog('Under construction!')),
+                icon: Icon(Icons.tune)),
+          )
+        ],
       ),
       body: FutureBuilder(
           future: FirestoreService().getSubCollection(),

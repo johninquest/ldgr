@@ -3,7 +3,8 @@ import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/inputs/country.dart';
 import 'package:ldgr/pages/inputs/login.dart';
-import 'package:ldgr/pages/records/analysis.dart';
+import 'package:ldgr/pages/analysis/overview.dart';
+import 'package:ldgr/pages/inventory/overview.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business.dart';
 import 'package:ldgr/pages/about.dart';
@@ -79,10 +80,7 @@ class SideMenu extends StatelessWidget {
                 'Inventory',
                 style: TextStyle(color: myBlue),
               ),
-              onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => InfoDialog('Still under construction!'),
-                  barrierDismissible: false),
+              onTap: () => PageRouter().navigateToPage(InventoryOverviewPage(), context),
             ),
             ListTile(
                 leading: Icon(

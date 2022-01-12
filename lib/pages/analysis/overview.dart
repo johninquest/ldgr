@@ -64,6 +64,9 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    List<DropdownMenuItem<Object>>? _dayList = FilterData().dayList();
+    List<DropdownMenuItem<Object>>? _monthList = FilterData().monthList();
+    List<DropdownMenuItem<Object>>? _yearList = FilterData().yearList();
     final resData = widget.fsData;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -82,7 +85,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'DD'),
-                      items: FilterData().testDayList(),
+                      items: _dayList,
                       validator: (val) => val == null ? 'DD?' : null,
                       onChanged: (val) {
                         setState(() {
@@ -97,7 +100,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'MM'),
-                      items: FilterData().monthList,
+                      items: _monthList,
                       validator: (val) => val == null ? 'MM?' : null,
                       onChanged: (val) => setState(() {
                         _month = val as String?;
@@ -110,10 +113,10 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'YYYY'),
-                      items: FilterData().yearList,
+                      items: _yearList,
                       validator: (val) => val == null ? 'YYYY?' : null,
                       onChanged: (val) => setState(() {
-                        _year = val as String?; 
+                        _year = val as String?;
                         print('Year => $_year');
                       }),
                     ),

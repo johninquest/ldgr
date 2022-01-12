@@ -29,7 +29,7 @@ class _FilterByDateFormState extends State<FilterByDateForm> {
           width: MediaQuery.of(context).size.width * 0.20,
           child: DropdownButtonFormField(
                   decoration: InputDecoration(labelText: 'DD'),
-                  items: FilterData().dayList,
+                  items: FilterData().dayList(),
                   validator: (val) =>
                       val == null ? 'DD?' : null,
                   onChanged: (val) => setState(() {
@@ -40,7 +40,7 @@ class _FilterByDateFormState extends State<FilterByDateForm> {
           width: MediaQuery.of(context).size.width * 0.20, 
           child: DropdownButtonFormField(
                   decoration: InputDecoration(labelText: 'MM'),
-                  items: FilterData().monthList,
+                  items: FilterData().monthList(),
                   validator: (val) =>
                       val == null ? 'MM?' : null,
                   onChanged: (val) => setState(() {
@@ -51,7 +51,7 @@ class _FilterByDateFormState extends State<FilterByDateForm> {
                   width: MediaQuery.of(context).size.width * 0.40,
                   child: DropdownButtonFormField(
                   decoration: InputDecoration(labelText: 'YYYY'),
-                  items: FilterData().yearList,
+                  items: FilterData().yearList(),
                   validator: (val) =>
                       val == null ? 'YYYY?' : null,
                   onChanged: (val) => setState(() {

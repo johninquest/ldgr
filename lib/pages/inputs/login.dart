@@ -101,7 +101,7 @@ class _LoginFormState extends State<LoginForm> {
                       PageRouter().navigateToPage(HomePage(), context);
                     } else {
                       FirestoreService()
-                          .getDocumentWithId(_userName.text)
+                          .getDocumentWithId(_userName.text.trim())
                           .then((val) {
                         String name = val['name'];
                         String role = val['role'];

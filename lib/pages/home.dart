@@ -23,6 +23,15 @@ class HomePage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        actions: [
+          Container(
+            child: IconButton(
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => InfoDialog('Under construction!')),
+                icon: Icon(Icons.more_vert)),
+          )
+        ],
       ),
       drawer: SideMenu(),
       body: Center(
@@ -56,7 +65,9 @@ class HomePage extends StatelessWidget {
               width: 200.0,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                  onPressed: () => showDialog(context: context, builder: (_) => InfoDialog('Coming soon')),
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (_) => InfoDialog('Coming soon')),
                   child: Text('INCOME',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),

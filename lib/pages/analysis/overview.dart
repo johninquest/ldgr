@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/services/filter.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
+import 'package:ldgr/shared/filter.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -56,6 +58,10 @@ class AnalysisDashboard extends StatefulWidget {
 }
 
 class _AnalysisDashboardState extends State<AnalysisDashboard> {
+  String? _day;
+  String? _month;
+  String? _year;
+
   @override
   Widget build(BuildContext context) {
     final resData = widget.fsData;
@@ -67,6 +73,56 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              margin: EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(labelText: 'DD'),
+                      items: FilterData().testDayList(),
+                      validator: (val) => val == null ? 'DD?' : null,
+                      onChanged: (val) {
+                        setState(() {
+                          _day = val as String?;
+                          print('Day => $_day');
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(labelText: 'MM'),
+                      items: FilterData().monthList,
+                      validator: (val) => val == null ? 'MM?' : null,
+                      onChanged: (val) => setState(() {
+                        _month = val as String?;
+                        print('Month => $_month');
+                      }),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(labelText: 'YYYY'),
+                      items: FilterData().yearList,
+                      validator: (val) => val == null ? 'YYYY?' : null,
+                      onChanged: (val) => setState(() {
+                        _year = val as String?; 
+                        print('Year => $_year');
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // FilterByDateForm(),
+            /*  Container(
               margin: EdgeInsets.only(bottom: 10.0, top: 30.0),
               child: Text(
                 'Expense overview',
@@ -76,7 +132,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     fontSize: 20.0,
                     letterSpacing: 1.0),
               ),
-            ),
+            ), */
             Table(
               // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               // border: TableBorder.all(),

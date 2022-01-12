@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/filters/filter_data.dart';
+import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/services/filter.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
-import 'package:ldgr/shared/filter.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -37,8 +36,6 @@ class AnalysisPage extends StatelessWidget {
             }
             if (snapshot.hasData) {
               List resData = snapshot.data as List;
-              // List filteredResData = ListFilterService().byMonthAndYear(resData, 1, 2022);
-              // List filteredResData = ListFilterService().byDate(resData, '2022-01-01');
               return AnalysisDashboard(fsData: resData);
             } else {
               return WaitingForResponse();
@@ -67,7 +64,8 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
     List<DropdownMenuItem<Object>>? _dayList = FilterData().dayList();
     List<DropdownMenuItem<Object>>? _monthList = FilterData().monthList();
     List<DropdownMenuItem<Object>>? _yearList = FilterData().yearList();
-    final resData = widget.fsData;
+    // final resData = widget.fsData;
+    final resData = FilterService().byDate(widget.fsData, _day ?? '', _month ?? '', _year ?? '');
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
@@ -91,6 +89,11 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                         setState(() {
                           _day = val as String?;
                           print('Day => $_day');
+                          print(FilterService()
+                              .byDate(resData, _day ?? '', '', ''));
+                          print(FilterService()
+                              .byDate(resData, _day ?? '', '', '')
+                              .length);
                         });
                       },
                     ),
@@ -124,7 +127,6 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 ],
               ),
             ),
-            // FilterByDateForm(),
             /*  Container(
               margin: EdgeInsets.only(bottom: 10.0, top: 30.0),
               child: Text(
@@ -296,38 +298,6 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 ]),
               ],
             ),
-/*             Container(
-              margin: EdgeInsets.only(top: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
-                        decoration: InputDecoration(labelText: 'Month'),
-                      )),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        maxLength: 4,
-                        decoration: InputDecoration(labelText: 'Year'),
-                      )),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.18,
-                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                    child: ElevatedButton(
-                      child: Text('Filter'),
-                      onPressed: () => print('Tapped button!'),
-                    ),
-                  ),
-                ],
-              ),
-            ), */
           ],
         ),
       ),

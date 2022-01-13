@@ -26,12 +26,48 @@ class FilterService {
         }
       }
       return filteredList;
+    } else if (fDay != '' && fMonth != '' && fYear == '') {
+      List filteredList = [];
+      int toFilterDay = int.parse(fDay);
+      int toFilterMonth = int.parse(fMonth);
+      for (var i in fList) {
+        int toCompareDay = DateTime.parse(i['picked_date']).day;
+        int toCompareMonth = DateTime.parse(i['picked_date']).month;
+        if (toCompareDay == toFilterDay && toCompareMonth == toFilterMonth) {
+          filteredList.add(i);
+        }
+      }
+      return filteredList;
+    } else if (fDay != '' && fMonth == '' && fYear != '') {
+      List filteredList = [];
+      int toFilterDay = int.parse(fDay);
+      int toFilterYear = int.parse(fYear);
+      for (var i in fList) {
+        int toCompareDay = DateTime.parse(i['picked_date']).day;
+        int toCompareYear = DateTime.parse(i['picked_date']).year;
+        if (toCompareDay == toFilterDay && toCompareYear == toFilterYear) {
+          filteredList.add(i);
+        }
+      }
+      return filteredList;
     } else if (fDay == '' && fMonth != '' && fYear == '') {
       List filteredList = [];
       int toFilterMonth = int.parse(fMonth);
       for (var i in fList) {
         int toCompareMonth = DateTime.parse(i['picked_date']).month;
         if (toCompareMonth == toFilterMonth) {
+          filteredList.add(i);
+        }
+      }
+      return filteredList;
+    } else if (fDay == '' && fMonth != '' && fYear != '') {
+      List filteredList = [];
+      int toFilterMonth = int.parse(fMonth);
+      int toFilterYear = int.parse(fYear);
+      for (var i in fList) {
+        int toCompareMonth = DateTime.parse(i['picked_date']).month;
+        int toCompareYear = DateTime.parse(i['picked_date']).year;
+        if (toCompareMonth == toFilterMonth && toCompareYear == toFilterYear) {
           filteredList.add(i);
         }
       }

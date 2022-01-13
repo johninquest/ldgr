@@ -3,7 +3,6 @@ import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -18,15 +17,6 @@ class AnalysisPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Analysis'),
         centerTitle: true,
-        actions: [
-          Container(
-            child: IconButton(
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => InfoDialog('Under construction!')),
-                icon: Icon(Icons.tune)),
-          )
-        ],
       ),
       body: FutureBuilder(
           future: _fsQuery,
@@ -65,7 +55,8 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
     List<DropdownMenuItem<Object>>? _monthList = FilterData().monthList();
     List<DropdownMenuItem<Object>>? _yearList = FilterData().yearList();
     // final resData = widget.fsData;
-    final resData = FilterService().byDate(widget.fsData, _day ?? '', _month ?? '', _year ?? '');
+    final resData = FilterService()
+        .byDate(widget.fsData, _day ?? '', _month ?? '', _year ?? '');
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
@@ -74,7 +65,9 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 10.0),
+              margin: EdgeInsets.only(
+                bottom: 5.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -82,18 +75,14 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     width: MediaQuery.of(context).size.width * 0.20,
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
-                      decoration: InputDecoration(labelText: 'DD'),
+                      decoration: InputDecoration(
+                          labelText: 'DD',
+                          labelStyle: TextStyle(fontSize: 12.0)),
                       items: _dayList,
                       validator: (val) => val == null ? 'DD?' : null,
                       onChanged: (val) {
                         setState(() {
                           _day = val as String?;
-                          print('Day => $_day');
-                          print(FilterService()
-                              .byDate(resData, _day ?? '', '', ''));
-                          print(FilterService()
-                              .byDate(resData, _day ?? '', '', '')
-                              .length);
                         });
                       },
                     ),
@@ -102,12 +91,13 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     width: MediaQuery.of(context).size.width * 0.20,
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
-                      decoration: InputDecoration(labelText: 'MM'),
+                      decoration: InputDecoration(
+                          labelText: 'MM',
+                          labelStyle: TextStyle(fontSize: 12.0)),
                       items: _monthList,
                       validator: (val) => val == null ? 'MM?' : null,
                       onChanged: (val) => setState(() {
                         _month = val as String?;
-                        print('Month => $_month');
                       }),
                     ),
                   ),
@@ -115,12 +105,13 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                     width: MediaQuery.of(context).size.width * 0.20,
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
-                      decoration: InputDecoration(labelText: 'YYYY'),
+                      decoration: InputDecoration(
+                          labelText: 'YYYY',
+                          labelStyle: TextStyle(fontSize: 12.0)),
                       items: _yearList,
                       validator: (val) => val == null ? 'YYYY?' : null,
                       onChanged: (val) => setState(() {
                         _year = val as String?;
-                        print('Year => $_year');
                       }),
                     ),
                   ),

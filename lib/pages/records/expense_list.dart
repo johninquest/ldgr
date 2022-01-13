@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/filters/filter_data.dart';
+import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/expense_detail.dart';
 import 'package:ldgr/services/formatter.dart';
@@ -15,12 +17,14 @@ class EntryListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense list'),
-        centerTitle: true, 
+        centerTitle: true,
         actions: [
           Container(
             child: IconButton(
-                onPressed: () => showDialog(context: context, builder: (_) => InfoDialog('Under construction!')),
-                icon: Icon(Icons.tune)),
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => InfoDialog('Under construction!')),
+                icon: Icon(Icons.search)),
           )
         ],
       ),
@@ -39,7 +43,7 @@ class EntryListPage extends StatelessWidget {
               return WaitingForResponse();
             }
           }),
-    //  floatingActionButton: FloatingAdd(),
+      //  floatingActionButton: FloatingAdd(),
     );
   }
 }
@@ -56,12 +60,77 @@ class _EntryListTableState extends State<EntryListTable> {
   int? sortColumnIndex;
   bool isAscending = false;
 
+  String? _day;
+  String? _month;
+  String? _year;
+
   @override
   Widget build(BuildContext context) {
+    List<DropdownMenuItem<Object>>? _dayList = FilterData().dayList();
+    List<DropdownMenuItem<Object>>? _monthList = FilterData().monthList();
+    List<DropdownMenuItem<Object>>? _yearList = FilterData().yearList();
+    // List daybookRecords = widget.fsData as List;
+    final daybookRecords = FilterService()
+        .byDate(widget.fsData as List, _day ?? '', _month ?? '', _year ?? '');
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Center(
-        child: buildTable(widget.fsData ?? []),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                        labelText: 'DD', labelStyle: TextStyle(fontSize: 12.0)),
+                    items: _dayList,
+                    validator: (val) => val == null ? 'DD?' : null,
+                    onChanged: (val) {
+                      setState(() {
+                        _day = val as String?;
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                        labelText: 'MM', labelStyle: TextStyle(fontSize: 12.0)),
+                    items: _monthList,
+                    validator: (val) => val == null ? 'MM?' : null,
+                    onChanged: (val) => setState(() {
+                      _month = val as String?;
+                    }),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                        labelText: 'YYYY',
+                        labelStyle: TextStyle(fontSize: 12.0)),
+                    items: _yearList,
+                    validator: (val) => val == null ? 'YYYY?' : null,
+                    onChanged: (val) => setState(() {
+                      _year = val as String?;
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Center(
+            child: buildTable(daybookRecords),
+          ),
+        ],
       ),
     );
   }
@@ -154,9 +223,9 @@ class _EntryListTableState extends State<EntryListTable> {
     } else if (columnIndex == 2) {
       widget.fsData!.sort((item1, item2) =>
           compareString(ascending, item1['item_name'], item2['item_name']));
-    }else if (columnIndex == 3) {
-      widget.fsData!.sort((item1, item2) =>
-          compareString(ascending, item1['payment_status'], item2['payment_status']));
+    } else if (columnIndex == 3) {
+      widget.fsData!.sort((item1, item2) => compareString(
+          ascending, item1['payment_status'], item2['payment_status']));
     }
 
     setState(() {

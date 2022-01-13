@@ -22,7 +22,7 @@ class InfoDialog extends StatelessWidget {
           ))
       ],
       shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),  
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),  
     );
   }
 }
@@ -48,7 +48,7 @@ class ErrorDialog extends StatelessWidget {
           ))
       ],
       shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),  
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),  
     );
   }
 }

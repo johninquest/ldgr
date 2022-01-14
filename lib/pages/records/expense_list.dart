@@ -74,63 +74,66 @@ class _EntryListTableState extends State<EntryListTable> {
         .byDate(widget.fsData as List, _day ?? '', _month ?? '', _year ?? '');
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                        labelText: 'DD', labelStyle: TextStyle(fontSize: 12.0)),
-                    items: _dayList,
-                    validator: (val) => val == null ? 'DD?' : null,
-                    onChanged: (val) {
-                      setState(() {
-                        _day = val as String?;
-                      });
-                    },
+      child: Center(
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                          labelText: 'DD', labelStyle: TextStyle(fontSize: 12.0)),
+                      items: _dayList,
+                      validator: (val) => val == null ? 'DD?' : null,
+                      onChanged: (val) {
+                        setState(() {
+                          _day = val as String?;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                        labelText: 'MM', labelStyle: TextStyle(fontSize: 12.0)),
-                    items: _monthList,
-                    validator: (val) => val == null ? 'MM?' : null,
-                    onChanged: (val) => setState(() {
-                      _month = val as String?;
-                    }),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                          labelText: 'MM', labelStyle: TextStyle(fontSize: 12.0)),
+                      items: _monthList,
+                      validator: (val) => val == null ? 'MM?' : null,
+                      onChanged: (val) => setState(() {
+                        _month = val as String?;
+                      }),
+                    ),
                   ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                        labelText: 'YYYY',
-                        labelStyle: TextStyle(fontSize: 12.0)),
-                    items: _yearList,
-                    validator: (val) => val == null ? 'YYYY?' : null,
-                    onChanged: (val) => setState(() {
-                      _year = val as String?;
-                    }),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                          labelText: 'YYYY',
+                          labelStyle: TextStyle(fontSize: 12.0)),
+                      items: _yearList,
+                      validator: (val) => val == null ? 'YYYY?' : null,
+                      onChanged: (val) => setState(() {
+                        _year = val as String?;
+                      }),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Center(
-            child: buildTable(daybookRecords),
-          ),
-        ],
+            Container(
+              alignment:Alignment.center,
+              child: buildTable(daybookRecords),
+            ),
+          ],
+        ),
       ),
     );
   }

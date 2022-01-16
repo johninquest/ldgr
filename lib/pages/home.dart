@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/pages/inventory/add_inventory.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/router.dart';
@@ -47,8 +48,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Container(
-              height: 80.0,
-              width: 200.0,
+              height: 60.0,
+              width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
                 onPressed: () => PageRouter()
@@ -61,8 +62,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Container(
-              height: 80.0,
-              width: 200.0,
+              height: 60.0,
+              width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
                   onPressed: () => showDialog(
@@ -72,6 +73,18 @@ class HomePage extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(primary: myTeal)),
+            ),
+                        Container(
+              height: 60.0,
+              width: MediaQuery.of(context).size.width * 0.5,
+              margin: EdgeInsets.only(bottom: 25.0),
+              child: ElevatedButton(
+                  onPressed: () => PageRouter()
+                    .navigateToPage(AddInventoryPage(), context),
+                  child: Text('INVENTORY',
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(primary: myBlue)),
             ),
           ],
         ),

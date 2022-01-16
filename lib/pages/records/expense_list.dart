@@ -3,9 +3,9 @@ import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/expense_detail.dart';
+import 'package:ldgr/pages/records/search.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/style.dart';
 
@@ -21,9 +21,8 @@ class EntryListPage extends StatelessWidget {
         actions: [
           Container(
             child: IconButton(
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => InfoDialog('Under construction!')),
+                onPressed: () => PageRouter()
+                    .navigateToPage(SearchPage(), context),
                 icon: Icon(Icons.search)),
           )
         ],

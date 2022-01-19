@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/filters/filter_logic.dart';
+import 'package:ldgr/pages/records/expense_detail.dart';
+import 'package:ldgr/services/formatter.dart';
+import 'package:ldgr/services/router.dart';
+import 'package:ldgr/shared/widgets.dart';
+import 'package:ldgr/styles/style.dart';
 
 class SearchPage extends StatefulWidget {
   final List searchData;
@@ -87,18 +92,91 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.90,
                 alignment: Alignment.center,
-                child: Text('$_daybookRecords'),
-              )
-              /* Container(
-              alignment: Alignment.center,
-              child: buildTable(daybookRecords),
-            ), */
+                child: buildTable(_daybookRecords),
+              ),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget buildTable(List fsCollection) {
+    if (fsCollection.length < 1) {
+      return Container(
+        margin: EdgeInsets.only(top: 50.0),
+        child: Center(
+          child: EmptyTable(),
+        ),
+      );
+    } else {
+      final allColumns = [
+        'Date',
+        'Cost area',
+        'Item name',
+        'Price',
+      ];
+      return DataTable(
+        // sortAscending: isAscending,
+        // sortColumnIndex: sortColumnIndex,
+        columnSpacing: 20.0,
+        horizontalMargin: 0.0,
+        showCheckboxColumn: false,
+        columns: getColumns(allColumns),
+        rows: getRows(fsCollection),
+      );
+    }
+  }
+
+  List<DataColumn> getColumns(List<String> columns) => columns
+      .map((String column) => DataColumn(
+            label: Text(
+              column,
+              style: ListTitleStyle,
+            ),
+            // onSort: onSort,
+          ))
+      .toList();
+
+  List<DataRow> getRows(List rows) => rows
+      .map(
+        (e) => DataRow(
+          color: MaterialStateProperty.all(Colors.transparent),
+          selected: false,
+          onSelectChanged: (val) {
+            if (val == true) {
+              return PageRouter()
+                  .navigateToPage(ItemDetailPage(rowData: e), context);
+            }
+          },
+          cells: [
+            DataCell(Text(
+                DateTimeFormatter().isoToUiDate(e['picked_date']) ?? '',
+                style: TableItemStyle,
+                textAlign: TextAlign.left)),
+            DataCell(Text(
+              Formatter().dbToUiValue(e['cost_area']) ?? '',
+              style: TableItemStyle,
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.ellipsis,
+            )),
+            DataCell(ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.20,
+              ),
+              child: Text(
+                e['item_name'] ?? '',
+                style: TableItemStyle,
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )),
+            DataCell(Text(e['price'] ?? '',
+                style: StyleHandler().paymentStatus(e['payment_status']),
+                textAlign: TextAlign.right)),
+          ],
+        ),
+      )
+      .toList();
 }

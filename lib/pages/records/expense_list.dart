@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/filters/filter_data.dart';
-import 'package:ldgr/filters/filter_logic.dart';
+/* import 'package:ldgr/filters/filter_data.dart';
+import 'package:ldgr/filters/filter_logic.dart'; */
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/expense_detail.dart';
 import 'package:ldgr/pages/records/search.dart';
@@ -66,24 +66,24 @@ class _EntryListTableState extends State<EntryListTable> {
   int? sortColumnIndex;
   bool isAscending = false;
 
-  String? _day;
+/*   String? _day;
   String? _month;
-  String? _year;
+  String? _year; */
 
   @override
   Widget build(BuildContext context) {
-    List<DropdownMenuItem<Object>>? _dayList = FilterData().dayList();
+   /*  List<DropdownMenuItem<Object>>? _dayList = FilterData().dayList();
     List<DropdownMenuItem<Object>>? _monthList = FilterData().monthList();
-    List<DropdownMenuItem<Object>>? _yearList = FilterData().yearList();
-    // List daybookRecords = widget.fsData as List;
-    final daybookRecords = FilterService()
-        .byDate(widget.fsData as List, _day ?? '', _month ?? '', _year ?? '');
+    List<DropdownMenuItem<Object>>? _yearList = FilterData().yearList(); */
+    List daybookRecords = widget.fsData as List;
+    /* final daybookRecords = FilterService()
+        .byDate(widget.fsData as List, _day ?? '', _month ?? '', _year ?? ''); */
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Center(
         child: Column(
           children: [
-            Container(
+            /* Container(
               alignment: Alignment.center,
               margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
               child: Row(
@@ -135,7 +135,7 @@ class _EntryListTableState extends State<EntryListTable> {
                   ),
                 ],
               ),
-            ),
+            ), */
             Container(
               alignment: Alignment.center,
               child: buildTable(daybookRecords),
@@ -248,29 +248,3 @@ class _EntryListTableState extends State<EntryListTable> {
   int compareString(bool ascending, String value1, String value2) =>
       ascending ? value1.compareTo(value2) : value2.compareTo(value1);
 }
-
-/* class FloatingAdd extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SpeedDial(
-      icon: Icons.tune,
-      children: [
-        SpeedDialChild(
-          labelWidget: Container(
-            padding: EdgeInsets.all(10.0),
-            child: Text(
-              'under construction',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 2.0),
-            ),
-            decoration: BoxDecoration(
-                color: myBlue, borderRadius: BorderRadius.circular(5.0)),
-          ),
-          onTap: () => null,
-        ),
-      ],
-    );
-  }
-} */

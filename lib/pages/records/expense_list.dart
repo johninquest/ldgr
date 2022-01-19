@@ -6,8 +6,11 @@ import 'package:ldgr/pages/records/expense_detail.dart';
 import 'package:ldgr/pages/records/search.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
+import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/style.dart';
+
+List? _fsDaybookList;
 
 class EntryListPage extends StatelessWidget {
   const EntryListPage({Key? key}) : super(key: key);
@@ -21,8 +24,11 @@ class EntryListPage extends StatelessWidget {
         actions: [
           Container(
             child: IconButton(
-                onPressed: () => PageRouter()
-                    .navigateToPage(SearchPage(), context),
+                onPressed: () => PageRouter().navigateToPage(
+                    SearchPage(
+                      searchData: _fsDaybookList ?? [],
+                    ),
+                    context),
                 icon: Icon(Icons.search)),
           )
         ],
@@ -35,6 +41,7 @@ class EntryListPage extends StatelessWidget {
             }
             if (snapshot.hasData) {
               List daybookData = snapshot.data as List;
+              _fsDaybookList = daybookData;
               return EntryListTable(
                 fsData: daybookData,
               );
@@ -42,7 +49,7 @@ class EntryListPage extends StatelessWidget {
               return WaitingForResponse();
             }
           }),
-      //  floatingActionButton: FloatingAdd(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -87,7 +94,8 @@ class _EntryListTableState extends State<EntryListTable> {
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(
-                          labelText: 'DD', labelStyle: TextStyle(fontSize: 12.0)),
+                          labelText: 'DD',
+                          labelStyle: TextStyle(fontSize: 12.0)),
                       items: _dayList,
                       validator: (val) => val == null ? 'DD?' : null,
                       onChanged: (val) {
@@ -102,7 +110,8 @@ class _EntryListTableState extends State<EntryListTable> {
                     margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(
-                          labelText: 'MM', labelStyle: TextStyle(fontSize: 12.0)),
+                          labelText: 'MM',
+                          labelStyle: TextStyle(fontSize: 12.0)),
                       items: _monthList,
                       validator: (val) => val == null ? 'MM?' : null,
                       onChanged: (val) => setState(() {
@@ -128,7 +137,7 @@ class _EntryListTableState extends State<EntryListTable> {
               ),
             ),
             Container(
-              alignment:Alignment.center,
+              alignment: Alignment.center,
               child: buildTable(daybookRecords),
             ),
           ],

@@ -80,6 +80,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
     return Form(
       key: _expenseFormKey,
       child: SingleChildScrollView(
+         scrollDirection: Axis.vertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -31,6 +31,21 @@ class FirestoreService {
     }
   }
 
+    getSubCollection2(String mainColName, String mainDocName, String subColName ) async {
+    CollectionReference _collection = fsInstance
+        .collection(mainColName)
+        .doc(mainDocName)
+        .collection(subColName);
+    try {
+      QuerySnapshot snapshot =
+          await _collection.orderBy('picked_date', descending: true).get();
+      List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
+      return fsReponse;
+    } catch (e) {
+      return null;
+    }
+  }
+
   getDocument(String colName, String docName) async {
     DocumentSnapshot _doc =
         await FirebaseFirestore.instance.collection(colName).doc(docName).get();

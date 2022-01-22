@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/styles/style.dart';
 
 class MyItemList {
@@ -175,6 +176,20 @@ class MyItemList {
         value: 'pcs',
         child: Container(
           child: Text('Pcs', style: DropdownListStyle),
+        )),
+  ];
+
+  // Inventory options
+    List<DropdownMenuItem<String>> storeOptionsList = [
+    DropdownMenuItem(
+        value: 'add',
+        child: Container(
+          child: Text('Add to stock', style: TextStyle(color: myGreen),),
+        )),
+    DropdownMenuItem(
+        value: 'remove',
+        child: Container(
+          child: Text('Remove from stock', style: TextStyle(color: myRed),),
         )),
   ];
 

@@ -74,14 +74,14 @@ class HomePage extends StatelessWidget {
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(primary: myTeal)),
             ),
-                        Container(
+            Container(
               height: 60.0,
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
                   onPressed: () => PageRouter()
-                    .navigateToPage(InventoryOverviewPage(), context),
-                  child: Text('INVENTORY',
+                      .navigateToPage(InventoryOverviewPage(), context),
+                  child: Text('STOCK',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(primary: myBlue)),

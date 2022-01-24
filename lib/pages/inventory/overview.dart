@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/inventory/add_inventory.dart';
@@ -11,10 +12,11 @@ class InventoryOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _fsQuery = FirestoreService().getSubCollection2('the_wine_reserve', 'records', 'inventory');
+    var _fsQuery =
+        FirestoreService().getDocument('the_wine_reserve', 'inventory');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Overview'),
+        title: Text('Stock'),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -24,8 +26,18 @@ class InventoryOverviewPage extends StatelessWidget {
               return ErrorOccured();
             }
             if (snapshot.hasData) {
-              List resData = snapshot.data as List;
-              return Center(child: Text('$resData'),);
+              // List resData = snapshot.data as List;
+              DocumentSnapshot resData = snapshot.data as DocumentSnapshot;
+              var costArea = resData.get('cost_area'); 
+              var itemCategory = resData.get('item_category'); 
+              var itemName = resData.get('item_name');
+              print('${resData.get('cost_area')}');
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text('$costArea'), Text('$itemCategory'), Text('$itemName')],
+                ),
+              );
             } else {
               return WaitingForResponse();
             }

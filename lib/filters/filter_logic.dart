@@ -86,4 +86,22 @@ class FilterService {
       return fList;
     }
   }
+
+  byString(List fList, String targetStr) {
+    List foundList = [];
+    for (var i in fList) {
+      String _costArea = i['cost_area'] ?? '';
+      String _itemCategory = i['item_category'] ?? '';
+      String _itemName = i['item_name'] ?? '';
+      String _enteredBy = i['entered_by'];
+      if (_costArea.toLowerCase().contains(targetStr) ||
+          _itemCategory.toLowerCase().contains(targetStr) ||
+          _itemName.toLowerCase().contains(targetStr) || 
+          _enteredBy.toLowerCase().contains(targetStr)
+          ) {
+        foundList.add(i);
+      }
+    }
+    return foundList;
+  }
 }

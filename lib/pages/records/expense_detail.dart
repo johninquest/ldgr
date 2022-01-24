@@ -55,88 +55,96 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         title: Text('Expense details'),
         centerTitle: true,
       ),
-      body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+          child: Container(
+            margin: EdgeInsets.only(top: 25.0),
+            padding: EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center, 
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
         MyTableRow(
-          rowName: 'Date',
-          rowData:
-              DateTimeFormatter().isoToUiDate(widget.rowData['picked_date']) ??
+            rowName: 'Date',
+            rowData:
+                DateTimeFormatter().isoToUiDate(widget.rowData['picked_date']) ??
+                    '',
+        ),
+        MyTableRow(
+            rowName: 'Account',
+            rowData: widget.rowData['account'] ?? '',
+        ),
+        MyTableRow(
+            rowName: 'Cost area',
+            rowData: widget.rowData['cost_area'] ?? '',
+        ),
+        MyTableRow(
+            rowName: 'Item categoy',
+            rowData: widget.rowData['item_category'] ?? '',
+        ),
+        MyTableRow(
+            rowName: 'Item name',
+            rowData: widget.rowData['item_name'] ?? '',
+        ),
+        MyTableRow(
+              rowName: 'Quantity',
+              rowData: "${widget.rowData['quantity']} ${widget.rowData['unit']}"),
+        MyTableRow(
+            rowName: 'Price',
+            rowData: "$_currency ${widget.rowData['price']}",
+        ),
+        MyTableRow(
+            rowName: 'Payment status',
+            rowData: widget.rowData['payment_status'] ?? '',
+        ),
+        MyTableRow(
+            rowName: 'Payment method',
+            rowData: widget.rowData['payment_method'] ?? '',
+        ),
+        MyTableRow(
+            rowName: 'Entered by',
+            rowData: widget.rowData['entered_by'] ?? '',
+        ),
+        _rbac.hideWidget(
+            _currentUserRole,
+            MyTableRow(
+              rowName: 'Entry timestamp',
+              rowData: DateTimeFormatter()
+                      .toUiDateTime(widget.rowData['created_at']) ??
                   '',
-        ),
-        MyTableRow(
-          rowName: 'Account',
-          rowData: widget.rowData['account'] ?? '',
-        ),
-        MyTableRow(
-          rowName: 'Cost area',
-          rowData: widget.rowData['cost_area'] ?? '',
-        ),
-        MyTableRow(
-          rowName: 'Item categoy',
-          rowData: widget.rowData['item_category'] ?? '',
-        ),
-        MyTableRow(
-          rowName: 'Item name',
-          rowData: widget.rowData['item_name'] ?? '',
-        ),
-        MyTableRow(
-            rowName: 'Quantity',
-            rowData: "${widget.rowData['quantity']} ${widget.rowData['unit']}"),
-        MyTableRow(
-          rowName: 'Price',
-          rowData: "$_currency ${widget.rowData['price']}",
-        ),
-        MyTableRow(
-          rowName: 'Payment status',
-          rowData: widget.rowData['payment_status'] ?? '',
-        ),
-        MyTableRow(
-          rowName: 'Payment method',
-          rowData: widget.rowData['payment_method'] ?? '',
-        ),
-        MyTableRow(
-          rowName: 'Entered by',
-          rowData: widget.rowData['entered_by'] ?? '',
+            ),
         ),
         _rbac.hideWidget(
-          _currentUserRole,
-          MyTableRow(
-            rowName: 'Entry timestamp',
-            rowData: DateTimeFormatter()
-                    .toUiDateTime(widget.rowData['created_at']) ??
-                '',
-          ),
-        ),
-        _rbac.hideWidget(
-          _currentUserRole,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
-                    String _docId = widget.rowData['doc_id'];
-                    FirestoreService().removeDocument(_docId).then((val) {
-                      SnackBarMessage().deleteSuccess(context);
-                      PageRouter().navigateToPage(EntryListPage(), context);
-                    }).catchError(
-                        (e) => SnackBarMessage().generalErrorMessage(context));
-                  },
-                  child: Text('DELETE'),
-                  style: ElevatedButton.styleFrom(primary: myRed),
+            _currentUserRole,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      String _docId = widget.rowData['doc_id'];
+                      FirestoreService().removeDocument(_docId).then((val) {
+                        SnackBarMessage().deleteSuccess(context);
+                        PageRouter().navigateToPage(EntryListPage(), context);
+                      }).catchError(
+                          (e) => SnackBarMessage().generalErrorMessage(context));
+                    },
+                    child: Text('DELETE'),
+                    style: ElevatedButton.styleFrom(primary: myRed),
+                  ),
                 ),
-              ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () => PageRouter().navigateToPage(EntryEditorPage(entryData: widget.rowData,), context),
-                  child: Text('UPDATE'),
-                  style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
-                ),
-              )
-            ],
-          ),
+                Container(
+                  child: ElevatedButton(
+                    onPressed: () => PageRouter().navigateToPage(EntryEditorPage(entryData: widget.rowData,), context),
+                    child: Text('UPDATE'),
+                    style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+                  ),
+                )
+              ],
+            ),
         ),
-      ])),
+      ]),
+          )),
       bottomNavigationBar: BottomNavBar(),
     );
   }

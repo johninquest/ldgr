@@ -77,7 +77,7 @@ class SideMenu extends StatelessWidget {
                 color: myBlue,
               ),
               title: Text(
-                'Inventory',
+                'Stock',
                 style: TextStyle(color: myBlue),
               ),
               onTap: () => PageRouter().navigateToPage(InventoryOverviewPage(), context),

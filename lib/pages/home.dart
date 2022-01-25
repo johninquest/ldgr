@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/db/sp_helper.dart';
+import 'package:ldgr/pages/inputs/login.dart';
 import 'package:ldgr/pages/inventory/overview.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
@@ -27,10 +29,11 @@ class HomePage extends StatelessWidget {
         actions: [
           Container(
             child: IconButton(
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => InfoDialog('Under construction!')),
-                icon: Icon(Icons.more_vert)),
+                onPressed: () {
+                  SharedPreferencesHelper().removeData('currentUserData');
+                  PageRouter().navigateToPage(LoginPage(), context);
+                },
+                icon: Icon(Icons.logout_outlined)),
           )
         ],
       ),

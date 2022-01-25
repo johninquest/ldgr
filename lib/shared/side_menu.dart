@@ -72,17 +72,6 @@ class SideMenu extends StatelessWidget {
                   barrierDismissible: false),
             ), */
             ListTile(
-              leading: Icon(
-                Icons.inventory_outlined,
-                color: myBlue,
-              ),
-              title: Text(
-                'Stock',
-                style: TextStyle(color: myBlue),
-              ),
-              onTap: () => PageRouter().navigateToPage(InventoryOverviewPage(), context),
-            ),
-            ListTile(
                 leading: Icon(
                   Icons.language,
                   color: myBlue,
@@ -95,6 +84,18 @@ class SideMenu extends StatelessWidget {
                     PageRouter().navigateToPage(CountryPage(), context)),
             ListTile(
               leading: Icon(
+                Icons.inventory_outlined,
+                color: myBlue,
+              ),
+              title: Text(
+                'Stock',
+                style: TextStyle(color: myBlue),
+              ),
+              onTap: () =>
+                  PageRouter().navigateToPage(InventoryOverviewPage(), context),
+            ),
+            ListTile(
+              leading: Icon(
                 Icons.info_outline,
                 color: myBlue,
               ),
@@ -104,7 +105,7 @@ class SideMenu extends StatelessWidget {
               ),
               onTap: () => PageRouter().navigateToPage(AboutPage(), context),
             ),
-            ListTile(
+            /* ListTile(
               leading: Icon(
                 Icons.logout,
                 color: myBlue,
@@ -118,7 +119,7 @@ class SideMenu extends StatelessWidget {
                 SharedPreferencesHelper().removeData('currentUserData');
                 PageRouter().navigateToPage(LoginPage(), context);
               },
-            ),
+            ), */
           ],
         ),
       ),

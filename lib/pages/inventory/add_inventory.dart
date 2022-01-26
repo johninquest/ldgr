@@ -36,6 +36,9 @@ class _AddInventoryPageState extends State<AddInventoryPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
+                    margin: EdgeInsets.all(5.0),
+                    child: Text('Still under construction!', style: TextStyle(color: myRed, fontWeight: FontWeight.bold),),),
+                  Container(
                       width: MediaQuery.of(context).size.width * 0.90,
                       // margin: EdgeInsets.only(bottom: 5.0),
                       padding: EdgeInsets.only(left: 25.0, right: 25.0),

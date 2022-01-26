@@ -229,7 +229,7 @@ customPageTitle(bool toggleValue) {
   if (toggleValue == true) {
     return Text('Date filter');
   } else {
-    return Text('Word search');
+    return Text('Search');
   }
 }
 

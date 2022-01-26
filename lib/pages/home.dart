@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/pages/inputs/login.dart';
-import 'package:ldgr/pages/inventory/overview.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/router.dart';
@@ -29,10 +26,10 @@ class HomePage extends StatelessWidget {
         actions: [
           Container(
             child: IconButton(
-                onPressed: () {
-                  SharedPreferencesHelper().removeData('currentUserData');
-                  PageRouter().navigateToPage(LoginPage(), context);
-                },
+              onPressed: () => showDialog(
+                  context: context, 
+                  builder: (_) => LogoutDialog(), 
+                  barrierDismissible: true),
                 icon: Icon(Icons.logout_outlined)),
           )
         ],
@@ -71,7 +68,7 @@ class HomePage extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () => showDialog(
                       context: context,
-                      builder: (_) => InfoDialog('Coming soon')),
+                      builder: (_) => InfoDialog('Coming soon!')),
                   child: Text('INCOME',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
@@ -82,8 +79,10 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                  onPressed: () => PageRouter()
-                      .navigateToPage(InventoryOverviewPage(), context),
+                  onPressed: () => showDialog(
+                  context: context, 
+                  builder: (_) => InfoDialog('Coming soon!'), 
+                  barrierDismissible: true),
                   child: Text('STOCK',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),

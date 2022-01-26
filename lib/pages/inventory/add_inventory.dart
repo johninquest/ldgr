@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/lists.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -39,8 +40,8 @@ class _AddInventoryPageState extends State<AddInventoryPage> {
                       // margin: EdgeInsets.only(bottom: 5.0),
                       padding: EdgeInsets.only(left: 25.0, right: 25.0),
                       child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            labelText: 'Add / remove stock'),
+                        decoration:
+                            InputDecoration(labelText: 'Add / remove stock'),
                         items: MyItemList().storeOptionsList,
                         validator: (val) =>
                             val == null ? 'Please select add / remove?' : null,
@@ -151,7 +152,11 @@ class _AddInventoryPageState extends State<AddInventoryPage> {
                       Container(
                         margin: EdgeInsets.all(10.0),
                         child: ElevatedButton(
-                          onPressed: () => print('Tapped save button!'),
+                          onPressed: () => showDialog(
+                              context: context,
+                              builder: (_) =>
+                                  InfoDialog('Still under construction!'),
+                              barrierDismissible: false),
                           child: Text('SAVE'),
                           style: ElevatedButton.styleFrom(primary: myBlue),
                         ),

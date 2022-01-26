@@ -31,7 +31,7 @@ class InventoryOverviewPage extends StatelessWidget {
               var costArea = resData.get('cost_area'); 
               var itemCategory = resData.get('item_category'); 
               var itemName = resData.get('item_name');
-              print('${resData.get('cost_area')}');
+              // print('${resData.get('cost_area')}');
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

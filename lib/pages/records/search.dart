@@ -20,19 +20,30 @@ class _SearchPageState extends State<SearchPage> {
   String? _month;
   String? _year;
   String? _searchString;
+  bool _isVisible = true;
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<Object>>? _dayList = FilterData().dayList();
     List<DropdownMenuItem<Object>>? _monthList = FilterData().monthList();
     List<DropdownMenuItem<Object>>? _yearList = FilterData().yearList();
-    /* final _daybookRecords = FilterService()
-        .byDate(widget.searchData, _day ?? '', _month ?? '', _year ?? ''); */
-    final _daybookRecords =
+    final _dateFilterList = FilterService()
+        .byDate(widget.searchData, _day ?? '', _month ?? '', _year ?? '');
+    final _strSearchList =
         FilterService().byString(widget.searchData, _searchString ?? '');
+    final _daybookRecords =
+        toggleCurrentList(_isVisible, _dateFilterList, _strSearchList);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search'),
+        title: customPageTitle(_isVisible),
         centerTitle: true,
+        actions: [
+          Switch(
+              value: _isVisible,
+              activeColor: Colors.amber,
+              onChanged: (val) => setState(() {
+                    _isVisible = val;
+                  }))
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -47,129 +58,83 @@ class _SearchPageState extends State<SearchPage> {
                   initiallyExpanded: true,
                   title: Text(''),
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(bottom: 5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.20,
-                            margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                            child: DropdownButtonFormField(
-                              decoration: InputDecoration(
-                                  labelText: 'DD',
-                                  labelStyle: TextStyle(fontSize: 12.0)),
-                              items: _dayList,
-                              validator: (val) => val == null ? 'DD?' : null,
-                              onChanged: (val) {
-                                setState(() {
-                                  _day = val as String?;
-                                });
-                              },
+                    Visibility(
+                      visible: _isVisible,
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(bottom: 5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.20,
+                              margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                              child: DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'DD',
+                                    labelStyle: TextStyle(fontSize: 12.0)),
+                                items: _dayList,
+                                validator: (val) => val == null ? 'DD?' : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    _day = val as String?;
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.20,
-                            margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                            child: DropdownButtonFormField(
-                              decoration: InputDecoration(
-                                  labelText: 'MM',
-                                  labelStyle: TextStyle(fontSize: 12.0)),
-                              items: _monthList,
-                              validator: (val) => val == null ? 'MM?' : null,
-                              onChanged: (val) => setState(() {
-                                _month = val as String?;
-                              }),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.20,
+                              margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                              child: DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'MM',
+                                    labelStyle: TextStyle(fontSize: 12.0)),
+                                items: _monthList,
+                                validator: (val) => val == null ? 'MM?' : null,
+                                onChanged: (val) => setState(() {
+                                  _month = val as String?;
+                                }),
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.20,
-                            margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                            child: DropdownButtonFormField(
-                              decoration: InputDecoration(
-                                  labelText: 'YYYY',
-                                  labelStyle: TextStyle(fontSize: 12.0)),
-                              items: _yearList,
-                              validator: (val) => val == null ? 'YYYY?' : null,
-                              onChanged: (val) => setState(() {
-                                _year = val as String?;
-                              }),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.20,
+                              margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                              child: DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'YYYY',
+                                    labelStyle: TextStyle(fontSize: 12.0)),
+                                items: _yearList,
+                                validator: (val) =>
+                                    val == null ? 'YYYY?' : null,
+                                onChanged: (val) => setState(() {
+                                  _year = val as String?;
+                                }),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.90,
-                      margin: EdgeInsets.only(bottom: 10.0),
-                      padding: EdgeInsets.only(
-                          left: 25.0, right: 25.0, bottom: 10.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            hintText: '', prefixIcon: Icon(Icons.search)),
-                        onChanged: (val) => setState(() {
-                          print(val);
-                          _searchString = val.toLowerCase();
-                        }),
+                    Visibility(
+                      visible: !_isVisible,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.90,
+                        margin: EdgeInsets.only(bottom: 10.0),
+                        padding: EdgeInsets.only(
+                            left: 25.0, right: 25.0, bottom: 10.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: 'Search anything',
+                              prefixIcon: Icon(Icons.search)),
+                          onChanged: (val) => setState(() {
+                            _searchString = val.toLowerCase();
+                          }),
+                        ),
                       ),
                     )
                   ],
                 ),
               ),
-/*               Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(bottom: 5.0, top: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            labelText: 'DD',
-                            labelStyle: TextStyle(fontSize: 12.0)),
-                        items: _dayList,
-                        validator: (val) => val == null ? 'DD?' : null,
-                        onChanged: (val) {
-                          setState(() {
-                            _day = val as String?;
-                          });
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            labelText: 'MM',
-                            labelStyle: TextStyle(fontSize: 12.0)),
-                        items: _monthList,
-                        validator: (val) => val == null ? 'MM?' : null,
-                        onChanged: (val) => setState(() {
-                          _month = val as String?;
-                        }),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            labelText: 'YYYY',
-                            labelStyle: TextStyle(fontSize: 12.0)),
-                        items: _yearList,
-                        validator: (val) => val == null ? 'YYYY?' : null,
-                        onChanged: (val) => setState(() {
-                          _year = val as String?;
-                        }),
-                      ),
-                    ),
-                  ],
-                ),
-              ), */
               Container(
                 alignment: Alignment.center,
                 child: buildTable(_daybookRecords),
@@ -258,4 +223,20 @@ class _SearchPageState extends State<SearchPage> {
         ),
       )
       .toList();
+}
+
+customPageTitle(bool toggleValue) {
+  if (toggleValue == true) {
+    return Text('Date filter');
+  } else {
+    return Text('Word search');
+  }
+}
+
+toggleCurrentList(bool myToggle, var dateFilterList, var strSearchList) {
+  if (myToggle == true) {
+    return dateFilterList;
+  } else {
+    return strSearchList;
+  }
 }

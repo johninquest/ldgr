@@ -31,7 +31,8 @@ class FirestoreService {
     }
   }
 
-    getSubCollection2(String mainColName, String mainDocName, String subColName ) async {
+  getSubCollection2(
+      String mainColName, String mainDocName, String subColName) async {
     CollectionReference _collection = fsInstance
         .collection(mainColName)
         .doc(mainDocName)
@@ -78,7 +79,31 @@ class FirestoreService {
     }
   }
 
+  checkIfDocExists(String docId) {
+    final targetDoc = fsInstance
+        .collection('the_wine_reserve')
+        .doc('users')
+        .collection('user_list')
+        .doc(docId)
+        .get();
+    return targetDoc;
+  }
+
   getDocumentWithId(String _id) async {
+    var targetDoc = fsInstance
+        .collection('the_wine_reserve')
+        .doc('users')
+        .collection('user_list')
+        .doc(_id);
+    try {
+      var getResponse = await targetDoc.get();
+      return getResponse;
+    } on FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  getDocumentById(String _id) async {
     var targetDoc = fsInstance
         .collection('the_wine_reserve')
         .doc('users')
@@ -112,17 +137,17 @@ class FirestoreService {
         .collection('daybook');
     try {
       var updateResponse = await _col.doc(_docId).update({
-        'picked_date':  _docData['pickedDate'],
-        'cost_area': _docData['costArea'], 
-        'item_category': _docData['itemCcategory'], 
-        'item_name': _docData['itemName'],  
-        'quantity': _docData['quantity'], 
-        'unit': _docData['unit'], 
+        'picked_date': _docData['pickedDate'],
+        'cost_area': _docData['costArea'],
+        'item_category': _docData['itemCcategory'],
+        'item_name': _docData['itemName'],
+        'quantity': _docData['quantity'],
+        'unit': _docData['unit'],
         'price': _docData['price'],
-        'payment_status': _docData['paymentStatus'], 
-        'payment_method': _docData['paymentMethod'], 
-        'last_update_at': _docData['lastUpdateAt'], 
-        'entered_by': _docData['enteredBy'], 
+        'payment_status': _docData['paymentStatus'],
+        'payment_method': _docData['paymentMethod'],
+        'last_update_at': _docData['lastUpdateAt'],
+        'entered_by': _docData['enteredBy'],
       });
       return updateResponse;
     } on FirebaseException catch (e) {

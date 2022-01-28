@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 // import 'package:ldgr/firebase/auth.dart';
@@ -8,7 +9,6 @@ import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'dart:convert';
-
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -65,7 +65,6 @@ class _LoginFormState extends State<LoginForm> {
                   controller: _userName,
                   decoration: InputDecoration(labelText: 'UserId'),
                   keyboardType: TextInputType.text,
-                  // textCapitalization: TextCapitalization.words,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return 'Please enter UserId!';
@@ -94,24 +93,41 @@ class _LoginFormState extends State<LoginForm> {
               margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
               child: ElevatedButton(
                 onPressed: () {
+                  String userNameCleanedUp =
+                      _userName.text.trim().toLowerCase();
+                  String userPasswordCleanedUp =
+                      _userPassword.text.trim().toLowerCase();
                   if (_loginFormKey.currentState!.validate()) {
                     var adminAuth = AuthService()
-                        .verifyAdmin(_userName.text, _userPassword.text);
+                        .verifyAdmin(userNameCleanedUp, userPasswordCleanedUp);
                     if (adminAuth == 'auth_success') {
                       PageRouter().navigateToPage(HomePage(), context);
                     } else {
                       FirestoreService()
-                          .getDocumentWithId(_userName.text.trim())
-                          .then((val) {
-                        String name = val['name'];
-                        String role = val['role'];
-                        String businessName = val['business_name']; 
-                        String businessLocation = val['location'];
-                        storeCurrentUser(name, role, businessName, businessLocation);
-                        PageRouter().navigateToPage(HomePage(), context);
-                      }).catchError((e) => showDialog(
+                          .checkIfDocExists(userNameCleanedUp)
+                          .then((DocumentSnapshot snapshot) {
+                        if (snapshot.exists) {
+                          Map<String, dynamic> _data = snapshot.data() as Map<String, dynamic>;
+                          String name = _data['name'] ?? '';
+                          String role = _data['role'] ?? '';
+                          String businessName = _data['business_name'] ?? '';
+                          String businessLocation = _data['location'] ?? '';
+                          storeCurrentUser(
+                              name, role, businessName, businessLocation);
+                          PageRouter().navigateToPage(HomePage(), context);
+                        } else {
+                          
+                          showDialog(
                               context: context,
-                              builder: (_) => ErrorDialog('Access denied!')));
+                              builder: (_) => ErrorDialog('Access denied!'));
+                        }
+                      }).catchError((e) {
+                        
+                        showDialog(
+                            context: context,
+                            builder: (_) => ErrorDialog(
+                                'Something went wrong.\n Please inform your manager!'));
+                      });
                     }
 
                     /* var adminAuth = AdminAuthService()
@@ -149,8 +165,14 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-storeCurrentUser(String userName, String userRole, String bName, String bLocation) {
-  Map _toMap = {'name': userName, 'role': userRole, 'businessName': bName, 'businessLocation': bLocation};
+storeCurrentUser(
+    String userName, String userRole, String bName, String bLocation) {
+  Map _toMap = {
+    'name': userName,
+    'role': userRole,
+    'businessName': bName,
+    'businessLocation': bLocation
+  };
   String _currentUserData = jsonEncode(_toMap);
   SharedPreferencesHelper().storeData('currentUserData', _currentUserData);
 }

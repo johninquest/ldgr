@@ -73,6 +73,8 @@ class _EntryListTableState extends State<EntryListTable> {
       scrollDirection: Axis.vertical,
       child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               alignment: Alignment.center,

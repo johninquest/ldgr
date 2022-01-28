@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/pages/inputs/country.dart';
-import 'package:ldgr/pages/inputs/login.dart';
 import 'package:ldgr/pages/analysis/overview.dart';
 import 'package:ldgr/pages/inventory/overview.dart';
+import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business.dart';
 import 'package:ldgr/pages/about.dart';
-import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 
-class SideMenu extends StatelessWidget {
+class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
 
   @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
+  String? _currentUser;
+  @override
   Widget build(BuildContext context) {
+    SharedPreferencesHelper().readData('currentUserData').then((val) {
+      if (val != null) {
+        setState(() {
+          _currentUser = DataParser().strToMap(val)['name'];
+        });
+      }
+    });
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.5,
       child: Drawer(
@@ -24,11 +35,23 @@ class SideMenu extends StatelessWidget {
           children: [
             DrawerHeader(
                 decoration: BoxDecoration(color: myBlue),
-                child: Text('Settings',
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 50.0,
+                    ),
+                    Text(
+                      _currentUser ?? '',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0),
+                    )
+                  ],
+                )),
             ListTile(
               leading: Icon(
                 Icons.bar_chart,
@@ -39,10 +62,6 @@ class SideMenu extends StatelessWidget {
                 style: TextStyle(color: myBlue),
               ),
               onTap: () => PageRouter().navigateToPage(AnalysisPage(), context),
-              /* onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => InfoDialog('Still under construction!'),
-                  barrierDismissible: false), */
             ),
             ListTile(
               leading: Icon(

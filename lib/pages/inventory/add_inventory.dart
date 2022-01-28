@@ -24,7 +24,7 @@ class _AddInventoryPageState extends State<AddInventoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add / remove stock'),
+        title: Text('Stock entry'),
         centerTitle: true,
       ),
       body: Center(
@@ -44,7 +44,7 @@ class _AddInventoryPageState extends State<AddInventoryPage> {
                       padding: EdgeInsets.only(left: 25.0, right: 25.0),
                       child: DropdownButtonFormField(
                         decoration:
-                            InputDecoration(labelText: 'Add / remove stock'),
+                            InputDecoration(labelText: 'What do you want to do?'),
                         items: MyItemList().storeOptionsList,
                         validator: (val) =>
                             val == null ? 'Please select add / remove?' : null,
@@ -124,7 +124,7 @@ class _AddInventoryPageState extends State<AddInventoryPage> {
                       ],
                     ),
                   ),
-                  Container(
+                  /* Container(
                       width: MediaQuery.of(context).size.width * 0.90,
                       // margin: EdgeInsets.only(bottom: 10.0),
                       padding: EdgeInsets.only(left: 25.0, right: 25.0),
@@ -137,7 +137,7 @@ class _AddInventoryPageState extends State<AddInventoryPage> {
                             return 'Please enter price';
                           }
                         },
-                      )),
+                      )), */
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

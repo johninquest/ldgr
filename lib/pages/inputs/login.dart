@@ -107,7 +107,8 @@ class _LoginFormState extends State<LoginForm> {
                           .checkIfDocExists(userNameCleanedUp)
                           .then((DocumentSnapshot snapshot) {
                         if (snapshot.exists) {
-                          Map<String, dynamic> _data = snapshot.data() as Map<String, dynamic>;
+                          Map<String, dynamic> _data =
+                              snapshot.data() as Map<String, dynamic>;
                           String name = _data['name'] ?? '';
                           String role = _data['role'] ?? '';
                           String businessName = _data['business_name'] ?? '';
@@ -116,13 +117,11 @@ class _LoginFormState extends State<LoginForm> {
                               name, role, businessName, businessLocation);
                           PageRouter().navigateToPage(HomePage(), context);
                         } else {
-                          
                           showDialog(
                               context: context,
                               builder: (_) => ErrorDialog('Access denied!'));
                         }
                       }).catchError((e) {
-                        
                         showDialog(
                             context: context,
                             builder: (_) => ErrorDialog(

@@ -28,14 +28,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Icons.home,
             color: Colors.white,
           ),
-          label: 'START',
+          label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.view_list,
             color: Colors.white,
           ),
-          label: 'RECORDS',
+          label: 'Expense list',
         ),
       ],
       onTap: (index) => afterTap(index),

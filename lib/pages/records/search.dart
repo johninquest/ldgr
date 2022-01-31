@@ -37,12 +37,15 @@ class _SearchPageState extends State<SearchPage> {
         title: customPageTitle(_isVisible),
         centerTitle: true,
         actions: [
-          Switch(
-              value: _isVisible,
-              activeColor: Colors.amber,
-              onChanged: (val) => setState(() {
-                    _isVisible = val;
-                  }))
+          Tooltip(
+            message: 'Toggle filter / search',
+            child: Switch(
+                value: _isVisible,
+                activeColor: Colors.amber,
+                onChanged: (val) => setState(() {
+                      _isVisible = val;
+                    })),
+          )
         ],
       ),
       body: SingleChildScrollView(

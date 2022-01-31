@@ -27,10 +27,12 @@ class HomePage extends StatelessWidget {
           Container(
             child: IconButton(
               onPressed: () => showDialog(
-                  context: context, 
-                  builder: (_) => LogoutDialog(), 
+                  context: context,
+                  builder: (_) => LogoutDialog(),
                   barrierDismissible: true),
-                icon: Icon(Icons.logout_outlined)),
+              icon: Icon(Icons.logout_outlined),
+              tooltip: 'Log out',
+            ),
           )
         ],
       ),
@@ -80,9 +82,9 @@ class HomePage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
                   onPressed: () => showDialog(
-                  context: context, 
-                  builder: (_) => InfoDialog('Coming soon!'), 
-                  barrierDismissible: true),
+                      context: context,
+                      builder: (_) => InfoDialog('Coming soon!'),
+                      barrierDismissible: true),
                   child: Text('STOCK',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),

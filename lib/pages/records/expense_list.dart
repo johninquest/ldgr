@@ -29,7 +29,7 @@ class EntryListPage extends StatelessWidget {
                       searchData: _fsDaybookList ?? [],
                     ),
                     context),
-                icon: Icon(Icons.search)),
+                icon: Icon(Icons.search), tooltip: 'Press to filter / search list',),
           )
         ],
       ),

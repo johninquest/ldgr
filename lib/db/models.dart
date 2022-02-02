@@ -1,4 +1,3 @@
-
 // Basic record data model
 class Record {
   final int id;

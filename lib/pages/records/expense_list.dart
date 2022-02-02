@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-/* import 'package:ldgr/filters/filter_data.dart';
-import 'package:ldgr/filters/filter_logic.dart'; */
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/records/expense_detail.dart';
 import 'package:ldgr/pages/records/search.dart';

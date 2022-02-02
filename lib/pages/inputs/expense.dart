@@ -301,24 +301,3 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
     );
   }
 }
-
-/* setExpenseItemList(String category) {
-  if (category == 'bar') {
-    return MyItemList().barItemList;
-  }
-  if (category == 'kitchen') {
-    return MyItemList().kitchenItemList;
-  }
-  if (category == 'operating_costs') {
-    return MyItemList().operatingCostsItemList;
-  }
-  if (category == 'toilet') {
-    return MyItemList().toiletItemList;
-  }
-  if (category == 'others') {
-    return MyItemList().othersItemList;
-  } else {
-    return MyItemList().emptyList;
-  }
-}
- */

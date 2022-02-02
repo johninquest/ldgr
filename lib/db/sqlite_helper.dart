@@ -1,7 +1,6 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:ldgr/db/models.dart';
-// import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'dart:io';
 
@@ -84,17 +83,6 @@ class SQLiteDatabaseHelper {
       return [];
     }
   }
-
-  /*   Future getAllRows() async {
-    final Database? db = await initializeDB();
-    if (db != null) {
-      String sql = 'SELECT * FROM $bkTable ORDER BY datetime(created_at) DESC';
-      List<Map<String, Object?>> qResult = await db.rawQuery(sql);
-      return qResult.toList();
-    } else {
-      return null;
-    }
-  } */
 
   Future<List<Income>> getAllExpentures() async {
     final Database? db = await initializeDB();

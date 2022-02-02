@@ -3,7 +3,6 @@ import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/inputs/expense_editor.dart';
 import 'package:ldgr/pages/records/expense_list.dart';
-import 'package:ldgr/services/auth.dart';
 import 'package:ldgr/services/currency.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
@@ -22,8 +21,7 @@ class ItemDetailPage extends StatefulWidget {
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
   String? _currency;
-  String? _currentUserRole;
-  var _rbac = RoleBasedAccessControl();
+  bool _isVisible = false;
 
   @override
   void initState() {
@@ -41,9 +39,12 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     });
     SharedPreferencesHelper().readData('currentUserData').then((value) {
       if (value != null) {
-        setState(() {
-          _currentUserRole = DataParser().strToMap(value)['role'];
-        });
+        String userRole = DataParser().strToMap(value)['role'] ?? '';
+        if (userRole == 'owner') {
+          setState(() {
+            _isVisible = true;
+          });
+        }
       }
     });
   }
@@ -106,18 +107,18 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     rowName: 'Entered by',
                     rowData: widget.rowData['entered_by'] ?? '',
                   ),
-                  _rbac.hideWidget(
-                    _currentUserRole,
-                    MyTableRow(
+                  Visibility(
+                    visible: _isVisible,
+                    child: MyTableRow(
                       rowName: 'Entry timestamp',
                       rowData: DateTimeFormatter()
                               .toUiDateTime(widget.rowData['created_at']) ??
                           '',
                     ),
                   ),
-                  _rbac.hideWidget(
-                    _currentUserRole,
-                    Row(
+                  Visibility(
+                    visible: _isVisible,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
@@ -171,17 +172,18 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'NO',
-                style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.blueGrey, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(
                 onPressed: () {
                   String _docId = widget.rowData['doc_id'];
-                      FirestoreService().removeDocument(_docId).then((val) {
-                        SnackBarMessage().deleteSuccess(context);
-                        PageRouter().navigateToPage(EntryListPage(), context);
-                      }).catchError(
-                          (e) => SnackBarMessage().generalErrorMessage(context));
+                  FirestoreService().removeDocument(_docId).then((val) {
+                    SnackBarMessage().deleteSuccess(context);
+                    PageRouter().navigateToPage(EntryListPage(), context);
+                  }).catchError(
+                      (e) => SnackBarMessage().generalErrorMessage(context));
                 },
                 child: Text(
                   'YES',

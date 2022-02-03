@@ -106,8 +106,8 @@ class LogoutDialog extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  SharedPreferencesHelper().removeData('currentUserData');
-                  PageRouter().navigateToPage(LoginPage(), context);
+                  SharedPreferencesHelper().removeData('currentUserData').then((val) => PageRouter().navigateToPage(LoginPage(), context));
+                  // PageRouter().navigateToPage(LoginPage(), context);
                 },
                 child: Text(
                   'YES',

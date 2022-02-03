@@ -15,7 +15,7 @@ class FirestoreService {
     }
   }
 
-  getSubCollection() async {
+ /*  getSubCollection() async {
     CollectionReference _collection = fsInstance
         .collection('the_wine_reserve')
         .doc('records')
@@ -28,9 +28,9 @@ class FirestoreService {
     } catch (e) {
       return null;
     }
-  }
+  } */
 
-  getSubCollection2(
+  getSubCollection(
       String mainColName, String mainDocName, String subColName) async {
     CollectionReference _collection = fsInstance
         .collection(mainColName)

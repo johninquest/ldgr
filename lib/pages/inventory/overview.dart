@@ -12,8 +12,8 @@ class InventoryOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _fsQuery =
-        FirestoreService().getDocument('the_wine_reserve', 'inventory');
+    var _fsQuery = FirestoreService()
+        .getSubCollection('the_wine_reserve', 'records', 'stock');
     return Scaffold(
       appBar: AppBar(
         title: Text('Stock'),
@@ -26,16 +26,13 @@ class InventoryOverviewPage extends StatelessWidget {
               return ErrorOccured();
             }
             if (snapshot.hasData) {
-              // List resData = snapshot.data as List;
-              DocumentSnapshot resData = snapshot.data as DocumentSnapshot;
-              var costArea = resData.get('cost_area'); 
-              var itemCategory = resData.get('item_category'); 
-              var itemName = resData.get('item_name');
-              // print('${resData.get('cost_area')}');
+              List resData = snapshot.data as List;
+              print('Raw response => ${snapshot.data}');
+              print('Response => $resData');
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text('$costArea'), Text('$itemCategory'), Text('$itemName')],
+                  children: [Text('$resData')],
                 ),
               );
             } else {

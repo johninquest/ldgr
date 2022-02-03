@@ -101,6 +101,12 @@ class _LoginFormState extends State<LoginForm> {
                     var adminAuth = AuthService()
                         .verifyAdmin(userNameCleanedUp, userPasswordCleanedUp);
                     if (adminAuth == 'auth_success') {
+                      String name = 'admin';
+                      String role = 'admin';
+                      String businessName = '';
+                      String businessLocation = '';
+                      storeCurrentUser(
+                          name, role, businessName, businessLocation);
                       PageRouter().navigateToPage(HomePage(), context);
                     } else {
                       FirestoreService()

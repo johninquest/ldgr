@@ -40,7 +40,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     SharedPreferencesHelper().readData('currentUserData').then((value) {
       if (value != null) {
         String userRole = DataParser().strToMap(value)['role'] ?? '';
-        if (userRole == 'owner') {
+        if (userRole == 'owner' || userRole == 'admin') {
           setState(() {
             _isVisible = true;
           });

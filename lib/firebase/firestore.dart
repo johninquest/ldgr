@@ -15,7 +15,7 @@ class FirestoreService {
     }
   }
 
- /*  getSubCollection() async {
+  /*  getSubCollection() async {
     CollectionReference _collection = fsInstance
         .collection('the_wine_reserve')
         .doc('records')
@@ -63,13 +63,27 @@ class FirestoreService {
     }
   }
 
-  addDocumentWithId(String _id, Map<String, dynamic> _data) async {
+  addRecordToDaybook(String _id, Map<String, dynamic> _data) async {
     var targetCollection = fsInstance
         .collection('the_wine_reserve')
         .doc('records')
         .collection('daybook');
     try {
       await targetCollection.doc(_id).set(_data);
+      return 'add-success';
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'permission-denied';
+      }
+    }
+  }
+
+  addDocumentWithId2(String _mainColId, String _mainDocId, String _subColId,
+      String _docId, Map<String, dynamic> _docData) async {
+    CollectionReference targetCollection =
+        fsInstance.collection(_mainColId).doc(_mainDocId).collection(_subColId);
+    try {
+      await targetCollection.doc(_docId).set(_docData);
       return 'add-success';
     } on FirebaseException catch (e) {
       if (e.code == 'permission-denied') {

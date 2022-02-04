@@ -6,6 +6,7 @@ import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
+import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
@@ -80,7 +81,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
     return Form(
       key: _expenseFormKey,
       child: SingleChildScrollView(
-         scrollDirection: Axis.vertical,
+        scrollDirection: Axis.vertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -271,13 +272,18 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       };
                       if (_expenseFormKey.currentState!.validate()) {
                         FirestoreService()
-                            .addDocumentWithId(_uuid, _fsPayload)
+                            .addRecordToDaybook(_uuid, _fsPayload)
                             .then((val) {
-                          // print('Added id => ${val.id}');
                           if (val == 'add-success') {
                             SnackBarMessage().saveSuccess(context);
-                            PageRouter()
-                                .navigateToPage(EntryListPage(), context);
+                            DateTimeHelper().delayInSeconds(5);
+                            showDialog(
+                                context: context,
+                                builder: (_) => InfoDialog('Coming soon!'),
+                                barrierDismissible: true);
+
+                            /* PageRouter()
+                                .navigateToPage(EntryListPage(), context); */
                           } else if (val == 'permission-denied') {
                             String eMessage = 'Permission denied';
                             return SnackBarMessage()

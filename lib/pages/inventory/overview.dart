@@ -27,8 +27,8 @@ class InventoryOverviewPage extends StatelessWidget {
             }
             if (snapshot.hasData) {
               List resData = snapshot.data as List;
-              print('Raw response => ${snapshot.data}');
-              print('Response => $resData');
+              // print('Raw response => ${snapshot.data}');
+              // print('Response => $resData');
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

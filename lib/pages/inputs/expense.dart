@@ -253,8 +253,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     onPressed: () {
                       String _tsToString =
                           DateTimeHelper().timestampForDB(DateTime.now());
-                   
                       String _recordId = ObjectId().hexString;
+                      print('Expense record id => $_recordId');
                       Map<String, dynamic> _fsPayload = {
                         'picked_date': '$selectedDate',
                         'account': 'expense',
@@ -277,10 +277,10 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                             .then((val) {
                           if (val == 'add-success') {
                             SnackBarMessage().saveSuccess(context);
-                            DateTimeHelper().delayInSeconds(5);
+                            DateTimeHelper().delayInSeconds(10);
                             showDialog(
                                 context: context,
-                                builder: (_) => InfoDialog('Coming soon!'),
+                                builder: (_) => AddToStockDialog(),
                                 barrierDismissible: true);
 
                             /* PageRouter()
@@ -305,6 +305,56 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AddToStockDialog extends StatelessWidget {
+  const AddToStockDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Icon(
+        Icons.help_outline,
+        color: myBlue,
+        size: 40.0,
+      ),
+      content: Text(
+        'Add to stock ?',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'NO',
+                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
+              ),
+            ),
+            TextButton(
+                onPressed: () {
+                  // Add to stock login here
+                  String _stockId = ObjectId().hexString;
+                  print('Stock item id => $_stockId');
+                  SnackBarMessage().customSuccessMessage(
+                      'Added to stock successfully', context);
+                  PageRouter().navigateToPage(EntryListPage(), context);
+                },
+                child: Text(
+                  'YES',
+                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
+                ))
+          ],
+        ),
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
     );
   }
 }

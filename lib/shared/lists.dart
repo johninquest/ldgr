@@ -145,7 +145,7 @@ class MyItemList {
     DropdownMenuItem(
         value: 'bottle',
         child: Container(
-          child: Text('Bottle'),
+          child: Text('Bottle(s)'),
         )), 
     DropdownMenuItem(
         value: 'box',
@@ -155,7 +155,7 @@ class MyItemList {
     DropdownMenuItem(
         value: 'crate',
         child: Container(
-          child: Text('Crate'),
+          child: Text('Crate(s)'),
         )), 
     DropdownMenuItem(
         value: 'g',

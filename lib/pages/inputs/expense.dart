@@ -10,7 +10,7 @@ import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
-import 'package:uuid/uuid.dart';
+import 'package:objectid/objectid.dart';
 
 class InputExpenditurePage extends StatelessWidget {
   // const InputExpenditure({ Key? key })//  : super(key: key);
@@ -253,7 +253,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     onPressed: () {
                       String _tsToString =
                           DateTimeHelper().timestampForDB(DateTime.now());
-                      String _uuid = Uuid().v1();
+                   
+                      String _recordId = ObjectId().hexString;
                       Map<String, dynamic> _fsPayload = {
                         'picked_date': '$selectedDate',
                         'account': 'expense',
@@ -267,12 +268,12 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'payment_method': _paymentMethod ?? '',
                         'created_at': _tsToString,
                         'last_update_at': '',
-                        'doc_id': _uuid,
+                        'doc_id': _recordId,
                         'entered_by': _currentUser ?? '',
                       };
                       if (_expenseFormKey.currentState!.validate()) {
                         FirestoreService()
-                            .addRecordToDaybook(_uuid, _fsPayload)
+                            .addRecordToDaybook(_recordId, _fsPayload)
                             .then((val) {
                           if (val == 'add-success') {
                             SnackBarMessage().saveSuccess(context);

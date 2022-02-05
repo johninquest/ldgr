@@ -78,6 +78,21 @@ class FirestoreService {
     }
   }
 
+  addRecordToStock(String _id, Map<String, dynamic> _data) async {
+    var targetCollection = fsInstance
+        .collection('the_wine_reserve')
+        .doc('records')
+        .collection('stock');
+    try {
+      await targetCollection.doc(_id).set(_data);
+      return 'add-success';
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'permission-denied';
+      }
+    }
+  }
+
   addDocumentWithId2(String _mainColId, String _mainDocId, String _subColId,
       String _docId, Map<String, dynamic> _docData) async {
     CollectionReference targetCollection =

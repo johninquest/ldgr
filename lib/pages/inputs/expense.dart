@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
@@ -277,12 +279,12 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                             .then((val) {
                           if (val == 'add-success') {
                             SnackBarMessage().saveSuccess(context);
-                            DateTimeHelper().delayInSeconds(10);
-                            showDialog(
-                                context: context,
-                                builder: (_) => AddToStockDialog(),
-                                barrierDismissible: true);
-
+                            Timer(Duration(seconds: 3), () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => AddToStockDialog(),
+                                  barrierDismissible: true);
+                            });
                             /* PageRouter()
                                 .navigateToPage(EntryListPage(), context); */
                           } else if (val == 'permission-denied') {

@@ -101,7 +101,7 @@ class LogoutDialog extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'NO',
-                style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(
@@ -111,7 +111,7 @@ class LogoutDialog extends StatelessWidget {
                 },
                 child: Text(
                   'YES',
-                  style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
                 ))
           ],
         ),

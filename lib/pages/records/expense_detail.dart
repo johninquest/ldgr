@@ -173,7 +173,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               child: Text(
                 'NO',
                 style: TextStyle(
-                    color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                    color: myRed, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(
@@ -187,7 +187,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 },
                 child: Text(
                   'YES',
-                  style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
                 ))
           ],
         ),

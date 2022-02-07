@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/inventory/add_inventory.dart';

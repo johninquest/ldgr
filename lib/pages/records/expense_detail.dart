@@ -104,7 +104,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     rowData: widget.rowData['payment_method'] ?? '',
                   ),
                   MyTableRow(
-                    rowName: 'Entered by',
+                    rowName: 'Entry made by',
                     rowData: widget.rowData['entered_by'] ?? '',
                   ),
                   Visibility(
@@ -113,6 +113,15 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       rowName: 'Entry timestamp',
                       rowData: DateTimeFormatter()
                               .toUiDateTime(widget.rowData['created_at']) ??
+                          '',
+                    ),
+                  ),
+                  Visibility(
+                    visible: _isVisible,
+                    child: MyTableRow(
+                      rowName: 'Last update timestamp',
+                      rowData: DateTimeFormatter()
+                              .toUiDateTime(widget.rowData['last_update_at']) ??
                           '',
                     ),
                   ),

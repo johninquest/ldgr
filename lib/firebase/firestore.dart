@@ -109,7 +109,7 @@ class FirestoreService {
 
   checkIfDocExists(String docId) {
     final targetDoc = fsInstance
-        .collection('the_wine_reserve')
+        .collection(_mainCollection)
         .doc('users')
         .collection('user_list')
         .doc(docId)

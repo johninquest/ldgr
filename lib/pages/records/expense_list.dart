@@ -32,7 +32,7 @@ class EntryListPage extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-          future: FirestoreService().getSubCollection('the_wine_reserve', 'records', 'daybook'),
+          future: FirestoreService().getSubCollection('records', 'daybook'),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return ErrorOccured();

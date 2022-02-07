@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
   FirebaseFirestore fsInstance = FirebaseFirestore.instance;
+  // final String _mainCollection = 'the_wine_reserve';
+  final String _mainCollection = 'test';
 
   getCollection(String collectionName) async {
     CollectionReference _collection = fsInstance.collection(collectionName);
@@ -15,25 +17,9 @@ class FirestoreService {
     }
   }
 
-  /*  getSubCollection() async {
+  getSubCollection(String mainDocName, String subColName) async {
     CollectionReference _collection = fsInstance
-        .collection('the_wine_reserve')
-        .doc('records')
-        .collection('daybook');
-    try {
-      QuerySnapshot snapshot =
-          await _collection.orderBy('picked_date', descending: true).get();
-      List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
-      return fsReponse;
-    } catch (e) {
-      return null;
-    }
-  } */
-
-  getSubCollection(
-      String mainColName, String mainDocName, String subColName) async {
-    CollectionReference _collection = fsInstance
-        .collection(mainColName)
+        .collection(_mainCollection)
         .doc(mainDocName)
         .collection(subColName);
     try {
@@ -65,7 +51,7 @@ class FirestoreService {
 
   addRecordToDaybook(String _id, Map<String, dynamic> _data) async {
     var targetCollection = fsInstance
-        .collection('the_wine_reserve')
+        .collection(_mainCollection)
         .doc('records')
         .collection('daybook');
     try {
@@ -80,7 +66,7 @@ class FirestoreService {
 
   addRecordToStock(String _id, Map<String, dynamic> _data) async {
     var targetCollection = fsInstance
-        .collection('the_wine_reserve')
+        .collection(_mainCollection)
         .doc('records')
         .collection('stock');
     try {
@@ -107,6 +93,20 @@ class FirestoreService {
     }
   }
 
+    addDocWithId2SubCol(String _mainDocId, String _subColId,
+      String _docId, Map<String, dynamic> _docData) async {
+    CollectionReference targetCollection =
+        fsInstance.collection(_mainCollection).doc(_mainDocId).collection(_subColId);
+    try {
+      await targetCollection.doc(_docId).set(_docData);
+      return 'add-success';
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'permission-denied';
+      }
+    }
+  }
+
   checkIfDocExists(String docId) {
     final targetDoc = fsInstance
         .collection('the_wine_reserve')
@@ -119,7 +119,7 @@ class FirestoreService {
 
   getDocumentWithId(String _id) async {
     var targetDoc = fsInstance
-        .collection('the_wine_reserve')
+        .collection(_mainCollection)
         .doc('users')
         .collection('user_list')
         .doc(_id);
@@ -133,7 +133,7 @@ class FirestoreService {
 
   getDocumentById(String _id) async {
     var targetDoc = fsInstance
-        .collection('the_wine_reserve')
+        .collection(_mainCollection)
         .doc('users')
         .collection('user_list')
         .doc(_id);
@@ -147,7 +147,7 @@ class FirestoreService {
 
   removeDocument(String _docId) async {
     CollectionReference _col = fsInstance
-        .collection('the_wine_reserve')
+        .collection(_mainCollection)
         .doc('records')
         .collection('daybook');
     try {
@@ -160,14 +160,14 @@ class FirestoreService {
 
   updateDocument(String _docId, Map<String, Object?> _docData) async {
     CollectionReference _col = fsInstance
-        .collection('the_wine_reserve')
+        .collection(_mainCollection)
         .doc('records')
         .collection('daybook');
     try {
       var updateResponse = await _col.doc(_docId).update({
         'picked_date': _docData['pickedDate'],
         'cost_area': _docData['costArea'],
-        'item_category': _docData['itemCcategory'],
+        'item_category': _docData['itemCategory'],
         'item_name': _docData['itemName'],
         'quantity': _docData['quantity'],
         'unit': _docData['unit'],

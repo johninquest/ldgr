@@ -13,7 +13,7 @@ class InventoryOverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _fsQuery = FirestoreService()
-        .getSubCollection('the_wine_reserve', 'records', 'stock');
+        .getSubCollection('records', 'stock');
     return Scaffold(
       appBar: AppBar(
         title: Text('Stock'),

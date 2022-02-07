@@ -11,7 +11,7 @@ class AnalysisPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _fsQuery = FirestoreService().getSubCollection('the_wine_reserve', 'records', 'daybook');
+    var _fsQuery = FirestoreService().getSubCollection('records', 'daybook');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(

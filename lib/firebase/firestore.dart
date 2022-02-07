@@ -49,7 +49,7 @@ class FirestoreService {
     }
   }
 
-  addRecordToDaybook(String _id, Map<String, dynamic> _data) async {
+  addItemToDaybook(String _id, Map<String, dynamic> _data) async {
     var targetCollection = fsInstance
         .collection(_mainCollection)
         .doc('records')
@@ -64,7 +64,7 @@ class FirestoreService {
     }
   }
 
-  addRecordToStock(String _id, Map<String, dynamic> _data) async {
+  addItemToStock(String _id, Map<String, dynamic> _data) async {
     var targetCollection = fsInstance
         .collection(_mainCollection)
         .doc('records')

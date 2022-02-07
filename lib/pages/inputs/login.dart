@@ -118,7 +118,7 @@ class _LoginFormState extends State<LoginForm> {
                           String name = _data['name'] ?? '';
                           String role = _data['role'] ?? '';
                           String businessName = _data['business_name'] ?? '';
-                          String businessLocation = _data['location'] ?? '';
+                          String businessLocation = _data['city'] ?? '';
                           storeCurrentUser(
                               name, role, businessName, businessLocation);
                           PageRouter().navigateToPage(HomePage(), context);

@@ -46,24 +46,12 @@ class _PersonFormState extends State<PersonForm> {
   @override
   void initState() {
     super.initState();
-    SharedPreferencesHelper().readData('personData').then((value) {
-      if (value != null) {
-        setState(() {
-          // _businessName.text = DataParser().strToMap(value)['businessName'];
-          // _givenNames.text = DataParser().strToMap(value)['given_names'];
-          _address.text = DataParser().strToMap(value)['address'];
-          _city.text = DataParser().strToMap(value)['city'];
-          _phone.text = DataParser().strToMap(value)['phone'];
-          _email.text = DataParser().strToMap(value)['email'];
-        });
-      }
-    });
     SharedPreferencesHelper().readData('currentUserData').then((value) {
       if (value != null) {
         setState(() {
           _businessName.text =
               DataParser().strToMap(value)['businessName'] ?? '';
-          // _city.text = DataParser().strToMap(value)['businessLocation'] ?? '';
+          _city.text = DataParser().strToMap(value)['businessLocation'] ?? '';
         });
       }
     });

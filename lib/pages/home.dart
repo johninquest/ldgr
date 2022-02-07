@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/pages/stock/overview.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/router.dart';
@@ -81,10 +82,12 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                  onPressed: () => showDialog(
+                onPressed: () =>  PageRouter()
+                    .navigateToPage(StockOverviewPage(), context),
+                 /*  onPressed: () => showDialog(
                       context: context,
                       builder: (_) => InfoDialog('Coming soon!'),
-                      barrierDismissible: true),
+                      barrierDismissible: true), */
                   child: Text('STOCK',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),

@@ -110,7 +110,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   Visibility(
                     visible: _isVisible,
                     child: MyTableRow(
-                      rowName: 'Entry timestamp',
+                      rowName: 'Entry made on',
                       rowData: DateTimeFormatter()
                               .toUiDateTime(widget.rowData['created_at']) ??
                           '',
@@ -119,7 +119,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   Visibility(
                     visible: _isVisible,
                     child: MyTableRow(
-                      rowName: 'Last update timestamp',
+                      rowName: 'Last entry update on',
                       rowData: DateTimeFormatter()
                               .toUiDateTime(widget.rowData['last_update_at']) ??
                           '',

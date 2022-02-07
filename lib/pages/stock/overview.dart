@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/inventory/add_inventory.dart';
+import 'package:ldgr/pages/stock/add_to_stock.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
 
-class InventoryOverviewPage extends StatelessWidget {
-  const InventoryOverviewPage({Key? key}) : super(key: key);
+class StockOverviewPage extends StatelessWidget {
+  const StockOverviewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

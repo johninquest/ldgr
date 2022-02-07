@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
@@ -8,11 +6,11 @@ import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
 import 'package:objectid/objectid.dart';
+import 'dart:async';
 
 class InputExpenditurePage extends StatelessWidget {
   // const InputExpenditure({ Key? key })//  : super(key: key);
@@ -52,6 +50,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   String? _paymentStatus;
   String? _currentUser;
 
+  final _fs = FirestoreService();
+
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -80,6 +80,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
 
   @override
   Widget build(BuildContext context) {
+    // final _fs = FirestoreService();
     return Form(
       key: _expenseFormKey,
       child: SingleChildScrollView(
@@ -253,11 +254,11 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      String _tsToString =
+                      String _timestampsString =
                           DateTimeHelper().timestampForDB(DateTime.now());
-                      String _recordId = ObjectId().hexString;
-                      print('Expense record id => $_recordId');
-                      Map<String, dynamic> _fsPayload = {
+                      String _daybookItemId = ObjectId().hexString;
+                      print('Expense record id => $_daybookItemId');
+                      Map<String, dynamic> _daybookEntryData = {
                         'picked_date': '$selectedDate',
                         'account': 'expense',
                         'cost_area': _costArea ?? '',
@@ -268,21 +269,23 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         'price': _price.text,
                         'payment_status': _paymentStatus ?? '',
                         'payment_method': _paymentMethod ?? '',
-                        'created_at': _tsToString,
+                        'created_at': _timestampsString,
                         'last_update_at': '',
-                        'doc_id': _recordId,
+                        'doc_id': _daybookItemId,
                         'entered_by': _currentUser ?? '',
                       };
                       if (_expenseFormKey.currentState!.validate()) {
-                        FirestoreService()
-                            .addRecordToDaybook(_recordId, _fsPayload)
+                        _fs
+                            .addItemToDaybook(
+                                _daybookItemId, _daybookEntryData)
                             .then((val) {
                           if (val == 'add-success') {
                             SnackBarMessage().saveSuccess(context);
                             Timer(Duration(seconds: 3), () {
                               showDialog(
                                   context: context,
-                                  builder: (_) => AddToStockDialog(),
+                                  builder: (_) =>
+                                      _addToStockDialog(_daybookItemId),
                                   barrierDismissible: true);
                             });
                             /* PageRouter()
@@ -309,13 +312,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
       ),
     );
   }
-}
 
-class AddToStockDialog extends StatelessWidget {
-  const AddToStockDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _addToStockDialog(String _daybookId) {
     return AlertDialog(
       title: Icon(
         Icons.help_outline,
@@ -333,7 +331,10 @@ class AddToStockDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                Navigator.of(context).pop();
+                PageRouter().navigateToPage(EntryListPage(), context);
+              },
               child: Text(
                 'NO',
                 style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
@@ -341,9 +342,25 @@ class AddToStockDialog extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  // Add to stock login here
-                  String _stockId = ObjectId().hexString;
-                  print('Stock item id => $_stockId');
+                  String _timestampString =
+                      DateTimeHelper().timestampForDB(DateTime.now());
+                  String _stockItemId = ObjectId().hexString;
+                  print('Stock item id => $_stockItemId');
+                  print('Daybook item id => $_daybookId');
+                  Map<String, dynamic> _stockEntryData = {
+                    'item_name': _itemName.text,
+                    'quantity': _quantity.text,
+                    'unit': _unit ?? '',
+                    'picked_date': '$selectedDate',
+                    'created_at': _timestampString,
+                    'last_update_at': '',
+                    'doc_id': _stockItemId,
+                    'daybook_item_id': _daybookId,
+                    'entered_by': _currentUser ?? '',
+                  };
+                  _fs.addItemToStock(_stockItemId, _stockEntryData);
+                  print(_stockEntryData);
+
                   SnackBarMessage().customSuccessMessage(
                       'Added to stock successfully', context);
                   PageRouter().navigateToPage(EntryListPage(), context);

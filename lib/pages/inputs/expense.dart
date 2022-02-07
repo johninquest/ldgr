@@ -257,7 +257,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       String _timestampsString =
                           DateTimeHelper().timestampForDB(DateTime.now());
                       String _daybookItemId = ObjectId().hexString;
-                      print('Expense record id => $_daybookItemId');
+                      // print('Expense record id => $_daybookItemId');
                       Map<String, dynamic> _daybookEntryData = {
                         'picked_date': '$selectedDate',
                         'account': 'expense',
@@ -276,20 +276,22 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       };
                       if (_expenseFormKey.currentState!.validate()) {
                         _fs
-                            .addItemToDaybook(
-                                _daybookItemId, _daybookEntryData)
+                            .addItemToDaybook(_daybookItemId, _daybookEntryData)
                             .then((val) {
                           if (val == 'add-success') {
                             SnackBarMessage().saveSuccess(context);
-                            Timer(Duration(seconds: 3), () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) =>
-                                      _addToStockDialog(_daybookItemId),
-                                  barrierDismissible: true);
-                            });
-                            /* PageRouter()
-                                .navigateToPage(EntryListPage(), context); */
+                            if (_itemName.text != '' && _quantity.text != '') {
+                              Timer(Duration(seconds: 3), () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) =>
+                                        _addToStockDialog(_daybookItemId),
+                                    barrierDismissible: true);
+                              });
+                            }else {
+                              PageRouter()
+                                .navigateToPage(EntryListPage(), context);
+                            }
                           } else if (val == 'permission-denied') {
                             String eMessage = 'Permission denied';
                             return SnackBarMessage()
@@ -313,7 +315,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
     );
   }
 
-  Widget _addToStockDialog(String _daybookId) {
+  Widget _addToStockDialog(String _daybookDocId) {
     return AlertDialog(
       title: Icon(
         Icons.help_outline,
@@ -345,8 +347,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   String _timestampString =
                       DateTimeHelper().timestampForDB(DateTime.now());
                   String _stockItemId = ObjectId().hexString;
-                  print('Stock item id => $_stockItemId');
-                  print('Daybook item id => $_daybookId');
+                  // print('Stock item id => $_stockItemId');
+                  // print('Daybook item id => $_daybookId');
                   Map<String, dynamic> _stockEntryData = {
                     'item_name': _itemName.text,
                     'quantity': _quantity.text,
@@ -355,7 +357,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     'created_at': _timestampString,
                     'last_update_at': '',
                     'doc_id': _stockItemId,
-                    'daybook_item_id': _daybookId,
+                    'daybook_item_id': _daybookDocId,
                     'entered_by': _currentUser ?? '',
                   };
                   _fs.addItemToStock(_stockItemId, _stockEntryData);

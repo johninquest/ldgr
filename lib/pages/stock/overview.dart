@@ -11,11 +11,10 @@ class StockOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _fsQuery = FirestoreService()
-        .getSubCollection('records', 'stock');
+    var _fsQuery = FirestoreService().getSubCollection('records', 'stock');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Stock'),
+        title: Text('Items in stock'),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -26,19 +25,12 @@ class StockOverviewPage extends StatelessWidget {
             }
             if (snapshot.hasData) {
               List resData = snapshot.data as List;
-              // print('Raw response => ${snapshot.data}');
-              // print('Response => $resData');
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text('$resData')],
-                ),
-              );
+              return StockOverviewData(stockData: resData);
             } else {
               return WaitingForResponse();
             }
           }),
-      floatingActionButton: Container(
+/*       floatingActionButton: Container(
           decoration: BoxDecoration(
               color: myBlue,
               borderRadius: BorderRadius.all(Radius.circular(25))),
@@ -48,8 +40,41 @@ class StockOverviewPage extends StatelessWidget {
               icon: Icon(
                 Icons.add,
                 color: Colors.white,
-              ))),
+              ))), */
       bottomNavigationBar: BottomNavBar(),
     );
+  }
+}
+
+class StockOverviewData extends StatefulWidget {
+  final List stockData;
+  const StockOverviewData({Key? key, required this.stockData})
+      : super(key: key);
+
+  @override
+  _StockOverviewDataState createState() => _StockOverviewDataState();
+}
+
+class _StockOverviewDataState extends State<StockOverviewData> {
+  @override
+  Widget build(BuildContext context) {
+    List itemsInStock = widget.stockData;
+    return ListView.builder(
+        itemCount: itemsInStock.length,
+        itemBuilder: (context, index) {
+          String itemName = itemsInStock[index]['item_name'];
+          String itemQuantity = itemsInStock[index]['quantity'];
+          return Card( 
+            child: ListTile(
+              // leading: Text(itemName),
+              title: Text(itemName, style: TextStyle(fontWeight: FontWeight.bold),),
+              subtitle: Text(itemQuantity, style: TextStyle(fontWeight: FontWeight.bold),),
+              trailing: Icon(Icons.more_vert),
+              onTap: () => print(itemsInStock[index]), 
+              // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              
+            ),
+          );
+        });
   }
 }

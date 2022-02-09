@@ -64,17 +64,86 @@ class _StockOverviewDataState extends State<StockOverviewData> {
         itemBuilder: (context, index) {
           String itemName = itemsInStock[index]['item_name'];
           String itemQuantity = itemsInStock[index]['quantity'];
-          return Card( 
-            child: ListTile(
+          return Card(
+            child: ExpansionTile(
+              initiallyExpanded: false,
               // leading: Text(itemName),
-              title: Text(itemName, style: TextStyle(fontWeight: FontWeight.bold),),
-              subtitle: Text(itemQuantity, style: TextStyle(fontWeight: FontWeight.bold),),
-              trailing: Icon(Icons.more_vert),
-              onTap: () => print(itemsInStock[index]), 
+              title: Text(
+                itemName,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              // subtitle: Text(itemQuantity, style: TextStyle(fontWeight: FontWeight.bold),),
+              /* trailing: Text(
+                itemQuantity,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ), */
+              //  onTap: () => print(itemsInStock[index]),
               // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-              
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.87,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Initial',
+                      ),
+                      Text(
+                        itemQuantity,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.87,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Remaining',
+                      ),
+                      Text(
+                        mySub(itemQuantity),
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      child: ElevatedButton(
+                        onPressed: () => print('Tapped delete button!'),
+                        child: Text('DELETE'),
+                        style: ElevatedButton.styleFrom(primary: myRed),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      child: ElevatedButton(
+                          onPressed: () => print('Tapped take out button!'),
+                          child: Text('TAKE OUT')),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      child: ElevatedButton(
+                          onPressed: () => print('Tapped details button!'),
+                          child: Text('DETAILS')),
+                    ),
+                  ],
+                ),
+              ],
             ),
           );
         });
   }
+}
+
+mySub(String iniValue) {
+  int valToInt = int.parse(iniValue);
+  return (valToInt - 2).toString();
 }

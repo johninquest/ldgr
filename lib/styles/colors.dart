@@ -13,3 +13,4 @@ final Color myRed = Color(0xFFef5350);
 final Color myAmber = Color(0xFFffbf00);
 final Color myYellow = Color(0xFFEDCE18);
 final Color myTeal = Color(0xFF009688);
+final Color myGrey = Color(0xFF616161);

@@ -130,7 +130,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                       child: ElevatedButton(
                           onPressed: () => showDialog(
                               context: context,
-                              builder: (_) => _takeFromStockDialog()),
+                              builder: (_) => _takeFromStockDialog(itemName)),
                           child: Text('TAKE')),
                     ),
                     Container(
@@ -151,21 +151,21 @@ class _StockOverviewDataState extends State<StockOverviewData> {
         });
   }
 
-  Widget _takeFromStockDialog() {
+  Widget _takeFromStockDialog(String currentItemName) {
     return AlertDialog(
 /*       title: Icon(
         Icons.info,
         color: myBlue,
       ), */
       content: Container(
-        width: MediaQuery.of(context).size.width * 0.6,
+        width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.4,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               child: Text(
-                'What quantity would you like to take?',
+                'Taking ${currentItemName.toLowerCase()} from stock?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
@@ -188,7 +188,10 @@ class _StockOverviewDataState extends State<StockOverviewData> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                _quantityTaken.clear();
+                Navigator.of(context).pop();
+              },
               child: Text(
                 'CANCEL',
                 style: TextStyle(color: myGrey, fontWeight: FontWeight.bold),
@@ -200,7 +203,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                   print('Quantity taken => ${_quantityTaken.text}');
                 },
                 child: Text(
-                  'SAVE',
+                  'YES',
                   style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
                 ))
           ],

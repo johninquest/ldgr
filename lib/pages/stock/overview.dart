@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/stock/add_to_stock.dart';
 import 'package:ldgr/pages/stock/stock_item_details.dart';
+import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/dialogs.dart';
@@ -32,17 +35,6 @@ class StockOverviewPage extends StatelessWidget {
               return WaitingForResponse();
             }
           }),
-/*       floatingActionButton: Container(
-          decoration: BoxDecoration(
-              color: myBlue,
-              borderRadius: BorderRadius.all(Radius.circular(25))),
-          child: IconButton(
-              onPressed: () =>
-                  PageRouter().navigateToPage(AddInventoryPage(), context),
-              icon: Icon(
-                Icons.add,
-                color: Colors.white,
-              ))), */
       bottomNavigationBar: BottomNavBar(),
     );
   }
@@ -59,6 +51,20 @@ class StockOverviewData extends StatefulWidget {
 
 class _StockOverviewDataState extends State<StockOverviewData> {
   TextEditingController _quantityTaken = TextEditingController();
+  String? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesHelper().readData('currentUserData').then((value) {
+      if (value != null) {
+        setState(() {
+          _currentUser = DataParser().strToMap(value)['name'];
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     List itemsInStock = widget.stockData;
@@ -165,10 +171,12 @@ class _StockOverviewDataState extends State<StockOverviewData> {
           children: [
             Container(
               child: Text(
-                'Taking ${currentItemName.toLowerCase()} from stock?',
+                'Taking "${currentItemName.toLowerCase()}" from stock? \nEnter quantity below',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
+                  fontWeight: FontWeight.bold,
+                  color: myBlue,
+                ),
               ),
             ),
             Container(
@@ -178,6 +186,9 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                 controller: _quantityTaken,
                 decoration: InputDecoration(labelText: 'Quantity'),
                 keyboardType: TextInputType.number,
+                onChanged: (val) => setState(() {
+                  print('Taking $val');
+                }),
               ),
             )
           ],
@@ -199,11 +210,19 @@ class _StockOverviewDataState extends State<StockOverviewData> {
             ),
             TextButton(
                 onPressed: () {
-                  print('Tapped the yes button!');
-                  print('Quantity taken => ${_quantityTaken.text}');
+                  String _tsToString =
+                      DateTimeHelper().timestampForDB(DateTime.now());
+                  Map<String, dynamic> _fsUpdatePayload = {
+                    '_timestamp': _tsToString,
+                    '_quantity': _quantityTaken.text,
+                    '_takenBy': _currentUser ?? '',
+                  };
+                  // print('Tapped the yes button!');
+                  print('Taken data => $_fsUpdatePayload');
+                  PageRouter().navigateToPage(StockOverviewPage(), context);
                 },
                 child: Text(
-                  'YES',
+                  'SAVE',
                   style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
                 ))
           ],

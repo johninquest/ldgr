@@ -14,9 +14,11 @@ class StockItemDetails extends StatefulWidget {
 class _StockItemDetailsState extends State<StockItemDetails> {
   @override
   Widget build(BuildContext context) {
-    // print('Data type => ${widget.stockItemData}');
+    print('Data => ${widget.stockItemData}');
     Map i = widget.stockItemData;
     var f = DateTimeFormatter();
+    List? _logs = i['logs'] ?? [];
+    // print('Logs => ${_logs![0]}');
     return Scaffold(
       appBar: AppBar(
         title: Text('Stock item details'),
@@ -30,7 +32,17 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             _tableRow('Purchase date', f.isoToUiDate(i['picked_date'])),
             _tableRow('Purchased quantity', i['quantity']),
             _tableRow('Remaining quantity', mySubtraction(i['quantity'])),
-            Text('Take out logs')
+            Container(margin: EdgeInsets.only(top: 10.0), child: Text('Logs')),
+            Divider(
+              indent: 40.0,
+              endIndent: 40.0,
+              thickness: 1.0,
+              color: myGrey,
+            ),
+            Column(
+              children: _showLogs(_logs),
+            )
+            // _showLogs(_logs) ?? SizedBox(),
           ],
         ),
       ),
@@ -64,13 +76,40 @@ class _StockItemDetailsState extends State<StockItemDetails> {
       ),
     );
   }
+
+  List<Widget> _showLogs(List? tLogs) {
+    // print('iLogs => $iLogs');
+    List<Widget> tElements = [];
+    if (tLogs != null || tLogs!.isNotEmpty) {
+      var dtf = DateTimeFormatter();
+      for (var e in tLogs) {
+        Widget _itemRow = Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Text(dtf.isoToUiDate(e['timestamp']))),
+            Container(
+              margin: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Text('${e["quantity"]}')),
+            Container(
+              margin: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Text('${e["by"]}')),
+          ],
+        );
+        tElements.add(_itemRow);
+      }
+    } else {
+      tElements.add(Text('No items taken!'));
+    }
+    return tElements;
+  }
 }
 
 mySubtraction(String iniValue) {
   int valToInt = int.parse(iniValue);
   return (valToInt - 2).toString();
 }
-
 
 /* class MyTableRow extends StatelessWidget {
   final String? rowName;

@@ -93,10 +93,12 @@ class FirestoreService {
     }
   }
 
-    addDocWithId2SubCol(String _mainDocId, String _subColId,
-      String _docId, Map<String, dynamic> _docData) async {
-    CollectionReference targetCollection =
-        fsInstance.collection(_mainCollection).doc(_mainDocId).collection(_subColId);
+  addDocWithId2SubCol(String _mainDocId, String _subColId, String _docId,
+      Map<String, dynamic> _docData) async {
+    CollectionReference targetCollection = fsInstance
+        .collection(_mainCollection)
+        .doc(_mainDocId)
+        .collection(_subColId);
     try {
       await targetCollection.doc(_docId).set(_docData);
       return 'add-success';
@@ -176,6 +178,26 @@ class FirestoreService {
         'payment_method': _docData['paymentMethod'],
         'last_update_at': _docData['lastUpdateAt'],
         'entered_by': _docData['enteredBy'],
+      });
+      return updateResponse;
+    } on FirebaseException catch (e) {
+      print(e.code);
+    }
+  }
+
+  updateArrayInDocument(
+      String _docId, String _arrayName, Map<String, String> _arrayData) async {
+    CollectionReference _col = fsInstance
+        .collection(_mainCollection)
+        .doc('records')
+        .collection('stock');
+    try {
+      var updateResponse = await _col.doc(_docId).update({
+        _arrayName: FieldValue.arrayUnion([{
+          'taken_at': _arrayData['_timestamp'],
+          'quantity_taken': _arrayData['_quantityTaken'],
+          'taken_by': _arrayData['_takenBy'],
+        }])
       });
       return updateResponse;
     } on FirebaseException catch (e) {

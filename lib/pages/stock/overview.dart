@@ -71,6 +71,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
     return ListView.builder(
         itemCount: itemsInStock.length,
         itemBuilder: (context, index) {
+          String docId = itemsInStock[index]['doc_id'];
           String itemName = itemsInStock[index]['item_name'];
           String itemQuantity = itemsInStock[index]['quantity'];
           return Card(
@@ -136,7 +137,8 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                       child: ElevatedButton(
                           onPressed: () => showDialog(
                               context: context,
-                              builder: (_) => _takeFromStockDialog(itemName)),
+                              builder: (_) =>
+                                  _takeFromStockDialog(itemName, docId)),
                           child: Text('TAKE')),
                     ),
                     Container(
@@ -157,7 +159,9 @@ class _StockOverviewDataState extends State<StockOverviewData> {
         });
   }
 
-  Widget _takeFromStockDialog(String currentItemName) {
+  Widget _takeFromStockDialog(String _currentItemName, String _currentDocId) {
+    print('Item name => $_currentItemName');
+    print('Document id => $_currentDocId');
     return AlertDialog(
 /*       title: Icon(
         Icons.info,
@@ -171,7 +175,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
           children: [
             Container(
               child: Text(
-                'Taking "${currentItemName.toLowerCase()}" from stock? \nEnter quantity below',
+                'Taking "${_currentItemName.toLowerCase()}" from stock? \nEnter quantity below',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -210,16 +214,23 @@ class _StockOverviewDataState extends State<StockOverviewData> {
             ),
             TextButton(
                 onPressed: () {
+                  var _fs = FirestoreService();
                   String _tsToString =
                       DateTimeHelper().timestampForDB(DateTime.now());
-                  Map<String, dynamic> _fsUpdatePayload = {
+                  Map<String, String> _fsUpdatePayload = {
                     '_timestamp': _tsToString,
-                    '_quantity': _quantityTaken.text,
+                    '_quantityTaken': _quantityTaken.text,
                     '_takenBy': _currentUser ?? '',
                   };
-                  // print('Tapped the yes button!');
                   print('Taken data => $_fsUpdatePayload');
-                  PageRouter().navigateToPage(StockOverviewPage(), context);
+                  _fs
+                      .updateArrayInDocument(
+                          _currentDocId, 'removals', _fsUpdatePayload)
+                      .then((val) {
+                    print(val); 
+                    PageRouter().navigateToPage(StockOverviewPage(), context);
+                  });
+                  // PageRouter().navigateToPage(StockOverviewPage(), context);
                 },
                 child: Text(
                   'SAVE',

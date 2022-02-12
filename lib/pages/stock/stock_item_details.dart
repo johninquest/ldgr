@@ -17,8 +17,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
     print('Data => ${widget.stockItemData}');
     Map i = widget.stockItemData;
     var f = DateTimeFormatter();
-    List? _logs = i['logs'] ?? [];
-    // print('Logs => ${_logs![0]}');
+    List? _logs = i['removals'] ?? [];
     return Scaffold(
       appBar: AppBar(
         title: Text('Stock item details'),
@@ -31,8 +30,8 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             _tableRow('Item name', i['item_name']),
             _tableRow('Purchase date', f.isoToUiDate(i['picked_date'])),
             _tableRow('Purchased quantity', i['quantity']),
-            _tableRow('Remaining quantity', mySubtraction(i['quantity'])),
-            Container(margin: EdgeInsets.only(top: 10.0), child: Text('Logs')),
+            _tableRow('Remaining quantity', mySubtraction(i['quantity'], 3)),
+            Container(margin: EdgeInsets.only(top: 10.0), child: Text('Outgoing logs')),
             Divider(
               indent: 40.0,
               endIndent: 40.0,
@@ -78,7 +77,6 @@ class _StockItemDetailsState extends State<StockItemDetails> {
   }
 
   List<Widget> _showLogs(List? tLogs) {
-    // print('iLogs => $iLogs');
     List<Widget> tElements = [];
     if (tLogs != null || tLogs!.isNotEmpty) {
       var dtf = DateTimeFormatter();
@@ -88,13 +86,13 @@ class _StockItemDetailsState extends State<StockItemDetails> {
           children: [
             Container(
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Text(dtf.isoToUiDate(e['timestamp']))),
+              child: Text(dtf.isoToUiDate(e['taken_at']))),
             Container(
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Text('${e["quantity"]}')),
+              child: Text('${e["quantity_taken"]}')),
             Container(
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Text('${e["by"]}')),
+              child: Text('${e["taken_by"]}')),
           ],
         );
         tElements.add(_itemRow);
@@ -106,9 +104,9 @@ class _StockItemDetailsState extends State<StockItemDetails> {
   }
 }
 
-mySubtraction(String iniValue) {
+mySubtraction(String iniValue, int takenValue) {
   int valToInt = int.parse(iniValue);
-  return (valToInt - 2).toString();
+  return (valToInt - takenValue).toString();
 }
 
 /* class MyTableRow extends StatelessWidget {

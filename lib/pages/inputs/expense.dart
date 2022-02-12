@@ -358,7 +358,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     'last_update_at': '',
                     'doc_id': _stockItemId,
                     'daybook_item_id': _daybookDocId,
-                    'entered_by': _currentUser ?? '',
+                    'entered_by': _currentUser ?? '', 
+                    'removals': []
                   };
                   _fs.addItemToStock(_stockItemId, _stockEntryData);
                   print(_stockEntryData);

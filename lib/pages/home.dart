@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           'Ldgr',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            letterSpacing: 3.0,
+            letterSpacing: 2.0,
             color: Colors.white,
           ),
         ),

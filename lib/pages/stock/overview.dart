@@ -135,6 +135,9 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                     children: [
                       Visibility(
                         visible: _isVisible,
+                        maintainAnimation: true, 
+                        maintainSize: true, 
+                        maintainState: true,
                         child: Container(
                           margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
                           child: ElevatedButton(

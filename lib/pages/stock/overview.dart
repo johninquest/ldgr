@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/stock/add_to_stock.dart';
 import 'package:ldgr/pages/stock/stock_item_details.dart';
 import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/shared/dialogs.dart';
+import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
 
@@ -51,7 +50,8 @@ class StockOverviewData extends StatefulWidget {
 
 class _StockOverviewDataState extends State<StockOverviewData> {
   TextEditingController _quantityTaken = TextEditingController();
-  String? _currentUser;
+  String? _currentUserName;
+  bool _isVisible = false;
 
   @override
   void initState() {
@@ -59,8 +59,14 @@ class _StockOverviewDataState extends State<StockOverviewData> {
     SharedPreferencesHelper().readData('currentUserData').then((value) {
       if (value != null) {
         setState(() {
-          _currentUser = DataParser().strToMap(value)['name'];
+          _currentUserName = DataParser().strToMap(value)['name'];
         });
+        String userRole = DataParser().strToMap(value)['role'] ?? '';
+        if (userRole == 'owner' || userRole == 'admin') {
+          setState(() {
+            _isVisible = true;
+          });
+        }
       }
     });
   }
@@ -71,15 +77,16 @@ class _StockOverviewDataState extends State<StockOverviewData> {
     return ListView.builder(
         itemCount: itemsInStock.length,
         itemBuilder: (context, index) {
-          String docId = itemsInStock[index]['doc_id'];
-          String itemName = itemsInStock[index]['item_name'];
-          String itemQuantity = itemsInStock[index]['quantity'];
+          String _itemId = itemsInStock[index]['doc_id'];
+          String _itemName = itemsInStock[index]['item_name'];
+          String _itemQuantity = itemsInStock[index]['quantity'];
+          List _outgoingLogs = itemsInStock[index]['removals'] ?? [];
           return Card(
             child: ExpansionTile(
               initiallyExpanded: false,
               // leading: Text(itemName),
               title: Text(
-                itemName,
+                _itemName,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               // subtitle: Text(itemQuantity, style: TextStyle(fontWeight: FontWeight.bold),),
@@ -99,7 +106,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                         'Initial',
                       ),
                       Text(
-                        itemQuantity,
+                        _itemQuantity,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -114,44 +121,53 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                         'Remaining',
                       ),
                       Text(
-                        _subtraction(itemQuantity),
+                        computeRemaining(_itemQuantity, _outgoingLogs),
                         textAlign: TextAlign.right,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: ElevatedButton(
-                        onPressed: () => print('Tapped delete button!'),
-                        child: Text('DELETE'),
-                        style: ElevatedButton.styleFrom(primary: myRed),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Visibility(
+                        visible: _isVisible,
+                        child: Container(
+                          margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                          child: ElevatedButton(
+                            onPressed: () => showDialog(
+                                context: context,
+                                builder: (_) =>
+                                    _deleteDialog(_itemId, _itemName)),
+                            child: Text('DELETE'),
+                            style: ElevatedButton.styleFrom(primary: myRed),
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: ElevatedButton(
-                          onPressed: () => showDialog(
-                              context: context,
-                              builder: (_) =>
-                                  _takeFromStockDialog(itemName, docId)),
-                          child: Text('TAKE')),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: ElevatedButton(
-                          onPressed: () => PageRouter().navigateToPage(
-                              StockItemDetails(
-                                stockItemData: itemsInStock[index],
-                              ),
-                              context),
-                          child: Text('DETAILS')),
-                    ),
-                  ],
+                      Container(
+                        margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: ElevatedButton(
+                            onPressed: () => showDialog(
+                                context: context,
+                                builder: (_) =>
+                                    _takeFromStockDialog(_itemId, _itemName)),
+                            child: Text('TAKE')),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: ElevatedButton(
+                            onPressed: () => PageRouter().navigateToPage(
+                                StockItemDetails(
+                                  stockItemData: itemsInStock[index],
+                                ),
+                                context),
+                            child: Text('DETAILS')),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -159,9 +175,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
         });
   }
 
-  Widget _takeFromStockDialog(String _currentItemName, String _currentDocId) {
-    print('Item name => $_currentItemName');
-    print('Document id => $_currentDocId');
+  Widget _takeFromStockDialog(String _currentDocId, String _currentItemName) {
     return AlertDialog(
 /*       title: Icon(
         Icons.info,
@@ -175,7 +189,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
           children: [
             Container(
               child: Text(
-                'Taking "${_currentItemName.toLowerCase()}" from stock? \nEnter quantity below',
+                'Taking "$_currentItemName" from stock? \nEnter quantity below',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -190,9 +204,9 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                 controller: _quantityTaken,
                 decoration: InputDecoration(labelText: 'Quantity'),
                 keyboardType: TextInputType.number,
-                onChanged: (val) => setState(() {
+/*                 onChanged: (val) => setState(() {
                   print('Taking $val');
-                }),
+                }), */
               ),
             )
           ],
@@ -220,21 +234,68 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                   Map<String, String> _fsUpdatePayload = {
                     '_timestamp': _tsToString,
                     '_quantityTaken': _quantityTaken.text,
-                    '_takenBy': _currentUser ?? '',
+                    '_takenBy': _currentUserName ?? '',
                   };
-                  print('Taken data => $_fsUpdatePayload');
+
                   _fs
                       .updateArrayInDocument(
                           _currentDocId, 'removals', _fsUpdatePayload)
                       .then((val) {
-                    print(val); 
+                    SnackBarMessage()
+                        .customSuccessMessage('Logged successfully', context);
                     PageRouter().navigateToPage(StockOverviewPage(), context);
                   });
-                  // PageRouter().navigateToPage(StockOverviewPage(), context);
                 },
                 child: Text(
                   'SAVE',
                   style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+                ))
+          ],
+        ),
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+    );
+  }
+
+  Widget _deleteDialog(String _stockItemId, String _stockItemName) {
+    return AlertDialog(
+      title: Icon(
+        Icons.warning,
+        color: myRed,
+        size: 40.0,
+      ),
+      content: Text(
+        'Delete ? \n"$_stockItemName"',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'NO',
+                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
+              ),
+            ),
+            TextButton(
+                onPressed: () {
+                  FirestoreService()
+                      .removeDocFromSubCollection(
+                          'records', 'stock', _stockItemId)
+                      .then((val) {
+                    SnackBarMessage().deleteSuccess(context);
+                    PageRouter().navigateToPage(StockOverviewPage(), context);
+                  }).catchError((e) =>
+                          SnackBarMessage().generalErrorMessage(context));
+                },
+                child: Text(
+                  'YES',
+                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
                 ))
           ],
         ),
@@ -249,3 +310,21 @@ _subtraction(String iniValue) {
   int valToInt = int.parse(iniValue);
   return (valToInt - 2).toString();
 }
+
+computeRemaining(String _initialQty, List? _takeOutLogs) {
+  if (_takeOutLogs == null) {
+    return '0';
+  } else if (_takeOutLogs.length < 1) {
+    return '0';
+  } else {
+    num initialQty = num.tryParse(_initialQty) ?? 0;
+    num sumRemovedQty = 0;
+    for (var i in _takeOutLogs) {
+      num? qTaken = num.tryParse(i['quantity_taken']) ?? 0;
+      sumRemovedQty += qTaken;
+    }
+    num remainingQty = initialQty - sumRemovedQty;
+    return remainingQty.toString();
+  }
+}
+

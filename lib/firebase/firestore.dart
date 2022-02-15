@@ -79,10 +79,10 @@ class FirestoreService {
     }
   }
 
-  addDocumentWithId2(String _mainColId, String _mainDocId, String _subColId,
+  addDocumentWithId2(String _mainCollId, String _mainDocId, String _subCollId,
       String _docId, Map<String, dynamic> _docData) async {
     CollectionReference targetCollection =
-        fsInstance.collection(_mainColId).doc(_mainDocId).collection(_subColId);
+        fsInstance.collection(_mainCollId).doc(_mainDocId).collection(_subCollId);
     try {
       await targetCollection.doc(_docId).set(_docData);
       return 'add-success';
@@ -93,12 +93,12 @@ class FirestoreService {
     }
   }
 
-  addDocWithId2SubCol(String _mainDocId, String _subColId, String _docId,
+  addDocWithId2SubCol(String _mainDocId, String _subCollId, String _docId,
       Map<String, dynamic> _docData) async {
     CollectionReference targetCollection = fsInstance
         .collection(_mainCollection)
         .doc(_mainDocId)
-        .collection(_subColId);
+        .collection(_subCollId);
     try {
       await targetCollection.doc(_docId).set(_docData);
       return 'add-success';
@@ -160,6 +160,20 @@ class FirestoreService {
     }
   }
 
+  removeDocFromSubCollection(String _mainDoc, String _subColl, String _docId) async {
+    CollectionReference _col = fsInstance
+        .collection(_mainCollection)
+        .doc(_mainDoc)
+        .collection(_subColl);
+    try {
+      var delResponse = await _col.doc(_docId).delete();
+      return delResponse;
+    } on FirebaseException catch (e) {
+      // print(e.code);
+      return e;
+    }
+  }
+
   updateDocument(String _docId, Map<String, Object?> _docData) async {
     CollectionReference _col = fsInstance
         .collection(_mainCollection)
@@ -193,11 +207,13 @@ class FirestoreService {
         .collection('stock');
     try {
       var updateResponse = await _col.doc(_docId).update({
-        _arrayName: FieldValue.arrayUnion([{
-          'taken_at': _arrayData['_timestamp'],
-          'quantity_taken': _arrayData['_quantityTaken'],
-          'taken_by': _arrayData['_takenBy'],
-        }])
+        _arrayName: FieldValue.arrayUnion([
+          {
+            'taken_at': _arrayData['_timestamp'],
+            'quantity_taken': _arrayData['_quantityTaken'],
+            'taken_by': _arrayData['_takenBy'],
+          }
+        ])
       });
       return updateResponse;
     } on FirebaseException catch (e) {

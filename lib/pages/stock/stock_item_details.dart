@@ -34,8 +34,8 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             ),
             _tableRow('Item name', i['item_name']),
             _tableRow('Purchase date', f.isoToUiDate(i['picked_date'])),
-            _tableRow('Purchased quantity', i['quantity']),
-            _tableRow('Remaining quantity', mySubtraction(i['quantity'], 3)),
+            _tableRow('Initial quantity', i['quantity']),
+            _tableRow('Remaining quantity', computeRemaining(i['quantity'], _logs)),
             SizedBox(
               height: 10.0,
             ),
@@ -113,7 +113,12 @@ class _StockItemDetailsState extends State<StockItemDetails> {
         )
         .toList();
     if (outgoingLogs != null && outgoingLogs.length > 0) {
-      return DataTable(columns: _tableColumns, rows: _tableRows(outgoingLogs));
+      return DataTable(
+          columnSpacing: 85.0,
+          horizontalMargin: 0.0,
+          showCheckboxColumn: false,
+          columns: _tableColumns,
+          rows: _tableRows(outgoingLogs));
     } else {
       return Center(
         child: Text('No logs available!'),
@@ -127,13 +132,19 @@ mySubtraction(String iniValue, int takenValue) {
   return (valToInt - takenValue).toString();
 }
 
-computeRemaining(String _initialQty, List? takeOutLogs) {
-  if (takeOutLogs == null) {
+computeRemaining(String _initialQty, List? _takeOutLogs) {
+  if (_takeOutLogs == null) {
     return '0';
-  } else if (takeOutLogs.length < 1) {
+  } else if (_takeOutLogs.length < 1) {
     return '0';
   } else {
-    int iniQty = int.parse(_initialQty);
-    int remQty = 0;
+    num initialQty = num.tryParse(_initialQty) ?? 0;
+    num sumRemovedQty = 0;
+    for (var i in _takeOutLogs) {
+      num? qTaken = num.tryParse(i['quantity_taken']) ?? 0;
+      sumRemovedQty += qTaken;
+    }
+    num remainingQty = initialQty - sumRemovedQty;
+    return remainingQty.toString();
   }
 }

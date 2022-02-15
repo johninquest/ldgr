@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/styles/colors.dart';
+import 'package:ldgr/styles/style.dart';
 
 class StockItemDetails extends StatefulWidget {
   final Map stockItemData;
@@ -14,7 +15,7 @@ class StockItemDetails extends StatefulWidget {
 class _StockItemDetailsState extends State<StockItemDetails> {
   @override
   Widget build(BuildContext context) {
-    print('Data => ${widget.stockItemData}');
+    // print('Data => ${widget.stockItemData}');
     Map i = widget.stockItemData;
     var f = DateTimeFormatter();
     List? _logs = i['removals'] ?? [];
@@ -23,25 +24,33 @@ class _StockItemDetailsState extends State<StockItemDetails> {
         title: Text('Stock item details'),
         centerTitle: true,
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 10.0,
+            ),
             _tableRow('Item name', i['item_name']),
             _tableRow('Purchase date', f.isoToUiDate(i['picked_date'])),
             _tableRow('Purchased quantity', i['quantity']),
             _tableRow('Remaining quantity', mySubtraction(i['quantity'], 3)),
-            Container(margin: EdgeInsets.only(top: 10.0), child: Text('Outgoing logs')),
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+                margin: EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: Text('Outgoing history')),
             Divider(
               indent: 40.0,
               endIndent: 40.0,
               thickness: 1.0,
               color: myGrey,
             ),
-            Column(
-              children: _showLogs(_logs),
-            )
-            // _showLogs(_logs) ?? SizedBox(),
+            _buildTable(_logs)
           ],
         ),
       ),
@@ -76,31 +85,40 @@ class _StockItemDetailsState extends State<StockItemDetails> {
     );
   }
 
-  List<Widget> _showLogs(List? tLogs) {
-    List<Widget> tElements = [];
-    if (tLogs != null || tLogs!.isNotEmpty) {
-      var dtf = DateTimeFormatter();
-      for (var e in tLogs) {
-        Widget _itemRow = Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Text(dtf.isoToUiDate(e['taken_at']))),
-            Container(
-              margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Text('${e["quantity_taken"]}')),
-            Container(
-              margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Text('${e["taken_by"]}')),
-          ],
-        );
-        tElements.add(_itemRow);
-      }
+  Widget _buildTable(List? outgoingLogs) {
+    List<DataColumn> _tableColumns = [
+      DataColumn(label: Text('Date')),
+      DataColumn(label: Text('Quantity')),
+      DataColumn(label: Text('By')),
+    ];
+    List<DataRow> _tableRows(List rows) => rows
+        .map(
+          (e) => DataRow(
+            color: MaterialStateProperty.all(Colors.transparent),
+            selected: false,
+            cells: [
+              DataCell(Text(
+                  DateTimeFormatter().isoToUiDate(e['taken_at']) ?? '',
+                  style: TableItemStyle,
+                  textAlign: TextAlign.left)),
+              DataCell(Text(
+                e['quantity_taken'] ?? '',
+                style: TableItemStyle,
+                textAlign: TextAlign.center,
+              )),
+              DataCell(Text(e['taken_by'] ?? '',
+                  style: TableItemStyle, textAlign: TextAlign.right)),
+            ],
+          ),
+        )
+        .toList();
+    if (outgoingLogs != null && outgoingLogs.length > 0) {
+      return DataTable(columns: _tableColumns, rows: _tableRows(outgoingLogs));
     } else {
-      tElements.add(Text('No items taken!'));
+      return Center(
+        child: Text('No logs available!'),
+      );
     }
-    return tElements;
   }
 }
 
@@ -109,38 +127,13 @@ mySubtraction(String iniValue, int takenValue) {
   return (valToInt - takenValue).toString();
 }
 
-/* class MyTableRow extends StatelessWidget {
-  final String? rowName;
-  final String? rowData;
-  const MyTableRow({Key? key, this.rowName, this.rowData}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10.0),
-      width: MediaQuery.of(context).size.width * 0.90,
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: EdgeInsets.only(bottom: 1.0, left: 5.0),
-            padding: EdgeInsets.only(bottom: 1.0, left: 5.0),
-            child: Text(
-              rowName!,
-              style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: 1.0, right: 5.0),
-            padding: EdgeInsets.only(bottom: 1.0, right: 5.0),
-            child: Text(rowData!.toUpperCase(),
-                style: TextStyle(fontWeight: FontWeight.bold)),
-          )
-        ],
-      ),
-    );
+computeRemaining(String _initialQty, List? takeOutLogs) {
+  if (takeOutLogs == null) {
+    return '0';
+  } else if (takeOutLogs.length < 1) {
+    return '0';
+  } else {
+    int iniQty = int.parse(_initialQty);
+    int remQty = 0;
   }
 }
- */

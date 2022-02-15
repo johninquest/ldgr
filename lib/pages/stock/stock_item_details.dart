@@ -15,7 +15,6 @@ class StockItemDetails extends StatefulWidget {
 class _StockItemDetailsState extends State<StockItemDetails> {
   @override
   Widget build(BuildContext context) {
-    // print('Data => ${widget.stockItemData}');
     Map i = widget.stockItemData;
     var f = DateTimeFormatter();
     List? _logs = i['removals'] ?? [];
@@ -43,7 +42,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
                 margin: EdgeInsets.only(
                   top: 10.0,
                 ),
-                child: Text('Outgoing history')),
+                child: Text('TAKE OUT LOGS')),
             Divider(
               indent: 40.0,
               endIndent: 40.0,

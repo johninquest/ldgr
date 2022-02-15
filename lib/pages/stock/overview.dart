@@ -77,25 +77,17 @@ class _StockOverviewDataState extends State<StockOverviewData> {
     return ListView.builder(
         itemCount: itemsInStock.length,
         itemBuilder: (context, index) {
-          String _itemId = itemsInStock[index]['doc_id'];
-          String _itemName = itemsInStock[index]['item_name'];
-          String _itemQuantity = itemsInStock[index]['quantity'];
+          String _itemId = itemsInStock[index]['doc_id'] ?? '';
+          String _itemName = itemsInStock[index]['item_name'] ?? '';
+          String _itemQuantity = itemsInStock[index]['quantity'] ?? '';
           List _outgoingLogs = itemsInStock[index]['removals'] ?? [];
           return Card(
             child: ExpansionTile(
               initiallyExpanded: false,
-              // leading: Text(itemName),
               title: Text(
                 _itemName,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              // subtitle: Text(itemQuantity, style: TextStyle(fontWeight: FontWeight.bold),),
-              /* trailing: Text(
-                itemQuantity,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ), */
-              //  onTap: () => print(itemsInStock[index]),
-              // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width * 0.87,
@@ -135,8 +127,8 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                     children: [
                       Visibility(
                         visible: _isVisible,
-                        maintainAnimation: true, 
-                        maintainSize: true, 
+                        maintainAnimation: true,
+                        maintainSize: true,
                         maintainState: true,
                         child: Container(
                           margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -192,7 +184,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
           children: [
             Container(
               child: Text(
-                'Taking "$_currentItemName" from stock? \nEnter quantity below',
+                'Taking "$_currentItemName" from stock?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -205,11 +197,8 @@ class _StockOverviewDataState extends State<StockOverviewData> {
               margin: EdgeInsets.only(top: 20.0),
               child: TextField(
                 controller: _quantityTaken,
-                decoration: InputDecoration(labelText: 'Quantity'),
+                decoration: InputDecoration(labelText: 'Enter quantity'),
                 keyboardType: TextInputType.number,
-/*                 onChanged: (val) => setState(() {
-                  print('Taking $val');
-                }), */
               ),
             )
           ],
@@ -330,4 +319,3 @@ computeRemaining(String _initialQty, List? _takeOutLogs) {
     return remainingQty.toString();
   }
 }
-

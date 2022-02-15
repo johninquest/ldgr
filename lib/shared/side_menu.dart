@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/pages/inputs/country.dart';
 import 'package:ldgr/pages/analysis/overview.dart';
-import 'package:ldgr/pages/stock/overview.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business_info.dart';
@@ -101,18 +100,6 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 onTap: () =>
                     PageRouter().navigateToPage(CountryPage(), context)),
-/*             ListTile(
-              leading: Icon(
-                Icons.inventory_outlined,
-                color: myBlue,
-              ),
-              title: Text(
-                'Stock',
-                style: TextStyle(color: myBlue),
-              ),
-              onTap: () =>
-                  PageRouter().navigateToPage(StockOverviewPage(), context),
-            ), */
             ListTile(
               leading: Icon(
                 Icons.info_outline,

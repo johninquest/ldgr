@@ -13,8 +13,8 @@ class Formatter {
         case 'kitchen':
           return 'Kitchen';
         case 'operating_costs':
-        case 'operations':
-          return 'Operations';
+        case 'operation':
+          return 'Operation';
         case 'others':
           return 'Other(s)';
         case 'restaurant':

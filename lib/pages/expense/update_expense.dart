@@ -1,58 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/records/expense_list.dart';
+import 'package:ldgr/pages/expense/expense_list.dart';
 import 'package:ldgr/services/date_time_helper.dart';
-import 'package:ldgr/services/formatter.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
-import 'package:objectid/objectid.dart';
-import 'dart:async';
+import 'package:ldgr/shared/snackbar_messages.dart';
+import 'package:ldgr/services/router.dart';
+import 'package:ldgr/services/preprocessor.dart';
+import 'package:ldgr/services/formatter.dart';
 
-class InputExpenditurePage extends StatelessWidget {
-  // const InputExpenditure({ Key? key })//  : super(key: key);
+class UpdateExpensePage extends StatelessWidget {
+  final Map entryData;
+  const UpdateExpensePage({Key? key, required this.entryData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Enter expense'),
-          centerTitle: true,
-          backgroundColor: myRed,
+      appBar: AppBar(
+        title: Text('Update expense'),
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+      ),
+      body: Center(
+        child: EntryEditorForm(
+          initialData: entryData,
         ),
-        body: Center(
-          child: ExpenditureForm(),
-        ));
+      ),
+    );
   }
 }
 
-class ExpenditureForm extends StatefulWidget {
-  const ExpenditureForm({Key? key}) : super(key: key);
+class EntryEditorForm extends StatefulWidget {
+  final Map initialData;
+  const EntryEditorForm({Key? key, required this.initialData})
+      : super(key: key);
 
   @override
-  _ExpenditureFormState createState() => _ExpenditureFormState();
+  _EntryEditorFormState createState() => _EntryEditorFormState();
 }
 
-class _ExpenditureFormState extends State<ExpenditureForm> {
-  final _expenseFormKey = GlobalKey<FormState>();
+class _EntryEditorFormState extends State<EntryEditorForm> {
+  final _expenseUpdateFormKey = GlobalKey<FormState>();
   TextEditingController _itemCategory = TextEditingController();
   TextEditingController _itemName = TextEditingController();
   TextEditingController _price = TextEditingController();
   TextEditingController _pickedDate = TextEditingController();
   TextEditingController _quantity = TextEditingController();
 
+  String? _docId;
   String? _costArea;
   String? _unit;
   String? _paymentMethod;
   String? _paymentStatus;
   String? _currentUser;
 
-  final _fs = FirestoreService();
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesHelper().readData('currentUserData').then((value) {
+      if (value != null) {
+        setState(() {
+          _currentUser = DataParser().strToMap(value)['name'];
+        });
+      }
+    });
+    _docId = widget.initialData['doc_id'];
+    selectedDate = DateTime.parse(widget.initialData['picked_date']);
+    _pickedDate.text =
+        DateTimeFormatter().isoToUiDate(widget.initialData['picked_date']);
+    _costArea = widget.initialData['cost_area'];
+    _itemCategory.text = widget.initialData['item_category'] ?? '';
+    _itemName.text = widget.initialData['item_name'] ?? '';
+    _quantity.text = widget.initialData['quantity'] ?? '';
+    _unit = widget.initialData['unit'].toLowerCase() ?? '';
+    _price.text = widget.initialData['price'] ?? '';
+    _paymentStatus = widget.initialData['payment_status'];
+    _paymentMethod = widget.initialData['payment_method'];
+  }
 
-  DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate;
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -67,24 +94,10 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    SharedPreferencesHelper().readData('currentUserData').then((value) {
-      if (value != null) {
-        setState(() {
-          _currentUser = DataParser().strToMap(value)['name'];
-        });
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // final _fs = FirestoreService();
     return Form(
-      key: _expenseFormKey,
+      key: _expenseUpdateFormKey,
       child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,6 +124,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 child: DropdownButtonFormField(
                   decoration: InputDecoration(labelText: 'Cost area'),
                   items: MyItemList().costAreaList,
+                  value: _costArea,
                   validator: (val) =>
                       val == null ? 'Please select cost area' : null,
                   onChanged: (val) => setState(() {
@@ -175,6 +189,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Unit'),
                       items: MyItemList().unitList,
+                      value: _unit ?? '',
                       /* validator: (val) =>
                           val == null ? 'Please select unit!' : null, */
                       onChanged: (val) => setState(() {
@@ -212,6 +227,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Payment status'),
                       items: MyItemList().paymentStatusList,
+                      value: _paymentStatus ?? '',
                       validator: (val) =>
                           val == null ? 'Payment status ?' : null,
                       onChanged: (val) => setState(() {
@@ -226,6 +242,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Payment method'),
                       items: MyItemList().paymentMethodList,
+                      value: _paymentMethod ?? '',
                       /* validator: (val) =>
                           val == null ? 'Please select payment method' : null, */
                       onChanged: (val) => setState(() {
@@ -254,44 +271,36 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      String _timestampsString =
+                      String _tsToString =
                           DateTimeHelper().timestampForDB(DateTime.now());
-                      String _daybookItemId = ObjectId().hexString;
-                      // print('Expense record id => $_daybookItemId');
-                      Map<String, dynamic> _daybookEntryData = {
-                        'picked_date': '$selectedDate',
-                        'account': 'expense',
-                        'cost_area': _costArea ?? '',
-                        'item_category': _itemCategory.text,
-                        'item_name': _itemName.text,
+                      Map<String, dynamic> _fsUpdatePayload = {
+                        'pickedDate': '$selectedDate',
+                        'costArea': _costArea ?? '',
+                        'itemCategory': _itemCategory.text,
+                        'itemName': _itemName.text,
                         'quantity': _quantity.text,
                         'unit': _unit ?? '',
                         'price': _price.text,
-                        'payment_status': _paymentStatus ?? '',
-                        'payment_method': _paymentMethod ?? '',
-                        'created_at': _timestampsString,
-                        'last_update_at': '',
-                        'doc_id': _daybookItemId,
-                        'entered_by': _currentUser ?? '',
+                        'paymentStatus': _paymentStatus ?? '',
+                        'paymentMethod': _paymentMethod ?? '',
+                        'lastUpdateAt': _tsToString,
+                        'enteredBy': _currentUser ?? '',
                       };
-                      if (_expenseFormKey.currentState!.validate()) {
-                        _fs
-                            .addItemToDaybook(_daybookItemId, _daybookEntryData)
+                      if (_expenseUpdateFormKey.currentState!.validate()) {
+                        FirestoreService()
+                            .updateDocument(_docId!, _fsUpdatePayload)
+                            .then((val) {
+                          SnackBarMessage().updateSuccess(context);
+                          PageRouter().navigateToPage(EntryListPage(), context);
+                        }).catchError((e) =>
+                                SnackBarMessage().generalErrorMessage(context));
+                        /* FirestoreService()
+                            .updateDocument(_docId!, _fsUpdatePayload)
                             .then((val) {
                           if (val == 'add-success') {
-                            SnackBarMessage().saveSuccess(context);
-                            if (_itemName.text != '' && _quantity.text != '') {
-                              Timer(Duration(seconds: 3), () {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) =>
-                                        _addToStockDialog(_daybookItemId),
-                                    barrierDismissible: true);
-                              });
-                            }else {
-                              PageRouter()
+                            SnackBarMessage().updateSuccess(context);
+                            PageRouter()
                                 .navigateToPage(EntryListPage(), context);
-                            }
                           } else if (val == 'permission-denied') {
                             String eMessage = 'Permission denied';
                             return SnackBarMessage()
@@ -300,11 +309,11 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                             return SnackBarMessage()
                                 .generalErrorMessage(context);
                           }
-                        });
+                        }); */
                       }
                     },
                     child: Text('SAVE'),
-                    style: ElevatedButton.styleFrom(primary: myRed),
+                    style: ElevatedButton.styleFrom(primary: myBlue),
                   ),
                 )
               ],
@@ -312,71 +321,6 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _addToStockDialog(String _daybookDocId) {
-    return AlertDialog(
-      title: Icon(
-        Icons.help_outline,
-        color: myBlue,
-        size: 40.0,
-      ),
-      content: Text(
-        'Add to stock ?',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
-      ),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                PageRouter().navigateToPage(EntryListPage(), context);
-              },
-              child: Text(
-                'NO',
-                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
-              ),
-            ),
-            TextButton(
-                onPressed: () {
-                  String _timestampString =
-                      DateTimeHelper().timestampForDB(DateTime.now());
-                  String _stockItemId = ObjectId().hexString;
-                  // print('Stock item id => $_stockItemId');
-                  // print('Daybook item id => $_daybookId');
-                  Map<String, dynamic> _stockEntryData = {
-                    'item_name': _itemName.text,
-                    'quantity': _quantity.text,
-                    'unit': _unit ?? '',
-                    'picked_date': '$selectedDate',
-                    'created_at': _timestampString,
-                    'last_update_at': '',
-                    'doc_id': _stockItemId,
-                    'daybook_item_id': _daybookDocId,
-                    'entered_by': _currentUser ?? '', 
-                    'removals': []
-                  };
-                  _fs.addItemToStock(_stockItemId, _stockEntryData);
-                  print(_stockEntryData);
-
-                  SnackBarMessage().customSuccessMessage(
-                      'Added to stock successfully', context);
-                  PageRouter().navigateToPage(EntryListPage(), context);
-                },
-                child: Text(
-                  'YES',
-                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
-                ))
-          ],
-        ),
-      ],
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
     );
   }
 }

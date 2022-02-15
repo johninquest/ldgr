@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/pages/records/expense_list.dart';
+import 'package:ldgr/pages/expense/expense_list.dart';
 import 'package:ldgr/styles/colors.dart';
 import '../services/router.dart';
 import 'package:ldgr/pages/home.dart';

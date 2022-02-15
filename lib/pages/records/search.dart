@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/filters/filter_logic.dart';
-import 'package:ldgr/pages/records/expense_detail.dart';
+import 'package:ldgr/pages/expense/expense_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/widgets.dart';

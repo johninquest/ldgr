@@ -101,7 +101,7 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 onTap: () =>
                     PageRouter().navigateToPage(CountryPage(), context)),
-            ListTile(
+/*             ListTile(
               leading: Icon(
                 Icons.inventory_outlined,
                 color: myBlue,
@@ -112,7 +112,7 @@ class _SideMenuState extends State<SideMenu> {
               ),
               onTap: () =>
                   PageRouter().navigateToPage(StockOverviewPage(), context),
-            ),
+            ), */
             ListTile(
               leading: Icon(
                 Icons.info_outline,

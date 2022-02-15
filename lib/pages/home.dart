@@ -3,7 +3,7 @@ import 'package:ldgr/pages/stock/overview.dart';
 import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/pages/inputs/expense.dart';
+import 'package:ldgr/pages/expense/add_expense.dart';
 import 'package:ldgr/shared/side_menu.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
                 onPressed: () => PageRouter()
-                    .navigateToPage(InputExpenditurePage(), context),
+                    .navigateToPage(AddExpensePage(), context),
                 child: Text(
                   'EXPENSE',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),

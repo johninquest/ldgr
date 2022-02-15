@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/inputs/expense_editor.dart';
-import 'package:ldgr/pages/records/expense_list.dart';
+import 'package:ldgr/pages/expense/update_expense.dart';
+import 'package:ldgr/pages/expense/expense_list.dart';
 import 'package:ldgr/services/currency.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
@@ -142,7 +142,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         Container(
                           child: ElevatedButton(
                             onPressed: () => PageRouter().navigateToPage(
-                                EntryEditorPage(
+                                UpdateExpensePage(
                                   entryData: widget.rowData,
                                 ),
                                 context),

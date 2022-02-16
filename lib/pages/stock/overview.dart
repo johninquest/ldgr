@@ -3,6 +3,7 @@ import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/stock/stock_item_details.dart';
 import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
@@ -79,11 +80,13 @@ class _StockOverviewDataState extends State<StockOverviewData> {
         itemBuilder: (context, index) {
           String _itemId = itemsInStock[index]['doc_id'] ?? '';
           String _itemName = itemsInStock[index]['item_name'] ?? '';
-          String _itemQuantity = itemsInStock[index]['quantity'] ?? '';
+          String _itemQuantity = itemsInStock[index]['quantity'] ?? ''; 
+          String _itemDate = itemsInStock[index]['picked_date'] ?? '';
           List _outgoingLogs = itemsInStock[index]['removals'] ?? [];
           return Card(
             child: ExpansionTile(
               initiallyExpanded: false,
+              leading: Text(DateTimeFormatter().isoToUiDate(_itemDate), style: TextStyle(fontSize: 15.0,),),
               title: Text(
                 _itemName,
                 style: TextStyle(fontWeight: FontWeight.bold),

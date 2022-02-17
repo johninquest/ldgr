@@ -110,7 +110,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               children: [
-                Container(
+/*                 Container(
                   width: MediaQuery.of(context).size.width * 0.87,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,7 +124,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                       ),
                     ],
                   ),
-                ),
+                ), */
                 Container(
                   width: MediaQuery.of(context).size.width * 0.87,
                   child: Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/pages/stock/calculations.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/styles/colors.dart';
-import 'package:ldgr/styles/style.dart';
 
 class StockItemDetails extends StatefulWidget {
   final Map stockItemData;
@@ -16,8 +16,9 @@ class _StockItemDetailsState extends State<StockItemDetails> {
   @override
   Widget build(BuildContext context) {
     Map i = widget.stockItemData;
-    var f = DateTimeFormatter();
     List? _events = i['events'] ?? [];
+    var _dtFormatter = DateTimeFormatter();
+    var _calc = StockCalculations();
     return Scaffold(
       appBar: AppBar(
         title: Text('Stock item details'),
@@ -32,11 +33,13 @@ class _StockItemDetailsState extends State<StockItemDetails> {
               height: 20.0,
             ),
             _tableRow('Item name', i['item_name']),
-            _tableRow('Purchase date', f.isoToUiDate(i['picked_date'])),
-            _tableRow('Initial quantity', i['quantity']),
-            _tableRow('Added', '###'),
             _tableRow(
-                'Remaining quantity', computeRemaining(i['quantity'], _events)),
+                'Purchase date', _dtFormatter.isoToUiDate(i['picked_date'])),
+            _tableRow('Initial quantity', i['quantity']),
+            _tableRow('Added', '${_calc.sumOfAddedItems(_events)}'),
+            _tableRow('Removed', '${_calc.sumOfRemovedItems(_events)}'),
+            _tableRow('Remaining',
+                '${_calc.computeRemainingItems(i['quantity'], _calc.sumOfAddedItems(_events), _calc.sumOfRemovedItems(_events))}'),
             SizedBox(
               height: 10.0,
             ),
@@ -100,15 +103,18 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             cells: [
               DataCell(Text(
                   DateTimeFormatter().isoToUiDate(e['event_timestamp']) ?? '',
-                  style: TextStyle(fontSize: 14.0, color: rowItemColor(e['event_name'])),
+                  style: TextStyle(
+                      fontSize: 14.0, color: rowItemColor(e['event_name'])),
                   textAlign: TextAlign.left)),
               DataCell(Text(
                 e['event_quantity'] ?? '',
-               style: TextStyle(fontSize: 14.0, color: rowItemColor(e['event_name'])),
+                style: TextStyle(
+                    fontSize: 14.0, color: rowItemColor(e['event_name'])),
                 textAlign: TextAlign.center,
               )),
               DataCell(Text(e['event_by'] ?? '',
-                  style: TextStyle(fontSize: 14.0, color: rowItemColor(e['event_name'])),
+                  style: TextStyle(
+                      fontSize: 14.0, color: rowItemColor(e['event_name'])),
                   textAlign: TextAlign.right)),
             ],
           ),
@@ -134,32 +140,30 @@ class _StockItemDetailsState extends State<StockItemDetails> {
   return (valToInt - takenValue).toString();
 } */
 
-computeRemaining(String _initialQty, List? _takeOutLogs) {
-  if (_takeOutLogs == null) {
+computeRemaining(String initialQty, List? eventLogs) {
+  if (eventLogs == null) {
     return '0';
-  } else if (_takeOutLogs.length < 1) {
+  } else if (eventLogs.isEmpty) {
     return '0';
   } else {
-    num initialQty = num.tryParse(_initialQty) ?? 0;
-    num sumRemovedQty = 0;
-    for (var i in _takeOutLogs) {
+    num _initialQty = num.tryParse(initialQty) ?? 0;
+    num _sumRemovedQty = 0;
+    for (var i in eventLogs) {
       num? qTaken = num.tryParse(i['event_quantity']) ?? 0;
-      sumRemovedQty += qTaken;
+      _sumRemovedQty += qTaken;
     }
-    num remainingQty = initialQty - sumRemovedQty;
+    num remainingQty = _initialQty - _sumRemovedQty;
     return remainingQty.toString();
   }
 }
 
-rowItemColor(String eventType) {
-  if (eventType == 'added_to_stock') {
+rowItemColor(String eventName) {
+  if (eventName == 'added_to_stock') {
     return myTeal;
   }
-  if (eventType == 'removed_from_stock') {
+  if (eventName == 'removed_from_stock') {
     return myRed2;
   } else {
     return Colors.black;
   }
 }
-
-

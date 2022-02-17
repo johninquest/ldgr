@@ -13,7 +13,7 @@ import 'package:objectid/objectid.dart';
 import 'dart:async';
 
 class AddExpensePage extends StatelessWidget {
-  const AddExpensePage({ Key? key }): super(key: key);
+  const AddExpensePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -288,9 +288,9 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                                         _addToStockDialog(_daybookItemId),
                                     barrierDismissible: true);
                               });
-                            }else {
+                            } else {
                               PageRouter()
-                                .navigateToPage(EntryListPage(), context);
+                                  .navigateToPage(EntryListPage(), context);
                             }
                           } else if (val == 'permission-denied') {
                             String eMessage = 'Permission denied';
@@ -350,23 +350,33 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   // print('Stock item id => $_stockItemId');
                   // print('Daybook item id => $_daybookId');
                   Map<String, dynamic> _stockEntryData = {
+                    'picked_date': '$selectedDate',
                     'item_name': _itemName.text,
                     'quantity': _quantity.text,
                     'unit': _unit ?? '',
-                    'picked_date': '$selectedDate',
                     'created_at': _timestampString,
                     'last_update_at': '',
                     'doc_id': _stockItemId,
                     'daybook_item_id': _daybookDocId,
-                    'entered_by': _currentUser ?? '', 
-                    'removals': []
+                    'entered_by': _currentUser ?? '',
+                    'events': []
                   };
-                  _fs.addItemToStock(_stockItemId, _stockEntryData);
-                  print(_stockEntryData);
+                  _fs
+                      .addItemToStock(_stockItemId, _stockEntryData)
+                      .then((val) {
+                    if (val == 'add-success') {
+                      SnackBarMessage().customSuccessMessage(
+                          'Added to stock successfully', context);
+                      PageRouter().navigateToPage(EntryListPage(), context);
+                    } else {
+                      SnackBarMessage().generalErrorMessage(context);
+                    }
+                  });
+                  // print(_stockEntryData);
 
-                  SnackBarMessage().customSuccessMessage(
+                  /*  SnackBarMessage().customSuccessMessage(
                       'Added to stock successfully', context);
-                  PageRouter().navigateToPage(EntryListPage(), context);
+                  PageRouter().navigateToPage(EntryListPage(), context); */
                 },
                 child: Text(
                   'YES',

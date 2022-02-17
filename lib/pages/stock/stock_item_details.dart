@@ -17,7 +17,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
   Widget build(BuildContext context) {
     Map i = widget.stockItemData;
     var f = DateTimeFormatter();
-    List? _logs = i['removals'] ?? [];
+    List? _events = i['events'] ?? [];
     return Scaffold(
       appBar: AppBar(
         title: Text('Stock item details'),
@@ -29,12 +29,14 @@ class _StockItemDetailsState extends State<StockItemDetails> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 10.0,
+              height: 20.0,
             ),
             _tableRow('Item name', i['item_name']),
             _tableRow('Purchase date', f.isoToUiDate(i['picked_date'])),
             _tableRow('Initial quantity', i['quantity']),
-            _tableRow('Remaining quantity', computeRemaining(i['quantity'], _logs)),
+            _tableRow('Added', '###'),
+            _tableRow(
+                'Remaining quantity', computeRemaining(i['quantity'], _events)),
             SizedBox(
               height: 10.0,
             ),
@@ -42,14 +44,14 @@ class _StockItemDetailsState extends State<StockItemDetails> {
                 margin: EdgeInsets.only(
                   top: 10.0,
                 ),
-                child: Text('TAKE OUT LOGS')),
+                child: Text('EVENT LOGS')),
             Divider(
               indent: 40.0,
               endIndent: 40.0,
               thickness: 1.0,
               color: myGrey,
             ),
-            _buildTable(_logs)
+            _buildTable(_events)
           ],
         ),
       ),
@@ -84,7 +86,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
     );
   }
 
-  Widget _buildTable(List? outgoingLogs) {
+  Widget _buildTable(List? eventLogs) {
     List<DataColumn> _tableColumns = [
       DataColumn(label: Text('Date')),
       DataColumn(label: Text('Quantity')),
@@ -97,39 +99,40 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             selected: false,
             cells: [
               DataCell(Text(
-                  DateTimeFormatter().isoToUiDate(e['taken_at']) ?? '',
-                  style: TableItemStyle,
+                  DateTimeFormatter().isoToUiDate(e['event_timestamp']) ?? '',
+                  style: TextStyle(fontSize: 14.0, color: rowItemColor(e['event_name'])),
                   textAlign: TextAlign.left)),
               DataCell(Text(
-                e['quantity_taken'] ?? '',
-                style: TableItemStyle,
+                e['event_quantity'] ?? '',
+               style: TextStyle(fontSize: 14.0, color: rowItemColor(e['event_name'])),
                 textAlign: TextAlign.center,
               )),
-              DataCell(Text(e['taken_by'] ?? '',
-                  style: TableItemStyle, textAlign: TextAlign.right)),
+              DataCell(Text(e['event_by'] ?? '',
+                  style: TextStyle(fontSize: 14.0, color: rowItemColor(e['event_name'])),
+                  textAlign: TextAlign.right)),
             ],
           ),
         )
         .toList();
-    if (outgoingLogs != null && outgoingLogs.length > 0) {
+    if (eventLogs != null && eventLogs.length > 0) {
       return DataTable(
           columnSpacing: 85.0,
           horizontalMargin: 0.0,
           showCheckboxColumn: false,
           columns: _tableColumns,
-          rows: _tableRows(outgoingLogs));
+          rows: _tableRows(eventLogs));
     } else {
       return Center(
-        child: Text('No logs available!'),
+        child: Text('No events found!'),
       );
     }
   }
 }
 
-mySubtraction(String iniValue, int takenValue) {
+/* mySubtraction(String iniValue, int takenValue) {
   int valToInt = int.parse(iniValue);
   return (valToInt - takenValue).toString();
-}
+} */
 
 computeRemaining(String _initialQty, List? _takeOutLogs) {
   if (_takeOutLogs == null) {
@@ -140,10 +143,23 @@ computeRemaining(String _initialQty, List? _takeOutLogs) {
     num initialQty = num.tryParse(_initialQty) ?? 0;
     num sumRemovedQty = 0;
     for (var i in _takeOutLogs) {
-      num? qTaken = num.tryParse(i['quantity_taken']) ?? 0;
+      num? qTaken = num.tryParse(i['event_quantity']) ?? 0;
       sumRemovedQty += qTaken;
     }
     num remainingQty = initialQty - sumRemovedQty;
     return remainingQty.toString();
   }
 }
+
+rowItemColor(String eventType) {
+  if (eventType == 'added_to_stock') {
+    return myTeal;
+  }
+  if (eventType == 'removed_from_stock') {
+    return myRed2;
+  } else {
+    return Colors.black;
+  }
+}
+
+

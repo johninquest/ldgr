@@ -71,7 +71,8 @@ class FirestoreService {
         .collection('stock');
     try {
       await targetCollection.doc(_id).set(_data);
-      return 'add-success';
+      String successMessage = 'add-success';
+      return successMessage;
     } on FirebaseException catch (e) {
       if (e.code == 'permission-denied') {
         return 'permission-denied';
@@ -81,8 +82,10 @@ class FirestoreService {
 
   addDocumentWithId2(String _mainCollId, String _mainDocId, String _subCollId,
       String _docId, Map<String, dynamic> _docData) async {
-    CollectionReference targetCollection =
-        fsInstance.collection(_mainCollId).doc(_mainDocId).collection(_subCollId);
+    CollectionReference targetCollection = fsInstance
+        .collection(_mainCollId)
+        .doc(_mainDocId)
+        .collection(_subCollId);
     try {
       await targetCollection.doc(_docId).set(_docData);
       return 'add-success';
@@ -160,7 +163,8 @@ class FirestoreService {
     }
   }
 
-  removeDocFromSubCollection(String _mainDoc, String _subColl, String _docId) async {
+  removeDocFromSubCollection(
+      String _mainDoc, String _subColl, String _docId) async {
     CollectionReference _col = fsInstance
         .collection(_mainCollection)
         .doc(_mainDoc)
@@ -200,20 +204,14 @@ class FirestoreService {
   }
 
   updateArrayInDocument(
-      String _docId, String _arrayName, Map<String, String> _arrayData) async {
+      String _docId, String _arrayName, List<Map<String, String>> _arrayData) async {
     CollectionReference _col = fsInstance
         .collection(_mainCollection)
         .doc('records')
         .collection('stock');
     try {
       var updateResponse = await _col.doc(_docId).update({
-        _arrayName: FieldValue.arrayUnion([
-          {
-            'taken_at': _arrayData['_timestamp'],
-            'quantity_taken': _arrayData['_quantityTaken'],
-            'taken_by': _arrayData['_takenBy'],
-          }
-        ])
+        _arrayName: FieldValue.arrayUnion(_arrayData)
       });
       return updateResponse;
     } on FirebaseException catch (e) {

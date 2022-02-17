@@ -18,7 +18,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
     Map i = widget.stockItemData;
     List? _events = i['events'] ?? [];
     var _dtFormatter = DateTimeFormatter();
-    var _calc = StockCalculations();
+    var _calculator = StockCalculations();
     return Scaffold(
       appBar: AppBar(
         title: Text('Stock item details'),
@@ -36,10 +36,10 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             _tableRow(
                 'Purchase date', _dtFormatter.isoToUiDate(i['picked_date'])),
             _tableRow('Initial quantity', i['quantity']),
-            _tableRow('Added', '${_calc.sumOfAddedItems(_events)}'),
-            _tableRow('Removed', '${_calc.sumOfRemovedItems(_events)}'),
+            _tableRow('Added', '${_calculator.sumOfAddedItems(_events)}'),
+            _tableRow('Removed', '${_calculator.sumOfRemovedItems(_events)}'),
             _tableRow('Remaining',
-                '${_calc.computeRemainingItems(i['quantity'], _calc.sumOfAddedItems(_events), _calc.sumOfRemovedItems(_events))}'),
+                '${_calculator.computeRemainingItems(i['quantity'], _calculator.sumOfAddedItems(_events), _calculator.sumOfRemovedItems(_events))}'),
             SizedBox(
               height: 10.0,
             ),
@@ -47,10 +47,10 @@ class _StockItemDetailsState extends State<StockItemDetails> {
                 margin: EdgeInsets.only(
                   top: 10.0,
                 ),
-                child: Text('EVENT LOGS')),
+                child: Text('PROTOCOL')),
             Divider(
-              indent: 40.0,
-              endIndent: 40.0,
+              indent: 50.0,
+              endIndent: 50.0,
               thickness: 1.0,
               color: myGrey,
             ),
@@ -129,31 +129,9 @@ class _StockItemDetailsState extends State<StockItemDetails> {
           rows: _tableRows(eventLogs));
     } else {
       return Center(
-        child: Text('No events found!'),
+        child: Text('No protocol information found!'),
       );
     }
-  }
-}
-
-/* mySubtraction(String iniValue, int takenValue) {
-  int valToInt = int.parse(iniValue);
-  return (valToInt - takenValue).toString();
-} */
-
-computeRemaining(String initialQty, List? eventLogs) {
-  if (eventLogs == null) {
-    return '0';
-  } else if (eventLogs.isEmpty) {
-    return '0';
-  } else {
-    num _initialQty = num.tryParse(initialQty) ?? 0;
-    num _sumRemovedQty = 0;
-    for (var i in eventLogs) {
-      num? qTaken = num.tryParse(i['event_quantity']) ?? 0;
-      _sumRemovedQty += qTaken;
-    }
-    num remainingQty = _initialQty - _sumRemovedQty;
-    return remainingQty.toString();
   }
 }
 

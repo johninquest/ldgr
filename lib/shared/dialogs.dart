@@ -101,7 +101,7 @@ class LogoutDialog extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'NO',
-                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
+                style: TextStyle(color: myRed2, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(

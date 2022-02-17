@@ -136,7 +136,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 context: context,
                                 builder: (_) => _deleteDialog()),
                             child: Text('DELETE'),
-                            style: ElevatedButton.styleFrom(primary: myRed),
+                            style: ElevatedButton.styleFrom(primary: myRed2),
                           ),
                         ),
                         Container(
@@ -164,7 +164,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     return AlertDialog(
       title: Icon(
         Icons.warning,
-        color: myRed,
+        color: myRed2,
         size: 40.0,
       ),
       content: Text(
@@ -182,7 +182,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               child: Text(
                 'NO',
                 style: TextStyle(
-                    color: myRed, fontWeight: FontWeight.bold),
+                    color: myRed2, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(

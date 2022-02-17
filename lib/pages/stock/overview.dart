@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/stock/add_to_stock.dart';
+import 'package:ldgr/pages/stock/calculations.dart';
 import 'package:ldgr/pages/stock/stock_item_details.dart';
 import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/services/formatter.dart';
@@ -93,9 +94,10 @@ class _StockOverviewDataState extends State<StockOverviewData> {
         itemBuilder: (context, index) {
           String _itemId = itemsInStock[index]['doc_id'] ?? '';
           String _itemName = itemsInStock[index]['item_name'] ?? '';
-          String _itemQuantity = itemsInStock[index]['quantity'] ?? '';
+          String _itemInitialQty = itemsInStock[index]['quantity'] ?? '';
           String _itemDate = itemsInStock[index]['picked_date'] ?? '';
-          List _outgoingLogs = itemsInStock[index]['events'] ?? [];
+          List _eventLogs = itemsInStock[index]['events'] ?? [];
+          var _calculator = StockCalculations();
           return Card(
             child: ExpansionTile(
               initiallyExpanded: false,
@@ -110,36 +112,30 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               children: [
-/*                 Container(
-                  width: MediaQuery.of(context).size.width * 0.87,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Initial',
-                      ),
-                      Text(
-                        _itemQuantity,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ), */
                 Container(
                   width: MediaQuery.of(context).size.width * 0.87,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Remaining',
+                        'Available',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
-                        computeRemaining(_itemQuantity, _outgoingLogs),
+                        '${_calculator.computeRemainingItems(_itemInitialQty, _calculator.sumOfAddedItems(_eventLogs), _calculator.sumOfRemovedItems(_eventLogs))}',
                         textAlign: TextAlign.right,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
+                ),
+                Divider(
+                  indent: 25.0,
+                  endIndent: 25.0,
+                  thickness: 1.0,
+                  color: myBlue,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.85,
@@ -184,7 +180,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                                     builder: (_) =>
                                         _deleteDialog(_itemId, _itemName)),
                                 child: Text('DELETE'),
-                                style: ElevatedButton.styleFrom(primary: myRed),
+                                style: ElevatedButton.styleFrom(primary: myRed2),
                               ),
                             ),
                             Container(
@@ -212,10 +208,6 @@ class _StockOverviewDataState extends State<StockOverviewData> {
 
   Widget _removeFromStockDialog(String _currentDocId, String _currentItemName) {
     return AlertDialog(
-/*       title: Icon(
-        Icons.info,
-        color: myBlue,
-      ), */
       content: Container(
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.width * 0.4,
@@ -263,12 +255,14 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                   var _fs = FirestoreService();
                   String _tsToString =
                       DateTimeHelper().timestampForDB(DateTime.now());
-                  List<Map<String, String>> _fsUpdatePayload = [{
-                    'event_timestamp': _tsToString,
-                    'event_quantity': _quantityTaken.text,
-                    'event_name': 'removed_from_stock',
-                    'event_by': _currentUserName ?? '',
-                  }];
+                  List<Map<String, String>> _fsUpdatePayload = [
+                    {
+                      'event_timestamp': _tsToString,
+                      'event_quantity': _quantityTaken.text,
+                      'event_name': 'removed_from_stock',
+                      'event_by': _currentUserName ?? '',
+                    }
+                  ];
 
                   _fs
                       .updateArrayInDocument(
@@ -340,12 +334,14 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                   var _fs = FirestoreService();
                   String _tsToString =
                       DateTimeHelper().timestampForDB(DateTime.now());
-                  List<Map<String, String>> _fsUpdatePayload = [{
-                    'event_timestamp': _tsToString,
-                    'event_quantity': _quantityAdded.text,
-                    'event_name': 'added_to_stock',
-                    'event_by': _currentUserName ?? '',
-                  }];
+                  List<Map<String, String>> _fsUpdatePayload = [
+                    {
+                      'event_timestamp': _tsToString,
+                      'event_quantity': _quantityAdded.text,
+                      'event_name': 'added_to_stock',
+                      'event_by': _currentUserName ?? '',
+                    }
+                  ];
 
                   _fs
                       .updateArrayInDocument(
@@ -372,7 +368,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
     return AlertDialog(
       title: Icon(
         Icons.warning,
-        color: myRed,
+        color: myRed2,
         size: 40.0,
       ),
       content: Text(
@@ -389,7 +385,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'NO',
-                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
+                style: TextStyle(color: myRed2, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(
@@ -413,22 +409,5 @@ class _StockOverviewDataState extends State<StockOverviewData> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
     );
-  }
-}
-
-computeRemaining(String _initialQty, List? _takeOutLogs) {
-  if (_takeOutLogs == null) {
-    return '0';
-  } else if (_takeOutLogs.length < 1) {
-    return '0';
-  } else {
-    num initialQty = num.tryParse(_initialQty) ?? 0;
-    num sumRemovedQty = 0;
-    for (var i in _takeOutLogs) {
-      num? qTaken = num.tryParse(i['event_quantity']) ?? 0;
-      sumRemovedQty += qTaken;
-    }
-    num remainingQty = initialQty - sumRemovedQty;
-    return remainingQty.toString();
   }
 }

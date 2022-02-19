@@ -24,9 +24,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
         title: Text('Stock item details'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
+      body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
@@ -35,6 +33,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             _tableRow('Item name', i['item_name']),
             _tableRow(
                 'Purchase date', _dtFormatter.isoToUiDate(i['picked_date'])),
+            _tableRow('By', i['entered_by']),    
             _tableRow('Initial quantity', i['quantity']),
             _tableRow('Added', '${_calculator.sumOfAddedItems(_events)}'),
             _tableRow('Removed', '${_calculator.sumOfRemovedItems(_events)}'),
@@ -54,10 +53,9 @@ class _StockItemDetailsState extends State<StockItemDetails> {
               thickness: 1.0,
               color: myGrey,
             ),
-            _buildTable(_events)
+            Expanded(child: SingleChildScrollView(scrollDirection: Axis.vertical, child: _buildTable(_events)))
           ],
         ),
-      ),
     );
   }
 

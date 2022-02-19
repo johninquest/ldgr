@@ -58,7 +58,7 @@ class _AddToStockPageState extends State<AddToStockPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add to stock'),
+        title: Text('Add new item to stock'),
         centerTitle: true,
       ),
       body: Center(

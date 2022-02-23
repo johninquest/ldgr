@@ -180,7 +180,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                                     builder: (_) =>
                                         _deleteDialog(_itemId, _itemName)),
                                 child: Text('DELETE'),
-                                style: ElevatedButton.styleFrom(primary: myRed2),
+                                style: ElevatedButton.styleFrom(primary: myRed),
                               ),
                             ),
                             Container(
@@ -368,7 +368,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
     return AlertDialog(
       title: Icon(
         Icons.warning,
-        color: myRed2,
+        color: myRed,
         size: 40.0,
       ),
       content: Text(
@@ -385,7 +385,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'NO',
-                style: TextStyle(color: myRed2, fontWeight: FontWeight.bold),
+                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(

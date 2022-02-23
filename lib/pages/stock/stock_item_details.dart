@@ -141,7 +141,7 @@ rowItemColor(String eventName) {
     return myTeal;
   }
   if (eventName == 'removed_from_stock') {
-    return myRed2;
+    return myRed;
   } else {
     return Colors.black;
   }

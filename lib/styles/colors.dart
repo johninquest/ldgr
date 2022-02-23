@@ -8,7 +8,6 @@ final Color myBrown = Color(0xFFD18E19);
 final Color myGreen = Color(0xFF00c853);
 final Color myOrange = Color(0xFFED6B18);
 final Color myLightRed = Color(0xFFEF5350);
-final Color myRed2 = Color(0xFFDB4325);
 final Color myRed = Color(0xFFef5350);
 final Color myAmber = Color(0xFFff8f00);
 final Color myYellow = Color(0xFFEDCE18);

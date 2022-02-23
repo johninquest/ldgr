@@ -25,37 +25,39 @@ class _StockItemDetailsState extends State<StockItemDetails> {
         centerTitle: true,
       ),
       body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 20.0,
-            ),
-            _tableRow('Item name', i['item_name']),
-            _tableRow(
-                'Purchase date', _dtFormatter.isoToUiDate(i['picked_date'])),
-            _tableRow('By', i['entered_by']),    
-            _tableRow('Initial quantity', i['quantity']),
-            _tableRow('Added', '${_calculator.sumOfAddedItems(_events)}'),
-            _tableRow('Removed', '${_calculator.sumOfRemovedItems(_events)}'),
-            _tableRow('Remaining',
-                '${_calculator.computeRemainingItems(i['quantity'], _calculator.sumOfAddedItems(_events), _calculator.sumOfRemovedItems(_events))}'),
-            SizedBox(
-              height: 10.0,
-            ),
-            Container(
-                margin: EdgeInsets.only(
-                  top: 10.0,
-                ),
-                child: Text('PROTOCOL')),
-            Divider(
-              indent: 50.0,
-              endIndent: 50.0,
-              thickness: 1.0,
-              color: myGrey,
-            ),
-            Expanded(child: SingleChildScrollView(scrollDirection: Axis.vertical, child: _buildTable(_events)))
-          ],
-        ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 20.0,
+          ),
+          _tableRow('Item name', i['item_name']),
+          _tableRow(
+              'Purchase date', _dtFormatter.isoToUiDate(i['picked_date'])),
+          _tableRow('By', i['entered_by']),
+          _tableRow('Initial quantity', i['quantity']),
+          _tableRow('Added', '${_calculator.sumOfAddedItems(_events)}'),
+          _tableRow('Removed', '${_calculator.sumOfRemovedItems(_events)}'),
+          _tableRow('Remaining',
+              '${_calculator.computeRemainingItems(i['quantity'], _calculator.sumOfAddedItems(_events), _calculator.sumOfRemovedItems(_events))}'),
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+              margin: EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text('PROTOCOL')),
+          Divider(
+            indent: 50.0,
+            endIndent: 50.0,
+            thickness: 1.0,
+            color: myGrey,
+          ),
+          Expanded(
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical, child: _buildTable(_events)))
+        ],
+      ),
     );
   }
 
@@ -119,6 +121,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
         )
         .toList();
     if (eventLogs != null && eventLogs.length > 0) {
+      eventLogs.sort((a, b) => b['event_timestamp'].compareTo(a['event_timestamp']));
       return DataTable(
           columnSpacing: 85.0,
           horizontalMargin: 0.0,

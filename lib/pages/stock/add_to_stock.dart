@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/expense/expense_list.dart';
 import 'package:ldgr/pages/stock/overview.dart';
 import 'package:ldgr/services/date_time_helper.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/dialogs.dart';
 import 'package:ldgr/shared/lists.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
@@ -69,40 +67,6 @@ class _AddToStockPageState extends State<AddToStockPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  /* Container(
-                    margin: EdgeInsets.all(5.0),
-                    child: Text(
-                      'Still under construction!',
-                      style:
-                          TextStyle(color: myRed, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.90,
-                      // margin: EdgeInsets.only(bottom: 5.0),
-                      padding: EdgeInsets.only(left: 25.0, right: 25.0),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            labelText: 'What do you want to do?'),
-                        items: MyItemList().storeOptionsList,
-                        validator: (val) =>
-                            val == null ? 'Please select add / remove?' : null,
-                        onChanged: (val) => setState(() {
-                          _entryType = val as String?;
-                        }),
-                      )),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.90,
-                      padding: EdgeInsets.only(left: 25.0, right: 25.0),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(labelText: 'Cost area'),
-                        items: MyItemList().costAreaList,
-                        validator: (val) =>
-                            val == null ? 'Please select cost area' : null,
-                        onChanged: (val) => setState(() {
-                          _costArea = val as String?;
-                        }),
-                      )), */
                   Container(
                       width: MediaQuery.of(context).size.width * 0.90,
                       // margin: EdgeInsets.only(bottom: 5.0),
@@ -190,7 +154,7 @@ class _AddToStockPageState extends State<AddToStockPage> {
                             Map<String, dynamic> _stockEntryData = {
                               'picked_date': '$selectedDate',
                               'item_name': _itemName.text,
-                              'quantity': _quantity.text,
+                              'quantity': InputHandler().commaToPeriod(_quantity.text),
                               'unit': _unit ?? '',
                               'created_at': _timestampsString,
                               'last_update_at': '',

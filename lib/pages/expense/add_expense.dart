@@ -347,12 +347,10 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   String _timestampString =
                       DateTimeHelper().timestampForDB(DateTime.now());
                   String _stockItemId = ObjectId().hexString;
-                  // print('Stock item id => $_stockItemId');
-                  // print('Daybook item id => $_daybookId');
                   Map<String, dynamic> _stockEntryData = {
                     'picked_date': '$selectedDate',
                     'item_name': _itemName.text,
-                    'quantity': _quantity.text,
+                    'quantity': InputHandler().commaToPeriod(_quantity.text),
                     'unit': _unit ?? '',
                     'created_at': _timestampString,
                     'last_update_at': '',

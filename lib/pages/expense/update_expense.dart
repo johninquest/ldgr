@@ -278,7 +278,7 @@ class _EntryEditorFormState extends State<EntryEditorForm> {
                         'costArea': _costArea ?? '',
                         'itemCategory': _itemCategory.text,
                         'itemName': _itemName.text,
-                        'quantity': _quantity.text,
+                        'quantity': InputHandler().commaToPeriod(_quantity.text),
                         'unit': _unit ?? '',
                         'price': _price.text,
                         'paymentStatus': _paymentStatus ?? '',

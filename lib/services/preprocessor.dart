@@ -14,6 +14,18 @@ class InputHandler {
       return '';
     }
   }
+
+  commaToPeriod(String? decimalStr) {
+    if (decimalStr == null) {
+      return '';
+    }
+    if (decimalStr == '') {
+      return '';
+    } else {
+      String _replaceCommaWithPeriod = decimalStr.replaceAll(',', '.');
+      return _replaceCommaWithPeriod;
+    }
+  }
 }
 
 class DataParser {
@@ -34,9 +46,9 @@ class DataParser {
 
 class CustomDelay {
   bySeconds(int delayTime) async {
-      if(delayTime.runtimeType == int) { 
-        final dt = await Future.delayed(Duration(seconds: delayTime)); 
-        return dt;
-        }
+    if (delayTime.runtimeType == int) {
+      final dt = await Future.delayed(Duration(seconds: delayTime));
+      return dt;
+    }
   }
 }

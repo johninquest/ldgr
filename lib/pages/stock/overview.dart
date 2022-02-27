@@ -258,7 +258,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                   List<Map<String, String>> _fsUpdatePayload = [
                     {
                       'event_timestamp': _tsToString,
-                      'event_quantity': _quantityTaken.text,
+                      'event_quantity': InputHandler().commaToPeriod(_quantityTaken.text),
                       'event_name': 'removed_from_stock',
                       'event_by': _currentUserName ?? '',
                     }
@@ -337,7 +337,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                   List<Map<String, String>> _fsUpdatePayload = [
                     {
                       'event_timestamp': _tsToString,
-                      'event_quantity': _quantityAdded.text,
+                      'event_quantity': InputHandler().commaToPeriod(_quantityAdded.text),
                       'event_name': 'added_to_stock',
                       'event_by': _currentUserName ?? '',
                     }

@@ -4,7 +4,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
 import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/db/sqlite_helper.dart';
 import 'package:ldgr/services/currency.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
@@ -245,7 +244,6 @@ class PrintService {
         .getCurrencyData()
         .then((value) => currencyValue = value);
     print('Current currency => $currencyValue');
-    SQLiteDatabaseHelper().getAllRowsToday().then((value) => print(value));
   }
 }
 

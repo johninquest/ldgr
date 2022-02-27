@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/shared/lists.dart';
-import 'package:ldgr/db/sqlite_helper.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/services/preprocessor.dart';
@@ -117,18 +116,7 @@ class _IncomeFormState extends State<IncomeForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_incomeFormKey.currentState!.validate()) {
-                          String parsedIncomeAmount =
-                              InputHandler().moneyCheck(incomeAmount!);
-                          SQLiteDatabaseHelper()
-                              .insertRow(
-                                  'income', '$incomeSource', parsedIncomeAmount)
-                              .then((value) {
-                            if (value != null) {
-                              SnackBarMessage().saveSuccess(context);
-                              /* PageRouter()
-                                  .navigateToPage(AllRecords(), context); */
-                            }
-                          });
+                          print('Can  now proceed to save data!');
                         }
                       },
                       child: Text('SAVE'),

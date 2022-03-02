@@ -63,6 +63,7 @@ class StockOverviewData extends StatefulWidget {
 }
 
 class _StockOverviewDataState extends State<StockOverviewData> {
+  final _logsFormKey = GlobalKey<FormState>();
   TextEditingController _quantityAdded = TextEditingController();
   TextEditingController _quantityTaken = TextEditingController();
   String? _currentUserName;
@@ -224,13 +225,18 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.4,
-              margin: EdgeInsets.only(top: 20.0),
-              child: TextField(
-                controller: _quantityTaken,
-                decoration: InputDecoration(labelText: 'Enter quantity'),
-                keyboardType: TextInputType.number,
+            Form(
+              key: _logsFormKey,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                margin: EdgeInsets.only(top: 20.0),
+                child: TextFormField(
+                  controller: _quantityTaken,
+                  decoration: InputDecoration(labelText: 'Enter quantity'),
+                  keyboardType: TextInputType.number,
+                  validator: (val) =>
+                      val!.isEmpty ? 'Please enter quantity' : null,
+                ),
               ),
             )
           ],
@@ -252,26 +258,29 @@ class _StockOverviewDataState extends State<StockOverviewData> {
             ),
             TextButton(
                 onPressed: () {
-                  var _fs = FirestoreService();
-                  String _tsToString =
-                      DateTimeHelper().timestampForDB(DateTime.now());
-                  List<Map<String, String>> _fsUpdatePayload = [
-                    {
-                      'event_timestamp': _tsToString,
-                      'event_quantity': InputHandler().commaToPeriod(_quantityTaken.text),
-                      'event_name': 'removed_from_stock',
-                      'event_by': _currentUserName ?? '',
-                    }
-                  ];
+                  if (_logsFormKey.currentState!.validate()) {
+                    var _fs = FirestoreService();
+                    String _tsToString =
+                        DateTimeHelper().timestampForDB(DateTime.now());
+                    List<Map<String, String>> _fsUpdatePayload = [
+                      {
+                        'event_timestamp': _tsToString,
+                        'event_quantity':
+                            InputHandler().commaToPeriod(_quantityTaken.text),
+                        'event_name': 'removed_from_stock',
+                        'event_by': _currentUserName ?? '',
+                      }
+                    ];
 
-                  _fs
-                      .updateArrayInDocument(
-                          _currentDocId, 'events', _fsUpdatePayload)
-                      .then((val) {
-                    SnackBarMessage()
-                        .customSuccessMessage('Logged successfully', context);
-                    PageRouter().navigateToPage(StockOverviewPage(), context);
-                  });
+                    _fs
+                        .updateArrayInDocument(
+                            _currentDocId, 'events', _fsUpdatePayload)
+                        .then((val) {
+                      SnackBarMessage()
+                          .customSuccessMessage('Logged successfully', context);
+                      PageRouter().navigateToPage(StockOverviewPage(), context);
+                    });
+                  }
                 },
                 child: Text(
                   'SAVE',
@@ -303,13 +312,18 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.4,
-              margin: EdgeInsets.only(top: 20.0),
-              child: TextField(
-                controller: _quantityAdded,
-                decoration: InputDecoration(labelText: 'Enter quantity'),
-                keyboardType: TextInputType.number,
+            Form(
+              key: _logsFormKey,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                margin: EdgeInsets.only(top: 20.0),
+                child: TextFormField(
+                  controller: _quantityAdded,
+                  decoration: InputDecoration(labelText: 'Enter quantity'),
+                  keyboardType: TextInputType.number,
+                  validator: (val) =>
+                      val!.isEmpty ? 'Please enter quantity' : null,
+                ),
               ),
             )
           ],
@@ -331,26 +345,26 @@ class _StockOverviewDataState extends State<StockOverviewData> {
             ),
             TextButton(
                 onPressed: () {
-                  var _fs = FirestoreService();
-                  String _tsToString =
-                      DateTimeHelper().timestampForDB(DateTime.now());
-                  List<Map<String, String>> _fsUpdatePayload = [
-                    {
-                      'event_timestamp': _tsToString,
-                      'event_quantity': InputHandler().commaToPeriod(_quantityAdded.text),
-                      'event_name': 'added_to_stock',
-                      'event_by': _currentUserName ?? '',
-                    }
-                  ];
-
-                  _fs
-                      .updateArrayInDocument(
-                          _currentDocId, 'events', _fsUpdatePayload)
-                      .then((val) {
-                    SnackBarMessage()
-                        .customSuccessMessage('Logged successfully', context);
-                    PageRouter().navigateToPage(StockOverviewPage(), context);
-                  });
+                  if (_logsFormKey.currentState!.validate()) {
+                    var _fs = FirestoreService();
+                    String _tsToString =
+                        DateTimeHelper().timestampForDB(DateTime.now());
+                    List<Map<String, String>> _fsUpdatePayload = [
+                      {
+                        'event_timestamp': _tsToString,
+                        'event_quantity':
+                            InputHandler().commaToPeriod(_quantityAdded.text),
+                        'event_name': 'added_to_stock',
+                        'event_by': _currentUserName ?? '',
+                      }
+                    ];
+                    _fs.updateArrayInDocument(_currentDocId, 'events', _fsUpdatePayload)
+                        .then((val) {
+                      SnackBarMessage()
+                          .customSuccessMessage('Logged successfully', context);
+                      PageRouter().navigateToPage(StockOverviewPage(), context);
+                    });
+                  }
                 },
                 child: Text(
                   'SAVE',

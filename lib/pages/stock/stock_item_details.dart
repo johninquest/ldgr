@@ -35,8 +35,8 @@ class _StockItemDetailsState extends State<StockItemDetails> {
               'Purchase date', _dtFormatter.isoToUiDate(i['picked_date'])),
           _tableRow('By', i['entered_by']),
           _tableRow('Initial quantity', i['quantity']),
-          _tableRow('Added', '${_calculator.sumOfAddedItems(_events)}'),
-          _tableRow('Removed', '${_calculator.sumOfRemovedItems(_events)}'),
+          _tableRowWithColor('Added', '${_calculator.sumOfAddedItems(_events)}', myTeal),
+          _tableRowWithColor('Removed', '${_calculator.sumOfRemovedItems(_events)}', myRed),
           _tableRow('Remaining',
               '${_calculator.computeRemainingItems(i['quantity'], _calculator.sumOfAddedItems(_events), _calculator.sumOfRemovedItems(_events))}'),
           SizedBox(
@@ -83,6 +83,35 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             padding: EdgeInsets.only(bottom: 1.0, right: 5.0),
             child: Text(_data ?? '',
                 style: TextStyle(fontWeight: FontWeight.bold)),
+          )
+        ],
+      ),
+    );
+  }
+
+  
+  Widget _tableRowWithColor(String? rTitle, String? rData, Color rColorName) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.0),
+      width: MediaQuery.of(context).size.width * 0.90,
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 1.0, left: 5.0),
+            padding: EdgeInsets.only(bottom: 1.0, left: 5.0),
+            child: Text(
+              rTitle ?? '',
+              style: TextStyle(color: rColorName, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 1.0, right: 5.0),
+            padding: EdgeInsets.only(bottom: 1.0, right: 5.0),
+            child: Text(rData ?? '',
+                style: TextStyle(fontWeight: FontWeight.bold, color: rColorName)),
           )
         ],
       ),

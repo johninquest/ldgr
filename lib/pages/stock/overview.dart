@@ -99,18 +99,24 @@ class _StockOverviewDataState extends State<StockOverviewData> {
           String _itemDate = itemsInStock[index]['picked_date'] ?? '';
           List _eventLogs = itemsInStock[index]['events'] ?? [];
           var _calculator = StockCalculations();
+          num _availableQty = _calculator.computeRemainingItems(
+              _itemInitialQty,
+              _calculator.sumOfAddedItems(_eventLogs),
+              _calculator.sumOfRemovedItems(_eventLogs));
           return Card(
             child: ExpansionTile(
               initiallyExpanded: false,
               leading: Text(
                 DateTimeFormatter().isoToUiDate(_itemDate),
                 style: TextStyle(
-                  fontSize: 15.0,
-                ),
+                    fontSize: 15.0,
+                    color: setExpansionTileColor(_availableQty)),
               ),
               title: Text(
                 _itemName,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: setExpansionTileColor(_availableQty)),
               ),
               children: [
                 Container(
@@ -125,7 +131,7 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                         ),
                       ),
                       Text(
-                        '${_calculator.computeRemainingItems(_itemInitialQty, _calculator.sumOfAddedItems(_eventLogs), _calculator.sumOfRemovedItems(_eventLogs))}',
+                        '$_availableQty',
                         textAlign: TextAlign.right,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -358,7 +364,9 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                         'event_by': _currentUserName ?? '',
                       }
                     ];
-                    _fs.updateArrayInDocument(_currentDocId, 'events', _fsUpdatePayload)
+                    _fs
+                        .updateArrayInDocument(
+                            _currentDocId, 'events', _fsUpdatePayload)
                         .then((val) {
                       SnackBarMessage()
                           .customSuccessMessage('Logged successfully', context);
@@ -423,5 +431,14 @@ class _StockOverviewDataState extends State<StockOverviewData> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
     );
+  }
+}
+
+setExpansionTileColor(num qAvailable) {
+  if (qAvailable <= 0) {
+    Color _color = myRed;
+    return _color;
+  } else {
+    return Colors.black;
   }
 }

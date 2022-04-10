@@ -118,17 +118,6 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 ],
               ),
             ),
-            /*  Container(
-              margin: EdgeInsets.only(bottom: 10.0, top: 30.0),
-              child: Text(
-                'Expense overview',
-                style: TextStyle(
-                    color: myBlue,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                    letterSpacing: 1.0),
-              ),
-            ), */
             Table(
               // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               // border: TableBorder.all(),
@@ -302,7 +291,8 @@ getSum(List resList) {
     num val = num.tryParse(i['price']) ?? 0;
     additioner += val;
   });
-  return additioner.toString();
+  // return additioner.toString();
+  return additioner.toStringAsFixed(0);
 }
 
 getSumByPaidStatus(List resList, String ps) {
@@ -313,7 +303,7 @@ getSumByPaidStatus(List resList, String ps) {
       addn += val;
     }
   });
-  return addn.toString();
+  return addn.toStringAsFixed(0);
 }
 
 getSumByPaidStatusAndCostArea(List resList, String ps, String ca) {
@@ -324,7 +314,7 @@ getSumByPaidStatusAndCostArea(List resList, String ps, String ca) {
       addn += val;
     }
   });
-  return addn.toString();
+  return addn.toStringAsFixed(0);
 }
 
 class TableDataBox extends StatelessWidget {

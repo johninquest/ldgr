@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () => showDialog(
                       context: context,
-                      builder: (_) => InfoDialog('Coming soon!')),
+                      builder: (_) => InfoDialog('coming soon'.toUpperCase())),
                   child: Text('INCOME',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),

@@ -52,3 +52,10 @@ class CustomDelay {
     }
   }
 }
+
+class Capitalize {
+  word(String w) {
+    String _capitalized = w[0].toUpperCase() + w.substring(1);
+    return _capitalized;
+  }
+}

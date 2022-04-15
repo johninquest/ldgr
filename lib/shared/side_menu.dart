@@ -7,6 +7,7 @@ import 'package:ldgr/services/router.dart';
 import 'package:ldgr/pages/inputs/business_info.dart';
 import 'package:ldgr/pages/about.dart';
 import 'package:ldgr/styles/colors.dart';
+import '../pages/users/user_list.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -16,13 +17,18 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  String? _currentUser;
+  String? _currentUserName;
+  bool _isVisible = false;
   @override
   Widget build(BuildContext context) {
     SharedPreferencesHelper().readData('currentUserData').then((val) {
       if (val != null) {
         setState(() {
-          _currentUser = DataParser().strToMap(val)['name'];
+          _currentUserName = DataParser().strToMap(val)['name'];
+          String _currentUserRole = DataParser().strToMap(val)['role'];
+          if (_currentUserRole == 'owner' || _currentUserRole == 'admin') {
+            _isVisible = true;
+          }
         });
       }
     });
@@ -43,7 +49,7 @@ class _SideMenuState extends State<SideMenu> {
                       size: 50.0,
                     ),
                     Text(
-                      _currentUser ?? '',
+                      _currentUserName ?? '',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -106,10 +112,25 @@ class _SideMenuState extends State<SideMenu> {
                 color: myBlue,
               ),
               title: Text(
-                'About app',
+                'Info',
                 style: TextStyle(color: myBlue),
               ),
               onTap: () => PageRouter().navigateToPage(AboutPage(), context),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: ListTile(
+                leading: Icon(
+                  Icons.person_outline,
+                  color: myBlue,
+                ),
+                title: Text(
+                  'Users',
+                  style: TextStyle(color: myBlue),
+                ),
+                onTap: () =>
+                    PageRouter().navigateToPage(UserListPage(), context),
+              ),
             ),
             /* ListTile(
               leading: Icon(

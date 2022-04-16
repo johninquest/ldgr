@@ -11,16 +11,15 @@ class InputIncomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Enter income'),
-          centerTitle: true,
-          backgroundColor: myTeal,
-        ),
-        body: Center(
-          child: Container(
-            child: IncomeForm(),
-          ),
-        ));
+      appBar: AppBar(
+        title: Text('Enter income'),
+        centerTitle: true,
+        backgroundColor: myTeal,
+      ),
+      body: Center(
+        child: IncomeForm(),
+      ),
+    );
   }
 }
 

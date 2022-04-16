@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/firebase/firestore.dart';
+import 'package:ldgr/pages/analysis/barchart.dart';
 import 'package:ldgr/pages/analysis/chart_data_models.dart';
-import 'package:ldgr/services/router.dart';
+import 'package:ldgr/pages/analysis/piechart.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/widgets.dart';
-import 'package:ldgr/styles/colors.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class AnalysisPage extends StatelessWidget {
@@ -62,71 +62,77 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
         .byDate(widget.fsData, _day ?? '', _month ?? '', _year ?? '');
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Container(
-        margin: EdgeInsets.only(left: 5.0, right: 5.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(
-                bottom: 5.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.20,
-                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                    child: DropdownButtonFormField(
-                      decoration: InputDecoration(
-                          labelText: 'DD',
-                          labelStyle: TextStyle(fontSize: 12.0)),
-                      items: _dayList,
-                      validator: (val) => val == null ? 'DD?' : null,
-                      onChanged: (val) {
-                        setState(() {
-                          _day = val as String?;
-                        });
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.20,
-                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                    child: DropdownButtonFormField(
-                      decoration: InputDecoration(
-                          labelText: 'MM',
-                          labelStyle: TextStyle(fontSize: 12.0)),
-                      items: _monthList,
-                      validator: (val) => val == null ? 'MM?' : null,
-                      onChanged: (val) => setState(() {
-                        _month = val as String?;
-                      }),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.20,
-                    margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                    child: DropdownButtonFormField(
-                      decoration: InputDecoration(
-                          labelText: 'YYYY',
-                          labelStyle: TextStyle(fontSize: 12.0)),
-                      items: _yearList,
-                      validator: (val) => val == null ? 'YYYY?' : null,
-                      onChanged: (val) => setState(() {
-                        _year = val as String?;
-                      }),
-                    ),
-                  ),
-                ],
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              bottom: 5.0,
             ),
-            SizedBox(
-              height: 20.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                        labelText: 'DD', labelStyle: TextStyle(fontSize: 12.0)),
+                    items: _dayList,
+                    validator: (val) => val == null ? 'DD?' : null,
+                    onChanged: (val) {
+                      setState(() {
+                        _day = val as String?;
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                        labelText: 'MM', labelStyle: TextStyle(fontSize: 12.0)),
+                    items: _monthList,
+                    validator: (val) => val == null ? 'MM?' : null,
+                    onChanged: (val) => setState(() {
+                      _month = val as String?;
+                    }),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                        labelText: 'YYYY',
+                        labelStyle: TextStyle(fontSize: 12.0)),
+                    items: _yearList,
+                    validator: (val) => val == null ? 'YYYY?' : null,
+                    onChanged: (val) => setState(() {
+                      _year = val as String?;
+                    }),
+                  ),
+                ),
+              ],
             ),
-            MyBarChart()
+          ),
+         
+          Container(
+            margin: EdgeInsets.only(top: 10.0, bottom: 3.0),
+            padding: EdgeInsets.all(3.0),
+            width: MediaQuery.of(context).size.width * 0.95,
+            height: MediaQuery.of(context).size.width * 0.45,
+            child: CostAreaBarChart(),
+          ),
+         /*  Container(
+            width: 200.0,
+            height: 200.0,
+            padding: EdgeInsets.all(10.0),
+            child: MyPieChart(),
+          ), */
 
-            /* Table(
+          /* Table(
               children: [
                 TableRow(children: [
                   TableCell(
@@ -284,8 +290,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 ]),
               ],
             ), */
-          ],
-        ),
+        ],
       ),
     );
   }

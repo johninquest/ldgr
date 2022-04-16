@@ -59,3 +59,11 @@ class Capitalize {
     return _capitalized;
   }
 }
+
+class AuthIdGenerator {
+  fromName(String name) {
+    String _trimedName = name.trim().toLowerCase();
+    String _generatedId = _trimedName + '@rcl';
+    return _generatedId;
+  }
+}

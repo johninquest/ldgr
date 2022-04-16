@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/firebase/firestore.dart';
+import 'package:ldgr/pages/analysis/chart_data_models.dart';
+import 'package:ldgr/services/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/widgets.dart';
 import 'package:ldgr/styles/colors.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class AnalysisPage extends StatelessWidget {
   const AnalysisPage({Key? key}) : super(key: key);
@@ -118,9 +121,12 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                 ],
               ),
             ),
-            Table(
-              // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              // border: TableBorder.all(),
+            SizedBox(
+              height: 20.0,
+            ),
+            MyBarChart()
+
+            /* Table(
               children: [
                 TableRow(children: [
                   TableCell(
@@ -277,7 +283,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
                   ),
                 ]),
               ],
-            ),
+            ), */
           ],
         ),
       ),
@@ -353,5 +359,66 @@ class TableDataBox extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MyBarChart extends StatelessWidget {
+  // final expenseData;
+  const MyBarChart({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<CostArea> _data = [
+      new CostArea('Bar', 94000, ''),
+      new CostArea('Cleaning', 24000, ''),
+      new CostArea('Kitchen', 34000, ''),
+      new CostArea('Operations', 26000, ''),
+      new CostArea('Other(s)', 20000, ''),
+      new CostArea('Toilet', 3500, '')
+    ];
+    List<charts.Series<CostArea, String>> _barChartData = [];
+    void _makeData() {
+      _barChartData.add(
+        charts.Series(
+            id: 'expenseByCostArea',
+            domainFn: (CostArea ca, _) => ca.nameVal,
+            measureFn: (CostArea ca, _) => ca.amountVal,
+            colorFn: (CostArea ca, _) =>
+                charts.MaterialPalette.blue.shadeDefault,
+            data: _data,
+            displayName: 'Cost area'),
+      );
+    }
+
+    _makeData();
+    return Center(
+      child: Column(
+        children: [
+          Container(
+              margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: Text(
+                'Expense by cost area',
+                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+              )),
+          Container(
+            width: 400,
+            height: 200,
+            child: charts.BarChart(
+              _barChartData,
+              animate: true,
+              animationDuration: Duration(seconds: 3),
+              behaviors: [],
+            ),
+          )
+        ],
+      ),
+    );
+
+/*     return Container(
+      width: 400,
+      height: 200,
+        child: charts.BarChart(_barChartData, animate: true, animationDuration: Duration(seconds: 3), behaviors: [],),
+      
+    ); */
   }
 }

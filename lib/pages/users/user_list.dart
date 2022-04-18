@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
+import 'package:ldgr/shared/dialogs.dart';
 import '../../firebase/firestore.dart';
 import '../../shared/bottom_nav_bar.dart';
 import '../../shared/widgets.dart';
@@ -71,9 +72,7 @@ class _TableOfUsersState extends State<TableOfUsers> {
               initiallyExpanded: false,
               leading: Text(
                 _userName,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: myBlue),
+                style: TextStyle(fontWeight: FontWeight.bold, color: myBlue),
               ),
               title: Text(
                 '',
@@ -119,6 +118,19 @@ class _TableOfUsersState extends State<TableOfUsers> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                    onPressed: () => showDialog(
+                        context: context,
+                        builder: (_) => InfoDialog('Under construction!')),
+                    child:
+                        Tooltip(message: 'Delete user', child: Text('DELETE')),
+                    style: ElevatedButton.styleFrom(
+                      primary: myRed,
+                    ),
                   ),
                 ),
               ],

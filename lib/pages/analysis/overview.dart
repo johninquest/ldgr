@@ -117,23 +117,25 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
               ],
             ),
           ),
-         
+          SizedBox(
+            height: 10.0,
+          ),
           Container(
-            margin: EdgeInsets.only(top: 10.0, bottom: 3.0),
             padding: EdgeInsets.all(3.0),
             width: MediaQuery.of(context).size.width * 0.95,
             height: MediaQuery.of(context).size.width * 0.45,
             child: CostAreaBarChart(),
           ),
-
-          Container(
-            margin: EdgeInsets.only(top: 23.0, bottom: 3.0),
-            padding: EdgeInsets.all(3.0),
-            width: MediaQuery.of(context).size.width * 0.60,
-            height: MediaQuery.of(context).size.width * 0.45,
-            child:MyPieChart(),
+          SizedBox(
+            height: 10.0,
           ),
-        /*  Container(
+          Container(
+            padding: EdgeInsets.all(3.0),
+            width: MediaQuery.of(context).size.width * 0.90,
+            height: MediaQuery.of(context).size.width * 0.45,
+            child: MyPieChart(pcData: resData ?? [],),
+          ),
+          /*  Container(
             width: 200.0,
             height: 200.0,
             padding: EdgeInsets.all(10.0),

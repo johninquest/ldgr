@@ -1,4 +1,4 @@
-class AnalysisDataOrganizer {
+class AnalysisFilters {
   getSum(List resList) {
     num additioner = 0;
     resList.forEach((i) {
@@ -7,6 +7,17 @@ class AnalysisDataOrganizer {
     });
     // return additioner.toString();
     return additioner.round();
+  }
+
+    getSumByCostArea(List resList, String ca) {
+    num addn = 0;
+    resList.forEach((i) {
+      if (i['cost_area'] == ca) {
+        num val = num.tryParse(i['price']) ?? 0;
+        addn += val;
+      }
+    });
+    return addn.round();
   }
 
   getSumByPaidStatus(List resList, String ps) {

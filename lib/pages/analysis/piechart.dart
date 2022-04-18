@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:ldgr/pages/analysis/chart_data_models.dart';
-import 'data_organizer.dart';
+import 'filters.dart';
 
 class MyPieChart extends StatelessWidget {
-  final List pcData;
-  const MyPieChart({Key? key, required this.pcData}) : super(key: key);
+  final List daybookData;
+  const MyPieChart({Key? key, required this.daybookData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    num _paid = AnalysisDataOrganizer().getSumByPaidStatus(pcData, 'paid') ?? 0;
-    num _unpaid = AnalysisDataOrganizer().getSumByPaidStatus(pcData, 'unpaid') ?? 0;
+    var _filter = AnalysisFilters();
+    num _paid = _filter.getSumByPaidStatus(daybookData, 'paid') ?? 0;
+    num _unpaid = _filter.getSumByPaidStatus(daybookData, 'unpaid') ?? 0;
     List<Sum> _data = [
       // new Sum('Bar', 94000, ''),
       new Sum('Paid', _paid, '0xFF00c853'),
@@ -27,6 +28,7 @@ class MyPieChart extends StatelessWidget {
           colorFn: (Sum s, _) =>
               charts.ColorUtil.fromDartColor(Color(int.parse(s.colorVal))),
           data: _data,
+          labelAccessorFn: (Sum s, _) => '${s.nameVal}: ${s.amountVal}',
         ),
       );
     }
@@ -35,10 +37,10 @@ class MyPieChart extends StatelessWidget {
     return Center(
       child: charts.PieChart<String>(
         _pieChartData,
-        animate: false,
+        animate: true,
         animationDuration: Duration(seconds: 3),
         behaviors: [
-          new charts.DatumLegend(
+          /* new charts.DatumLegend(
             outsideJustification: charts.OutsideJustification.endDrawArea,
             horizontalFirst: false,
             desiredMaxRows: 2,
@@ -47,14 +49,12 @@ class MyPieChart extends StatelessWidget {
               color: charts.MaterialPalette.black,
               fontFamily: '',
             ),
-          )
+          ) */
         ],
-        /*  defaultRenderer: new charts.ArcRendererConfig(
-              arcWidth: 100,
-              arcRendererDecorators: [
-                new charts.ArcLabelDecorator(
-                    labelPosition: charts.ArcLabelPosition.inside)
-              ]) */
+        defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
+          new charts.ArcLabelDecorator(
+              labelPosition: charts.ArcLabelPosition.outside)
+        ]),
       ),
     );
   }

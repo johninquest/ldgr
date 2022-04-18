@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
   FirebaseFirestore fsInstance = FirebaseFirestore.instance;
-  final String _mainCollection = 'the_wine_reserve';
- // final String _mainCollection = 'test';
+  // final String _mainCollection = 'the_wine_reserve';
+  final String _mainCollection = 'test';
 
   getCollection(String collectionName) async {
     CollectionReference _collection = fsInstance.collection(collectionName);
@@ -32,14 +32,13 @@ class FirestoreService {
     }
   }
 
-    getSubCollectionBasic(String mainDocName, String subColName) async {
+  getSubCollectionBasic(String mainDocName, String subColName) async {
     CollectionReference _collection = fsInstance
         .collection(_mainCollection)
         .doc(mainDocName)
         .collection(subColName);
     try {
-      QuerySnapshot snapshot =
-          await _collection.get();
+      QuerySnapshot snapshot = await _collection.get();
       List<dynamic> fsReponse = snapshot.docs.map((doc) => doc.data()).toList();
       return fsReponse;
     } catch (e) {
@@ -92,6 +91,35 @@ class FirestoreService {
       if (e.code == 'permission-denied') {
         return 'permission-denied';
       }
+    }
+  }
+
+  addNewAppUser(String _id, Map<String, dynamic> _data) async {
+    var targetCollection = fsInstance
+        .collection(_mainCollection)
+        .doc('users')
+        .collection('user_list');
+    try {
+      await targetCollection.doc(_id).set(_data);
+      String successMessage = 'add-success';
+      return successMessage;
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'permission-denied';
+      }
+    }
+  }
+
+  removeAppUser(String _docId) async {
+    CollectionReference _col = fsInstance
+        .collection(_mainCollection)
+        .doc('users')
+        .collection('user_list');
+    try {
+      var delResponse = await _col.doc(_docId).delete();
+      return delResponse;
+    } on FirebaseException catch (e) {
+      print(e.code);
     }
   }
 
@@ -218,16 +246,16 @@ class FirestoreService {
     }
   }
 
-  updateArrayInDocument(
-      String _docId, String _arrayName, List<Map<String, String>> _arrayData) async {
+  updateArrayInDocument(String _docId, String _arrayName,
+      List<Map<String, String>> _arrayData) async {
     CollectionReference _col = fsInstance
         .collection(_mainCollection)
         .doc('records')
         .collection('stock');
     try {
-      var updateResponse = await _col.doc(_docId).update({
-        _arrayName: FieldValue.arrayUnion(_arrayData)
-      });
+      var updateResponse = await _col
+          .doc(_docId)
+          .update({_arrayName: FieldValue.arrayUnion(_arrayData)});
       return updateResponse;
     } on FirebaseException catch (e) {
       print(e.code);

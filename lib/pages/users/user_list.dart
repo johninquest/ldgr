@@ -87,9 +87,6 @@ class _TableOfUsersState extends State<TableOfUsers> {
                     children: [
                       Text(
                         'UserId',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
                       Text(
                         _userId,
@@ -108,9 +105,6 @@ class _TableOfUsersState extends State<TableOfUsers> {
                     children: [
                       Text(
                         'Role',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
                       Text(
                         Capitalize().word(_userRole),

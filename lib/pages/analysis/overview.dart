@@ -119,7 +119,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
             height: 10.0,
           ),
           Container(
-            padding: EdgeInsets.all(3.0),
+            padding: EdgeInsets.all(1.0),
             width: MediaQuery.of(context).size.width * 0.95,
             height: MediaQuery.of(context).size.width * 0.50,
             child: CostAreaBarChart(
@@ -130,7 +130,7 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
             height: 20.0,
           ),
           Container(
-            padding: EdgeInsets.all(3.0),
+            padding: EdgeInsets.all(1.0),
             width: MediaQuery.of(context).size.width * 0.90,
             height: MediaQuery.of(context).size.width * 0.45,
             child: MyPieChart(
@@ -140,7 +140,13 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
           SizedBox(
             height: 20.0,
           ),
-          AnalysisTable(daybookData: resData),
+          Container(
+            padding: EdgeInsets.only(left: 0.50, right: 0.50),
+            width: MediaQuery.of(context).size.width * 0.90,
+            // height: MediaQuery.of(context).size.width * 0.45,
+            child: AnalysisTable(daybookData: resData),
+          ),
+          // AnalysisTable(daybookData: resData),
           SizedBox(
             height: 20.0,
           ),

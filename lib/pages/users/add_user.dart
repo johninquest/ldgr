@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/firebase/firestore.dart';
 
 import '../../db/sp_helper.dart';
 import '../../services/date_time_helper.dart';
 import '../../services/preprocessor.dart';
+import '../../services/router.dart';
+import '../../shared/snackbar_messages.dart';
 import '../../styles/colors.dart';
+import 'user_list.dart';
 
 class AddUserPage extends StatelessWidget {
   const AddUserPage({Key? key}) : super(key: key);
@@ -87,23 +91,32 @@ class _UserFormState extends State<UserForm> {
                 margin: EdgeInsets.all(10.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    String _timestampsString =
-                        DateTimeHelper().timestampForDB(DateTime.now());
                     if (_userFormKey.currentState!.validate()) {
+                      String _timestampsString =
+                          DateTimeHelper().timestampForDB(DateTime.now());
                       String _userId =
                           AuthIdGenerator().fromName(_userName.text);
+                      String _capitalizedName =
+                          Capitalize().word(_userName.text.trim());
                       Map<String, dynamic> _userData = {
-                        'name': _userName.text.trim(),
+                        'name': _capitalizedName,
                         'role': 'employee',
                         'user_id': _userId,
                         'created_at': _timestampsString,
                         'last_update_at': '',
-                        'entered_by': _currentUser ?? '',
+                        'added_by': _currentUser ?? '',
                       };
-                      print(_userData);
-                    } /* else {
-                      print('Form is invalid!');
-                    } */
+                      var _fs = FirestoreService();
+                      _fs.addNewAppUser(_userId, _userData).then((val) {
+                        if (val == 'add-success') {
+                          SnackBarMessage().customSuccessMessage(
+                              'Added new user successfully', context);
+                          PageRouter().navigateToPage(UserListPage(), context);
+                        } else {
+                          SnackBarMessage().generalErrorMessage(context);
+                        }
+                      });
+                    }
                   },
                   child: Text('SAVE'),
                   style: ElevatedButton.styleFrom(primary: myRed),

@@ -13,7 +13,6 @@ class MyPieChart extends StatelessWidget {
     num _paid = _filter.getSumByPaidStatus(daybookData, 'paid') ?? 0;
     num _unpaid = _filter.getSumByPaidStatus(daybookData, 'unpaid') ?? 0;
     List<Sum> _data = [
-      // new Sum('Bar', 94000, ''),
       new Sum('Paid', _paid, '0xFF00c853'),
       new Sum('Unpaid', _unpaid, '0xFFff8f00'),
     ];

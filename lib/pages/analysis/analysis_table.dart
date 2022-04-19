@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/pages/analysis/filters.dart';
-
 import '../../styles/colors.dart';
 
 class AnalysisTable extends StatelessWidget {

@@ -16,7 +16,7 @@ class AddUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add user'),
+          title: Text('Add new user'),
           centerTitle: true,
         ),
         body: Center(
@@ -64,12 +64,12 @@ class _UserFormState extends State<UserForm> {
               padding: EdgeInsets.only(left: 20.0, right: 20.0),
               child: TextFormField(
                 controller: _userName,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: "User's first name"),
                 keyboardType: TextInputType.text,
                 textCapitalization: TextCapitalization.sentences,
                 validator: (val) {
                   if (val == null || val.isEmpty) {
-                    return 'Please enter name';
+                    return "Please enter new user's name";
                   }
                 },
               )),

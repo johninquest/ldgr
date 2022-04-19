@@ -114,16 +114,19 @@ class _TableOfUsersState extends State<TableOfUsers> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.all(10.0),
-                  child: ElevatedButton(
-                    onPressed: () => showDialog(
-                        context: context,
-                        builder: (_) => InfoDialog('Under construction!')),
-                    child:
-                        Tooltip(message: 'Delete user', child: Text('DELETE')),
-                    style: ElevatedButton.styleFrom(
-                      primary: myRed,
+                Visibility(
+                  visible: showDelete(_userRole),
+                  child: Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      onPressed: () => showDialog(
+                          context: context,
+                          builder: (_) => InfoDialog('Under construction!')),
+                      child: Tooltip(
+                          message: 'Delete user', child: Text('DELETE')),
+                      style: ElevatedButton.styleFrom(
+                        primary: myRed,
+                      ),
                     ),
                   ),
                 ),
@@ -131,5 +134,13 @@ class _TableOfUsersState extends State<TableOfUsers> {
             ),
           );
         });
+  }
+}
+
+showDelete(String role) {
+  if (role == 'employee') {
+    return true;
+  } else {
+    return false;
   }
 }

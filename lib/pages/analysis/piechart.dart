@@ -28,7 +28,7 @@ class MyPieChart extends StatelessWidget {
           colorFn: (Sum s, _) =>
               charts.ColorUtil.fromDartColor(Color(int.parse(s.colorVal))),
           data: _data,
-          labelAccessorFn: (Sum s, _) => '${s.nameVal}: ${s.amountVal}',
+          labelAccessorFn: (Sum s, _) => '${s.amountVal}',
         ),
       );
     }
@@ -40,7 +40,7 @@ class MyPieChart extends StatelessWidget {
         animate: true,
         animationDuration: Duration(seconds: 3),
         behaviors: [
-          /* new charts.DatumLegend(
+          new charts.DatumLegend(
             outsideJustification: charts.OutsideJustification.endDrawArea,
             horizontalFirst: false,
             desiredMaxRows: 2,
@@ -49,7 +49,7 @@ class MyPieChart extends StatelessWidget {
               color: charts.MaterialPalette.black,
               fontFamily: '',
             ),
-          ) */
+          )
         ],
         defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
           new charts.ArcLabelDecorator(

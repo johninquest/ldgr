@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/services/preprocessor.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/dialogs.dart';
 import '../../firebase/firestore.dart';
 import '../../shared/bottom_nav_bar.dart';
+import '../../shared/snackbar_messages.dart';
 import '../../shared/widgets.dart';
 import '../../styles/colors.dart';
 import 'add_user.dart';
@@ -86,6 +86,24 @@ class _TableOfUsersState extends State<TableOfUsers> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
+                        'Name',
+                      ),
+                      Text(
+                        _userName,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.87,
+                  margin: EdgeInsets.only(top: 1.0, bottom: 1.0),
+                  padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
                         'UserId',
                       ),
                       Text(
@@ -121,9 +139,8 @@ class _TableOfUsersState extends State<TableOfUsers> {
                     child: ElevatedButton(
                       onPressed: () => showDialog(
                           context: context,
-                          builder: (_) => InfoDialog('Under construction!')),
-                      child: Tooltip(
-                          message: 'Delete user', child: Text('DELETE')),
+                          builder: (_) => _deleteDialog(_userId, _userName)),
+                      child: Text('DELETE'),
                       style: ElevatedButton.styleFrom(
                         primary: myRed,
                       ),
@@ -134,6 +151,53 @@ class _TableOfUsersState extends State<TableOfUsers> {
             ),
           );
         });
+  }
+
+    Widget _deleteDialog(String userLoginId, String userName) {
+    return AlertDialog(
+      title: Icon(
+        Icons.warning,
+        color: myRed,
+        size: 40.0,
+      ),
+      content: Text(
+        'Delete ? \n"$userName"',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'NO',
+                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
+              ),
+            ),
+            TextButton(
+                onPressed: () {
+                  FirestoreService()
+                      .removeAppUser(
+                          userLoginId)
+                      .then((val) {
+                    SnackBarMessage().customSuccessMessage('Deleted "$userName" successfully \u{2713}', context);
+                    PageRouter().navigateToPage(UserListPage(), context);
+                  }).catchError((e) =>
+                          SnackBarMessage().generalErrorMessage(context));
+                },
+                child: Text(
+                  'YES',
+                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
+                ))
+          ],
+        ),
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+    );
   }
 }
 

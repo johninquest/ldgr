@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
-
 import '../../db/sp_helper.dart';
 import '../../services/date_time_helper.dart';
 import '../../services/preprocessor.dart';
@@ -64,12 +63,12 @@ class _UserFormState extends State<UserForm> {
               padding: EdgeInsets.only(left: 20.0, right: 20.0),
               child: TextFormField(
                 controller: _userName,
-                decoration: InputDecoration(labelText: "User's first name"),
+                decoration: InputDecoration(labelText: "Enter user's first name"),
                 keyboardType: TextInputType.text,
                 textCapitalization: TextCapitalization.sentences,
                 validator: (val) {
                   if (val == null || val.isEmpty) {
-                    return "Please enter new user's name";
+                    return "Please enter user's first name";
                   }
                 },
               )),
@@ -110,7 +109,7 @@ class _UserFormState extends State<UserForm> {
                       _fs.addNewAppUser(_userId, _userData).then((val) {
                         if (val == 'add-success') {
                           SnackBarMessage().customSuccessMessage(
-                              'Added new user successfully', context);
+                              'Added new user: $_userId successfully', context);
                           PageRouter().navigateToPage(UserListPage(), context);
                         } else {
                           SnackBarMessage().generalErrorMessage(context);
@@ -119,7 +118,7 @@ class _UserFormState extends State<UserForm> {
                     }
                   },
                   child: Text('SAVE'),
-                  style: ElevatedButton.styleFrom(primary: myRed),
+                  style: ElevatedButton.styleFrom(primary: myBlue),
                 ),
               )
             ],

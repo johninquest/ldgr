@@ -67,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
                   keyboardType: TextInputType.text,
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter UserId!';
+                      return 'Please enter UserId';
                     }
                   },
                 )),
@@ -81,10 +81,11 @@ class _LoginFormState extends State<LoginForm> {
                   enableSuggestions: false,
                   autocorrect: false,
                   decoration: InputDecoration(labelText: 'Password'),
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.text, 
+                  enabled: true,
 /*                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return 'Please enter password!';
+                      return 'Please enter password';
                     }
                   }, */
                 )),

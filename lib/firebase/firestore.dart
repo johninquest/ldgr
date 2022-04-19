@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
   FirebaseFirestore fsInstance = FirebaseFirestore.instance;
-  // final String _mainCollection = 'the_wine_reserve';
-  final String _mainCollection = 'test';
+  final String _mainCollection = 'the_wine_reserve';
+  /* final String _mainCollection = 'test'; */
 
   getCollection(String collectionName) async {
     CollectionReference _collection = fsInstance.collection(collectionName);

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:ldgr/db/sp_helper.dart';
 // import 'package:ldgr/firebase/auth.dart';
 import 'package:ldgr/firebase/firestore.dart';
@@ -44,6 +43,17 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController _userName = TextEditingController();
   TextEditingController _userPassword = TextEditingController();
   bool? isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final _spHelper = SharedPreferencesHelper();
+    _spHelper.readData('loginId').then((value) {
+      if (value != null) {
+        _authenticateUser(value, '');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +110,6 @@ class _LoginFormState extends State<LoginForm> {
                       onChanged: (bool? value) {
                         setState(() {
                           isChecked = value as bool;
-                          print('Remember me state => $isChecked');
                         });
                       },
                     ),
@@ -118,60 +127,8 @@ class _LoginFormState extends State<LoginForm> {
                     String userPasswordCleanedUp =
                         _userPassword.text.trim().toLowerCase();
                     if (_loginFormKey.currentState!.validate()) {
-                      var adminAuth = AuthService().verifyAdmin(
+                      _authenticateUser(
                           userNameCleanedUp, userPasswordCleanedUp);
-                      if (adminAuth == 'auth_success') {
-                        String name = 'admin';
-                        String role = 'admin';
-                        String businessName = '';
-                        String businessLocation = '';
-                        storeCurrentUser(
-                            name, role, businessName, businessLocation);
-                        PageRouter().navigateToPage(HomePage(), context);
-                      } else {
-                        FirestoreService()
-                            .checkIfDocExists(userNameCleanedUp)
-                            .then((DocumentSnapshot snapshot) {
-                          if (snapshot.exists) {
-                            Map<String, dynamic> _data =
-                                snapshot.data() as Map<String, dynamic>;
-                            String name = _data['name'] ?? '';
-                            String role = _data['role'] ?? '';
-                            String businessName = _data['business_name'] ?? '';
-                            String businessLocation = _data['city'] ?? '';
-                            storeCurrentUser(
-                                name, role, businessName, businessLocation);
-                            PageRouter().navigateToPage(HomePage(), context);
-                          } else {
-                            showDialog(
-                                context: context,
-                                builder: (_) => ErrorDialog('Access denied!'));
-                          }
-                        }).catchError((e) {
-                          showDialog(
-                              context: context,
-                              builder: (_) => ErrorDialog(
-                                  'Something went wrong.\n Please inform your manager!'));
-                        });
-                      }
-
-                      /* var adminAuth = AdminAuthService()
-                          .verifyAdmin(_userName.text, _userPassword.text);
-                      if (adminAuth == 'auth_success') {
-                        PageRouter().navigateToPage(HomePage(), context);
-                      } else {
-                        var _authUser = FirebaseAuthService().loginUser(
-                            _userName.text.trim(), _userPassword.text.trim());
-                        _authUser.then((val) {
-                          if (val == null) {
-                            showDialog(
-                                context: context,
-                                builder: (_) => ErrorDialog('Access denied!'));
-                          } else {
-                            PageRouter().navigateToPage(HomePage(), context);
-                          }
-                        });
-                      } */
                     }
                   },
                   child: Text(
@@ -189,6 +146,58 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
   }
+
+  _authenticateUser(String authName, authPassword) {
+    var adminAuth = AuthService().verifyAdmin(authName, authPassword);
+    if (adminAuth == 'auth_success') {
+      String name = 'admin';
+      String role = 'admin';
+      String businessName = '';
+      String businessLocation = '';
+      storeCurrentUser(name, role, businessName, businessLocation);
+      PageRouter().navigateToPage(HomePage(), context);
+    } else {
+      FirestoreService()
+          .checkIfDocExists(authName)
+          .then((DocumentSnapshot snapshot) {
+        if (snapshot.exists) {
+          Map<String, dynamic> _data = snapshot.data() as Map<String, dynamic>;
+          String name = _data['name'] ?? '';
+          String role = _data['role'] ?? '';
+          String businessName = _data['business_name'] ?? '';
+          String businessLocation = _data['city'] ?? '';
+          storeCurrentUser(name, role, businessName, businessLocation);
+          storeRememberMeUser(isChecked as bool, authName);
+          PageRouter().navigateToPage(HomePage(), context);
+        } else {
+          showDialog(
+              context: context, builder: (_) => ErrorDialog('Access denied!'));
+        }
+      }).catchError((e) {
+        showDialog(
+            context: context,
+            builder: (_) => ErrorDialog(
+                'Something went wrong.\n Please inform your manager!'));
+      });
+    }
+    /* var adminAuth = AdminAuthService()
+                          .verifyAdmin(_userName.text, _userPassword.text);
+                      if (adminAuth == 'auth_success') {
+                        PageRouter().navigateToPage(HomePage(), context);
+                      } else {
+                        var _authUser = FirebaseAuthService().loginUser(
+                            _userName.text.trim(), _userPassword.text.trim());
+                        _authUser.then((val) {
+                          if (val == null) {
+                            showDialog(
+                                context: context,
+                                builder: (_) => ErrorDialog('Access denied!'));
+                          } else {
+                            PageRouter().navigateToPage(HomePage(), context);
+                          }
+                        });
+                      } */
+  }
 }
 
 storeCurrentUser(
@@ -201,4 +210,11 @@ storeCurrentUser(
   };
   String _currentUserData = jsonEncode(_toMap);
   SharedPreferencesHelper().storeData('currentUserData', _currentUserData);
+}
+
+storeRememberMeUser(bool rmState, String? userId) {
+  if (rmState == true) {
+    final _spHelper = SharedPreferencesHelper();
+    _spHelper.storeData('loginId', userId ?? '');
+  }
 }

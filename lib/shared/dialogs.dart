@@ -91,7 +91,9 @@ class LogoutDialog extends StatelessWidget {
       ),
       content: Text(
         'Log out ?',
-        textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
       ),
       actions: [
         Row(
@@ -106,7 +108,12 @@ class LogoutDialog extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  SharedPreferencesHelper().removeData('currentUserData').then((val) => PageRouter().navigateToPage(LoginPage(), context));
+                  final _spHelper = SharedPreferencesHelper();
+                  _spHelper.removeData('loginId');
+                  _spHelper.removeData('currentUserData').then((_) {
+                    PageRouter().navigateToPage(LoginPage(), context);
+                  });
+
                   // PageRouter().navigateToPage(LoginPage(), context);
                 },
                 child: Text(

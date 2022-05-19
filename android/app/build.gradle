@@ -44,8 +44,8 @@ android {
         applicationId "de.johnapps.ldgr"
         minSdkVersion 19
         targetSdkVersion 31 
-        versionCode 1 
-        versionName '0.3.15' 
+        versionCode 16 
+        versionName '1.16.0' 
         multiDexEnabled true
         /* versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName */ 

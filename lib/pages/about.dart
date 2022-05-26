@@ -30,38 +30,46 @@ class AboutPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 5.0),
+                margin: EdgeInsets.only(top: 10.0),
                 child: Text(
                   'Ldgr',
                   style: TextStyle(
                       color: myBlue,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0),
+                      letterSpacing: 1.0),
                 ),
               ),
-              Divider(indent: 100.0, endIndent: 100.0,),
+              Divider(
+                indent: 100.0,
+                endIndent: 100.0,
+                thickness: 1.0,
+              ),
               Container(
-                margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 100.0),
+                margin: EdgeInsets.only(
+                    left: 10.0, right: 10.0, bottom: 75.0, top: 10.0),
                 child: Text(
                   'Ldgr is a simple bookkeeping app for your catering business.',
                   textAlign: TextAlign.center,
+                  style: TextStyle(letterSpacing: 0.5),
                 ),
               ),
               // SizedBox(height: 50.0,),
               Container(
                 margin: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => WebService().openUrl('https://johnapps.de', context),
-                  child: Text('\u00A9 $_currentYear JOHN APPS', 
-                  style: TextStyle(
-                    // fontStyle: FontStyle.italic, 
-                    color: myBlue,
-                    fontWeight: FontWeight.bold, 
-                    // decoration: TextDecoration.underline
-                    ),),
+                  onTap: () =>
+                      WebService().openUrl('https://johnapps.de', context),
+                  child: Text(
+                    '\u00A9 $_currentYear JOHN APPS',
+                    style: TextStyle(color: myBlue, letterSpacing: 0.5
+                        // decoration: TextDecoration.underline
+                        ),
+                  ),
                 ),
               ),
-              SizedBox(height: 30.0,),
+              SizedBox(
+                height: 25.0,
+              ),
               AppInfo()
             ],
           ),

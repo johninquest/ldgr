@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ldgr/pages/inputs/login.dart';
-import 'package:ldgr/styles/colors.dart';
+
+import 'pages/login.dart';
+import 'styles/colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +13,12 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ThemeData myTheme = ThemeData();
+    final ThemeData myTheme = ThemeData(
+      /* colorSchemeSeed: myBlue,
+      brightness: Brightness.light,
+      // useMaterial3: true, */
+      fontFamily: 'Lato',
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: myTheme.copyWith(
@@ -21,7 +27,7 @@ class MyApp extends StatelessWidget {
           secondary: myBlue,
         ),
       ),
-      home: LoginPage(), 
+      home: LoginPage(),
     );
   }
 }

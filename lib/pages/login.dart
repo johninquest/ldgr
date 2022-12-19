@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ldgr/db/sp_helper.dart';
-// import 'package:ldgr/firebase/auth.dart';
-import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/home.dart';
-import 'package:ldgr/services/auth.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/dialogs.dart';
-import 'package:ldgr/styles/colors.dart';
 import 'dart:convert';
+import '../db/sp_helper.dart';
+import '../firebase/firestore.dart';
+import '../services/auth.dart';
+import '../services/router.dart';
+import '../shared/dialogs.dart';
+import '../styles/colors.dart';
+import 'home.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -133,10 +132,13 @@ class _LoginFormState extends State<LoginForm> {
                   },
                   child: Text(
                     'Log in',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        wordSpacing: 3.0,
+                        letterSpacing: 0.5),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: myBlue,
+                    backgroundColor: myBlue,
                   ),
                 ),
               ),

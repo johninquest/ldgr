@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/expense/expense_list.dart';
-import 'package:ldgr/services/date_time_helper.dart';
-import 'package:ldgr/services/formatter.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/snackbar_messages.dart';
-import 'package:ldgr/styles/colors.dart';
-import 'package:ldgr/shared/lists.dart';
 import 'package:objectid/objectid.dart';
 import 'dart:async';
+import '../../db/sp_helper.dart';
+import '../../firebase/firestore.dart';
+import '../../services/date_time_helper.dart';
+import '../../services/formatter.dart';
+import '../../services/preprocessor.dart';
+import '../../services/router.dart';
+import '../../shared/lists.dart';
+import '../../shared/snackbar_messages.dart';
+import '../../styles/colors.dart';
+import 'expense_list.dart';
 
 class AddExpensePage extends StatelessWidget {
   const AddExpensePage({Key? key}) : super(key: key);
@@ -41,7 +41,8 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
   TextEditingController _itemCategory = TextEditingController();
   TextEditingController _itemName = TextEditingController();
   TextEditingController _price = TextEditingController();
-  TextEditingController _pickedDate = TextEditingController();
+  TextEditingController _pickedDate = TextEditingController(
+      text: DateTimeFormatter().toDateString(DateTime.now()));
   TextEditingController _quantity = TextEditingController();
 
   String? _costArea;
@@ -52,17 +53,18 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
 
   final _fs = FirestoreService();
 
-  DateTime selectedDate = DateTime.now();
+  DateTime currentDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: currentDate,
         firstDate: DateTime(1990, 1),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != currentDate)
       setState(() {
-        selectedDate = picked;
+        currentDate = picked;
         _pickedDate.text = DateTimeFormatter().toDateString(picked);
+        /*  print('Picked date => $_pickedDate'); */
       });
   }
 
@@ -244,9 +246,9 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('CANCEL'),
+                    child: Text('CANCEL', style: TextStyle(letterSpacing: 1.0)),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.grey,
+                      backgroundColor: Colors.grey,
                     ),
                   ),
                 ),
@@ -259,7 +261,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       String _daybookItemId = ObjectId().hexString;
                       // print('Expense record id => $_daybookItemId');
                       Map<String, dynamic> _daybookEntryData = {
-                        'picked_date': '$selectedDate',
+                        'picked_date': '$currentDate',
                         'account': 'expense',
                         'cost_area': _costArea ?? '',
                         'item_category': _itemCategory.text,
@@ -303,8 +305,11 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                         });
                       }
                     },
-                    child: Text('SAVE'),
-                    style: ElevatedButton.styleFrom(primary: myRed),
+                    child: Text(
+                      'SAVE',
+                      style: TextStyle(letterSpacing: 1.0),
+                    ),
+                    style: ElevatedButton.styleFrom(backgroundColor: myRed),
                   ),
                 )
               ],
@@ -339,7 +344,10 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
               },
               child: Text(
                 'NO',
-                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: myRed,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0),
               ),
             ),
             TextButton(
@@ -348,7 +356,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       DateTimeHelper().timestampForDB(DateTime.now());
                   String _stockItemId = ObjectId().hexString;
                   Map<String, dynamic> _stockEntryData = {
-                    'picked_date': '$selectedDate',
+                    'picked_date': '$currentDate',
                     'item_name': _itemName.text,
                     'quantity': InputHandler().commaToPeriod(_quantity.text),
                     'unit': _unit ?? '',
@@ -359,9 +367,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     'entered_by': _currentUser ?? '',
                     'events': []
                   };
-                  _fs
-                      .addItemToStock(_stockItemId, _stockEntryData)
-                      .then((val) {
+                  _fs.addItemToStock(_stockItemId, _stockEntryData).then((val) {
                     if (val == 'add-success') {
                       SnackBarMessage().customSuccessMessage(
                           'Added to stock successfully', context);
@@ -370,15 +376,13 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                       SnackBarMessage().generalErrorMessage(context);
                     }
                   });
-                  // print(_stockEntryData);
-
-                  /*  SnackBarMessage().customSuccessMessage(
-                      'Added to stock successfully', context);
-                  PageRouter().navigateToPage(EntryListPage(), context); */
                 },
                 child: Text(
                   'YES',
-                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: myGreen,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0),
                 ))
           ],
         ),

@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.16.0+16
+version: 1.17.0+17
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -71,11 +71,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Bold.ttf
+        - asset: fonts/Lato-Light.ttf
+        - asset: fonts/Lato-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

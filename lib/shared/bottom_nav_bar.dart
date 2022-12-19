@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/pages/expense/expense_list.dart';
-import 'package:ldgr/styles/colors.dart';
+import '../pages/expense/expense_list.dart';
+import '../pages/home.dart';
 import '../services/router.dart';
-import 'package:ldgr/pages/home.dart';
+import '../styles/colors.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -25,14 +25,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.home,
+            Icons.home_outlined,
             color: Colors.white,
           ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.view_list,
+            Icons.add_box_outlined,
+            color: Colors.white,
+          ),
+          label: 'Add',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.receipt_long_outlined,
             color: Colors.white,
           ),
           label: 'Expense list',
@@ -47,6 +54,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PageRouter().navigateToPage(HomePage(), context);
     }
     if (currentIndex == 1) {
+      // PageRouter().navigateToPage(EntryListPage(), context);
+      print('Tapped add button');
+    }
+    if (currentIndex == 2) {
       PageRouter().navigateToPage(EntryListPage(), context);
     }
 /*

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/services/web.dart';
-import 'package:ldgr/shared/app_info.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/styles/colors.dart';
-import 'package:ldgr/styles/style.dart';
-import 'package:ldgr/services/date_time_helper.dart';
+import '../services/date_time_helper.dart';
+import '../services/web.dart';
+import '../shared/app_info.dart';
+import '../shared/bottom_nav_bar.dart';
+import '../styles/colors.dart';
+import '../styles/style.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class AboutPage extends StatelessWidget {
                   style: TextStyle(
                       color: myBlue,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 1.0),
+                      letterSpacing: 2.0),
                 ),
               ),
               Divider(
@@ -48,7 +48,7 @@ class AboutPage extends StatelessWidget {
                 margin: EdgeInsets.only(
                     left: 10.0, right: 10.0, bottom: 75.0, top: 10.0),
                 child: Text(
-                  'Ldgr is a simple bookkeeping app for your catering business.',
+                  'Ldgr is the bookkeeping app for your small business.',
                   textAlign: TextAlign.center,
                   style: TextStyle(letterSpacing: 0.5),
                 ),
@@ -60,10 +60,13 @@ class AboutPage extends StatelessWidget {
                   onTap: () =>
                       WebService().openUrl('https://johnapps.de', context),
                   child: Text(
-                    '\u00A9 $_currentYear JOHN APPS',
-                    style: TextStyle(color: myBlue, letterSpacing: 0.5
-                        // decoration: TextDecoration.underline
-                        ),
+                    '\u00A9 JOHN APPS $_currentYear',
+                    style: TextStyle(
+                      color: myBlue,
+                      letterSpacing: 0.5,
+                      fontSize:
+                          11.0, /*  decoration: TextDecoration.underline */
+                    ),
                   ),
                 ),
               ),

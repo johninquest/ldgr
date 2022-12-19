@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/pages/home.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/styles/style.dart';
-import 'package:ldgr/styles/colors.dart';
-import 'package:ldgr/services/formatter.dart';
+import '../pages/home.dart';
+import '../services/formatter.dart';
+import '../services/router.dart';
+import '../styles/colors.dart';
+import '../styles/style.dart';
 
 class ErrorOccured extends StatelessWidget {
   @override
@@ -88,7 +88,10 @@ class ListItem extends StatelessWidget {
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       height: 40.0,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Column(children: [Text(Formatter().dbToUiDateTime(dateData)[0]), Text(Formatter().dbToUiDateTime(dateData)[1])]),
+        Column(children: [
+          Text(Formatter().dbToUiDateTime(dateData)[0]),
+          Text(Formatter().dbToUiDateTime(dateData)[1])
+        ]),
         Text(Formatter().dbToUiValue(categoryData)),
         Container(child: Formatter().checkSplit2Words(sourceData)),
         Text('$amountData'),
@@ -98,27 +101,36 @@ class ListItem extends StatelessWidget {
 }
 
 class EmptyTable extends StatelessWidget {
-  const EmptyTable({ Key? key }) : super(key: key);
+  const EmptyTable({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        margin: EdgeInsets.only(bottom: 20.0, top: 50.0),
-        child: Text('No records found!', style: BodyStyle,),), 
-      Container(
-        child: ElevatedButton(
-          onPressed: () => PageRouter().navigateToPage(HomePage(), context), 
-          style: ElevatedButton.styleFrom(
-            primary: myBlue, 
-            padding: EdgeInsets.all(10.0),), 
-          child: Column(
-            children: [
-              Icon(Icons.add, size: 25.0,), 
-              ],) )),
-    ],
-      
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 20.0, top: 50.0),
+          child: Text(
+            'No records found!',
+            style: BodyStyle,
+          ),
+        ),
+        Container(
+            child: ElevatedButton(
+                onPressed: () =>
+                    PageRouter().navigateToPage(HomePage(), context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: myBlue,
+                  padding: EdgeInsets.all(10.0),
+                ),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      size: 25.0,
+                    ),
+                  ],
+                ))),
+      ],
     );
   }
 }
-

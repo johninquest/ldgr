@@ -3,13 +3,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
-import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/services/currency.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/shared/snackbar_messages.dart';
+import '../db/sp_helper.dart';
+import '../shared/snackbar_messages.dart';
+import 'currency.dart';
+import 'preprocessor.dart';
 
 class PrintService {
-
   showGeneratedPdf(String? givenPath) {
     if (givenPath.runtimeType == String) {
       OpenFile.open(givenPath);
@@ -36,11 +35,11 @@ class PrintService {
                         child: pw.Text('Business information',
                             style: pw.TextStyle(
                                 fontSize: 20, fontWeight: pw.FontWeight.bold)),
-                      ), 
+                      ),
                       pw.Container(
-                        margin: pw.EdgeInsets.only(bottom: 10.0), 
+                        margin: pw.EdgeInsets.only(bottom: 10.0),
                         child: pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'), thickness: 3.0),
+                            color: PdfColor.fromHex('#0046A1'), thickness: 3.0),
                       ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -50,8 +49,9 @@ class PrintService {
                             pw.Text(parsed['businessName'],
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
-                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),      
+                      pw.Divider(
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       /* pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -71,7 +71,8 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),      
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -81,16 +82,18 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),      
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text('Phone', style: pw.TextStyle(fontSize: 18)),
                             pw.Text(parsed['phone'],
                                 style: pw.TextStyle(fontSize: 18)),
-                          ]), 
+                          ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),      
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -100,7 +103,8 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),      
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       /* pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -117,7 +121,8 @@ class PrintService {
         final String fileName = 'business_info_${parsed["businessName"]}';
         File file = File('${dir!.path}/$fileName');
         await file.writeAsBytes(await pdf.save());
-        await Future.delayed(Duration(seconds: 3), await showGeneratedPdf(file.path));
+        await Future.delayed(
+            Duration(seconds: 3), await showGeneratedPdf(file.path));
       } else {
         return SnackBarMessage().generalErrorMessage(appContext);
       }
@@ -149,7 +154,8 @@ class PrintService {
                       pw.Container(
                         margin: pw.EdgeInsets.only(bottom: 10.0),
                         child: pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'), thickness: 3.0),),
+                            color: PdfColor.fromHex('#0046A1'), thickness: 3.0),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -159,7 +165,8 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),    
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -167,9 +174,10 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                             pw.Text(parsedData['chassisNumber'],
                                 style: pw.TextStyle(fontSize: 18)),
-                          ]), 
+                          ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),    
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -177,18 +185,20 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                             pw.Text(convertToUpperCase(parsedData['maker']),
                                 style: pw.TextStyle(fontSize: 18)),
-                          ]), 
+                          ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),    
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text('Model', style: pw.TextStyle(fontSize: 18)),
                             pw.Text(parsedData['model'],
                                 style: pw.TextStyle(fontSize: 18)),
-                          ]), 
+                          ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),    
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -196,18 +206,20 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                             pw.Text(parsedData['firstRegistrationDate'],
                                 style: pw.TextStyle(fontSize: 18)),
-                          ]), 
+                          ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),    
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text('Age', style: pw.TextStyle(fontSize: 18)),
                             pw.Text(parsedData['age'],
                                 style: pw.TextStyle(fontSize: 18)),
-                          ]), 
+                          ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),    
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
@@ -218,7 +230,8 @@ class PrintService {
                                 style: pw.TextStyle(fontSize: 18)),
                           ]),
                       pw.Divider(
-                          color: PdfColor.fromHex('#0046A1'),),
+                        color: PdfColor.fromHex('#0046A1'),
+                      ),
                       /*  pw.Container(
                           margin: pw.EdgeInsets.only(top: 200.0),
                           child: pw.Text('Generated with the phita app')), */
@@ -231,7 +244,8 @@ class PrintService {
             'vehicle_info_${parsedData["licensePlateNumber"]}';
         File file = File('${dir!.path}/$fileName');
         await file.writeAsBytes(await pdf.save());
-        await Future.delayed(Duration(seconds: 3), await showGeneratedPdf(file.path));
+        await Future.delayed(
+            Duration(seconds: 3), await showGeneratedPdf(file.path));
       } else {
         return SnackBarMessage().generalErrorMessage(appContext);
       }

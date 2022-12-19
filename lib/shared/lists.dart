@@ -120,6 +120,11 @@ class MyItemList {
           child: Text(''),
         )),
     DropdownMenuItem(
+        value: 'bank',
+        child: Container(
+          child: Text('Bank', style: DropdownListStyle),
+        )),
+    DropdownMenuItem(
         value: 'card',
         child: Container(
           child: Text('Card', style: DropdownListStyle),
@@ -146,22 +151,22 @@ class MyItemList {
         value: 'bottle',
         child: Container(
           child: Text('Bottle(s)'),
-        )), 
+        )),
     DropdownMenuItem(
         value: 'box',
         child: Container(
           child: Text('Box'),
-        )),    
+        )),
     DropdownMenuItem(
         value: 'crate',
         child: Container(
           child: Text('Crate(s)'),
-        )), 
+        )),
     DropdownMenuItem(
         value: 'g',
         child: Container(
           child: Text('g', style: DropdownListStyle),
-        )),        
+        )),
     DropdownMenuItem(
         value: 'kg',
         child: Container(
@@ -180,16 +185,22 @@ class MyItemList {
   ];
 
   // Inventory options
-    List<DropdownMenuItem<String>> storeOptionsList = [
+  List<DropdownMenuItem<String>> storeOptionsList = [
     DropdownMenuItem(
         value: 'add',
         child: Container(
-          child: Text('Add to stock', style: TextStyle(color: myGreen),),
+          child: Text(
+            'Add to stock',
+            style: TextStyle(color: myGreen),
+          ),
         )),
     DropdownMenuItem(
         value: 'remove',
         child: Container(
-          child: Text('Remove from stock', style: TextStyle(color: myRed),),
+          child: Text(
+            'Remove from stock',
+            style: TextStyle(color: myRed),
+          ),
         )),
   ];
 

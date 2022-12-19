@@ -4,7 +4,7 @@ import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/pages/expense/expense_detail.dart';
 import 'package:ldgr/services/formatter.dart';
 import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/widgets.dart';
+import 'package:ldgr/shared/custom_widgets.dart';
 import 'package:ldgr/styles/style.dart';
 
 class SearchPage extends StatefulWidget {

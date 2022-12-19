@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/stock/overview.dart';
-import 'package:ldgr/services/date_time_helper.dart';
-import 'package:ldgr/services/formatter.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/lists.dart';
-import 'package:ldgr/shared/snackbar_messages.dart';
-import 'package:ldgr/styles/colors.dart';
 import 'package:objectid/objectid.dart';
+import '../../db/sp_helper.dart';
+import '../../firebase/firestore.dart';
+import '../../services/date_time_helper.dart';
+import '../../services/formatter.dart';
+import '../../services/preprocessor.dart';
+import '../../services/router.dart';
+import '../../shared/lists.dart';
+import '../../shared/snackbar_messages.dart';
+import '../../styles/colors.dart';
+import 'overview.dart';
 
 class AddToStockPage extends StatefulWidget {
   const AddToStockPage({Key? key}) : super(key: key);
@@ -20,22 +20,23 @@ class AddToStockPage extends StatefulWidget {
 
 class _AddToStockPageState extends State<AddToStockPage> {
   final _addToStockFormKey = GlobalKey<FormState>();
-  TextEditingController _pickedDate = TextEditingController();
+  TextEditingController _pickedDate = TextEditingController(
+      text: DateTimeFormatter().toDateString(DateTime.now()));
   TextEditingController _itemName = TextEditingController();
   TextEditingController _quantity = TextEditingController();
   String? _currentUser;
   String? _unit;
 
-  DateTime selectedDate = DateTime.now();
+  DateTime currentDateTime = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: currentDateTime,
         firstDate: DateTime(1990, 1),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != currentDateTime)
       setState(() {
-        selectedDate = picked;
+        currentDateTime = picked;
         _pickedDate.text = DateTimeFormatter().toDateString(picked);
       });
   }
@@ -140,7 +141,7 @@ class _AddToStockPageState extends State<AddToStockPage> {
                           onPressed: () => Navigator.of(context).pop(),
                           child: Text('CANCEL'),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.grey,
+                            backgroundColor: Colors.grey,
                           ),
                         ),
                       ),
@@ -152,9 +153,10 @@ class _AddToStockPageState extends State<AddToStockPage> {
                                 DateTimeHelper().timestampForDB(DateTime.now());
                             String _stockItemId = ObjectId().hexString;
                             Map<String, dynamic> _stockEntryData = {
-                              'picked_date': '$selectedDate',
+                              'picked_date': '$currentDateTime',
                               'item_name': _itemName.text,
-                              'quantity': InputHandler().commaToPeriod(_quantity.text),
+                              'quantity':
+                                  InputHandler().commaToPeriod(_quantity.text),
                               'unit': _unit ?? '',
                               'created_at': _timestampsString,
                               'last_update_at': '',
@@ -180,7 +182,8 @@ class _AddToStockPageState extends State<AddToStockPage> {
                             }
                           },
                           child: Text('SAVE'),
-                          style: ElevatedButton.styleFrom(primary: myBlue),
+                          style:
+                              ElevatedButton.styleFrom(backgroundColor: myBlue),
                         ),
                       )
                     ],

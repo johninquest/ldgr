@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/router.dart';
 import '../../firebase/firestore.dart';
+import '../../services/preprocessor.dart';
+import '../../services/router.dart';
 import '../../shared/bottom_nav_bar.dart';
 import '../../shared/snackbar_messages.dart';
-import '../../shared/widgets.dart';
+import '../../shared/custom_widgets.dart';
 import '../../styles/colors.dart';
 import 'add_user.dart';
 
@@ -142,7 +142,7 @@ class _TableOfUsersState extends State<TableOfUsers> {
                           builder: (_) => _deleteDialog(_userId, _userName)),
                       child: Text('DELETE'),
                       style: ElevatedButton.styleFrom(
-                        primary: myRed,
+                        backgroundColor: myRed,
                       ),
                     ),
                   ),
@@ -153,7 +153,7 @@ class _TableOfUsersState extends State<TableOfUsers> {
         });
   }
 
-    Widget _deleteDialog(String userLoginId, String userName) {
+  Widget _deleteDialog(String userLoginId, String userName) {
     return AlertDialog(
       title: Icon(
         Icons.warning,
@@ -179,14 +179,12 @@ class _TableOfUsersState extends State<TableOfUsers> {
             ),
             TextButton(
                 onPressed: () {
-                  FirestoreService()
-                      .removeAppUser(
-                          userLoginId)
-                      .then((val) {
-                    SnackBarMessage().customSuccessMessage('Deleted "$userName" successfully \u{2713}', context);
+                  FirestoreService().removeAppUser(userLoginId).then((val) {
+                    SnackBarMessage().customSuccessMessage(
+                        'Deleted "$userName" successfully \u{2713}', context);
                     PageRouter().navigateToPage(UserListPage(), context);
-                  }).catchError((e) =>
-                          SnackBarMessage().generalErrorMessage(context));
+                  }).catchError(
+                      (e) => SnackBarMessage().generalErrorMessage(context));
                 },
                 child: Text(
                   'YES',

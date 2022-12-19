@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/filters/filter_data.dart';
-import 'package:ldgr/filters/filter_logic.dart';
-import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/analysis/analysis_table.dart';
-import 'package:ldgr/pages/analysis/barchart.dart';
-import 'package:ldgr/pages/analysis/piechart.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/shared/widgets.dart';
+import '../../filters/filter_data.dart';
+import '../../filters/filter_logic.dart';
+import '../../firebase/firestore.dart';
+import '../../shared/bottom_nav_bar.dart';
+import '../../shared/custom_widgets.dart';
+import 'analysis_table.dart';
+import 'barchart.dart';
+import 'piechart.dart';
 
 class AnalysisPage extends StatelessWidget {
   const AnalysisPage({Key? key}) : super(key: key);
@@ -146,7 +146,6 @@ class _AnalysisDashboardState extends State<AnalysisDashboard> {
             // height: MediaQuery.of(context).size.width * 0.45,
             child: AnalysisTable(daybookData: resData),
           ),
-          // AnalysisTable(daybookData: resData),
           SizedBox(
             height: 20.0,
           ),

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/stock/add_to_stock.dart';
-import 'package:ldgr/pages/stock/calculations.dart';
-import 'package:ldgr/pages/stock/stock_item_details.dart';
-import 'package:ldgr/services/date_time_helper.dart';
-import 'package:ldgr/services/formatter.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/shared/snackbar_messages.dart';
-import 'package:ldgr/shared/widgets.dart';
-import 'package:ldgr/styles/colors.dart';
+import '../../db/sp_helper.dart';
+import '../../firebase/firestore.dart';
+import '../../services/date_time_helper.dart';
+import '../../services/formatter.dart';
+import '../../services/preprocessor.dart';
+import '../../services/router.dart';
+import '../../shared/bottom_nav_bar.dart';
+import '../../shared/custom_widgets.dart';
+import '../../shared/snackbar_messages.dart';
+import '../../styles/colors.dart';
+import 'add_to_stock.dart';
+import 'calculations.dart';
+import 'stock_item_details.dart';
 
 class StockOverviewPage extends StatelessWidget {
   const StockOverviewPage({Key? key}) : super(key: key);
@@ -187,7 +187,8 @@ class _StockOverviewDataState extends State<StockOverviewData> {
                                     builder: (_) =>
                                         _deleteDialog(_itemId, _itemName)),
                                 child: Text('DELETE'),
-                                style: ElevatedButton.styleFrom(primary: myRed),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: myRed),
                               ),
                             ),
                             Container(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/pages/stock/overview.dart';
-import 'package:ldgr/shared/dialogs.dart';
-import 'package:ldgr/styles/colors.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/pages/expense/add_expense.dart';
-import 'package:ldgr/shared/side_menu.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
+import '../services/router.dart';
+import '../shared/bottom_nav_bar.dart';
+import '../shared/dialogs.dart';
+import '../shared/side_nav_bar.dart';
+import '../styles/colors.dart';
+import 'expense/add_expense.dart';
+import 'stock/overview.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -55,13 +55,13 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                onPressed: () => PageRouter()
-                    .navigateToPage(AddExpensePage(), context),
+                onPressed: () =>
+                    PageRouter().navigateToPage(AddExpensePage(), context),
                 child: Text(
                   'EXPENSE',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
-                style: ElevatedButton.styleFrom(primary: myRed),
+                style: ElevatedButton.styleFrom(backgroundColor: myRed),
               ),
             ),
             Container(
@@ -75,23 +75,23 @@ class HomePage extends StatelessWidget {
                   child: Text('INCOME',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
-                  style: ElevatedButton.styleFrom(primary: myTeal)),
+                  style: ElevatedButton.styleFrom(backgroundColor: myTeal)),
             ),
             Container(
               height: 60.0,
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                onPressed: () =>  PageRouter()
-                    .navigateToPage(StockOverviewPage(), context),
-                 /*  onPressed: () => showDialog(
+                  onPressed: () =>
+                      PageRouter().navigateToPage(StockOverviewPage(), context),
+                  /*  onPressed: () => showDialog(
                       context: context,
                       builder: (_) => InfoDialog('Coming soon!'),
                       barrierDismissible: true), */
                   child: Text('STOCK',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
-                  style: ElevatedButton.styleFrom(primary: myBlue)),
+                  style: ElevatedButton.styleFrom(backgroundColor: myBlue)),
             ),
           ],
         ),

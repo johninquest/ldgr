@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/shared/widgets.dart';
+import '../../firebase/firestore.dart';
+import '../../shared/custom_widgets.dart';
 
 class ItemsPage extends StatelessWidget {
   const ItemsPage({Key? key}) : super(key: key);

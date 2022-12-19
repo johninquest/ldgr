@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/pages/inputs/login.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/styles/colors.dart';
+
+import '../db/sp_helper.dart';
+import '../pages/login.dart';
+import '../services/router.dart';
+import '../styles/colors.dart';
 
 class InfoDialog extends StatelessWidget {
   // const InfoDialog({ Key? key }) : super(key: key);

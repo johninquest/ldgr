@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import '../services/web.dart';
-import '../styles/colors.dart';
 
 class AppInfo extends StatelessWidget {
   const AppInfo({Key? key}) : super(key: key);
@@ -26,7 +24,7 @@ class AppInfo extends StatelessWidget {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   /*  Text('App name: ${_data.appName}'),
+                    /*  Text('App name: ${_data.appName}'),
                     SizedBox(
                       height: 3.0,
                     ),
@@ -38,7 +36,7 @@ class AppInfo extends StatelessWidget {
                     SizedBox(
                       height: 3.0,
                     ),
-                    Text('Build number: ${_data.buildNumber}'),
+                    /*    Text('Build number: ${_data.buildNumber}'), */
 /*                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

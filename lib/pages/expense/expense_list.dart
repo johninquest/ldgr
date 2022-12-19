@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ldgr/firebase/firestore.dart';
-import 'package:ldgr/pages/expense/expense_detail.dart';
-import 'package:ldgr/pages/records/search.dart';
-import 'package:ldgr/services/formatter.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/shared/bottom_nav_bar.dart';
-import 'package:ldgr/shared/widgets.dart';
-import 'package:ldgr/styles/style.dart';
+import '../../firebase/firestore.dart';
+import '../../services/formatter.dart';
+import '../../services/router.dart';
+import '../../shared/bottom_nav_bar.dart';
+import '../../shared/custom_widgets.dart';
+import '../../styles/style.dart';
+import '../records/search.dart';
+import 'expense_detail.dart';
 
 List? _fsDaybookList;
 
@@ -22,12 +22,14 @@ class EntryListPage extends StatelessWidget {
         actions: [
           Container(
             child: IconButton(
-                onPressed: () => PageRouter().navigateToPage(
-                    SearchPage(
-                      searchData: _fsDaybookList ?? [],
-                    ),
-                    context),
-                icon: Icon(Icons.search), tooltip: 'Press to filter / search list',),
+              onPressed: () => PageRouter().navigateToPage(
+                  SearchPage(
+                    searchData: _fsDaybookList ?? [],
+                  ),
+                  context),
+              icon: Icon(Icons.search),
+              tooltip: 'Press to filter / search list',
+            ),
           )
         ],
       ),

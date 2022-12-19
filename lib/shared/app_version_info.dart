@@ -32,7 +32,7 @@ class AppInfo extends StatelessWidget {
                     SizedBox(
                       height: 3.0,
                     ), */
-                    Text('App version: ${_data.version}'),
+                    Text('v${_data.version}'),
                     SizedBox(
                       height: 3.0,
                     ),

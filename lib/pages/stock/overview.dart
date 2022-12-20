@@ -21,7 +21,7 @@ class StockOverviewPage extends StatelessWidget {
     var _fsQuery = FirestoreService().getSubCollection('records', 'stock');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Items in stock'),
+        title: Text('Stock list'),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -43,7 +43,7 @@ class StockOverviewPage extends StatelessWidget {
           child: IconButton(
             icon: Icon(
               Icons.add_circle,
-              color: myTeal,
+              color: myBlueLighter,
               size: 40.0,
             ),
             onPressed: () =>

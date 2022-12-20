@@ -18,3 +18,5 @@ final Color myGrey = Color(0xFF616161);
 final Color primaryColor = Color(0xff009688);
 final Color primaryColorLight = Color(0xff52c7b8);
 final Color primaryColorDark = Color(0xff00675b);
+final Color secondaryColor = Color(0xff963000);
+final Color warnColor = Color(0xffE31C17);

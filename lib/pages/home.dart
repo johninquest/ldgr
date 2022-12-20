@@ -82,16 +82,17 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                  onPressed: () =>
-                      PageRouter().navigateToPage(StockOverviewPage(), context),
-                  /*  onPressed: () => showDialog(
+                onPressed: () =>
+                    PageRouter().navigateToPage(StockOverviewPage(), context),
+                /*  onPressed: () => showDialog(
                       context: context,
                       builder: (_) => InfoDialog('Coming soon!'),
                       barrierDismissible: true), */
-                  child: Text('STOCK',
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold)),
-                  style: ElevatedButton.styleFrom(backgroundColor: myBlue)),
+                child: Text('STOCK',
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                //style: ElevatedButton.styleFrom(backgroundColor: myBlue)
+              ),
             ),
           ],
         ),

@@ -39,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.receipt_long_outlined,
+            Icons.list_alt_outlined,
             color: Colors.white,
           ),
           label: 'Expense list',

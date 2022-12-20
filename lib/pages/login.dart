@@ -135,11 +135,11 @@ class _LoginFormState extends State<LoginForm> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         wordSpacing: 3.0,
-                        letterSpacing: 0.5),
+                        letterSpacing: 0.3),
                   ),
-                  style: ElevatedButton.styleFrom(
+                  /* style: ElevatedButton.styleFrom(
                     backgroundColor: myBlue,
-                  ),
+                  ), */
                 ),
               ),
             ],

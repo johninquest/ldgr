@@ -16,7 +16,7 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'About',
+          'about',
           style: AppBarTitleStyle,
         ),
         centerTitle: true,
@@ -41,15 +41,15 @@ class AboutPage extends StatelessWidget {
               ),
             ),
             Divider(
-              indent: 100.0,
-              endIndent: 100.0,
+              indent: 110.0,
+              endIndent: 110.0,
               thickness: 1.0,
             ),
             Container(
               margin: EdgeInsets.only(
                   left: 10.0, right: 10.0, bottom: 50.0, top: 10.0),
               child: Text(
-                'Ldgr is a simple single-entry bookkeeping app for your small one-man business.',
+                'Ldgr is the single-entry bookkeeping app for your small one-man business.',
                 textAlign: TextAlign.center,
                 style: TextStyle(letterSpacing: 0.5),
               ),
@@ -63,13 +63,18 @@ class AboutPage extends StatelessWidget {
                 child: Text(
                   '\u00A9 JOHN APPS $_currentYear',
                   style: TextStyle(
-                      color: myBlue,
-                      letterSpacing: 0.5,
-                      fontSize: 11.0,
-                      fontStyle: FontStyle.italic,
-                      decoration: TextDecoration.underline),
+                    color: myBlue,
+                    letterSpacing: 0.1,
+                    wordSpacing: 1.0,
+                    fontSize: 11.0,
+                  ),
                 ),
               ),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                width: 0.5,
+              ))),
             ),
             Spacer(
               flex: 2,

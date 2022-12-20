@@ -86,9 +86,9 @@ class LogoutDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Icon(
-        Icons.info,
+        Icons.info_outline,
         color: myBlue,
-        size: 40.0,
+        size: 30.0,
       ),
       content: Text(
         'Log out ?',

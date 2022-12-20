@@ -13,19 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData myTheme = ThemeData(
-      /* colorSchemeSeed: myBlue,
-      brightness: Brightness.light,
+      colorSchemeSeed: myBlue,
+      /* brightness: Brightness.light,
       // useMaterial3: true, */
       fontFamily: 'Lato',
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: myTheme.copyWith(
-        colorScheme: myTheme.colorScheme.copyWith(
-          primary: myBlue,
-          secondary: myBlue,
-        ),
-      ),
+      theme: myTheme,
+      // darkTheme: ThemeData.dark(),
       home: LoginPage(),
     );
   }

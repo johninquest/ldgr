@@ -136,7 +136,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 context: context,
                                 builder: (_) => _deleteDialog()),
                             child: Text('DELETE'),
-                            style: ElevatedButton.styleFrom(primary: myRed),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: myRed),
                           ),
                         ),
                         Container(
@@ -148,7 +149,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 context),
                             child: Text('UPDATE'),
                             style: ElevatedButton.styleFrom(
-                                primary: Colors.blueGrey),
+                                backgroundColor: Colors.blueGrey),
                           ),
                         )
                       ],
@@ -181,8 +182,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'NO',
-                style: TextStyle(
-                    color: myRed, fontWeight: FontWeight.bold),
+                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(

@@ -15,8 +15,10 @@ final Color myTeal = Color(0xFF009688);
 final Color myTeal2 = Color(0xFF006164);
 final Color myGrey = Color(0xFF616161);
 
-final Color primaryColor = Color(0xff009688);
-final Color primaryColorLight = Color(0xff52c7b8);
-final Color primaryColorDark = Color(0xff00675b);
-final Color secondaryColor = Color(0xff963000);
+final Color primaryColor = Color(0xff0097a7);
+final Color primaryColorLight = Color(0xff56c8d8);
+final Color primaryColorDark = Color(0xff006978);
+final Color secondaryColor = Color(0xffA64600); // #A64600
 final Color warnColor = Color(0xffE31C17);
+final Color blackColor = Colors.black;
+final Color whiteColor = Colors.white;

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData myTheme = ThemeData(
-      colorSchemeSeed: myBlue,
+      colorSchemeSeed: primaryColor,
       /* brightness: Brightness.light,
       // useMaterial3: true, */
       fontFamily: 'Lato',

@@ -87,14 +87,13 @@ class LogoutDialog extends StatelessWidget {
     return AlertDialog(
       title: Icon(
         Icons.info_outline,
-        color: myBlue,
+        color: primaryColor,
         size: 30.0,
       ),
       content: Text(
         'Log out ?',
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: myBlue, fontSize: 20.0),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
       actions: [
         Row(
@@ -104,7 +103,8 @@ class LogoutDialog extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'NO',
-                style: TextStyle(color: myRed, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: blackColor, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(
@@ -119,7 +119,7 @@ class LogoutDialog extends StatelessWidget {
                 },
                 child: Text(
                   'YES',
-                  style: TextStyle(color: myGreen, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ))
           ],
         ),

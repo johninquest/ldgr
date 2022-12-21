@@ -15,7 +15,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return BottomNavigationBar(
       currentIndex: 0,
       type: BottomNavigationBarType.fixed,
-      backgroundColor: myBlue,
+      backgroundColor: primaryColor,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white,
       selectedIconTheme: IconThemeData(color: Colors.black),

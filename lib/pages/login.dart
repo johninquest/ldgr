@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               letterSpacing: 1.0,
-              color: Colors.white,
+              // color: Colors.white,
             )),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -120,7 +120,7 @@ class _LoginFormState extends State<LoginForm> {
                 width: MediaQuery.of(context).size.width * 0.50,
                 margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                 child: ElevatedButton(
-                  onPressed: () {
+                  /* onPressed: () {
                     String userNameCleanedUp =
                         _userName.text.trim().toLowerCase();
                     String userPasswordCleanedUp =
@@ -129,7 +129,9 @@ class _LoginFormState extends State<LoginForm> {
                       _authenticateUser(
                           userNameCleanedUp, userPasswordCleanedUp);
                     }
-                  },
+                  }, */
+                  onPressed: (() =>
+                      PageRouter().navigateToPage(HomePage(), context)),
                   child: Text(
                     'Log in',
                     style: TextStyle(

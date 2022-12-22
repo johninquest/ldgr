@@ -1,4 +1,4 @@
-import 'package:ldgr/services/preprocessor.dart';
+import 'package:ldgr/utils/preprocessor.dart';
 
 class StockCalculations {
   sumOfAddedItems(List? eventLogs) {
@@ -40,8 +40,7 @@ class StockCalculations {
   }
 
   computeRemainingItems(String initialQty, num totalAdded, num totalRemoved) {
-    String _handleComma =
-              InputHandler().commaToPeriod(initialQty);
+    String _handleComma = InputHandler().commaToPeriod(initialQty);
     num _parsedInitialQty = num.tryParse(_handleComma) ?? 0;
     num _remainingQty = (_parsedInitialQty + totalAdded) - totalRemoved;
     return _remainingQty;

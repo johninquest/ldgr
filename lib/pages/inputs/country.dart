@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
-import 'package:ldgr/services/currency.dart';
+import 'package:ldgr/utils/currency.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/lists.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
@@ -36,7 +36,7 @@ class _CountryPageState extends State<CountryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select country'),
+        title: Text('select country'),
         centerTitle: true,
       ),
       body: Container(

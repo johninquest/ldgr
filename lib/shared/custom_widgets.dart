@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pages/home.dart';
-import '../services/formatter.dart';
-import '../services/router.dart';
+import '../utils/formatter.dart';
+import '../utils/router.dart';
 import '../styles/colors.dart';
 import '../styles/style.dart';
 

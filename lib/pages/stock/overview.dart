@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../db/sp_helper.dart';
 import '../../firebase/firestore.dart';
-import '../../services/date_time_helper.dart';
-import '../../services/formatter.dart';
-import '../../services/preprocessor.dart';
-import '../../services/router.dart';
+import '../../utils/date_time_helper.dart';
+import '../../utils/formatter.dart';
+import '../../utils/preprocessor.dart';
+import '../../utils/router.dart';
 import '../../shared/bottom_nav_bar.dart';
 import '../../shared/custom_widgets.dart';
 import '../../shared/snackbar_messages.dart';
@@ -43,7 +43,7 @@ class StockOverviewPage extends StatelessWidget {
           child: IconButton(
             icon: Icon(
               Icons.add_circle,
-              color: myBlueLighter,
+              /*  color: myBlueLighter, */
               size: 40.0,
             ),
             onPressed: () =>

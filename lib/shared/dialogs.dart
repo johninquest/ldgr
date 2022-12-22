@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../db/sp_helper.dart';
 import '../pages/login.dart';
-import '../services/router.dart';
+import '../utils/router.dart';
 import '../styles/colors.dart';
 
 class InfoDialog extends StatelessWidget {
@@ -87,8 +87,8 @@ class LogoutDialog extends StatelessWidget {
     return AlertDialog(
       title: Icon(
         Icons.info_outline,
-        color: primaryColor,
-        size: 30.0,
+        /* color: primaryColor, */
+        size: 35.0,
       ),
       content: Text(
         'Log out ?',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../firebase/firestore.dart';
-import '../../services/preprocessor.dart';
-import '../../services/router.dart';
+import '../../utils/preprocessor.dart';
+import '../../utils/router.dart';
 import '../../shared/bottom_nav_bar.dart';
 import '../../shared/snackbar_messages.dart';
 import '../../shared/custom_widgets.dart';

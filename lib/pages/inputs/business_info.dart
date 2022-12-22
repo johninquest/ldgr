@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/printing.dart';
+import 'package:ldgr/utils/preprocessor.dart';
+import 'package:ldgr/utils/printing.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
@@ -14,7 +14,7 @@ class InputPersonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter business info'),
+        title: Text('business info'),
         centerTitle: true,
       ),
       body: Container(
@@ -165,10 +165,7 @@ class _PersonFormState extends State<PersonForm> {
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(
                       'CANCEL',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.grey,
+                      style: TextStyle(letterSpacing: 1.0, color: blackColor),
                     ),
                   ),
                 ),
@@ -194,9 +191,8 @@ class _PersonFormState extends State<PersonForm> {
                     },
                     child: Text(
                       'SAVE',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(letterSpacing: 1.0),
                     ),
-                    style: ElevatedButton.styleFrom(primary: myBlue),
                   ),
                 ),
                 Container(
@@ -223,8 +219,10 @@ class _PersonFormState extends State<PersonForm> {
                           });
                         }
                       },
-                      child: Text('PRINT'),
-                      style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+                      child: Text(
+                        'PRINT',
+                        style: TextStyle(letterSpacing: 1.0, color: blackColor),
+                      ),
                     ))
               ],
             ),

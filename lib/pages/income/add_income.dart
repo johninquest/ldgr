@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/shared/lists.dart';
-import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/date_time_helper.dart';
 
 class InputIncomePage extends StatelessWidget {
   const InputIncomePage({Key? key}) : super(key: key);
@@ -12,9 +9,9 @@ class InputIncomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter income'),
+        title: Text('enter income'),
         centerTitle: true,
-        backgroundColor: myTeal,
+        // backgroundColor: myTeal,
       ),
       body: Center(
         child: IncomeForm(),
@@ -47,7 +44,7 @@ class _IncomeFormState extends State<IncomeForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              /* Container(
                 margin: EdgeInsets.only(bottom: 20.0),
                 padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
                 child: Text(
@@ -57,7 +54,7 @@ class _IncomeFormState extends State<IncomeForm> {
                       color: myTeal,
                       fontSize: 18.0),
                 ),
-              ),
+              ), */
               Container(
                   width: MediaQuery.of(context).size.width * 0.95,
                   padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -104,10 +101,12 @@ class _IncomeFormState extends State<IncomeForm> {
                     margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                     child: ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('CANCEL'),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.grey,
-                      ),
+                      child: Text('CANCEL',
+                          style:
+                              TextStyle(letterSpacing: 1.0, color: blackColor)),
+                      /* style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                      ), */
                     ),
                   ),
                   Container(
@@ -118,8 +117,11 @@ class _IncomeFormState extends State<IncomeForm> {
                           print('Can  now proceed to save data!');
                         }
                       },
-                      child: Text('SAVE'),
-                      style: ElevatedButton.styleFrom(primary: myTeal),
+                      child: Text(
+                        'SAVE',
+                        style: TextStyle(letterSpacing: 1.0),
+                      ),
+                      /*  style: ElevatedButton.styleFrom(backgroundColor: myTeal), */
                     ),
                   )
                 ],

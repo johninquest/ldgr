@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ldgr/filters/filter_data.dart';
 import 'package:ldgr/filters/filter_logic.dart';
 import 'package:ldgr/pages/expense/expense_detail.dart';
-import 'package:ldgr/services/formatter.dart';
-import 'package:ldgr/services/router.dart';
+import 'package:ldgr/utils/formatter.dart';
+import 'package:ldgr/utils/router.dart';
 import 'package:ldgr/shared/custom_widgets.dart';
 import 'package:ldgr/styles/style.dart';
 
@@ -41,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
             message: 'Toggle filter / search',
             child: Switch(
                 value: _isVisible,
-                activeColor: Colors.amber,
+                activeColor: Color(0xff916A57),
                 onChanged: (val) => setState(() {
                       _isVisible = val;
                     })),

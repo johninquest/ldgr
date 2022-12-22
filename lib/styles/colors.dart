@@ -15,10 +15,15 @@ final Color myTeal = Color(0xFF009688);
 final Color myTeal2 = Color(0xFF006164);
 final Color myGrey = Color(0xFF616161);
 
-final Color primaryColor = Color(0xff0097a7);
+// final Color primaryColor = Color(0xff0097a7);
+final Color primaryColor = Color(0xffb2dfdb); //Material Teal 100
+// final Color primaryColor = Color(0xffffb74d);
 final Color primaryColorLight = Color(0xff56c8d8);
-final Color primaryColorDark = Color(0xff006978);
+final Color primaryColorDarker = Color(0xff82ada9);
 final Color secondaryColor = Color(0xffA64600); // #A64600
 final Color warnColor = Color(0xffE31C17);
 final Color blackColor = Colors.black;
 final Color whiteColor = Colors.white;
+
+// #916A57
+// #DEC0B1

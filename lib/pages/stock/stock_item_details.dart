@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/pages/stock/calculations.dart';
-import 'package:ldgr/services/formatter.dart';
+import 'package:ldgr/utils/formatter.dart';
 import 'package:ldgr/styles/colors.dart';
 
 class StockItemDetails extends StatefulWidget {
@@ -35,8 +35,10 @@ class _StockItemDetailsState extends State<StockItemDetails> {
               'Purchase date', _dtFormatter.isoToUiDate(i['picked_date'])),
           _tableRow('By', i['entered_by']),
           _tableRow('Initial quantity', i['quantity']),
-          _tableRowWithColor('Added', '${_calculator.sumOfAddedItems(_events)}', myTeal),
-          _tableRowWithColor('Removed', '${_calculator.sumOfRemovedItems(_events)}', myRed),
+          _tableRowWithColor(
+              'Added', '${_calculator.sumOfAddedItems(_events)}', myTeal),
+          _tableRowWithColor(
+              'Removed', '${_calculator.sumOfRemovedItems(_events)}', myRed),
           _tableRow('Remaining',
               '${_calculator.computeRemainingItems(i['quantity'], _calculator.sumOfAddedItems(_events), _calculator.sumOfRemovedItems(_events))}'),
           SizedBox(
@@ -89,7 +91,6 @@ class _StockItemDetailsState extends State<StockItemDetails> {
     );
   }
 
-  
   Widget _tableRowWithColor(String? rTitle, String? rData, Color rColorName) {
     return Container(
       margin: EdgeInsets.only(bottom: 10.0),
@@ -111,7 +112,8 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             margin: EdgeInsets.only(bottom: 1.0, right: 5.0),
             padding: EdgeInsets.only(bottom: 1.0, right: 5.0),
             child: Text(rData ?? '',
-                style: TextStyle(fontWeight: FontWeight.bold, color: rColorName)),
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: rColorName)),
           )
         ],
       ),
@@ -150,7 +152,8 @@ class _StockItemDetailsState extends State<StockItemDetails> {
         )
         .toList();
     if (eventLogs != null && eventLogs.length > 0) {
-      eventLogs.sort((a, b) => b['event_timestamp'].compareTo(a['event_timestamp']));
+      eventLogs
+          .sort((a, b) => b['event_timestamp'].compareTo(a['event_timestamp']));
       return DataTable(
           columnSpacing: 85.0,
           horizontalMargin: 0.0,

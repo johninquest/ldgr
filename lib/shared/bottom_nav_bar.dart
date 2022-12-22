@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pages/expense/expense_list.dart';
 import '../pages/home.dart';
-import '../services/router.dart';
+import '../utils/router.dart';
 import '../styles/colors.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -16,9 +16,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       currentIndex: 0,
       type: BottomNavigationBarType.fixed,
       backgroundColor: primaryColor,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white,
-      selectedIconTheme: IconThemeData(color: Colors.black),
+      selectedItemColor: blackColor,
+      /* unselectedItemColor: blackColor,
+      selectedIconTheme: IconThemeData(color: Colors.black), */
       showSelectedLabels: false,
       showUnselectedLabels: false,
       // iconSize: 30,
@@ -26,21 +26,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
         BottomNavigationBarItem(
           icon: Icon(
             Icons.home_outlined,
-            color: Colors.white,
           ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.add_box_outlined,
-            color: Colors.white,
           ),
           label: 'Add',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.list_alt_outlined,
-            color: Colors.white,
           ),
           label: 'Expense list',
         ),

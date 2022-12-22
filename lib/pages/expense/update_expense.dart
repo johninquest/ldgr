@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/expense/expense_list.dart';
-import 'package:ldgr/services/date_time_helper.dart';
+import 'package:ldgr/utils/date_time_helper.dart';
 import 'package:ldgr/styles/colors.dart';
 import 'package:ldgr/shared/lists.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
-import 'package:ldgr/services/router.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/formatter.dart';
+import 'package:ldgr/utils/router.dart';
+import 'package:ldgr/utils/preprocessor.dart';
+import 'package:ldgr/utils/formatter.dart';
 
 class UpdateExpensePage extends StatelessWidget {
   final Map entryData;
-  const UpdateExpensePage({Key? key, required this.entryData}) : super(key: key);
+  const UpdateExpensePage({Key? key, required this.entryData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +279,8 @@ class _EntryEditorFormState extends State<EntryEditorForm> {
                         'costArea': _costArea ?? '',
                         'itemCategory': _itemCategory.text,
                         'itemName': _itemName.text,
-                        'quantity': InputHandler().commaToPeriod(_quantity.text),
+                        'quantity':
+                            InputHandler().commaToPeriod(_quantity.text),
                         'unit': _unit ?? '',
                         'price': _price.text,
                         'paymentStatus': _paymentStatus ?? '',

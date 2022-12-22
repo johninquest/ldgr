@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ldgr/styles/colors.dart';
 import '../../firebase/firestore.dart';
-import '../../services/formatter.dart';
-import '../../services/router.dart';
+import '../../utils/formatter.dart';
+import '../../utils/router.dart';
 import '../../shared/bottom_nav_bar.dart';
 import '../../shared/custom_widgets.dart';
 import '../../styles/style.dart';
@@ -17,7 +18,10 @@ class EntryListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expense list'),
+        title: Text(
+          'expense list',
+          style: TextStyle(color: blackColor),
+        ),
         centerTitle: true,
         actions: [
           Container(

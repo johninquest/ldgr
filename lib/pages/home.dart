@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../services/router.dart';
+import 'package:ldgr/pages/income/add_income.dart';
+import '../utils/router.dart';
 import '../shared/bottom_nav_bar.dart';
 import '../shared/dialogs.dart';
 import '../shared/side_nav_bar.dart';
@@ -20,7 +21,6 @@ class HomePage extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             letterSpacing: 2.0,
-            color: Colors.white,
           ),
         ),
         centerTitle: true,
@@ -42,14 +42,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            /* Container(
               margin: EdgeInsets.only(bottom: 25.0),
               child: Text(
                 'ENTER',
-                style: TextStyle(
-                    fontSize: 20.0, color: myBlue, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-            ),
+            ), */
             Container(
               height: 60.0,
               width: MediaQuery.of(context).size.width * 0.5,
@@ -61,7 +60,7 @@ class HomePage extends StatelessWidget {
                   'EXPENSE',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
-                style: ElevatedButton.styleFrom(backgroundColor: blackColor),
+                // style: ElevatedButton.styleFrom(backgroundColor: blackColor),
               ),
             ),
             Container(
@@ -69,9 +68,11 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                  onPressed: () => showDialog(
+                  /*  onPressed: () => showDialog(
                       context: context,
-                      builder: (_) => InfoDialog('coming soon'.toUpperCase())),
+                      builder: (_) => InfoDialog('coming soon'.toUpperCase())), */
+                  onPressed: () =>
+                      PageRouter().navigateToPage(InputIncomePage(), context),
                   child: Text('INCOME',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
@@ -82,19 +83,19 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5,
               margin: EdgeInsets.only(bottom: 25.0),
               child: ElevatedButton(
-                  onPressed: () =>
-                      PageRouter().navigateToPage(StockOverviewPage(), context),
-                  /*  onPressed: () => showDialog(
+                onPressed: () =>
+                    PageRouter().navigateToPage(StockOverviewPage(), context),
+                /*  onPressed: () => showDialog(
                       context: context,
                       builder: (_) => InfoDialog('Coming soon!'),
                       barrierDismissible: true), */
-                  child: Text('STOCK',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: secondaryColor)),
+                child: Text('STOCK',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    )),
+                // style: ElevatedButton.styleFrom(backgroundColor: secondaryColor)
+              ),
             ),
           ],
         ),

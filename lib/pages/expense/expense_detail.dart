@@ -3,10 +3,10 @@ import 'package:ldgr/db/sp_helper.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import 'package:ldgr/pages/expense/update_expense.dart';
 import 'package:ldgr/pages/expense/expense_list.dart';
-import 'package:ldgr/services/currency.dart';
-import 'package:ldgr/services/formatter.dart';
-import 'package:ldgr/services/preprocessor.dart';
-import 'package:ldgr/services/router.dart';
+import 'package:ldgr/utils/currency.dart';
+import 'package:ldgr/utils/formatter.dart';
+import 'package:ldgr/utils/preprocessor.dart';
+import 'package:ldgr/utils/router.dart';
 import 'package:ldgr/shared/bottom_nav_bar.dart';
 import 'package:ldgr/shared/snackbar_messages.dart';
 import 'package:ldgr/styles/colors.dart';
@@ -218,7 +218,7 @@ class MyTableRow extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 10.0),
       width: MediaQuery.of(context).size.width * 0.90,
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
+          border: Border(bottom: BorderSide(color: primaryColor, width: 1.0))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -227,7 +227,8 @@ class MyTableRow extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 1.0, left: 5.0),
             child: Text(
               rowName!,
-              style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: primaryColorDarker, fontWeight: FontWeight.bold),
             ),
           ),
           Container(

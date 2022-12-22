@@ -3,10 +3,10 @@ import 'package:objectid/objectid.dart';
 import 'dart:async';
 import '../../db/sp_helper.dart';
 import '../../firebase/firestore.dart';
-import '../../services/date_time_helper.dart';
-import '../../services/formatter.dart';
-import '../../services/preprocessor.dart';
-import '../../services/router.dart';
+import '../../utils/date_time_helper.dart';
+import '../../utils/formatter.dart';
+import '../../utils/preprocessor.dart';
+import '../../utils/router.dart';
 import '../../shared/lists.dart';
 import '../../shared/snackbar_messages.dart';
 import '../../styles/colors.dart';
@@ -19,9 +19,9 @@ class AddExpensePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Enter expense'),
+          title: Text('enter expense'),
           centerTitle: true,
-          backgroundColor: myRed,
+          // backgroundColor: myRed,
         ),
         body: Center(
           child: ExpenditureForm(),
@@ -157,7 +157,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.55,
-                    margin: EdgeInsets.only(right: 10.0),
+                    margin: EdgeInsets.only(right: 8.0),
                     padding: EdgeInsets.only(left: 20.0),
                     child: TextFormField(
                       controller: _quantity,
@@ -172,7 +172,7 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.35,
-                    margin: EdgeInsets.only(left: 10.0, bottom: 5.0),
+                    margin: EdgeInsets.only(left: 8.0, bottom: 5.0),
                     padding: EdgeInsets.only(right: 20.0),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(labelText: 'Unit'),
@@ -246,10 +246,12 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                   margin: EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('CANCEL', style: TextStyle(letterSpacing: 1.0)),
-                    style: ElevatedButton.styleFrom(
+                    child: Text('CANCEL',
+                        style:
+                            TextStyle(letterSpacing: 1.0, color: blackColor)),
+                    /* style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey,
-                    ),
+                    ), */
                   ),
                 ),
                 Container(
@@ -307,9 +309,11 @@ class _ExpenditureFormState extends State<ExpenditureForm> {
                     },
                     child: Text(
                       'SAVE',
-                      style: TextStyle(letterSpacing: 1.0),
+                      style: TextStyle(
+                        letterSpacing: 1.0,
+                      ),
                     ),
-                    style: ElevatedButton.styleFrom(backgroundColor: myRed),
+                    /*  style: ElevatedButton.styleFrom(backgroundColor: myRed), */
                   ),
                 )
               ],

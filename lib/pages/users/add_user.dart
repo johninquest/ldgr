@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ldgr/firebase/firestore.dart';
 import '../../db/sp_helper.dart';
-import '../../services/date_time_helper.dart';
-import '../../services/preprocessor.dart';
-import '../../services/router.dart';
+import '../../utils/date_time_helper.dart';
+import '../../utils/preprocessor.dart';
+import '../../utils/router.dart';
 import '../../shared/snackbar_messages.dart';
 import '../../styles/colors.dart';
 import 'user_list.dart';
@@ -63,7 +63,8 @@ class _UserFormState extends State<UserForm> {
               padding: EdgeInsets.only(left: 20.0, right: 20.0),
               child: TextFormField(
                 controller: _userName,
-                decoration: InputDecoration(labelText: "Enter user's first name"),
+                decoration:
+                    InputDecoration(labelText: "Enter user's first name"),
                 keyboardType: TextInputType.text,
                 textCapitalization: TextCapitalization.sentences,
                 validator: (val) {

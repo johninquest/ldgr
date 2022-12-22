@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData myTheme = ThemeData(
       colorSchemeSeed: primaryColor,
-      /* brightness: Brightness.light,
-      // useMaterial3: true, */
+      /* brightness: Brightness.light, */
+      useMaterial3: true,
       fontFamily: 'Lato',
     );
     return MaterialApp(

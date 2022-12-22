@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import '../db/sp_helper.dart';
 import '../firebase/firestore.dart';
-import '../services/auth.dart';
-import '../services/router.dart';
+import '../utils/auth.dart';
+import '../utils/router.dart';
 import '../shared/dialogs.dart';
 import '../styles/colors.dart';
 import 'home.dart';
@@ -103,7 +103,7 @@ class _LoginFormState extends State<LoginForm> {
                 child: Row(
                   children: [
                     Checkbox(
-                      checkColor: Colors.white,
+                      /* checkColor: Colors.white, */
                       // fillColor: MaterialStateProperty.resolveWith(getColor),
                       value: isChecked,
                       onChanged: (bool? value) {
@@ -137,7 +137,8 @@ class _LoginFormState extends State<LoginForm> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         wordSpacing: 3.0,
-                        letterSpacing: 0.3),
+                        letterSpacing: 0.3,
+                        fontSize: 16.0),
                   ),
                   /* style: ElevatedButton.styleFrom(
                     backgroundColor: myBlue,

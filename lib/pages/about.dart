@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../services/date_time_helper.dart';
-import '../services/web.dart';
+import '../utils/date_time_helper.dart';
+import '../utils/web.dart';
 import '../shared/app_version_info.dart';
 import '../shared/bottom_nav_bar.dart';
-import '../styles/colors.dart';
 import '../styles/style.dart';
 
 class AboutPage extends StatelessWidget {
@@ -34,10 +33,8 @@ class AboutPage extends StatelessWidget {
               margin: EdgeInsets.only(top: 10.0),
               child: Text(
                 'Ldgr',
-                style: TextStyle(
-                    color: myBlue,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.0),
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2.0),
               ),
             ),
             Divider(
@@ -49,7 +46,7 @@ class AboutPage extends StatelessWidget {
               margin: EdgeInsets.only(
                   left: 10.0, right: 10.0, bottom: 50.0, top: 10.0),
               child: Text(
-                'Ldgr is the single-entry bookkeeping app for your small one-man business.',
+                'Ldgr is the single-entry bookkeeping app for your small one-man business',
                 textAlign: TextAlign.center,
                 style: TextStyle(letterSpacing: 0.5),
               ),
@@ -63,9 +60,8 @@ class AboutPage extends StatelessWidget {
                 child: Text(
                   '\u00A9 JOHN APPS $_currentYear',
                   style: TextStyle(
-                    color: myBlue,
                     letterSpacing: 0.1,
-                    wordSpacing: 1.0,
+                    wordSpacing: 3.0,
                     fontSize: 11.0,
                   ),
                 ),

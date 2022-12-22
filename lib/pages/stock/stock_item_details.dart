@@ -68,7 +68,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
       margin: EdgeInsets.only(bottom: 10.0),
       width: MediaQuery.of(context).size.width * 0.90,
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
+          border: Border(bottom: BorderSide(color: primaryColor, width: 1.0))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -77,7 +77,8 @@ class _StockItemDetailsState extends State<StockItemDetails> {
             padding: EdgeInsets.only(bottom: 1.0, left: 5.0),
             child: Text(
               _title ?? '',
-              style: TextStyle(color: myBlue, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: primaryColorDarker, fontWeight: FontWeight.bold),
             ),
           ),
           Container(
@@ -96,7 +97,7 @@ class _StockItemDetailsState extends State<StockItemDetails> {
       margin: EdgeInsets.only(bottom: 10.0),
       width: MediaQuery.of(context).size.width * 0.90,
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: myBlue, width: 1.0))),
+          border: Border(bottom: BorderSide(color: primaryColor, width: 1.0))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -18,12 +18,9 @@ final Color myGrey = Color(0xFF616161);
 // final Color primaryColor = Color(0xff0097a7);
 final Color primaryColor = Color(0xffb2dfdb); //Material Teal 100
 // final Color primaryColor = Color(0xffffb74d);
-final Color primaryColorLight = Color(0xff56c8d8);
-final Color primaryColorDarker = Color(0xff82ada9);
-final Color secondaryColor = Color(0xffA64600); // #A64600
-final Color warnColor = Color(0xffE31C17);
+final Color primaryColorLighter = Color(0xffE6FFFD);
+final Color primaryColorDarker = Color(0xff66918E);
+final Color secondaryColor = Color(0xff916A57); // #A64600
+final Color secondaryColorLighter = Color(0xffDEC0B1); //
 final Color blackColor = Colors.black;
 final Color whiteColor = Colors.white;
-
-// #916A57
-// #DEC0B1

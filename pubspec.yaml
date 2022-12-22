@@ -36,6 +36,7 @@ dependencies:
   objectid: ^2.0.0
   charts_flutter: ^0.12.0
   package_info_plus: ^1.4.2
+  google_fonts: ^3.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -71,12 +72,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Lato
-      fonts:
-        - asset: fonts/Lato-Bold.ttf
-        - asset: fonts/Lato-Light.ttf
-        - asset: fonts/Lato-Regular.ttf
+  # fonts:
+  #   - family: Lato
+  #     fonts:
+  #       - asset: fonts/Lato-Bold.ttf
+  #       - asset: fonts/Lato-Light.ttf
+  #      - asset: fonts/Lato-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

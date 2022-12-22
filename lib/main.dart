@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'pages/login.dart';
 import 'styles/colors.dart';
 
@@ -13,11 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData myTheme = ThemeData(
-      colorSchemeSeed: primaryColor,
-      /* brightness: Brightness.light, */
-      useMaterial3: true,
-      fontFamily: 'Lato',
-    );
+        colorSchemeSeed: primaryColor,
+        /* brightness: Brightness.light, */
+        useMaterial3: true,
+        // fontFamily: 'Lato',
+        textTheme: GoogleFonts.latoTextTheme());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: myTheme,

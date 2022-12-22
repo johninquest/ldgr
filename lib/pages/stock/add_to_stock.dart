@@ -139,9 +139,10 @@ class _AddToStockPageState extends State<AddToStockPage> {
                         margin: EdgeInsets.all(10.0),
                         child: ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: Text('CANCEL'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey,
+                          child: Text(
+                            'CANCEL',
+                            style: TextStyle(
+                                letterSpacing: 1.0, color: blackColor),
                           ),
                         ),
                       ),
@@ -181,9 +182,10 @@ class _AddToStockPageState extends State<AddToStockPage> {
                               });
                             }
                           },
-                          child: Text('SAVE'),
-                          style:
-                              ElevatedButton.styleFrom(backgroundColor: myBlue),
+                          child: Text(
+                            'SAVE',
+                            style: TextStyle(letterSpacing: 1.0),
+                          ),
                         ),
                       )
                     ],

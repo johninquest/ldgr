@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Ldgr',
+          '',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             letterSpacing: 2.0,
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                     PageRouter().navigateToPage(AddExpensePage(), context),
                 child: Text(
                   'EXPENSE',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20.0, letterSpacing: 1.0),
                 ),
                 // style: ElevatedButton.styleFrom(backgroundColor: blackColor),
               ),
@@ -74,8 +74,7 @@ class HomePage extends StatelessWidget {
                   onPressed: () =>
                       PageRouter().navigateToPage(InputIncomePage(), context),
                   child: Text('INCOME',
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+                      style: TextStyle(fontSize: 20.0, letterSpacing: 1.0)),
                   style: ElevatedButton.styleFrom()),
             ),
             Container(
@@ -92,7 +91,7 @@ class HomePage extends StatelessWidget {
                 child: Text('STOCK',
                     style: TextStyle(
                       fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
                     )),
                 // style: ElevatedButton.styleFrom(backgroundColor: secondaryColor)
               ),

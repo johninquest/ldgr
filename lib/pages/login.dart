@@ -16,11 +16,10 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ldgr',
+        title: Text('bkkpr',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              letterSpacing: 1.0,
-              // color: Colors.white,
+              letterSpacing: 3.0,
             )),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -118,7 +117,8 @@ class _LoginFormState extends State<LoginForm> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.50,
-                margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                margin: EdgeInsets.only(
+                    left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
                 child: ElevatedButton(
                   /* onPressed: () {
                     String userNameCleanedUp =
@@ -143,6 +143,38 @@ class _LoginFormState extends State<LoginForm> {
                   /* style: ElevatedButton.styleFrom(
                     backgroundColor: myBlue,
                   ), */
+                ),
+              ),
+              Divider(
+                thickness: 0.5,
+                indent: 50.0,
+                endIndent: 50.0,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                child: ElevatedButton(
+                  onPressed: () =>
+                      PageRouter().navigateToPage(HomePage(), context),
+                  child: Text(
+                    'Continue with Google',
+                    style: TextStyle(
+                        wordSpacing: 3.0,
+                        letterSpacing: 0.3,
+                        color: blackColor),
+                  ),
+                ),
+              ),
+              Container(
+                child: ElevatedButton(
+                  onPressed: () =>
+                      PageRouter().navigateToPage(HomePage(), context),
+                  child: Text(
+                    'Continue with Facebook',
+                    style: TextStyle(
+                        wordSpacing: 3.0,
+                        letterSpacing: 0.3,
+                        color: blackColor),
+                  ),
                 ),
               ),
             ],
